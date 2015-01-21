@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,11 +15,10 @@ import java.util.List;
  */
 public abstract class Service {
     private PH chefDeService;
-    private List<PH> praticiens;
-    private List<Etudiant> etudiants;
-    private List<Patient> patients;
-    private ServiceClinique sc;
-    private ServiceMedicoTechnique smt;
+    private DefaultListModel<PH> praticiens;
+    private DefaultListModel<Interne> internes;
+    private DefaultListModel<Patient> patients;
+        
 
     /**
      * @return the chefDeService
@@ -37,42 +37,46 @@ public abstract class Service {
     /**
      * @return the praticiens
      */
-    public List<PH> getPraticiens() {
+    public DefaultListModel<PH> getPraticiens() {
         return praticiens;
     }
 
     /**
      * @param praticiens the praticiens to set
      */
-    public void setPraticiens(List<PH> praticiens) {
+    public void setPraticiens(DefaultListModel<PH> praticiens) {
         this.praticiens = praticiens;
     }
 
     /**
      * @return the etudiants
      */
-    public List<Etudiant> getEtudiants() {
-        return etudiants;
+    public DefaultListModel<Interne> getInternes() {
+        return internes;
     }
 
     /**
      * @param etudiants the etudiants to set
      */
-    public void setEtudiants(List<Etudiant> etudiants) {
-        this.etudiants = etudiants;
+    public void setInternes(DefaultListModel<Interne> internes) {
+        this.internes = internes;
     }
 
     /**
      * @return the patients
      */
-    public List<Patient> getPatients() {
+    public DefaultListModel<Patient> getPatients() {
         return patients;
     }
 
     /**
      * @param patients the patients to set
      */
-    public void setPatients(List<Patient> patients) {
+    public void setPatients(DefaultListModel<Patient> patients) {
         this.patients = patients;
+    }
+    
+    public void creerServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients, DefaultListModel<Interne> internes){
+        ServiceClinique sc = new ServiceClinique(specialite,chefDeService,praticiens,patients,internes);
     }
 }

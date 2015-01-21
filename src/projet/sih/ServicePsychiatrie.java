@@ -6,15 +6,13 @@
 
 package projet.sih;
 
-import javax.swing.DefaultListModel;
-
 /**
  *
  * @author Tommy
  */
-public class ServiceBacteriologie extends ServiceClinique {
+public class ServicePsychiatrie extends ServiceClinique {
     
-    public ServiceBacteriologie(){
-        this.setSpecialite("Bacteriologie");
+    public ServicePsychiatrie(){
+        this.setSpecialite("Psychiatrie");
     }
 }
