@@ -6,11 +6,14 @@
 
 package projet.sih;
 
+import java.util.List;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Tommy
  */
-public abstract class ServiceClinique extends Service {
+public class ServiceClinique extends Service {
     private String specialite;
 
     /**
@@ -25,5 +28,20 @@ public abstract class ServiceClinique extends Service {
      */
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
+    }
+    
+    public ServiceClinique(){
+        this.setChefDeService(new PH());
+        this.setPraticiens(new DefaultListModel<PH>());
+        this.setPatients(new DefaultListModel<Patient>());
+        this.setInternes(new DefaultListModel<Interne>());
+    }
+    
+    public ServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients, DefaultListModel<Interne> internes){
+        this.setSpecialite(specialite);
+        this.setChefDeService(chefDeService);
+        this.setPraticiens(praticiens);
+        this.setPatients(patients);
+        this.setInternes(internes);
     }
 }
