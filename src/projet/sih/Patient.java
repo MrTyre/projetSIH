@@ -13,6 +13,7 @@ import java.sql.Date;
  * @author Tommy
  */
 public class Patient {
+    private DPI dpi;
     private double IPP;
     private String nom;
     private String prenom;
@@ -102,5 +103,19 @@ public class Patient {
      */
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    /**
+     * @return the dpi
+     */
+    public DPI getDpi() {
+        return dpi;
+    }
+
+    /**
+     * @param dpi the dpi to set
+     */
+    public void setDpi(DPI dpi) {
+        this.dpi = dpi;
     }
 }
