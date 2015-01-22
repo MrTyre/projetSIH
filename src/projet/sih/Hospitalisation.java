@@ -106,7 +106,7 @@ public class Hospitalisation {
     
     public long dureeHospitalisation(){
         long duree;
-        duree = dateEntree.getTime()-dateSortie.getTime()/86400000; //conversion ms en jours
+        duree = (dateEntree.getTime()-dateSortie.getTime()/86400000); //conversion ms en jours
         return duree;
     }
 }

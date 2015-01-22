@@ -44,4 +44,10 @@ public class ServiceClinique extends Service {
         this.setPatients(patients);
         this.setInternes(internes);
     }
+    
+    public void creerDM(Patient p){
+        if (p.getDpi().getDm() == null){
+            p.getDpi().setDm(new DM());
+        }
+    }
 }
