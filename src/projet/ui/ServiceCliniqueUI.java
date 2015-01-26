@@ -1,3 +1,7 @@
+package projet.ui;
+
+import javax.swing.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -414,4 +418,39 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @param IPP the IPP to set
+     */
+    public void setIPP(JTextField IPP) {
+        this.IPP = IPP;
+    }
+
+    /**
+     * @param Patient the Patient to set
+     */
+    public void setPatient(JTextField Patient) {
+        this.Patient = Patient;
+    }
+
+    /**
+     * @return the jButton1
+     */
+    public JButton getjButton1() {
+        return jButton1;
+    }
+
+    /**
+     * @return the jButton2
+     */
+    public JButton getjButton2() {
+        return jButton2;
+    }
+
+    /**
+     * @return the jList1
+     */
+    public JList getjList1() {
+        return jList1;
+    }
 }
