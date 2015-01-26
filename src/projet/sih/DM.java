@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.sih;
 
 import javax.swing.DefaultListModel;
@@ -13,15 +12,16 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class DM {
+
     private DefaultListModel<String> observationsPH;
-    private DefaultListModel<String> prescriptionsPH;
+    private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> observationsPI;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
-    
-    public DM(){
+
+    public DM() {
         observationsPH = new DefaultListModel<String>();
-        prescriptionsPH = new DefaultListModel<String>();
+        prescriptionsPH = new DefaultListModel<Prescription>();
         observationsPI = new DefaultListModel<String>();
         resultatsPH = new DefaultListModel<String>();
         lettreSortie = null;
@@ -37,7 +37,7 @@ public class DM {
     /**
      * @return the prescriptionsPH
      */
-    public DefaultListModel<String> getPrescriptionsPH() {
+    public DefaultListModel<Prescription> getPrescriptionsPH() {
         return prescriptionsPH;
     }
 
@@ -60,5 +60,18 @@ public class DM {
      */
     public String getLettreSortie() {
         return lettreSortie;
+    }
+
+    public String afficherPrescriptions() {
+        String s = "";
+        for (int i = 0; i < this.prescriptionsPH.getSize(); i++) {
+            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription() + ", Dr." + this.prescriptionsPH.get(i).getPhPrescripteur().toString();
+            for (int j = 0; j < this.prescriptionsPH.get(i).getMedicaments().getSize(); j++) {
+                s += "\n\t\t-" + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
+                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() + this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + " jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().toString();
+            }
+            s += "\n-----------------------------------------------------------------------------------";
+        }
+        return s;
     }
 }

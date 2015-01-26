@@ -4,10 +4,17 @@
  * and open the template in the editor.
  */
 
+package projet.sih;
+
 /**
  *
- * @author Manounette
+ * @author Tommy
  */
-public interface ServiceMedicauxTechniquesUI {
-    
+public enum UnitePosologie {
+    //valeurs de l'enum
+    mg,
+    g,
+    comprimés,
+    mL,
+    dL;
 }
