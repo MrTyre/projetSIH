@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.sih;
 
 /**
@@ -11,8 +10,9 @@ package projet.sih;
  * @author Tommy
  */
 public class PH extends PersonnelMedical {
+
     private String specialite;
-    
+
     /**
      * @return the id
      */
@@ -67,5 +67,10 @@ public class PH extends PersonnelMedical {
      */
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
+    }
+
+    public String toString() {
+        String s = this.getNom() + " " + this.getPrenom();
+        return s;
     }
 }
