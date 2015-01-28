@@ -94,8 +94,10 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
         jSplitPane2.setPreferredSize(new java.awt.Dimension(701, 750));
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 51, 153));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTabbedPane1.setName("Prescriptions"); // NOI18N
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -147,6 +149,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
 
         jTabbedPane1.addTab("Prescriptions", jPanel4);
 
+        jTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -175,6 +178,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
 
         jTabbedPane1.addTab("Observations", jPanel5);
 
+        jTable3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -203,6 +207,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
 
         jTabbedPane1.addTab("Résultats", jPanel6);
 
+        jTable4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -231,6 +236,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
 
         jTabbedPane1.addTab("DMA", jPanel7);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Patient : ");
 
         Patient.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +245,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("IPP : ");
 
         IPP.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +254,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
             }
         });
 
+        AjoutPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AjoutPatient.setText("+ Patient");
         AjoutPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +262,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
             }
         });
 
+        LettreSortie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         LettreSortie.setText("Ecrire lettre de sortie");
         LettreSortie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +297,7 @@ public class ServiceCliniqueUI extends javax.swing.JApplet {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
