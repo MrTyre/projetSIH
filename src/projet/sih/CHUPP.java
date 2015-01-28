@@ -17,9 +17,11 @@ public class CHUPP {
     private DefaultListModel<ServiceMedicoTechnique> smts;
     private ServiceAdmission sa;
     private Archives a;
+    public static double compteur;
     //private ServiceUrgences su;
 
     public CHUPP(){
+        compteur = 1;
         scs = new DefaultListModel<ServiceClinique>();
         smts = new DefaultListModel<ServiceMedicoTechnique>();
         
