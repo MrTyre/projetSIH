@@ -6,7 +6,7 @@
 
 package projet.sih;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -19,9 +19,9 @@ public class Patient {
     private String prenom;
     private Date dateNaissance;
     private String sexe;
-    private String adresse;
+    private Adresse adresse;
     
-    public Patient(String nom, String prenom, Date dateNaissance, String sexe, String adresse){
+    public Patient(String nom, String prenom, Date dateNaissance, String sexe, Adresse adresse){
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -106,14 +106,14 @@ public class Patient {
     /**
      * @return the adresse
      */
-    public String getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
     /**
      * @param adresse the adresse to set
      */
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
