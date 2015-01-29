@@ -68,15 +68,22 @@ public class AjouterPrescriptionUI extends javax.swing.JApplet {
         jButtonAnnuler = new javax.swing.JButton();
         jLabelNouvellePrescription = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldPosologie = new javax.swing.JTextField();
         jLabelDateFinTraitement = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
+        jTextFieldFinTraitementJour = new javax.swing.JTextField();
+        jTextFieldFinTraitementMois = new javax.swing.JTextField();
+        jTextFieldFinTraitementAnnee = new javax.swing.JTextField();
 
         jLabelMedicament.setText("Médicament :");
 
         jTextFieldMedicament.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldMedicament.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldMedicament.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMedicamentActionPerformed(evt);
+            }
+        });
 
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setText("OK");
@@ -96,15 +103,24 @@ public class AjouterPrescriptionUI extends javax.swing.JApplet {
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextField1.setText(" ");
-        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldPosologie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldPosologie.setText(" ");
+        jTextFieldPosologie.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabelDateFinTraitement.setText("Date de fin de traitement :");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
         jLabel1.setText("Dose/posologie :");
+
+        jTextFieldFinTraitementJour.setText("jTextField1");
+
+        jTextFieldFinTraitementMois.setText("jTextField2");
+
+        jTextFieldFinTraitementAnnee.setText("jTextField3");
+        jTextFieldFinTraitementAnnee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFinTraitementAnneeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,14 +132,18 @@ public class AjouterPrescriptionUI extends javax.swing.JApplet {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabelNouvellePrescription)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelDateFinTraitement)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,12 +167,14 @@ public class AjouterPrescriptionUI extends javax.swing.JApplet {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1)
+                    .addComponent(jTextFieldPosologie)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDateFinTraitement)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler)
@@ -176,18 +198,28 @@ public class AjouterPrescriptionUI extends javax.swing.JApplet {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jTextFieldMedicamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMedicamentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMedicamentActionPerformed
+
+    private void jTextFieldFinTraitementAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementAnneeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFinTraitementAnneeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDateFinTraitement;
     private javax.swing.JLabel jLabelMedicament;
     private javax.swing.JLabel jLabelNouvellePrescription;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldFinTraitementAnnee;
+    private javax.swing.JTextField jTextFieldFinTraitementJour;
+    private javax.swing.JTextField jTextFieldFinTraitementMois;
     private javax.swing.JTextField jTextFieldMedicament;
+    private javax.swing.JTextField jTextFieldPosologie;
     // End of variables declaration//GEN-END:variables
 }

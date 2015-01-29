@@ -83,22 +83,22 @@ public class AjouterPatientUI extends javax.swing.JApplet {
         jLabelSexe = new javax.swing.JLabel();
         jLabelDateDeNaissance = new javax.swing.JLabel();
         jLabelAdresse = new javax.swing.JLabel();
-        jTextFieldNom = new javax.swing.JTextField();
-        jTextFieldPrenom = new javax.swing.JTextField();
-        jTextFieldSexe = new javax.swing.JTextField();
+        jTextFieldNomNewPatient = new javax.swing.JTextField();
+        jTextFieldPrenomNewPatient = new javax.swing.JTextField();
+        jTextFieldSexeNewPatient = new javax.swing.JTextField();
         jButtonOK = new javax.swing.JButton();
         jButtonAnnuler = new javax.swing.JButton();
         jLabelNouveauPatient = new javax.swing.JLabel();
-        jTextFieldRue = new javax.swing.JTextField();
-        jTextFieldCP = new javax.swing.JTextField();
+        jTextFieldAdresseNewPatient = new javax.swing.JTextField();
+        jTextFieldCodePostalNewPatient = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldVille = new javax.swing.JTextField();
+        jTextFieldVilleNewPatient = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxPays = new javax.swing.JComboBox();
-        jTextFieldDay = new javax.swing.JTextField();
-        jTextFieldMonth = new javax.swing.JTextField();
-        jTextFieldYear = new javax.swing.JTextField();
+        jTextFieldDateNaissJour = new javax.swing.JTextField();
+        jTextFieldDateNaissMois = new javax.swing.JTextField();
+        jTextFieldDateNaissAnnee = new javax.swing.JTextField();
 
         jLabelNom.setText("Nom :");
 
@@ -110,22 +110,27 @@ public class AjouterPatientUI extends javax.swing.JApplet {
 
         jLabelAdresse.setText("Adresse :");
 
-        jTextFieldNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldNom.setText(" ");
-        jTextFieldNom.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldNomNewPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNomNewPatient.setText(" ");
+        jTextFieldNomNewPatient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextFieldPrenom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPrenom.setText(" ");
-        jTextFieldPrenom.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextFieldPrenom.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPrenomNewPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldPrenomNewPatient.setText(" ");
+        jTextFieldPrenomNewPatient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldPrenomNewPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPrenomActionPerformed(evt);
+                jTextFieldPrenomNewPatientActionPerformed(evt);
             }
         });
 
-        jTextFieldSexe.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldSexe.setText(" ");
-        jTextFieldSexe.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldSexeNewPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldSexeNewPatient.setText(" ");
+        jTextFieldSexeNewPatient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldSexeNewPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSexeNewPatientActionPerformed(evt);
+            }
+        });
 
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setText("OK");
@@ -137,11 +142,11 @@ public class AjouterPatientUI extends javax.swing.JApplet {
         jLabelNouveauPatient.setForeground(new java.awt.Color(0, 51, 153));
         jLabelNouveauPatient.setText("Nouveau Patient");
 
-        jTextFieldRue.setText(" ");
+        jTextFieldAdresseNewPatient.setText(" ");
 
-        jTextFieldCP.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCodePostalNewPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCPActionPerformed(evt);
+                jTextFieldCodePostalNewPatientActionPerformed(evt);
             }
         });
 
@@ -153,11 +158,21 @@ public class AjouterPatientUI extends javax.swing.JApplet {
 
         jComboBoxPays.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextFieldDay.setText("jTextField7");
+        jTextFieldDateNaissJour.setText("jTextField7");
+        jTextFieldDateNaissJour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDateNaissJourActionPerformed(evt);
+            }
+        });
 
-        jTextFieldMonth.setText("jTextField7");
+        jTextFieldDateNaissMois.setText("jTextField7");
 
-        jTextFieldYear.setText("jTextField7");
+        jTextFieldDateNaissAnnee.setText("jTextField7");
+        jTextFieldDateNaissAnnee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDateNaissAnneeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,41 +190,40 @@ public class AjouterPatientUI extends javax.swing.JApplet {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelSexe)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldSexe, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldSexeNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelNouveauPatient)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabelNom)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldNomNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldVille, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldVilleNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabelAdresse)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldRue, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabelDateDeNaissance)
-                                            .addGap(6, 6, 6)
-                                            .addComponent(jTextFieldDay, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(7, 7, 7)
-                                            .addComponent(jTextFieldMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(7, 7, 7)
-                                            .addComponent(jTextFieldYear, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabelPrenom)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTextFieldAdresseNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabelDateDeNaissance)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jTextFieldDateNaissJour, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jTextFieldDateNaissMois, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jTextFieldDateNaissAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabelPrenom)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldPrenomNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldCodePostalNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,33 +238,33 @@ public class AjouterPatientUI extends javax.swing.JApplet {
                 .addComponent(jLabelNouveauPatient)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNomNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNom))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPrenom)
-                    .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPrenomNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSexe)
-                    .addComponent(jTextFieldSexe, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldSexeNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelDateDeNaissance)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldDateNaissJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldDateNaissMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldDateNaissAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAdresse)
-                    .addComponent(jTextFieldRue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAdresseNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCodePostalNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldVilleNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBoxPays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
@@ -272,13 +286,25 @@ public class AjouterPatientUI extends javax.swing.JApplet {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPActionPerformed
+    private void jTextFieldCodePostalNewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodePostalNewPatientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCPActionPerformed
+    }//GEN-LAST:event_jTextFieldCodePostalNewPatientActionPerformed
 
-    private void jTextFieldPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrenomActionPerformed
+    private void jTextFieldPrenomNewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrenomNewPatientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPrenomActionPerformed
+    }//GEN-LAST:event_jTextFieldPrenomNewPatientActionPerformed
+
+    private void jTextFieldSexeNewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSexeNewPatientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldSexeNewPatientActionPerformed
+
+    private void jTextFieldDateNaissJourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDateNaissJourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDateNaissJourActionPerformed
+
+    private void jTextFieldDateNaissAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDateNaissAnneeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDateNaissAnneeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -295,23 +321,23 @@ public class AjouterPatientUI extends javax.swing.JApplet {
     private javax.swing.JLabel jLabelPrenom;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldCP;
-    private javax.swing.JTextField jTextFieldDay;
-    private javax.swing.JTextField jTextFieldMonth;
-    private javax.swing.JTextField jTextFieldNom;
-    private javax.swing.JTextField jTextFieldPrenom;
-    private javax.swing.JTextField jTextFieldRue;
-    private javax.swing.JTextField jTextFieldSexe;
-    private javax.swing.JTextField jTextFieldVille;
-    private javax.swing.JTextField jTextFieldYear;
+    private javax.swing.JTextField jTextFieldAdresseNewPatient;
+    private javax.swing.JTextField jTextFieldCodePostalNewPatient;
+    private javax.swing.JTextField jTextFieldDateNaissAnnee;
+    private javax.swing.JTextField jTextFieldDateNaissJour;
+    private javax.swing.JTextField jTextFieldDateNaissMois;
+    private javax.swing.JTextField jTextFieldNomNewPatient;
+    private javax.swing.JTextField jTextFieldPrenomNewPatient;
+    private javax.swing.JTextField jTextFieldSexeNewPatient;
+    private javax.swing.JTextField jTextFieldVilleNewPatient;
     // End of variables declaration//GEN-END:variables
 
     public void ajouterPatient() {
-        String nom = jTextFieldNom.getText();
-        String prenom = jTextFieldPrenom.getText();
-        Date d = new Date(Integer.parseInt(jTextFieldDay.getText()), Integer.parseInt(jTextFieldMonth.getText()), Integer.parseInt(jTextFieldYear.getText()));
-        String sexe = jTextFieldSexe.getText();
-        Adresse adresse = new Adresse(jTextFieldRue.getText(), Integer.parseInt(jTextFieldCP.getText()), jTextFieldVille.getText(), pays);
+        String nom = jTextFieldNomNewPatient.getText();
+        String prenom = jTextFieldPrenomNewPatient.getText();
+        Date d = new Date(Integer.parseInt(jTextFieldDateNaissJour.getText()), Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissAnnee.getText()));
+        String sexe = jTextFieldSexeNewPatient.getText();
+        Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
         Patient p = new Patient(nom, prenom, d, sexe, adresse);
         //ajouter le patient à la BD !!
     }

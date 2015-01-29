@@ -44,7 +44,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabelSexe" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextFieldSexe" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldSexeNewPatient" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jLabelNouveauPatient" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -52,33 +52,31 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabelNom" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldNom" min="-2" pref="180" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldNomNewPatient" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldVille" min="-2" pref="180" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldVilleNewPatient" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabelAdresse" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldRue" min="-2" pref="162" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldAdresseNewPatient" min="-2" pref="162" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabelDateDeNaissance" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Component id="jTextFieldDay" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                              <Component id="jTextFieldMonth" min="-2" pref="25" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                              <Component id="jTextFieldYear" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabelPrenom" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jTextFieldPrenom" min="-2" pref="165" max="-2" attributes="0"/>
-                                          </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabelDateDeNaissance" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldDateNaissJour" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldDateNaissMois" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldDateNaissAnnee" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabelPrenom" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jTextFieldPrenomNewPatient" min="-2" pref="165" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -86,7 +84,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldCP" min="-2" pref="70" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldCodePostalNewPatient" min="-2" pref="70" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -110,39 +108,39 @@
                   <Component id="jLabelNouveauPatient" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextFieldNom" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldNomNewPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelNom" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldPrenomNewPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelSexe" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldSexe" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                      <Component id="jTextFieldSexeNewPatient" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabelDateDeNaissance" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextFieldDay" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDateNaissJour" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDateNaissMois" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDateNaissAnnee" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelAdresse" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldRue" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldAdresseNewPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldCP" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldCodePostalNewPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jTextFieldVille" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldVilleNewPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxPays" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -182,7 +180,7 @@
             <Property name="text" type="java.lang.String" value="Adresse :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldNom">
+        <Component class="javax.swing.JTextField" name="jTextFieldNomNewPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -195,7 +193,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldPrenom">
+        <Component class="javax.swing.JTextField" name="jTextFieldPrenomNewPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -208,10 +206,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldPrenomActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldPrenomNewPatientActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldSexe">
+        <Component class="javax.swing.JTextField" name="jTextFieldSexeNewPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -223,6 +221,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldSexeNewPatientActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonOK">
           <Properties>
@@ -251,14 +252,14 @@
             <Property name="text" type="java.lang.String" value="Nouveau Patient"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldRue">
+        <Component class="javax.swing.JTextField" name="jTextFieldAdresseNewPatient">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldCP">
+        <Component class="javax.swing.JTextField" name="jTextFieldCodePostalNewPatient">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldCPActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldCodePostalNewPatientActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -271,7 +272,7 @@
             <Property name="text" type="java.lang.String" value="Ville : "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldVille">
+        <Component class="javax.swing.JTextField" name="jTextFieldVilleNewPatient">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -290,20 +291,26 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldDay">
+        <Component class="javax.swing.JTextField" name="jTextFieldDateNaissJour">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jTextField7"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDateNaissJourActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextFieldDateNaissMois">
           <Properties>
             <Property name="text" type="java.lang.String" value="jTextField7"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldMonth">
+        <Component class="javax.swing.JTextField" name="jTextFieldDateNaissAnnee">
           <Properties>
             <Property name="text" type="java.lang.String" value="jTextField7"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldYear">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField7"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDateNaissAnneeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
