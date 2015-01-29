@@ -14,6 +14,7 @@ public abstract class PersonnelMedical {
     private String ID;
     private String nom;
     private String prenom;
+    private String mdp;
 
     /**
      * @return the ID
@@ -55,5 +56,19 @@ public abstract class PersonnelMedical {
      */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    /**
+     * @return the mdp
+     */
+    public String getMdp() {
+        return mdp;
+    }
+
+    /**
+     * @param mdp the mdp to set
+     */
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 }

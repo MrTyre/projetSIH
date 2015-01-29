@@ -6,7 +6,7 @@
 
 package projet.sih;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -18,8 +18,20 @@ public class Patient {
     private String nom;
     private String prenom;
     private Date dateNaissance;
-    private char sexe;
-    private String adresse;
+    private String sexe;
+    private Adresse adresse;
+    
+    public Patient(String nom, String prenom, Date dateNaissance, String sexe, Adresse adresse){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        this.dpi = new DPI();
+        this.IPP = (this.dateNaissance.getYear()/100)*Math.pow(10,7);
+        this.IPP += CHUPP.compteur;
+        CHUPP.compteur++;
+    }
 
     /**
      * @return the IPP
@@ -80,28 +92,28 @@ public class Patient {
     /**
      * @return the sexe
      */
-    public char getSexe() {
+    public String getSexe() {
         return sexe;
     }
 
     /**
      * @param sexe the sexe to set
      */
-    public void setSexe(char sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 
     /**
      * @return the adresse
      */
-    public String getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
     /**
      * @param adresse the adresse to set
      */
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
