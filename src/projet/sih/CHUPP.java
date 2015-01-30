@@ -13,11 +13,25 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class CHUPP {
+
+    /**
+     * @return the compteur
+     */
+    public static double getCompteur() {
+        return compteur;
+    }
+
+    /**
+     * @param aCompteur the compteur to set
+     */
+    public static void setCompteur(double aCompteur) {
+        compteur = aCompteur;
+    }
     private DefaultListModel<ServiceClinique> scs;
     private DefaultListModel<ServiceMedicoTechnique> smts;
     private ServiceAdmission sa;
     private Archives a;
-    public static double compteur;
+    private static double compteur;
     //private ServiceUrgences su;
 
     public CHUPP(){
@@ -51,6 +65,34 @@ public class CHUPP {
         a = new Archives();
         
        //su = new ServiceUrgences();
+    }
+
+    /**
+     * @return the scs
+     */
+    public DefaultListModel<ServiceClinique> getScs() {
+        return scs;
+    }
+
+    /**
+     * @return the smts
+     */
+    public DefaultListModel<ServiceMedicoTechnique> getSmts() {
+        return smts;
+    }
+
+    /**
+     * @return the sa
+     */
+    public ServiceAdmission getSa() {
+        return sa;
+    }
+
+    /**
+     * @return the a
+     */
+    public Archives getA() {
+        return a;
     }
 
 }

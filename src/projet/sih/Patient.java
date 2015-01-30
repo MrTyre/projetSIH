@@ -29,8 +29,8 @@ public class Patient {
         this.adresse = adresse;
         this.dpi = new DPI();
         this.IPP = (this.dateNaissance.getYear()/100)*Math.pow(10,7);
-        this.IPP += CHUPP.compteur;
-        CHUPP.compteur++;
+        this.IPP += CHUPP.getCompteur();
+        CHUPP.setCompteur(CHUPP.getCompteur()+1);
     }
 
     /**
