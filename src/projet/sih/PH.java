@@ -12,47 +12,57 @@ package projet.sih;
 public class PH extends PersonnelMedical {
 
     private String specialite;
+    
+    public PH(){
+        super();
+        specialite="DefaultSpeciality";
+    }
+    
+    public PH(String id, String nom, String prenom, String mdp, String specialite){
+        super(id,nom,prenom,mdp);
+        this.specialite = specialite;
+    }
 
     /**
      * @return the id
      */
     public String getID() {
-        return getID();
+        return super.ID;
     }
 
     /**
      * @param id the id to set
      */
     public void setID(String ID) {
-        this.setID(ID);
+        super.setID(ID);
     }
 
     /**
      * @return the nom
      */
     public String getNom() {
-        return getNom();
+        return super.nom;
     }
 
     /**
      * @param nom the nom to set
      */
     public void setNom(String nom) {
-        this.setNom(nom);
+        super.setNom(nom);
     }
 
     /**
      * @return the prenom
      */
     public String getPrenom() {
-        return getPrenom();
+        return super.prenom;
     }
 
     /**
      * @param prenom the prenom to set
      */
     public void setPrenom(String prenom) {
-        this.setPrenom(prenom);
+        super.setPrenom(prenom);
     }
 
     /**

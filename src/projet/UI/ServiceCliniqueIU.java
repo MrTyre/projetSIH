@@ -5,11 +5,8 @@
  */
 
 package projet.UI;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 import projet.sih.*;
 
 /**
@@ -19,16 +16,14 @@ import projet.sih.*;
 public class ServiceCliniqueIU extends javax.swing.JFrame {
     
     private CHUPP chupp;
-    private ServiceCliniqueListener scl;
     private AjouterPatientIU apIU;
+    private AjouterPrescriptionIU aprIU;
     
     /**
      * Creates new form abc
      */
     public ServiceCliniqueIU() {
         initComponents();
-        scl = new ServiceCliniqueListener();
-        AjoutPatient.addActionListener(scl);
     }
 
     /**
@@ -102,6 +97,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         AjoutPrescription.setText("+ Prescription");
+        AjoutPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjoutPrescriptionActionPerformed(evt);
+            }
+        });
 
         ModifPrescription.setText("Modifier prescription");
 
@@ -366,19 +366,21 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_IPPActionPerformed
 
     private void AjoutPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPatientActionPerformed
-        //        Object source = evt.getSource();
-        //        Rectangle rectangle = this.getBounds();
-        //        if (source == AjoutPatient) {
-            //            apUI = new AjouterPatientUI();
-            //            apUI.setChupp(this.chupp);
-            //            apUI.setBounds(rectangle);
-            //            apUI.setVisible(true);
-            //        }
+                apIU = new AjouterPatientIU();
+                apIU.setVisible(true);
+                apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
     private void LettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LettreSortieActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LettreSortieActionPerformed
+
+    private void AjoutPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPrescriptionActionPerformed
+                aprIU = new AjouterPrescriptionIU();
+                aprIU.getjComboBox1().setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
+                aprIU.setVisible(true);
+                aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_AjoutPrescriptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -446,18 +448,4 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 
-    public class ServiceCliniqueListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Object source = e.getSource();
-            Rectangle rectangle = getBounds();
-            if(source == AjoutPatient){
-                apIU = new AjouterPatientIU();
-                apIU.setVisible(true);
-                apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        }
-        
-    }
 }

@@ -17,6 +17,13 @@ public class Medicament {
     private double posologie;
     private UnitePosologie unitePosologie;
     private Date dateFin;
+    
+    public Medicament(String nomMedoc, double posologie, UnitePosologie up, Date date){
+        this.nomMedoc = nomMedoc;
+        this.posologie = posologie;
+        this.unitePosologie = up;
+        this.dateFin = date;
+    }
 
     /**
      * @return the nomMedoc

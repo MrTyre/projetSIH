@@ -11,6 +11,10 @@ package projet.sih;
  * @author Tommy
  */
 public class Secretaire extends PersonnelMedical{
+    
+    public Secretaire(String id, String nom, String prenom, String mdp){
+        super(id,nom,prenom,mdp);
+    }
     /**
      * @return the id
      */

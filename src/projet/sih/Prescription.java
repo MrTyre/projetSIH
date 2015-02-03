@@ -22,6 +22,13 @@ public class Prescription {
     /**
      * @return the phPrescripteur
      */
+    
+    public Prescription(String nom, PH phRes, Date date, DefaultListModel<Medicament> medocs){
+        this.nomPrescription = nom;
+        this.phPrescripteur = phRes;
+        this.datePrescription = date;
+        this.medicaments = medocs;
+    }
     public PH getPhPrescripteur() {
         return phPrescripteur;
     }

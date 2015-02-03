@@ -16,5 +16,8 @@ public enum UnitePosologie {
     g,
     comprimés,
     mL,
-    dL;
+    pulvérisations,
+    dL,
+    cs, /*cuillère à soupe*/
+    cc; /*cuillère à café*/
 }

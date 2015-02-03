@@ -11,11 +11,23 @@ package projet.sih;
  * @author Tommy
  */
 public abstract class PersonnelMedical {
-    private String ID;
-    private String nom;
-    private String prenom;
-    private String mdp;
-
+    protected String ID;
+    protected String nom;
+    protected String prenom;
+    protected String mdp;
+    
+    public PersonnelMedical(){
+        ID ="000000";
+        nom = "DefaultName";
+        prenom="DefaultFirstName";
+        mdp="DefaultMdp";
+    }
+    public PersonnelMedical(String id, String nom, String prenom, String mdp){
+        this.ID = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+    }
     /**
      * @return the ID
      */

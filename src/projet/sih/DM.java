@@ -56,12 +56,12 @@ public class DM {
     public String afficherPrescriptions() {
         String s = "";
         for (int i = 0; i < this.prescriptionsPH.getSize(); i++) {
-            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription() + ", Dr." + this.prescriptionsPH.get(i).getPhPrescripteur().toString();
+            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription().getDate()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getMonth()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getYear() + ", Dr. " + this.prescriptionsPH.get(i).getPhPrescripteur().toString()+"  : "+this.prescriptionsPH.get(i).getNomPrescription();
             for (int j = 0; j < this.prescriptionsPH.get(i).getMedicaments().getSize(); j++) {
-                s += "\n\t\t-" + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
-                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() + this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + "    jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().toString();
+                s += "\n\t\t- " + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
+                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() +" "+ this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + "/j  jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getDate()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getMonth()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getYear();
             }
-            s += "\n-----------------------------------------------------------------------------------";
+            s += "\n------------------------------------------------------------------------------------------------------------------\n";
         }
         return s;
     }

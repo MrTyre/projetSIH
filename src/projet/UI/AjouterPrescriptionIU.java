@@ -5,6 +5,13 @@
  */
 
 package projet.UI;
+import java.awt.GridLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import projet.sih.*;
 
 /**
@@ -12,12 +19,13 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterPrescriptionIU extends javax.swing.JFrame {
-
+    private int l = 1;
     /**
      * Creates new form AjouterPrescriptionIU
      */
     public AjouterPrescriptionIU() {
         initComponents();
+        jPanel2.setLayout(new GridLayout(l,1));
     }
 
     /**
@@ -30,20 +38,31 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabelMedicament = new javax.swing.JLabel();
-        jTextFieldMedicament = new javax.swing.JTextField();
-        jButtonOK = new javax.swing.JButton();
-        jButtonAnnuler = new javax.swing.JButton();
         jLabelNouvellePrescription = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextFieldPosologie = new javax.swing.JTextField();
         jLabelDateFinTraitement = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabelMedicament = new javax.swing.JLabel();
+        jTextFieldMedicament = new javax.swing.JTextField();
+        jTextFieldPosologie = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox();
         jTextFieldFinTraitementJour = new javax.swing.JTextField();
         jTextFieldFinTraitementMois = new javax.swing.JTextField();
         jTextFieldFinTraitementAnnee = new javax.swing.JTextField();
+        jButtonAddMed = new javax.swing.JButton();
+        jButtonAnnuler = new javax.swing.JButton();
+        jButtonOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelNouvellePrescription.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelNouvellePrescription.setForeground(new java.awt.Color(0, 51, 153));
+        jLabelNouvellePrescription.setText("Nouvelle prescription");
+
+        jLabelDateFinTraitement.setText("Date de fin de traitement :");
+
+        jLabel1.setText("Dose/posologie :");
 
         jLabelMedicament.setText("Médicament :");
 
@@ -55,15 +74,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
-        jButtonOK.setText("OK");
-
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
-        jButtonAnnuler.setText("Annuler");
-
-        jLabelNouvellePrescription.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelNouvellePrescription.setForeground(new java.awt.Color(0, 51, 153));
-        jLabelNouvellePrescription.setText("Nouvelle prescription");
+        jTextFieldPosologie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldPosologie.setText(" ");
+        jTextFieldPosologie.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "mg", "g" }));
@@ -73,24 +86,60 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldPosologie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPosologie.setText(" ");
-        jTextFieldPosologie.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabelDateFinTraitement.setText("Date de fin de traitement :");
-
-        jLabel1.setText("Dose/posologie :");
-
-        jTextFieldFinTraitementJour.setText("jTextField1");
-
-        jTextFieldFinTraitementMois.setText("jTextField2");
-
-        jTextFieldFinTraitementAnnee.setText("jTextField3");
         jTextFieldFinTraitementAnnee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldFinTraitementAnneeActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMedicament)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addComponent(jTextFieldPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelMedicament)
+                    .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPosologie)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 124, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,120 +149,111 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelNouvellePrescription)
+                        .addGap(245, 245, 245)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelNouvellePrescription)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelDateFinTraitement)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabelMedicament)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelNouvellePrescription)
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelMedicament)
-                    .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNouvellePrescription)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldPosologie)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDateFinTraitement)
-                    .addComponent(jTextFieldFinTraitementJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAnnuler)
-                    .addComponent(jButtonOK))
+                    .addComponent(jLabelDateFinTraitement))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jButtonAddMed.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAddMed.setText("Ajouter un médicament");
+        jButtonAddMed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddMedActionPerformed(evt);
+            }
+        });
+
+        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setText("Annuler");
+        jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerActionPerformed(evt);
+            }
+        });
+
+        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonAddMed, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddMed)
+                    .addComponent(jButtonAnnuler)
+                    .addComponent(jButtonOK))
+                .addGap(24, 24, 24))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldMedicamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMedicamentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMedicamentActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void jButtonAddMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMedActionPerformed
+        ajouterMedicament();
+    }//GEN-LAST:event_jButtonAddMedActionPerformed
 
     private void jTextFieldFinTraitementAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementAnneeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFinTraitementAnneeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AjouterPrescriptionIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AjouterPrescriptionIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AjouterPrescriptionIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AjouterPrescriptionIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AjouterPrescriptionIU().setVisible(true);
-            }
-        });
-    }
+    private void jTextFieldMedicamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMedicamentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMedicamentActionPerformed
+
+    private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButtonAnnulerActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        //ajouter prescription au DMA
+        setVisible(false);
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAddMed;
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JComboBox jComboBox1;
@@ -222,10 +262,55 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelMedicament;
     private javax.swing.JLabel jLabelNouvellePrescription;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextFieldFinTraitementAnnee;
     private javax.swing.JTextField jTextFieldFinTraitementJour;
     private javax.swing.JTextField jTextFieldFinTraitementMois;
     private javax.swing.JTextField jTextFieldMedicament;
     private javax.swing.JTextField jTextFieldPosologie;
     // End of variables declaration//GEN-END:variables
+    
+    public void ajouterMedicament(){
+        l++;
+        jPanel2.setLayout(new GridLayout(l,1));
+        JPanel newmed = new JPanel();
+        //newmed.setLayout(jPanel3.getLayout());
+        
+        JLabel medicament = new JLabel();
+        medicament.setText("Médicament :");
+        medicament.setSize(jLabelMedicament.getSize());
+        JTextField nomMedicament = new JTextField();
+        nomMedicament.setSize(jTextFieldMedicament.getSize());
+        JTextField newPosologie = new JTextField();
+        newPosologie.setSize(jTextFieldPosologie.getSize());
+        JComboBox posologie = new JComboBox();
+        posologie.setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
+        JTextField jour = new JTextField();
+        jour.setSize(jTextFieldFinTraitementJour.getSize());
+        JTextField mois = new JTextField();
+        mois.setSize(jTextFieldFinTraitementMois.getSize());
+        JTextField annee = new JTextField();
+        annee.setSize(jTextFieldFinTraitementAnnee.getSize());
+        
+        newmed.add(medicament);
+        newmed.add(nomMedicament);
+        newmed.add(newPosologie);
+        newmed.add(posologie);
+        newmed.add(jour);
+        newmed.add(mois);
+        newmed.add(annee);
+        
+        jPanel2.add(jPanel3);
+        jPanel2.add(newmed);
+        jPanel2.validate();
+        jPanel2.repaint();
+    }
+
+    /**
+     * @return the jComboBox1
+     */
+    public javax.swing.JComboBox getjComboBox1() {
+        return jComboBox1;
+    }
 }
