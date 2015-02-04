@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package projet.sih;
 
 import java.util.Date;
@@ -11,16 +12,17 @@ import java.util.Date;
  *
  * @author Tommy
  */
-public class Observation {
-
+public class Resultat {
     private Date date;
     private PH phWriter;
-    private String observation;
-
-    public Observation(Date date, PH ph, String obs) {
-        this.date = date;
+    private Prestation prestationAssociee;
+    private String resultat;
+    
+    public Resultat(Date date, PH ph, Prestation p, String resultat){
+        this.date= date;
         this.phWriter = ph;
-        this.observation = obs;
+        this.prestationAssociee = p;
+        this.resultat = resultat;
     }
 
     /**
@@ -52,16 +54,30 @@ public class Observation {
     }
 
     /**
-     * @return the observation
+     * @return the presciptionAssociee
      */
-    public String getObservation() {
-        return observation;
+    public Prestation getPrestationAssociee() {
+        return prestationAssociee;
     }
 
     /**
-     * @param observation the observation to set
+     * @param presciptionAssociee the presciptionAssociee to set
      */
-    public void setObservation(String observation) {
-        this.observation = observation;
+    public void setPrestationAssociee(Prestation presciptionAssociee) {
+        this.prestationAssociee = presciptionAssociee;
+    }
+
+    /**
+     * @return the resultat
+     */
+    public String getResultat() {
+        return resultat;
+    }
+
+    /**
+     * @param resultat the resultat to set
+     */
+    public void setResultat(String resultat) {
+        this.resultat = resultat;
     }
 }

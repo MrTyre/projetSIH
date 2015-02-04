@@ -6,14 +6,22 @@
 
 package projet.sih;
 
+import java.util.Date;
+
 /**
  *
  * @author Tommy
  */
 public class Prestation {
+    private Date datePrestation;
     private String naturePrestation;
-    private String resultatPrestation;
+    private Resultat resultatPrestation;
 
+    public Prestation(Date date, String nP, Resultat rP){
+        this.datePrestation = date;
+        this.naturePrestation = nP;
+        this.resultatPrestation = rP;
+    }
     /**
      * @return the naturePrestation
      */
@@ -31,14 +39,28 @@ public class Prestation {
     /**
      * @return the resultatPrestation
      */
-    public String getResultatPrestation() {
+    public Resultat getResultatPrestation() {
         return resultatPrestation;
     }
 
     /**
      * @param resultatPrestation the resultatPrestation to set
      */
-    public void setResultatPrestation(String resultatPrestation) {
+    public void setResultatPrestation(Resultat resultatPrestation) {
         this.resultatPrestation = resultatPrestation;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDatePrestation() {
+        return datePrestation;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDatePrestation(Date date) {
+        this.datePrestation = date;
     }
 }
