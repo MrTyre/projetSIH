@@ -136,16 +136,18 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldDateNaissJour.setText("jTextField7");
         jTextFieldDateNaissJour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDateNaissJourActionPerformed(evt);
             }
         });
 
-        jTextFieldDateNaissMois.setText("jTextField7");
+        jTextFieldDateNaissMois.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDateNaissMoisActionPerformed(evt);
+            }
+        });
 
-        jTextFieldDateNaissAnnee.setText("jTextField7");
         jTextFieldDateNaissAnnee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDateNaissAnneeActionPerformed(evt);
@@ -298,6 +300,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
+
+    private void jTextFieldDateNaissMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDateNaissMoisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDateNaissMoisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
