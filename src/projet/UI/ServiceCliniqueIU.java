@@ -8,6 +8,7 @@ package projet.UI;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import projet.sih.*;
 
 /**
@@ -279,7 +280,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,8 +307,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_LettreSortieActionPerformed
 
     private void AjoutPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPrescriptionActionPerformed
-        aprIU = new AjouterPrescriptionIU();
-        aprIU.getjComboBox1().setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
+        aprIU = new AjouterPrescriptionIU();        
         aprIU.setVisible(true);
         aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_AjoutPrescriptionActionPerformed

@@ -14,9 +14,9 @@ public class Adresse {
     private String libelleRue;
     private int codePostal;
     private String ville;
-    private String pays;
+    private Pays pays;
     
-    public Adresse(String libelle, int codePostal, String ville, String pays){
+    public Adresse(String libelle, int codePostal, String ville, Pays pays){
         this.libelleRue = libelle;
         this.codePostal = codePostal;
         this.ville = ville;
@@ -68,14 +68,14 @@ public class Adresse {
     /**
      * @return the pays
      */
-    public String getPays() {
+    public Pays getPays() {
         return pays;
     }
 
     /**
      * @param pays the pays to set
      */
-    public void setPays(String pays) {
+    public void setPays(Pays pays) {
         this.pays = pays;
     }
 }
