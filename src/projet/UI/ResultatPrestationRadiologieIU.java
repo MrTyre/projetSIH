@@ -12,7 +12,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
-
+    private CHUPP chupp;
     /**
      * Creates new form ResultatPrestationRadiologieIU
      */
