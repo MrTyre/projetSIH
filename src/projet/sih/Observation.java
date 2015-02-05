@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package projet.sih;
 
 import java.util.Date;
@@ -12,16 +13,9 @@ import java.util.Date;
  * @author Tommy
  */
 public class Observation {
-
     private Date date;
     private PH phWriter;
     private String observation;
-
-    public Observation(Date date, PH ph, String obs) {
-        this.date = date;
-        this.phWriter = ph;
-        this.observation = obs;
-    }
 
     /**
      * @return the date

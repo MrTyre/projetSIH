@@ -82,7 +82,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabelNouvellePrescription" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
+                          <EmptySpace max="32767" attributes="0"/>
+=======
                           <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
+>>>>>>> origin/master
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="jLabelDateFinTraitement" min="-2" max="-2" attributes="0"/>

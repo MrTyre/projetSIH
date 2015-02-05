@@ -15,13 +15,13 @@ public class DM {
 
     private DefaultListModel<Observation> observationsPH;
     private DefaultListModel<Prescription> prescriptionsPH;
-    private DefaultListModel<Resultat> resultatsPH;
+    private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
 
     public DM() {
         observationsPH = new DefaultListModel<Observation>();
         prescriptionsPH = new DefaultListModel<Prescription>();
-        resultatsPH = new DefaultListModel<Resultat>();
+        resultatsPH = new DefaultListModel<String>();
         lettreSortie = null;
     }
 
@@ -42,7 +42,7 @@ public class DM {
     /**
      * @return the resultatsPH
      */
-    public DefaultListModel<Resultat> getResultatsPH() {
+    public DefaultListModel<String> getResultatsPH() {
         return resultatsPH;
     }
 
@@ -70,19 +70,7 @@ public class DM {
         String s = "";
         for (int i = 0; i < this.observationsPH.getSize(); i++) {
             s += "Observation du " + this.observationsPH.get(i).getDate() + ", Dr." + this.observationsPH.get(i).getPhWriter().toString();
-            s += "\n------------------------------------------------------------------------------------------------------------------\n";
-        }
-        return s;
-    }
-    
-    public String afficherResultatsPH(){
-        String s ="";
-        for (int i= 0; i <this.resultatsPH.getSize();i++){
-            s += "Résultat de la prestation du " + this.resultatsPH.get(i).getPrestationAssociee().getDatePrestation().getDate()+"/"+this.resultatsPH.get(i).getPrestationAssociee().getDatePrestation().getMonth()+"/"+this.resultatsPH.get(i).getPrestationAssociee().getDatePrestation().getYear()+" : "+this.resultatsPH.get(i).getPrestationAssociee().getNaturePrestation();
-            s += "\nSpécialiste : Dr."+this.resultatsPH.get(i).getPhWriter().toString();
-            s += "\t\tDate de publication du résultat : "+this.resultatsPH.get(i).getDate().getDate()+"/"+this.resultatsPH.get(i).getDate().getMonth()+"/"+this.resultatsPH.get(i).getDate().getYear();
-            s += "\n" + this.resultatsPH.get(i).getResultat();
-            s += "\n------------------------------------------------------------------------------------------------------------------\n";
+            s += "\n-----------------------------------------------------------------------------------";
         }
         return s;
     }
