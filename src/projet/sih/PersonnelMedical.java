@@ -14,7 +14,7 @@ public abstract class PersonnelMedical {
     private String ID;
     private String nom;
     private String prenom;
-
+   
     /**
      * @return the ID
      */
