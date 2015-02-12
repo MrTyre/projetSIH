@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package projet.sih;
 
 /**
  *
  * @author Tommy
  */
-public class Secretaire extends PersonnelMedical {
-
-    public Secretaire(String id, String nom, String prenom, String mdp) {
-        super(id, nom, prenom, mdp);
+public class PersonnelInfirmier extends PersonnelMedical{
+    
+    public PersonnelInfirmier(String id, String nom, String prenom, String mdp){
+        super(id,nom,prenom,mdp);
     }
-
+    /**
+     * @return the id
+     */
     public String getID() {
         return getID();
     }
@@ -53,5 +56,4 @@ public class Secretaire extends PersonnelMedical {
     public void setPrenom(String prenom) {
         this.setPrenom(prenom);
     }
-
 }
