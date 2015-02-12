@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -160,11 +160,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelNouvellePrescription)
-<<<<<<< HEAD
+
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
+
                         .addGap(245, 245, 245)
->>>>>>> origin/master
+
                         .addComponent(jLabel1)
                         .addGap(78, 78, 78)
                         .addComponent(jLabelDateFinTraitement)
