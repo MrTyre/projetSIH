@@ -13,16 +13,14 @@ import javax.swing.DefaultListModel;
  */
 public class DM {
 
-    private DefaultListModel<String> observationsPH;
+    private DefaultListModel<Observation> observationsPH;
     private DefaultListModel<Prescription> prescriptionsPH;
-    private DefaultListModel<String> observationsPI;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
 
     public DM() {
-        observationsPH = new DefaultListModel<String>();
+        observationsPH = new DefaultListModel<Observation>();
         prescriptionsPH = new DefaultListModel<Prescription>();
-        observationsPI = new DefaultListModel<String>();
         resultatsPH = new DefaultListModel<String>();
         lettreSortie = null;
     }
@@ -30,7 +28,7 @@ public class DM {
     /**
      * @return the observationsPH
      */
-    public DefaultListModel<String> getObservationsPH() {
+    public DefaultListModel<Observation> getObservationsPH() {
         return observationsPH;
     }
 
@@ -39,13 +37,6 @@ public class DM {
      */
     public DefaultListModel<Prescription> getPrescriptionsPH() {
         return prescriptionsPH;
-    }
-
-    /**
-     * @return the observationsPI
-     */
-    public DefaultListModel<String> getObservationsPI() {
-        return observationsPI;
     }
 
     /**
@@ -65,11 +56,20 @@ public class DM {
     public String afficherPrescriptions() {
         String s = "";
         for (int i = 0; i < this.prescriptionsPH.getSize(); i++) {
-            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription() + ", Dr." + this.prescriptionsPH.get(i).getPhPrescripteur().toString();
+            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription().getDate()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getMonth()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getYear() + ", Dr. " + this.prescriptionsPH.get(i).getPhPrescripteur().toString()+"  : "+this.prescriptionsPH.get(i).getNomPrescription();
             for (int j = 0; j < this.prescriptionsPH.get(i).getMedicaments().getSize(); j++) {
-                s += "\n\t\t-" + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
-                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() + this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + " jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().toString();
+                s += "\n\t\t- " + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
+                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() +" "+ this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + "/j  jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getDate()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getMonth()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getYear();
             }
+            s += "\n------------------------------------------------------------------------------------------------------------------\n";
+        }
+        return s;
+    }
+
+    public String afficherObservationsPH() {
+        String s = "";
+        for (int i = 0; i < this.observationsPH.getSize(); i++) {
+            s += "Observation du " + this.observationsPH.get(i).getDate() + ", Dr." + this.observationsPH.get(i).getPhWriter().toString();
             s += "\n-----------------------------------------------------------------------------------";
         }
         return s;

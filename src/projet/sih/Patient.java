@@ -18,8 +18,21 @@ public class Patient {
     private String nom;
     private String prenom;
     private Date dateNaissance;
-    private char sexe;
-    private String adresse;
+    private Sexe sexe;
+    private Adresse adresse;
+    private Location location;
+    
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, Adresse adresse){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        this.dpi = new DPI();
+        this.IPP = (this.dateNaissance.getYear()/100)*Math.pow(10,7);
+        this.IPP += CHUPP.getCompteur();
+        CHUPP.setCompteur(CHUPP.getCompteur()+1);
+    }
 
     /**
      * @return the IPP
@@ -80,28 +93,28 @@ public class Patient {
     /**
      * @return the sexe
      */
-    public char getSexe() {
+    public Sexe getSexe() {
         return sexe;
     }
 
     /**
      * @param sexe the sexe to set
      */
-    public void setSexe(char sexe) {
+    public void setSexe(Sexe sexe) {
         this.sexe = sexe;
     }
 
     /**
      * @return the adresse
      */
-    public String getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
     /**
      * @param adresse the adresse to set
      */
-    public void setAdresse(String adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
@@ -117,5 +130,19 @@ public class Patient {
      */
     public void setDpi(DPI dpi) {
         this.dpi = dpi;
+    }
+
+    /**
+     * @return the location
+     */
+    public Location getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

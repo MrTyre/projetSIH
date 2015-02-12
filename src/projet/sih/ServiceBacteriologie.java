@@ -16,5 +16,7 @@ public class ServiceBacteriologie extends ServiceClinique {
     
     public ServiceBacteriologie(){
         this.setSpecialite("Bacteriologie");
+        this.setChambres(new DefaultListModel<Chambre>());
+        this.getChambres().setSize(15);
     }
 }
