@@ -37,12 +37,12 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         AjoutPrescription = new javax.swing.JButton();
         ModifPrescription = new javax.swing.JButton();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -59,15 +59,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jList1 = new javax.swing.JList();
         ListePatient = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jSplitPane2.setMinimumSize(new java.awt.Dimension(200, 102));
-        jSplitPane2.setPreferredSize(new java.awt.Dimension(701, 750));
-
-        jTabbedPane1.setForeground(new java.awt.Color(0, 51, 153));
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTabbedPane1.setName("Prescriptions"); // NOI18N
 
         AjoutPrescription.setText("+ Prescription");
         AjoutPrescription.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +90,14 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
-        jTabbedPane1.addTab("Prescriptions", jPanel4);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jSplitPane2.setMinimumSize(new java.awt.Dimension(200, 102));
+        jSplitPane2.setPreferredSize(new java.awt.Dimension(701, 750));
+
+        jTabbedPane1.setForeground(new java.awt.Color(0, 51, 153));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTabbedPane1.setName("Prescriptions"); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -242,8 +240,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         ListePatient.setForeground(new java.awt.Color(0, 51, 153));
         ListePatient.setText("Liste des patients");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Tommy\\Pictures\\Logo Genesis 2.PNG")); // NOI18N
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -264,10 +260,10 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(126, 126, 126)
                 .addComponent(ListePatient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(jPanel2);
@@ -282,7 +278,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
+                .addContainerGap())
+=======
                 .addContainerGap(27, Short.MAX_VALUE))
+>>>>>>> origin/master
         );
 
         pack();
