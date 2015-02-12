@@ -8,7 +8,9 @@ package projet.UI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -18,7 +20,8 @@ import projet.sih.*;
 public class AjouterPatientIU extends javax.swing.JFrame {
 
     private CHUPP chupp;
-    private String pays;
+    private Pays pays;
+    private Sexe sexe;
 
     /**
      * Creates new form AjouterPatientIU
@@ -27,6 +30,9 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(getParent());
         setVisible(true);
+        jComboBoxPays.setModel((new DefaultComboBoxModel<>(Pays.values())));
+        jComboBoxPays.setSelectedIndex(73);
+        jComboBoxSexe.setModel((new DefaultComboBoxModel<>(Sexe.values())));
     }
 
     /**
@@ -46,7 +52,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jLabelAdresse = new javax.swing.JLabel();
         jTextFieldNomNewPatient = new javax.swing.JTextField();
         jTextFieldPrenomNewPatient = new javax.swing.JTextField();
-        jTextFieldSexeNewPatient = new javax.swing.JTextField();
         jButtonOK = new javax.swing.JButton();
         jButtonAnnuler = new javax.swing.JButton();
         jLabelNouveauPatient = new javax.swing.JLabel();
@@ -60,6 +65,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jTextFieldDateNaissJour = new javax.swing.JTextField();
         jTextFieldDateNaissMois = new javax.swing.JTextField();
         jTextFieldDateNaissAnnee = new javax.swing.JTextField();
+        jComboBoxSexe = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,15 +89,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jTextFieldPrenomNewPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPrenomNewPatientActionPerformed(evt);
-            }
-        });
-
-        jTextFieldSexeNewPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldSexeNewPatient.setText(" ");
-        jTextFieldSexeNewPatient.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextFieldSexeNewPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldSexeNewPatientActionPerformed(evt);
             }
         });
 
@@ -154,6 +151,13 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxSexe.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSexe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSexeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,8 +173,8 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelSexe)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldSexeNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelNouveauPatient)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -227,7 +231,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSexe)
-                    .addComponent(jTextFieldSexeNewPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelDateDeNaissance)
@@ -272,10 +276,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrenomNewPatientActionPerformed
 
-    private void jTextFieldSexeNewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSexeNewPatientActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldSexeNewPatientActionPerformed
-
     private void jTextFieldCodePostalNewPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodePostalNewPatientActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCodePostalNewPatientActionPerformed
@@ -294,7 +294,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxPaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPaysActionPerformed
-        pays = (String) ((JComboBox) evt.getSource()).getSelectedItem();
+        pays = (Pays) ((JComboBox) evt.getSource()).getSelectedItem();
     }//GEN-LAST:event_jComboBoxPaysActionPerformed
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
@@ -305,11 +305,16 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDateNaissMoisActionPerformed
 
+    private void jComboBoxSexeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSexeActionPerformed
+        sexe = (Sexe) ((JComboBox) evt.getSource()).getSelectedItem();
+    }//GEN-LAST:event_jComboBoxSexeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
     private javax.swing.JComboBox jComboBoxPays;
+    private javax.swing.JComboBox jComboBoxSexe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -327,15 +332,30 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDateNaissMois;
     private javax.swing.JTextField jTextFieldNomNewPatient;
     private javax.swing.JTextField jTextFieldPrenomNewPatient;
-    private javax.swing.JTextField jTextFieldSexeNewPatient;
     private javax.swing.JTextField jTextFieldVilleNewPatient;
     // End of variables declaration//GEN-END:variables
 
     public void ajouterPatient() {
+        if ((jTextFieldNomNewPatient.getText().equals(""))
+                || (jTextFieldPrenomNewPatient.getText().equals(""))
+                || (jTextFieldAdresseNewPatient.getText().equals(""))
+                || (jTextFieldCodePostalNewPatient.getText().equals(""))
+                || (jTextFieldVilleNewPatient.getText().equals(""))
+                || (jTextFieldDateNaissJour.getText().equals(""))
+                || (jTextFieldDateNaissMois.getText().equals(""))
+                || (jTextFieldDateNaissAnnee.getText().equals(""))) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        if((jTextFieldCodePostalNewPatient.getText().length() != 5) && !(jTextFieldCodePostalNewPatient.getText().equals(""))){
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null,"Mauvais code postal","Attention",JOptionPane.WARNING_MESSAGE);
+        }
+        
         String nom = jTextFieldNomNewPatient.getText();
         String prenom = jTextFieldPrenomNewPatient.getText();
         Date d = new Date(Integer.parseInt(jTextFieldDateNaissJour.getText()), Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissAnnee.getText()));
-        String sexe = jTextFieldSexeNewPatient.getText();
         Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
         Patient p = new Patient(nom, prenom, d, sexe, adresse);
         //ajouter le patient à la BD !!

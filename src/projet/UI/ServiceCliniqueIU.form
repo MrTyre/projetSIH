@@ -75,7 +75,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jSplitPane2" min="-2" pref="621" max="-2" attributes="0"/>
+<<<<<<< HEAD
               <EmptySpace max="-2" attributes="0"/>
+=======
+              <EmptySpace pref="27" max="32767" attributes="0"/>
+>>>>>>> origin/master
           </Group>
       </Group>
     </DimensionLayout>

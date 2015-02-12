@@ -6,6 +6,12 @@
 package projet.UI;
 
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import projet.sih.*;
 
 /**
@@ -13,13 +19,23 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterPrescriptionIU extends javax.swing.JFrame {
+
     private int l = 0;
     private CHUPP chupp;
+    DefaultTableModel dtm;
+
     /**
      * Creates new form AjouterPrescriptionIU
      */
     public AjouterPrescriptionIU() {
         initComponents();
+        dtm = new DefaultTableModel(0, 0);
+        jTableMedocs.setModel(dtm);
+        dtm.addColumn("Nom du médicament");
+        dtm.addColumn("Posologie");
+        dtm.addColumn("Dose");
+        dtm.addColumn("Date de fin de traitement");
+        jComboBox1.setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
     }
 
     /**
@@ -186,8 +202,25 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             }
         });
 
+        jTableMedocs.setAutoCreateRowSorter(true);
         jTableMedocs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -296,43 +329,43 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterMedicament() {
-        Object[] line = new Object[4];
+        if ((jTextFieldMedicament.getText().equals("")) || (jTextFieldPosologie.getText().equals("")) || (jTextFieldFinTraitementJour.getText().equals("")) || (jTextFieldFinTraitementMois.getText().equals("")) || (jTextFieldFinTraitementAnnee.getText().equals(""))){
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null,"Veuillez entrer toutes les informations nécessaires","Attention",JOptionPane.WARNING_MESSAGE);
+        }
         String medicament = jTextFieldMedicament.getText();
         String posologie = jTextFieldPosologie.getText();
         Object dose = jComboBox1.getSelectedItem();
-        String doseString ="";
-        if (dose == UnitePosologie.cc){
+        String doseString = "";
+        if (dose == UnitePosologie.cc) {
             doseString = "cc";
         }
-        if (dose == UnitePosologie.comprimés){
+        if (dose == UnitePosologie.comprimés) {
             doseString = "comprimés";
         }
-        if (dose == UnitePosologie.cs){
+        if (dose == UnitePosologie.cs) {
             doseString = "cs";
         }
-        if (dose == UnitePosologie.dL){
+        if (dose == UnitePosologie.dL) {
             doseString = "dL";
         }
-        if (dose == UnitePosologie.g){
+        if (dose == UnitePosologie.g) {
             doseString = "g";
         }
-        if (dose == UnitePosologie.mL){
+        if (dose == UnitePosologie.mL) {
             doseString = "mL";
         }
-        if (dose == UnitePosologie.mg){
+        if (dose == UnitePosologie.mg) {
             doseString = "mg";
         }
-        if (dose == UnitePosologie.pulvérisations){
+        if (dose == UnitePosologie.pulvérisations) {
             doseString = "pulvérisations";
         }
-        
+
         Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()), Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
-        jTableMedocs.setValueAt(medicament,l, 0);
-        jTableMedocs.setValueAt(posologie,l, 1);
-        jTableMedocs.setValueAt(doseString,l, 2);
-        jTableMedocs.setValueAt(d.getDate() + "/" + d.getMonth() + "/" + d.getYear(),l, 3);
-        l++;
-        
+        String date = d.getDate() + "/" + d.getMonth() + "/" + d.getYear();
+        dtm.addRow(new Object[] {medicament,posologie,doseString,date});       
+
         jTextFieldMedicament.setText("");
         jTextFieldPosologie.setText("");
         jTextFieldFinTraitementJour.setText("");

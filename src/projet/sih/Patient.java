@@ -18,10 +18,10 @@ public class Patient {
     private String nom;
     private String prenom;
     private Date dateNaissance;
-    private String sexe;
+    private Sexe sexe;
     private Adresse adresse;
     
-    public Patient(String nom, String prenom, Date dateNaissance, String sexe, Adresse adresse){
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, Adresse adresse){
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -92,14 +92,14 @@ public class Patient {
     /**
      * @return the sexe
      */
-    public String getSexe() {
+    public Sexe getSexe() {
         return sexe;
     }
 
     /**
      * @param sexe the sexe to set
      */
-    public void setSexe(String sexe) {
+    public void setSexe(Sexe sexe) {
         this.sexe = sexe;
     }
 
