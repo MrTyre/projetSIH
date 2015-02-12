@@ -1,7 +1,7 @@
 
 package projet.UI;
 
-import java.util.Date;
+import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
