@@ -11,7 +11,7 @@ package projet.UI;
  * @author Manounette
  */
 public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
-
+    private ServiceInformatiqueIU si;
     /**
      * Creates new form ServiceInformatiqueModifierPersonnel
      */
@@ -90,6 +90,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
+        jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -182,6 +187,13 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
+        setVisible(false);
+        si = new ServiceInformatiqueIU();
+        si.setLocationRelativeTo(null);
+        si.setResizable(false);  
+    }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
     /**
      * @param args the command line arguments

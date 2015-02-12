@@ -15,6 +15,7 @@ public abstract class PersonnelMedical {
     protected String nom;
     protected String prenom;
     protected String mdp;
+    //test
     
     public PersonnelMedical(){
         ID ="000000";

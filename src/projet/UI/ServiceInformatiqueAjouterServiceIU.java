@@ -11,7 +11,7 @@ package projet.UI;
  * @author Manounette
  */
 public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
-
+    private ServiceInformatiqueIU si;
     /**
      * Creates new form ServiceInformatiqueAjouterServiceIU
      */
@@ -82,6 +82,11 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 51, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setText("Annuler");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabelNomService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNomService.setText("Nom :");
@@ -173,6 +178,13 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setVisible(false);
+        si = new ServiceInformatiqueIU();
+        si.setLocationRelativeTo(null);
+        si.setResizable(false);  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

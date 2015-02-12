@@ -5,18 +5,27 @@
  */
 
 package projet.UI;
+    
+import javax.swing.JFrame;
+
+   
 
 /**
  *
  * @author Manounette
  */
 public class ServiceInformatiqueIU extends javax.swing.JFrame {
-
+    
+     private ServiceInformatiqueAjouterPersonnelIU siap;
+     private ServiceInformatiqueAjouterServiceIU sias;
+     private ServiceInformatiqueModifierPersonnel simp;
     /**
      * Creates new form ServiceInformatiqueIU
      */
     public ServiceInformatiqueIU() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     /**
@@ -43,14 +52,29 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jButtonAjouterService.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAjouterService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterService.setText("Ajouter service");
+        jButtonAjouterService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterServiceActionPerformed(evt);
+            }
+        });
 
         jButtonAjouterPersonnel.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAjouterPersonnel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterPersonnel.setText("Ajouter personnel");
+        jButtonAjouterPersonnel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterPersonnelActionPerformed(evt);
+            }
+        });
 
         jButtonModifierPersonnel.setBackground(new java.awt.Color(0, 51, 153));
         jButtonModifierPersonnel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonModifierPersonnel.setText("Modifier personnel");
+        jButtonModifierPersonnel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModifierPersonnelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,6 +116,33 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAjouterServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterServiceActionPerformed
+        sias = new ServiceInformatiqueAjouterServiceIU();
+        sias.setLocationRelativeTo(null);
+        setVisible(false);
+        sias.setVisible(true);
+        sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        sias.setResizable(false);
+    }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
+
+    private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
+        siap = new ServiceInformatiqueAjouterPersonnelIU();
+        siap.setLocationRelativeTo(null);
+        setVisible(false);
+        siap.setVisible(true);
+        siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        siap.setResizable(false);
+    }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
+
+    private void jButtonModifierPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierPersonnelActionPerformed
+        simp = new ServiceInformatiqueModifierPersonnel();
+        simp.setLocationRelativeTo(null);
+        setVisible(false);
+        simp.setVisible(true);
+        simp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
+        simp.setResizable(false);
+    }//GEN-LAST:event_jButtonModifierPersonnelActionPerformed
 
     /**
      * @param args the command line arguments

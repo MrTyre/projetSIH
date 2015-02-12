@@ -88,6 +88,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ajouter service"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAjouterServiceActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonAjouterPersonnel">
           <Properties>
@@ -99,6 +102,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ajouter personnel"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAjouterPersonnelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonModifierPersonnel">
           <Properties>
@@ -110,6 +116,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Modifier personnel"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModifierPersonnelActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

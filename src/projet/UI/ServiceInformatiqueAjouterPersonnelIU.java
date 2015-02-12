@@ -11,7 +11,8 @@ package projet.UI;
  * @author Manounette
  */
 public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
-
+    
+    private ServiceInformatiqueIU si;
     /**
      * Creates new form ServiceInformatiqueAjouterPersonnelIU
      */
@@ -76,6 +77,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 51, 153));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setText("Annuler");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,7 +103,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelNom)
                                     .addComponent(jLabelStatut))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(11, 12, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jComboBoxStatut, 0, 180, Short.MAX_VALUE)
                                     .addComponent(jTextFieldNom)))))
@@ -155,6 +161,14 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setVisible(false);
+        si = new ServiceInformatiqueIU();
+        si.setLocationRelativeTo(null);
+        si.setResizable(false);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
