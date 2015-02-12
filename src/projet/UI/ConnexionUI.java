@@ -66,6 +66,7 @@ public class ConnexionUI extends javax.swing.JFrame {
         jTextFieldId1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jTextFieldId1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
 
