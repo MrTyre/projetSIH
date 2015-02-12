@@ -12,5 +12,5 @@ package projet.sih;
  */
 public enum Sexe {
     F,
-    M;
+    H;
 }

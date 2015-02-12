@@ -6,7 +6,7 @@
 
 package projet.sih;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -20,6 +20,7 @@ public class Patient {
     private Date dateNaissance;
     private Sexe sexe;
     private Adresse adresse;
+    private Location location;
     
     public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, Adresse adresse){
         this.nom = nom;
@@ -129,5 +130,19 @@ public class Patient {
      */
     public void setDpi(DPI dpi) {
         this.dpi = dpi;
+    }
+
+    /**
+     * @return the location
+     */
+    public Location getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

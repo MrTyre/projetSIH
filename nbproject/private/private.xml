@@ -3,11 +3,56 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Secretaire.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelInfirmier.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceCliniqueIU.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPrescriptionIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/UnitePosologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceGynecologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Interne.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceAdmission.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelInfirmier.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Hospitalisation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prescription.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/DPI.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PH.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPatientIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceDermatologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ResultatPrestationRadiologieIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceGeriatrie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPrescriptionIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceBacteriologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceNeurologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceChirurgieGenerale.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Secretaire.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Sexe.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceCardiologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServicePediatrie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Archives.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServicePneumologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ProjetSIH.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Lit.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/DMA.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/DM.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Pays.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Resultat.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Observation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceOncologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/CHUPP.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceEndocrinologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Chambre.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ResultatPrestationLaboAnesthesieIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceMedicoTechniquesIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelMedical.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Patient.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceAnesthesieRea.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Consultation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prestation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Medicament.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Service.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceCytologie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServicePsychiatrie.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceCliniqueIU.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Adresse.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Location.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceMedicoTechnique.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceClinique.java</file>
         </group>
     </open-files>
 </project-private>

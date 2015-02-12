@@ -6,6 +6,8 @@
 
 package projet.sih;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Tommy
@@ -14,5 +16,7 @@ public class ServiceGeriatrie extends ServiceClinique {
     
     public ServiceGeriatrie(){
         this.setSpecialite("Geriatrie");
+        this.setChambres(new DefaultListModel<Chambre>());
+        this.getChambres().setSize(15);
     }
 }
