@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author Thomas
  */
 public class TestConnection {
-
+    //thomas = pd
     /**
      * @param args the command line arguments
      */
