@@ -32,6 +32,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jPanelLogo = new javax.swing.JPanel();
+        jLabelService = new javax.swing.JLabel();
         jLabelListePatients = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListPatients = new javax.swing.JList();
@@ -49,11 +50,13 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jPanelLogo.setLayout(jPanelLogoLayout);
         jPanelLogoLayout.setHorizontalGroup(
             jPanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabelService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelLogoLayout.setVerticalGroup(
             jPanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 72, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogoLayout.createSequentialGroup()
+                .addGap(0, 45, Short.MAX_VALUE)
+                .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabelListePatients.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -198,6 +201,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelListePatients;
     private javax.swing.JLabel jLabelPatient;
+    private javax.swing.JLabel jLabelService;
     private javax.swing.JList jListPatients;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -209,4 +213,18 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldPatient;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @param chupp the chupp to set
+     */
+    public void setChupp(CHUPP chupp) {
+        this.chupp = chupp;
+    }
+
+    /**
+     * @return the jLabelService
+     */
+    public javax.swing.JLabel getjLabelService() {
+        return jLabelService;
+    }
 }

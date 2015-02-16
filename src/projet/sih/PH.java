@@ -11,7 +11,6 @@ package projet.sih;
  */
 public class PH extends PersonnelMedical {
 
-    private String specialite;
     
     public PH(){
         super();
@@ -19,8 +18,7 @@ public class PH extends PersonnelMedical {
     }
     
     public PH(String id, String nom, String prenom, String mdp, String specialite){
-        super(id,nom,prenom,mdp);
-        this.specialite = specialite;
+        super(id,nom,prenom,mdp,specialite);
     }
 
     /**
@@ -63,20 +61,6 @@ public class PH extends PersonnelMedical {
      */
     public void setPrenom(String prenom) {
         super.setPrenom(prenom);
-    }
-
-    /**
-     * @return the specialite
-     */
-    public String getSpecialite() {
-        return specialite;
-    }
-
-    /**
-     * @param specialite the specialite to set
-     */
-    public void setSpecialite(String specialite) {
-        this.specialite = specialite;
     }
 
     public String toString() {

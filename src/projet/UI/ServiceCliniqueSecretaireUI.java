@@ -6,6 +6,7 @@
 package projet.UI;
 
 import javax.swing.JFrame;
+import projet.sih.*;
 
 /**
  *
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
  */
 public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 private AjouterPatientIU apIU;
+private CHUPP chupp;
     /**
      * Creates new form ServiceCliniqueSecretaire
      */
@@ -48,6 +50,7 @@ private AjouterPatientIU apIU;
         jList1 = new javax.swing.JList();
         ListePatient = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabelService = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +78,7 @@ private AjouterPatientIU apIU;
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1065, Short.MAX_VALUE)
+            .addGap(0, 1056, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,14 +95,14 @@ private AjouterPatientIU apIU;
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(953, Short.MAX_VALUE)
+                .addContainerGap(942, Short.MAX_VALUE)
                 .addComponent(jButtonEditDMA)
                 .addGap(19, 19, 19))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(502, Short.MAX_VALUE)
+                .addContainerGap(500, Short.MAX_VALUE)
                 .addComponent(jButtonEditDMA)
                 .addGap(19, 19, 19))
         );
@@ -113,14 +116,14 @@ private AjouterPatientIU apIU;
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(975, Short.MAX_VALUE)
+                .addContainerGap(964, Short.MAX_VALUE)
                 .addComponent(jButtonAjoutRDV)
                 .addGap(27, 27, 27))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(502, Short.MAX_VALUE)
+                .addContainerGap(500, Short.MAX_VALUE)
                 .addComponent(jButtonAjoutRDV)
                 .addGap(19, 19, 19))
         );
@@ -207,17 +210,23 @@ private AjouterPatientIU apIU;
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(ListePatient)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabelService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(124, Short.MAX_VALUE)
+                .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ListePatient)
@@ -305,6 +314,7 @@ private AjouterPatientIU apIU;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelService;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -316,4 +326,25 @@ private AjouterPatientIU apIU;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the chupp
+     */
+    public CHUPP getChupp() {
+        return chupp;
+    }
+
+    /**
+     * @param chupp the chupp to set
+     */
+    public void setChupp(CHUPP chupp) {
+        this.chupp = chupp;
+    }
+
+    /**
+     * @return the jLabelService
+     */
+    public javax.swing.JLabel getjLabelService() {
+        return jLabelService;
+    }
 }

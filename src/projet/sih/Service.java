@@ -16,6 +16,7 @@ public abstract class Service {
     private PH chefDeService;
     private DefaultListModel<PH> praticiens;
     private DefaultListModel<Interne> internes;
+    private DefaultListModel<PersonnelInfirmier> infirmiers;
     private DefaultListModel<Patient> patients;
     private DefaultListModel<Chambre> chambres;    
 
@@ -75,11 +76,7 @@ public abstract class Service {
         this.patients = patients;
     }
     
-    public void creerServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients, DefaultListModel<Interne> internes){
-        ServiceClinique sc = new ServiceClinique(specialite,chefDeService,praticiens,patients,internes);
-    }
-
-    /**
+        /**
      * @return the chambres
      */
     public DefaultListModel<Chambre> getChambres() {
@@ -91,5 +88,19 @@ public abstract class Service {
      */
     public void setChambres(DefaultListModel<Chambre> chambres) {
         this.chambres = chambres;
+    }
+
+    /**
+     * @return the infirmiers
+     */
+    public DefaultListModel<PersonnelInfirmier> getInfirmiers() {
+        return infirmiers;
+    }
+
+    /**
+     * @param infirmiers the infirmiers to set
+     */
+    public void setInfirmiers(DefaultListModel<PersonnelInfirmier> infirmiers) {
+        this.infirmiers = infirmiers;
     }
 }

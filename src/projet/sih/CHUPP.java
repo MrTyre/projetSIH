@@ -14,22 +14,10 @@ import javax.swing.DefaultListModel;
  */
 public class CHUPP {
 
-    /**
-     * @return the compteur
-     */
-    public static double getCompteur() {
-        return compteur;
-    }
-
-    /**
-     * @param aCompteur the compteur to set
-     */
-    public static void setCompteur(double aCompteur) {
-        compteur = aCompteur;
-    }
     private DefaultListModel<ServiceClinique> scs;
     private DefaultListModel<ServiceMedicoTechnique> smts;
     private ServiceAdmission sa;
+    private ServiceInformatique si;
     private Archives a;
     private static double compteur;
     //private ServiceUrgences su;
@@ -61,7 +49,7 @@ public class CHUPP {
         smts.addElement(new ServiceAnesthesieRea());
         
         sa = new ServiceAdmission();
-        
+        si = new ServiceInformatique();
         a = new Archives();
         
        //su = new ServiceUrgences();
@@ -94,5 +82,31 @@ public class CHUPP {
     public Archives getA() {
         return a;
     }
+    
+    
+    /**
+     * @return the compteur
+     */
+    public static double getCompteur() {
+        return compteur;
+    }
 
+    /**
+     * @param aCompteur the compteur to set
+     */
+    public static void setCompteur(double aCompteur) {
+        compteur = aCompteur;
+    }
+    
+    public void creerServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients,DefaultListModel<PersonnelInfirmier> infirmiers, DefaultListModel<Interne> internes){
+        ServiceClinique sc = new ServiceClinique(specialite,chefDeService,praticiens,patients,infirmiers,internes);
+        scs.addElement(sc);
+    }
+
+    /**
+     * @return the si
+     */
+    public ServiceInformatique getSi() {
+        return si;
+    }
 }

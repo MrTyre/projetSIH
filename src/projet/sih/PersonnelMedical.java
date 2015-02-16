@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.sih;
 
 /**
@@ -11,24 +10,36 @@ package projet.sih;
  * @author Tommy
  */
 public abstract class PersonnelMedical {
+
     protected String ID;
     protected String nom;
     protected String prenom;
     protected String mdp;
-    //test
-    
-    public PersonnelMedical(){
-        ID ="000000";
+    protected String specialite;
+
+    public PersonnelMedical() {
+        ID = "000000";
         nom = "DefaultName";
-        prenom="DefaultFirstName";
-        mdp="DefaultMdp";
+        prenom = "DefaultFirstName";
+        mdp = "DefaultMdp";
+        specialite = "DefaultSpeciality";
     }
-    public PersonnelMedical(String id, String nom, String prenom, String mdp){
+
+    public PersonnelMedical(String id, String nom, String prenom, String mdp) {
         this.ID = id;
         this.nom = nom;
         this.prenom = prenom;
         this.mdp = mdp;
     }
+
+    public PersonnelMedical(String id, String nom, String prenom, String mdp, String specialite) {
+        this.ID = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+        this.specialite = specialite;
+    }
+
     /**
      * @return the ID
      */
@@ -83,5 +94,19 @@ public abstract class PersonnelMedical {
      */
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    /**
+     * @return the specialite
+     */
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    /**
+     * @param specialite the specialite to set
+     */
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
     }
 }

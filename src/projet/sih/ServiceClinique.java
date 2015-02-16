@@ -37,12 +37,13 @@ public class ServiceClinique extends Service {
         this.setInternes(new DefaultListModel<Interne>());
     }
     
-    public ServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients, DefaultListModel<Interne> internes){
+    public ServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients,DefaultListModel<PersonnelInfirmier> infirmiers, DefaultListModel<Interne> internes){
         this.setSpecialite(specialite);
         this.setChefDeService(chefDeService);
         this.setPraticiens(praticiens);
         this.setPatients(patients);
         this.setInternes(internes);
+        this.setInfirmiers(infirmiers);
     }
     
     public void creerDM(Patient p){

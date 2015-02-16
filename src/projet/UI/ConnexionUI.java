@@ -10,28 +10,34 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import projet.sih.*;
 
 /**
  *
  * @author Marina
  */
 public class ConnexionUI extends javax.swing.JFrame {
-  
+
+    private ServiceCliniqueIU sc;
+    private ServiceCliniqueSecretaireUI scs;
+    private ServiceInformatiqueIU si;
+    private ServiceMedicoTechniquesIU smt;
+    //private ServiceAdmission sa;
+    private CHUPP chupp;
 
     /**
      * Creates new form ConnexionUI
      */
     public ConnexionUI() {
-        
+
         initComponents();
+        this.chupp = new CHUPP();
         setLocationRelativeTo(null);
-        ImageIcon image = new ImageIcon("C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/Images/Princeton-Plainsboro.jpg");
+        ImageIcon image = new ImageIcon("C:/Users/Tommy/Documents/GitHub/projetSIH/projetSIH/Images/Princeton-Plainsboro.jpg");
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,11 +49,11 @@ public class ConnexionUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelId = new javax.swing.JLabel();
-        jTextFieldMdp = new javax.swing.JTextField();
         jLabelMdp = new javax.swing.JLabel();
-        jTextFieldId1 = new javax.swing.JTextField();
+        jTextFieldId = new javax.swing.JTextField();
         jButtonOK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,18 +63,26 @@ public class ConnexionUI extends javax.swing.JFrame {
         jLabelId.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabelId.setText("Identifiant : ");
 
-        jTextFieldMdp.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jTextFieldMdp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         jLabelMdp.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabelMdp.setText("Mot de passe : ");
 
-        jTextFieldId1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jTextFieldId1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldId.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jTextFieldId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
+
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,15 +98,15 @@ public class ConnexionUI extends javax.swing.JFrame {
                                     .addComponent(jLabelId)
                                     .addComponent(jLabelMdp))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldId1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldMdp, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldId, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(112, 112, 112)
                                 .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 39, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 32, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -103,12 +117,12 @@ public class ConnexionUI extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelId)
-                    .addComponent(jTextFieldId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMdp)
-                    .addComponent(jTextFieldMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jButtonOK)
                 .addContainerGap())
         );
@@ -126,6 +140,15 @@ public class ConnexionUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        connexion();
+        setVisible(false);
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +191,108 @@ public class ConnexionUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelMdp;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldId1;
-    private javax.swing.JTextField jTextFieldMdp;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextFieldId;
     // End of variables declaration//GEN-END:variables
+
+    public void connexion() {
+        String id = jTextFieldId.getText();
+        String mdp = jPasswordField1.getText();
+        String spe = "";
+
+        while (spe.equals("")) {
+            //parcours du personnel des Service Cliniques
+            for (int i = 0; i < this.chupp.getScs().getSize(); i++) {
+                for (int j = 0; j < this.chupp.getScs().get(i).getPraticiens().getSize(); j++) {
+                    if ((id.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getMdp()))
+                            || ((id.equals(this.chupp.getScs().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getScs().get(i).getChefDeService().getMdp())))) {
+                        spe = this.chupp.getScs().get(i).getPraticiens().get(j).getSpecialite();
+                        sc = new ServiceCliniqueIU();
+                        sc.setLocationRelativeTo(this);
+                        sc.setChupp(this.chupp);
+                        sc.setVisible(true);
+                        sc.getjLabelService().setText(spe);
+                    }
+                }
+                for (int j = 0; j < this.chupp.getScs().get(i).getInfirmiers().getSize(); j++) {
+                    if ((id.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getMdp()))) {
+                        spe = this.chupp.getScs().get(i).getInfirmiers().get(j).getSpecialite();
+                        //infirmiers vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
+                        scs = new ServiceCliniqueSecretaireUI();
+                        scs.setLocationRelativeTo(this);
+                        scs.setChupp(this.chupp);
+                        scs.setVisible(true);
+                        scs.getjLabelService().setText(spe);
+                    }
+                }
+                for (int j = 0; j < this.chupp.getScs().get(i).getInternes().getSize(); j++) {
+                    if ((id.equals(this.chupp.getScs().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInternes().get(j).getMdp()))) {
+                        spe = this.chupp.getScs().get(i).getInternes().get(j).getSpecialite();
+                        //internes vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
+                        scs = new ServiceCliniqueSecretaireUI();
+                        scs.setLocationRelativeTo(this);
+                        scs.setChupp(this.chupp);
+                        scs.setVisible(true);
+                        scs.getjLabelService().setText(spe);
+                    }
+                }
+            }
+            //parcours du personnel des ServicesMedicoTechniques
+            for (int i = 0; i < this.chupp.getSmts().getSize(); i++) {
+                for (int j = 0; j < this.chupp.getSmts().get(i).getPraticiens().getSize(); j++) {
+                    if ((id.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getMdp()))
+                            || ((id.equals(this.chupp.getSmts().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getChefDeService().getMdp())))) {
+                        spe = this.chupp.getSmts().get(i).getPraticiens().get(j).getSpecialite();
+                        smt = new ServiceMedicoTechniquesIU();
+                        smt.setLocationRelativeTo(this);
+                        smt.setChupp(this.chupp);
+                        smt.setVisible(true);
+                        smt.getjLabelService().setText(spe);
+                    }
+                }
+                for (int j = 0; j < this.chupp.getSmts().get(i).getInfirmiers().getSize(); j++) {
+                    if ((id.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getMdp()))) {
+                        spe = this.chupp.getSmts().get(i).getInfirmiers().get(j).getSpecialite();
+                        //infirmiers vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
+                        scs = new ServiceCliniqueSecretaireUI();
+                        scs.setLocationRelativeTo(this);
+                        scs.setChupp(this.chupp);
+                        scs.setVisible(true);
+                        scs.getjLabelService().setText(spe);
+                    }
+                }
+                for (int j = 0; j < this.chupp.getSmts().get(i).getInternes().getSize(); j++) {
+                    if ((id.equals(this.chupp.getSmts().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInternes().get(j).getMdp()))) {
+                        spe = this.chupp.getSmts().get(i).getInternes().get(j).getSpecialite();
+                        //internes vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
+                        scs = new ServiceCliniqueSecretaireUI();
+                        scs.setLocationRelativeTo(this);
+                        scs.setChupp(this.chupp);
+                        scs.setVisible(true);
+                        scs.getjLabelService().setText(spe);
+                    }
+                }
+            }
+            //parcours du personnel informatique
+            for(int i =0; i < this.chupp.getSi().getInformaticiens().getSize();i++){
+                if((id.equals(this.chupp.getSi().getInformaticiens().get(i).getNom())) && (mdp.equals(this.chupp.getSi().getInformaticiens().get(i).getMdp()))){
+                    spe = "Informatique";
+                    si = new ServiceInformatiqueIU();
+                    si.setLocationRelativeTo(this);
+                    si.setVisible(true);
+                }
+            }
+            //parcours du personnel du Service Admission
+            for(int i =0;i<this.chupp.getSa().getSecretaires().getSize();i++){
+                if(((id.equals(this.chupp.getSa().getSecretaires().get(i).getNom())) && (mdp.equals(this.chupp.getSa().getSecretaires().get(i).getMdp())))
+                        || (id.equals(this.chupp.getSa().getChefDeService().getNom()) && (mdp.equals(this.chupp.getSa().getChefDeService().getMdp())))){
+                    spe = "Admission";
+                    //sa = new ServiceAdmission();
+                    //sa.setLocationRelativeTo(this);
+                    //sa.setVisible();
+                }
+            }
+        }
+    }
+
 }
