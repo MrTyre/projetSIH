@@ -23,6 +23,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private Pays pays;
     private Sexe sexe;
 
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
+
     /**
      * Creates new form AjouterPatientIU
      */
@@ -33,6 +37,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jComboBoxPays.setModel((new DefaultComboBoxModel<>(Pays.values())));
         jComboBoxPays.setSelectedIndex(73);
         jComboBoxSexe.setModel((new DefaultComboBoxModel<>(Sexe.values())));
+        // création de la connection à la base de donnée
+        connection.init();
+        connection.getMyConnection();
+
     }
 
     /**
@@ -379,23 +387,35 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 || (jTextFieldDateNaissAnnee.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
-        }
-        
-        if((jTextFieldCodePostalNewPatient.getText().length() != 5) && !(jTextFieldCodePostalNewPatient.getText().equals(""))){
+        } else if ((jTextFieldCodePostalNewPatient.getText().length() != 5) && !(jTextFieldCodePostalNewPatient.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null,"Mauvais code postal","Attention",JOptionPane.WARNING_MESSAGE);
+            jop1.showMessageDialog(null, "Mauvais code postal", "Attention", JOptionPane.WARNING_MESSAGE);
+
+            //ajouter le patient à la BD !!
+        } else {
+            String nom = jTextFieldNomNewPatient.getText();
+            String prenom = jTextFieldPrenomNewPatient.getText();
+            String date = jTextFieldDateNaissAnnee.getText()+"-"+jTextFieldDateNaissMois.getText()+"-"+jTextFieldDateNaissJour.getText();
+            java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
+                    Integer.parseInt(jTextFieldDateNaissMois.getText()),Integer.parseInt(jTextFieldDateNaissJour.getText())
+                    );
+
+            Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
+            Patient p = new Patient(nom, prenom, d, sexe, adresse);
+            
+            try {
+                sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
+                        + "','" + sexe + "','" + adresse.getAdresse() + "')";
+                int statut = connection.getStatement().executeUpdate(sql);
+            } catch (Exception e) {
+                System.out.println("Failed to get Statement");
+                e.printStackTrace();
+            }
         }
-        
-        String nom = jTextFieldNomNewPatient.getText();
-        String prenom = jTextFieldPrenomNewPatient.getText();
-        Date d = new Date(Integer.parseInt(jTextFieldDateNaissJour.getText()), Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissAnnee.getText()));
-        Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
-        Patient p = new Patient(nom, prenom, d, sexe, adresse);
-        //ajouter le patient à la BD !!
     }
 
     /**
-     * @param chupp the chupp to set
+     * // * @param chupp the chupp to set
      */
     public void setChupp(CHUPP chupp) {
         this.chupp = chupp;

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.sih;
 
 /**
@@ -11,12 +10,13 @@ package projet.sih;
  * @author Tommy
  */
 public class Adresse {
+
     private String libelleRue;
     private int codePostal;
     private String ville;
     private Pays pays;
-    
-    public Adresse(String libelle, int codePostal, String ville, Pays pays){
+
+    public Adresse(String libelle, int codePostal, String ville, Pays pays) {
         this.libelleRue = libelle;
         this.codePostal = codePostal;
         this.ville = ville;
@@ -70,6 +70,11 @@ public class Adresse {
      */
     public Pays getPays() {
         return pays;
+    }
+
+    public String getAdresse() {
+        String adresse = libelleRue+ "  "+ codePostal+"  "+ville+"  "+pays;
+        return adresse;
     }
 
     /**
