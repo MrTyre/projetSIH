@@ -12,6 +12,7 @@ import java.sql.*;
  * @author noniko
  */
 public class MyDBConnection {
+
     private ResultSet resultat;
     private Connection myConnection;
     private Statement statement;
@@ -29,7 +30,8 @@ public class MyDBConnection {
             statement = myConnection.createStatement(
                     ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM Patient";
+            String sql="SELECT * FROM Patient";
+
             resultat = statement.executeQuery(sql);
 
         } catch (Exception e) {
@@ -37,11 +39,11 @@ public class MyDBConnection {
             e.printStackTrace();
         }
     }
-    
-     public ResultSet getResultat() {
+
+    public ResultSet getResultat() {
         return resultat;
     }
-
+    
     public Statement getStatement() {
         return statement;
     }
