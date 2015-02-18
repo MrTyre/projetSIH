@@ -5,6 +5,8 @@
  */
 package projet.UI;
 
+import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
 import projet.sih.*;
 
 /**
@@ -13,11 +15,31 @@ import projet.sih.*;
  */
 public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     private CHUPP chupp;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
     /**
      * Creates new form ServiceCliniqueInterne
      */
     public ServiceCliniqueInterneUI() {
         initComponents();
+        // création de la connection à la base de donnée
+        connection.init();
+        connection.getMyConnection();
+        
+        try {
+                sql = "SELECT nom, prenom, date_naissance FROM Patient";
+                ResultSet resultat = connection.getStatement().executeQuery(sql);
+                DefaultListModel dlm=new DefaultListModel();
+                while (resultat.next()) {
+                    dlm.addElement(resultat.getString("nom")+" "+resultat.getString("prenom")+" / "+resultat.getString("date_naissance"));
+                }
+                jList1.setModel(dlm);
+                repaint();
+            } catch (Exception e) {
+                System.out.println("Failed to get Statement");
+                e.printStackTrace();
+            }
     }
 
     /**

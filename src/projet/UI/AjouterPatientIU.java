@@ -393,7 +393,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Mauvais code postal", "Attention", JOptionPane.WARNING_MESSAGE);
 
-            //ajouter le patient à la BD !!
         } else {
             String nom = jTextFieldNomNewPatient.getText();
             String prenom = jTextFieldPrenomNewPatient.getText();
