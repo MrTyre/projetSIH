@@ -19,6 +19,13 @@ public class Prescription {
     private Date datePrescription;
     private DefaultListModel<Medicament> medicaments;
 
+    public Prescription() {
+        this.nomPrescription ="";
+        this.phPrescripteur = null;
+        this.medicaments = new DefaultListModel();
+        this.datePrescription = null;
+    }
+
     /**
      * @return the phPrescripteur
      */

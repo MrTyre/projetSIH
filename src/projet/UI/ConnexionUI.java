@@ -22,20 +22,27 @@ public class ConnexionUI extends javax.swing.JFrame {
     private ServiceCliniqueSecretaireUI scs;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
+    private ServiceCliniqueInfirmieresUI sci;
+    private ServiceCliniqueInterneUI scint;
     //private ServiceAdmission sa;
     private CHUPP chupp;
+    private PersonnelMedical currentConnected;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
 
     /**
      * Creates new form ConnexionUI
      */
     public ConnexionUI() {
-
         initComponents();
         this.chupp = new CHUPP();
-        setLocationRelativeTo(null);
-        ImageIcon image = new ImageIcon("C:/Users/Tommy/Documents/GitHub/projetSIH/projetSIH/Images/Princeton-Plainsboro.jpg");
+        setLocationRelativeTo(null); 
+        ImageIcon image = new ImageIcon("../Princeton-Plainsboro.jpg");
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
+        connection.init();
+        connection.getMyConnection();
     }
 
     /**
@@ -69,7 +76,7 @@ public class ConnexionUI extends javax.swing.JFrame {
         jTextFieldId.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jTextFieldId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setBackground(new java.awt.Color(153, 153, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -91,24 +98,21 @@ public class ConnexionUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelId)
-                                    .addComponent(jLabelMdp))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldId, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                                    .addComponent(jPasswordField1)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
-                                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 39, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 32, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(jLabelId)
+                            .addComponent(jLabelMdp))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldId, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(jPasswordField1)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +208,18 @@ public class ConnexionUI extends javax.swing.JFrame {
             //parcours du personnel des Service Cliniques
             for (int i = 0; i < this.chupp.getScs().getSize(); i++) {
                 for (int j = 0; j < this.chupp.getScs().get(i).getPraticiens().getSize(); j++) {
-                    if ((id.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getMdp()))
-                            || ((id.equals(this.chupp.getScs().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getScs().get(i).getChefDeService().getMdp())))) {
+                    if ((id.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getMdp()))) {
                         spe = this.chupp.getScs().get(i).getPraticiens().get(j).getSpecialite();
+                        currentConnected = this.chupp.getScs().get(i).getPraticiens().get(j);
+                        sc = new ServiceCliniqueIU();
+                        sc.setLocationRelativeTo(this);
+                        sc.setChupp(this.chupp);
+                        sc.setVisible(true);
+                        sc.getjLabelService().setText(spe);
+                    }
+                    if ((id.equals(this.chupp.getScs().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getScs().get(i).getChefDeService().getMdp()))) {
+                        spe = this.chupp.getScs().get(i).getPraticiens().get(j).getSpecialite();
+                        currentConnected = this.chupp.getScs().get(i).getChefDeService();
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
                         sc.setChupp(this.chupp);
@@ -217,32 +230,41 @@ public class ConnexionUI extends javax.swing.JFrame {
                 for (int j = 0; j < this.chupp.getScs().get(i).getInfirmiers().getSize(); j++) {
                     if ((id.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getMdp()))) {
                         spe = this.chupp.getScs().get(i).getInfirmiers().get(j).getSpecialite();
-                        //infirmiers vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
-                        scs = new ServiceCliniqueSecretaireUI();
-                        scs.setLocationRelativeTo(this);
-                        scs.setChupp(this.chupp);
-                        scs.setVisible(true);
-                        scs.getjLabelService().setText(spe);
+                        currentConnected = this.chupp.getScs().get(i).getInfirmiers().get(j);
+                        sci = new ServiceCliniqueInfirmieresUI();
+                        sci.setLocationRelativeTo(this);
+                        sci.setChupp(this.chupp);
+                        sci.setVisible(true);
+                        sci.getjLabelService().setText(spe);
                     }
                 }
                 for (int j = 0; j < this.chupp.getScs().get(i).getInternes().getSize(); j++) {
                     if ((id.equals(this.chupp.getScs().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInternes().get(j).getMdp()))) {
                         spe = this.chupp.getScs().get(i).getInternes().get(j).getSpecialite();
-                        //internes vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
-                        scs = new ServiceCliniqueSecretaireUI();
-                        scs.setLocationRelativeTo(this);
-                        scs.setChupp(this.chupp);
-                        scs.setVisible(true);
-                        scs.getjLabelService().setText(spe);
+                        currentConnected = this.chupp.getScs().get(i).getInternes().get(j);
+                        scint = new ServiceCliniqueInterneUI();
+                        scint.setLocationRelativeTo(this);
+                        scint.setChupp(this.chupp);
+                        scint.setVisible(true);
+                        scint.getjLabelService().setText(spe);
                     }
                 }
             }
             //parcours du personnel des ServicesMedicoTechniques
             for (int i = 0; i < this.chupp.getSmts().getSize(); i++) {
                 for (int j = 0; j < this.chupp.getSmts().get(i).getPraticiens().getSize(); j++) {
-                    if ((id.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getMdp()))
-                            || ((id.equals(this.chupp.getSmts().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getChefDeService().getMdp())))) {
+                    if ((id.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getMdp()))) {
                         spe = this.chupp.getSmts().get(i).getPraticiens().get(j).getSpecialite();
+                        currentConnected = this.chupp.getSmts().get(i).getPraticiens().get(j);
+                        smt = new ServiceMedicoTechniquesIU();
+                        smt.setLocationRelativeTo(this);
+                        smt.setChupp(this.chupp);
+                        smt.setVisible(true);
+                        smt.getjLabelService().setText(spe);
+                    }
+                    if ((id.equals(this.chupp.getSmts().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getChefDeService().getMdp()))) {
+                        spe = this.chupp.getSmts().get(i).getPraticiens().get(j).getSpecialite();
+                        currentConnected = this.chupp.getSmts().get(i).getChefDeService();
                         smt = new ServiceMedicoTechniquesIU();
                         smt.setLocationRelativeTo(this);
                         smt.setChupp(this.chupp);
@@ -253,23 +275,23 @@ public class ConnexionUI extends javax.swing.JFrame {
                 for (int j = 0; j < this.chupp.getSmts().get(i).getInfirmiers().getSize(); j++) {
                     if ((id.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getMdp()))) {
                         spe = this.chupp.getSmts().get(i).getInfirmiers().get(j).getSpecialite();
-                        //infirmiers vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
-                        scs = new ServiceCliniqueSecretaireUI();
-                        scs.setLocationRelativeTo(this);
-                        scs.setChupp(this.chupp);
-                        scs.setVisible(true);
-                        scs.getjLabelService().setText(spe);
+                        currentConnected = this.chupp.getSmts().get(i).getInfirmiers().get(j);
+                        sci = new ServiceCliniqueInfirmieresUI();
+                        sci.setLocationRelativeTo(this);
+                        sci.setChupp(this.chupp);
+                        sci.setVisible(true);
+                        sci.getjLabelService().setText(spe);
                     }
                 }
                 for (int j = 0; j < this.chupp.getSmts().get(i).getInternes().getSize(); j++) {
                     if ((id.equals(this.chupp.getSmts().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInternes().get(j).getMdp()))) {
                         spe = this.chupp.getSmts().get(i).getInternes().get(j).getSpecialite();
-                        //internes vont sur ServiceCliniqueSecretaireUI pour l'instant, attention a corriger !
-                        scs = new ServiceCliniqueSecretaireUI();
-                        scs.setLocationRelativeTo(this);
-                        scs.setChupp(this.chupp);
-                        scs.setVisible(true);
-                        scs.getjLabelService().setText(spe);
+                        currentConnected = this.chupp.getSmts().get(i).getInternes().get(j);
+                        scint = new ServiceCliniqueInterneUI();
+                        scint.setLocationRelativeTo(this);
+                        scint.setChupp(this.chupp);
+                        scint.setVisible(true);
+                        scint.getjLabelService().setText(spe);
                     }
                 }
             }
@@ -277,6 +299,7 @@ public class ConnexionUI extends javax.swing.JFrame {
             for(int i =0; i < this.chupp.getSi().getInformaticiens().getSize();i++){
                 if((id.equals(this.chupp.getSi().getInformaticiens().get(i).getNom())) && (mdp.equals(this.chupp.getSi().getInformaticiens().get(i).getMdp()))){
                     spe = "Informatique";
+                    currentConnected = this.chupp.getSi().getInformaticiens().get(i);
                     si = new ServiceInformatiqueIU();
                     si.setLocationRelativeTo(this);
                     si.setVisible(true);
@@ -284,15 +307,23 @@ public class ConnexionUI extends javax.swing.JFrame {
             }
             //parcours du personnel du Service Admission
             for(int i =0;i<this.chupp.getSa().getSecretaires().getSize();i++){
-                if(((id.equals(this.chupp.getSa().getSecretaires().get(i).getNom())) && (mdp.equals(this.chupp.getSa().getSecretaires().get(i).getMdp())))
-                        || (id.equals(this.chupp.getSa().getChefDeService().getNom()) && (mdp.equals(this.chupp.getSa().getChefDeService().getMdp())))){
+                if((id.equals(this.chupp.getSa().getSecretaires().get(i).getNom())) && (mdp.equals(this.chupp.getSa().getSecretaires().get(i).getMdp()))){
                     spe = "Admission";
+                    currentConnected = this.chupp.getSa().getSecretaires().get(i);
+                    //sa = new ServiceAdmission();
+                    //sa.setLocationRelativeTo(this);
+                    //sa.setVisible();
+                }
+                if((id.equals(this.chupp.getSa().getChefDeService().getNom()) && (mdp.equals(this.chupp.getSa().getChefDeService().getMdp())))){
+                    spe = "Admission";
+                    currentConnected = this.chupp.getSa().getChefDeService();
                     //sa = new ServiceAdmission();
                     //sa.setLocationRelativeTo(this);
                     //sa.setVisible();
                 }
             }
         }
+        System.out.println(currentConnected.getNom()+" "+currentConnected.getPrenom());
     }
 
 }

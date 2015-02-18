@@ -6,6 +6,7 @@
 
 package projet.sih;
 
+import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
 
 /**
@@ -21,6 +22,9 @@ public class CHUPP {
     private Archives a;
     private static double compteur;
     //private ServiceUrgences su;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
 
     public CHUPP(){
         compteur = 1;
@@ -53,6 +57,26 @@ public class CHUPP {
         a = new Archives();
         
        //su = new ServiceUrgences();
+        
+        connection.init();
+        connection.getMyConnection();
+        
+        try {
+            String sql = "SELECT * FROM practicien_hospitalier";
+            ResultSet resultat = connection.getStatement().executeQuery(sql);
+            while (resultat.next()) {
+            String id = Integer.toString(resultat.getInt(1));
+            String nom = resultat.getString(2);
+            String prenom = resultat.getString(3);
+            String specialite = resultat.getString(4);
+            String mdp = "test";
+            PH doc = new PH(id,nom,prenom,mdp,specialite);
+            scs.get(1).getPraticiens().addElement(doc);
+        }
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+        }
     }
 
     /**
