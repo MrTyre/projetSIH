@@ -5,12 +5,14 @@
  */
 package projet.UI;
 
+import projet.sih.*;
+
 /**
  *
  * @author Marina
  */
 public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
-
+    private CHUPP chupp;
     /**
      * Creates new form ServiceCliniqueInterne
      */
@@ -312,4 +314,25 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the chupp
+     */
+    public CHUPP getChupp() {
+        return chupp;
+    }
+
+    /**
+     * @param chupp the chupp to set
+     */
+    public void setChupp(CHUPP chupp) {
+        this.chupp = chupp;
+    }
+
+    /**
+     * @return the jLabelService
+     */
+    public javax.swing.JLabel getjLabelService() {
+        return jLabelService;
+    }
 }

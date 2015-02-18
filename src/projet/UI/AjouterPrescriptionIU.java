@@ -1,4 +1,3 @@
-
 package projet.UI;
 
 import java.sql.Date;
@@ -16,9 +15,14 @@ import projet.sih.*;
  */
 public class AjouterPrescriptionIU extends javax.swing.JFrame {
 
+    //attributs
     private int l = 0;
     private CHUPP chupp;
     DefaultTableModel dtm;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
+    private Prescription prescription = new Prescription();
 
     /**
      * Creates new form AjouterPrescriptionIU
@@ -32,6 +36,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         dtm.addColumn("Dose");
         dtm.addColumn("Date de fin de traitement");
         jComboBox1.setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
+        connection.init();
+        connection.getMyConnection();
     }
 
     /**
@@ -346,43 +352,61 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterMedicament() {
-        if ((jTextFieldMedicament.getText().equals("")) || (jTextFieldPosologie.getText().equals("")) || (jTextFieldFinTraitementJour.getText().equals("")) || (jTextFieldFinTraitementMois.getText().equals("")) || (jTextFieldFinTraitementAnnee.getText().equals(""))){
+        if ((jTextFieldMedicament.getText().equals("")) || (jTextFieldPosologie.getText().equals("")) || (jTextFieldFinTraitementJour.getText().equals("")) || (jTextFieldFinTraitementMois.getText().equals("")) || (jTextFieldFinTraitementAnnee.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null,"Veuillez entrer toutes les informations nécessaires","Attention",JOptionPane.WARNING_MESSAGE);
+            jop1.showMessageDialog(null, "Veuillez entrer toutes les informations nécessaires", "Attention", JOptionPane.WARNING_MESSAGE);
         }
         String medicament = jTextFieldMedicament.getText();
         String posologie = jTextFieldPosologie.getText();
         Object dose = jComboBox1.getSelectedItem();
+        UnitePosologie up = null;
         String doseString = "";
         if (dose == UnitePosologie.cc) {
             doseString = "cc";
+            up = UnitePosologie.cc;
         }
         if (dose == UnitePosologie.comprimés) {
             doseString = "comprimés";
+            up = UnitePosologie.comprimés;
         }
         if (dose == UnitePosologie.cs) {
             doseString = "cs";
+            up = UnitePosologie.cs;
         }
         if (dose == UnitePosologie.dL) {
             doseString = "dL";
+            up = UnitePosologie.dL;
         }
         if (dose == UnitePosologie.g) {
             doseString = "g";
+            up = UnitePosologie.g;
         }
         if (dose == UnitePosologie.mL) {
             doseString = "mL";
+            up = UnitePosologie.mL;
         }
         if (dose == UnitePosologie.mg) {
             doseString = "mg";
+            up = UnitePosologie.mg;
         }
         if (dose == UnitePosologie.pulvérisations) {
             doseString = "pulvérisations";
+            up = UnitePosologie.pulvérisations;
         }
 
         Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()), Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
         String date = d.getDate() + "/" + d.getMonth() + "/" + d.getYear();
-        dtm.addRow(new Object[] {medicament,posologie,doseString,date});       
-
+        String dateBD = d.getYear() + "-" + d.getMonth() + "-" + d.getDate();
+        dtm.addRow(new Object[]{medicament, posologie, doseString, date});
+        prescription.getMedicaments().addElement(new Medicament(medicament,Double.parseDouble(posologie),up,d));
+        //ajouter a la BD
+//        try {
+//            sql = "INSERT INTO Medicament VALUES ('" + medicament + "','" + posologie + "', '" + doseString + "','" + dateBD + "')";
+//            int statut = connection.getStatement().executeUpdate(sql);
+//        } catch (Exception e) {
+//            System.out.println("Failed to get Statement");
+//            e.printStackTrace();
+//        }
         jTextFieldMedicament.setText("");
         jTextFieldPosologie.setText("");
         jTextFieldFinTraitementJour.setText("");
@@ -390,8 +414,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jTextFieldFinTraitementAnnee.setText("");
         jPanel2.validate();
         jPanel2.repaint();
-        //ajouter a la BD
     }
+    
+        public void ajouterPrescription(){
+            
+        }
 
     /**
      * @return the jComboBox1

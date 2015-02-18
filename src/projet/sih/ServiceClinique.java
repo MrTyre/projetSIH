@@ -35,6 +35,7 @@ public class ServiceClinique extends Service {
         this.setPraticiens(new DefaultListModel<PH>());
         this.setPatients(new DefaultListModel<Patient>());
         this.setInternes(new DefaultListModel<Interne>());
+        this.setInfirmiers(new DefaultListModel<PersonnelInfirmier>());
     }
     
     public ServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients,DefaultListModel<PersonnelInfirmier> infirmiers, DefaultListModel<Interne> internes){
