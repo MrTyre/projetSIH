@@ -32,8 +32,8 @@ public class ConnexionUI extends javax.swing.JFrame {
 
         initComponents();
         this.chupp = new CHUPP();
-        setLocationRelativeTo(null);
-        ImageIcon image = new ImageIcon("C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/Images/Princeton-Plainsboro.jpg");
+        setLocationRelativeTo(null); 
+        ImageIcon image = new ImageIcon("../Princeton-Plainsboro.jpg");
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
     }
@@ -69,7 +69,7 @@ public class ConnexionUI extends javax.swing.JFrame {
         jTextFieldId.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jTextFieldId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setBackground(new java.awt.Color(153, 153, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
