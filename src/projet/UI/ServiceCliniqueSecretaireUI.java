@@ -18,6 +18,8 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 
     private AjouterPatientIU apIU;
     private CHUPP chupp;
+
+    DefaultListModel dlm = new DefaultListModel();
 //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
@@ -34,7 +36,6 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         try {
             sql = "SELECT nom, prenom, date_naissance FROM Patient";
             ResultSet resultat = connection.getStatement().executeQuery(sql);
-            DefaultListModel dlm = new DefaultListModel();
             while (resultat.next()) {
                 dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }

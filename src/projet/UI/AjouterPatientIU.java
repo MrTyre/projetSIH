@@ -8,10 +8,15 @@ package projet.UI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.ResultSet;
+import javax.print.attribute.standard.Severity;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import projet.sih.*;
+import sun.security.krb5.Config;
 
 /**
  *
@@ -22,7 +27,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private CHUPP chupp;
     private Pays pays;
     private Sexe sexe;
-
+    private ServiceCliniqueSecretaireUI scs;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
@@ -396,14 +401,14 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         } else {
             String nom = jTextFieldNomNewPatient.getText();
             String prenom = jTextFieldPrenomNewPatient.getText();
-            String date = jTextFieldDateNaissAnnee.getText()+"-"+jTextFieldDateNaissMois.getText()+"-"+jTextFieldDateNaissJour.getText();
+            String date = jTextFieldDateNaissAnnee.getText() + "-" + jTextFieldDateNaissMois.getText() + "-" + jTextFieldDateNaissJour.getText();
             java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
-                    Integer.parseInt(jTextFieldDateNaissMois.getText()),Integer.parseInt(jTextFieldDateNaissJour.getText())
-                    );
+                    Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissJour.getText())
+            );
 
             Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
             Patient p = new Patient(nom, prenom, d, sexe, adresse);
-            
+
             try {
                 sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
                         + "','" + sexe + "','" + adresse.getAdresse() + "')";
@@ -412,6 +417,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
             }
+
         }
     }
 
