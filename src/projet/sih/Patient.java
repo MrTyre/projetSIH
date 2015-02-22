@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -29,17 +30,19 @@ public class Patient {
         this.sexe = sexe;
         this.adresse = adresse;
         this.dpi = new DPI();
-        this.IPP = (this.dateNaissance.getYear()/100)*Math.pow(10,7);
-        this.IPP++;
-        //this.IPP += CHUPP.getCompteur();
-        //CHUPP.setCompteur(CHUPP.getCompteur()+1);
+        //récupérer les 2 derniers chiffres de l'année de naissance
+        int dizaines = (this.dateNaissance.getYear() % 100) / 10;
+        int unites = this.dateNaissance.getYear() % 10;
+        CHUPP.setCompteur(CHUPP.getCompteur()+1);
+        this.IPP = ((dizaines*10+unites)*Math.pow(10,7))+CHUPP.getCompteur();
     }
 
     /**
      * @return the IPP
      */
-    public double getIPP() {
-        return IPP;
+    public String getIPP() {        
+        DecimalFormat decimalPrintFormat = new DecimalFormat("###0");
+        return decimalPrintFormat.format(this.IPP);
     }
 
     /**

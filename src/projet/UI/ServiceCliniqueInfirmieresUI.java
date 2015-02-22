@@ -5,17 +5,42 @@
  */
 package projet.UI;
 
+import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
+import projet.sih.*;
+
 /**
  *
  * @author Marina
  */
-public class ServiceCliniqueInfirmièresUI extends javax.swing.JFrame {
-
+public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
+    private CHUPP chupp;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
+    private String sql;
+    
     /**
      * Creates new form ServiceCliniqueInfirmières
      */
-    public ServiceCliniqueInfirmièresUI() {
+    public ServiceCliniqueInfirmieresUI() {
         initComponents();
+        // création de la connection à la base de donnée
+        connection.init();
+        connection.getMyConnection();
+        
+        try {
+                sql = "SELECT nom, prenom, date_naissance FROM Patient";
+                ResultSet resultat = connection.getStatement().executeQuery(sql);
+                DefaultListModel dlm=new DefaultListModel();
+                while (resultat.next()) {
+                    dlm.addElement(resultat.getString("nom")+" "+resultat.getString("prenom")+" / "+resultat.getString("date_naissance"));
+                }
+                jList1.setModel(dlm);
+                repaint();
+            } catch (Exception e) {
+                System.out.println("Failed to get Statement");
+                e.printStackTrace();
+            }
     }
 
     /**
@@ -270,21 +295,23 @@ public class ServiceCliniqueInfirmièresUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmièresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmieresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmièresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmieresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmièresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmieresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmièresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceCliniqueInfirmieresUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceCliniqueInfirmièresUI().setVisible(true);
+                new ServiceCliniqueInfirmieresUI().setVisible(true);
             }
         });
     }
@@ -310,4 +337,25 @@ public class ServiceCliniqueInfirmièresUI extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the chupp
+     */
+    public CHUPP getChupp() {
+        return chupp;
+    }
+
+    /**
+     * @param chupp the chupp to set
+     */
+    public void setChupp(CHUPP chupp) {
+        this.chupp = chupp;
+    }
+
+    /**
+     * @return the jLabelService
+     */
+    public javax.swing.JLabel getjLabelService() {
+        return jLabelService;
+    }
 }
