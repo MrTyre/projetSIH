@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/src/projet/UI/ConnexionUI.java</file>
+            <file>file:/C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/src/projet/UI/ServiceCliniqueIU.java</file>
+            <file>file:/C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/src/projet/UI/ServiceCliniqueInfirmièresUI.java</file>
+            <file>file:/C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/src/projet/UI/ServiceCliniqueInterneUI.java</file>
+        </group>
     </open-files>
 </project-private>
