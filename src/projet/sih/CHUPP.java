@@ -36,7 +36,7 @@ public class CHUPP {
             String sql = "SELECT * FROM patient";
             ResultSet resultat = connection.getStatement().executeQuery(sql);
             resultat.last();
-            compteur = (double) resultat.getRow();
+            compteur = (double) resultat.getRow()+1;
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
             e.printStackTrace();
