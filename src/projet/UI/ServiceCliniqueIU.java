@@ -58,9 +58,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jButtonAjouterPrescription = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterObservation = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Patient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -127,6 +127,19 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Observations", jPanel5);
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1067, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 532, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Résultats", jPanel6);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -151,20 +164,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             .addGap(0, 532, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Gestion RDV", jPanel8);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Résultats", jPanel6);
+        jTabbedPane1.addTab("RDV", jPanel8);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
