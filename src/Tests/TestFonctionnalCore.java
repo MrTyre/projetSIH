@@ -20,11 +20,11 @@ public class TestFonctionnalCore {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CHUPP chupp = new CHUPP();
-        Patient p1 = new Patient("Riviere", "Tommy", new Date(1994, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
-        System.out.println(p1.getIPP());
-        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
-        System.out.println(p2.getIPP());
+//        CHUPP chupp = new CHUPP();
+//        Patient p1 = new Patient("Riviere", "Tommy", new Date(1994, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
+//        System.out.println(p1.getIPP());
+//        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
+//        System.out.println(p2.getIPP());
     }
 
 }

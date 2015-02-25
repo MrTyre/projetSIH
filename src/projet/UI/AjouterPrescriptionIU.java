@@ -24,6 +24,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private String sql2;
     private Prescription prescription = new Prescription();
     private DefaultListModel<Medicament> listeMed = new DefaultListModel();
+    
 
     /**
      * Creates new form AjouterPrescriptionIU
@@ -304,7 +305,14 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
-        //ajouterPrescription();
+        
+        JOptionPane j=new JOptionPane();
+        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+           ajouterPrescription(); 
+           setVisible(false);
+        }
+        
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     private void jTextFieldFinTraitementAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementAnneeActionPerformed
@@ -395,7 +403,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
 
         Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()), Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
         String date = d.getDate() + "/" + d.getMonth() + "/" + d.getYear();
-        String dateBD = d.getYear() + "-" + d.getMonth() + "-" + d.getDate();
+        String dateBD = d.getYear()-1900 + "-" + d.getMonth() + "-" + d.getDate();
         dtm.addRow(new Object[]{medicament, posologie, doseString, date});
         Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
         prescription.getMedicaments().addElement(med);
@@ -409,25 +417,25 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jPanel2.repaint();
     }
 
-//    public void ajouterPrescription() {
-//        try {
-//            for (int i = 0; i < listeMed.size(); i++) {
-//                sql = "INSERT INTO Medicament VALUES ('" + Medicament.getIDMed() + "', '"
-//                        + Prescription.getIDMed() + "', '"
-//                        + listeMed.get(i).getNomMedoc() + "','"
-//                        + listeMed.get(i).getPosologie() + "', '"
-//                        + listeMed.get(i).getPosologie() + "','"
-//                        + listeMed.get(i).getUnitePosologie() + "')"
-//                        + listeMed.get(i).getDateFin();
-//                CHUPP.getInsert(sql);
-//            }
-////            sql="INSERT INTO Prescription VALUES (";
-////            CHUPP.getInsert(sql2);
-//        } catch (Exception e) {
-//            System.out.println("Failed to get Statement");
-//            e.printStackTrace();
-//        }
-//    }
+    public void ajouterPrescription() {
+        
+        try {
+            for (int i = 0; i < listeMed.size(); i++) {
+                sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
+                        + Prescription.getIDMed() + ", '"
+                        + listeMed.get(i).getNomMedoc() + "',"
+                        + listeMed.get(i).getPosologie() + ", '"
+                        + listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie()) + "','"
+                        + listeMed.get(i).getDateFin()+"')";
+                CHUPP.getInsert(sql);
+            }
+//            sql="INSERT INTO Prescription VALUES (";
+//            CHUPP.getInsert(sql2);
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @return the jComboBox1

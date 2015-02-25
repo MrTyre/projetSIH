@@ -403,11 +403,12 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             );
 
             Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
-            Patient p = new Patient(nom, prenom, d, sexe, adresse);
+            String adress = adresse.getAdresse();
+            Patient p = new Patient(nom, prenom, d, sexe, adress);
 
             try {
                 sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-                        + "','" + sexe + "','" + adresse.getAdresse() + "')";
+                        + "','" + sexe + "','" + adress + "')";
                 CHUPP.getInsert(sql);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
