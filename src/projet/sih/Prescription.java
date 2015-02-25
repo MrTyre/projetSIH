@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
 
 /**
@@ -18,6 +19,7 @@ public class Prescription {
     private PH phPrescripteur;
     private Date datePrescription;
     private DefaultListModel<Medicament> medicaments;
+    private static int compteur=0;
 
     public Prescription() {
         this.nomPrescription ="";
@@ -39,7 +41,19 @@ public class Prescription {
     public PH getPhPrescripteur() {
         return phPrescripteur;
     }
-
+    public static int getIDMed() {
+        try {
+            String sql = "SELECT * FROM prescription";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getRow() + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
+    }
     /**
      * @param phPrescripteur the phPrescripteur to set
      */

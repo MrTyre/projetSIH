@@ -28,8 +28,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private Pays pays;
     private Sexe sexe;
     private ServiceCliniqueSecretaireUI scs;
-    //attribut base de donnée
-    MyDBConnection connection = new MyDBConnection();
     private String sql;
 
     /**
@@ -42,9 +40,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jComboBoxPays.setModel((new DefaultComboBoxModel<>(Pays.values())));
         jComboBoxPays.setSelectedIndex(73);
         jComboBoxSexe.setModel((new DefaultComboBoxModel<>(Sexe.values())));
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
+        
 
     }
 
@@ -412,7 +408,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             try {
                 sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
                         + "','" + sexe + "','" + adresse.getAdresse() + "')";
-                int statut = connection.getStatement().executeUpdate(sql);
+                CHUPP.getInsert(sql);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
