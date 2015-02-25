@@ -6,6 +6,9 @@
 package projet.UI;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import projet.sih.*;
@@ -23,28 +26,26 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
+    
+
 
     /**
      * Creates new form ServiceCliniqueSecretaire
      */
     public ServiceCliniqueSecretaireUI() {
         initComponents();
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
-
+        sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
-            sql = "SELECT nom, prenom, date_naissance FROM Patient";
-            ResultSet resultat = connection.getStatement().executeQuery(sql);
-            while (resultat.next()) {
+            ResultSet resultat =CHUPP.getRequete(sql);
+            while(resultat.next()) {
                 dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
-            jList1.setModel(dlm);
-            repaint();
-        } catch (Exception e) {
-            System.out.println("Failed to get Statement");
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
         }
+        jList1.setModel(dlm);
+        repaint();
     }
 
     /**

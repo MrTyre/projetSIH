@@ -1,6 +1,9 @@
 package projet.UI;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -8,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import projet.sih.*;
 //test
+
 /**
  *
  * @author Tommy
@@ -17,10 +21,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private CHUPP chupp;
     private AjouterPatientIU apIU;
     private AjouterPrescriptionIU aprIU;
-    private DefaultListModel dlm=new DefaultListModel();
+    private DefaultListModel dlm = new DefaultListModel();
+
     
-    //attribut base de donnée
-    MyDBConnection connection = new MyDBConnection();
     private String sql;
 
     /**
@@ -28,23 +31,20 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
      */
     public ServiceCliniqueIU() {
         initComponents();
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
+        sql = "SELECT nom, prenom, date_naissance FROM Patient";
         
         try {
-                sql = "SELECT nom, prenom, date_naissance FROM Patient";
-                ResultSet resultat = connection.getStatement().executeQuery(sql);
-                while (resultat.next()) {
-                    dlm.addElement(resultat.getString("nom")+" "+resultat.getString("prenom")+" / "+resultat.getString("date_naissance"));
-                }
-                jList1.setModel(dlm);
-                repaint();
-            } catch (Exception e) {
-                System.out.println("Failed to get Statement");
-                e.printStackTrace();
+            ResultSet resultat =CHUPP.getRequete(sql);
+            while(resultat.next()) {
+                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
-
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
+        }
+        jList1.setModel(dlm);
+        repaint();
+                
     }
 
     @SuppressWarnings("unchecked")
