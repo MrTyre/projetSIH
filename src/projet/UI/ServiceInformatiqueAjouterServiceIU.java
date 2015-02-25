@@ -42,7 +42,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jButtonOK = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabelNomService = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNomService = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +56,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jLabelService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelService.setText("Service :");
 
-        jLabelChefDeService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelChefDeService.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelChefDeService.setText("Chef de service :");
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -91,7 +91,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jLabelNomService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNomService.setText("Nom :");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNomService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,7 +126,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabelNomService)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTextFieldNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabelChefDeService))
                         .addGap(0, 54, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -143,7 +143,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNomService)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNomService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelChefDeService)
                 .addGap(18, 18, 18)
@@ -234,8 +234,8 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelService;
     private javax.swing.JLabel jLabelSpecialite;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldNomService;
     private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
 }
