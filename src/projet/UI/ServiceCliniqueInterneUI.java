@@ -142,7 +142,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 532, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Gestion RDV", jPanel8);
+        jTabbedPane1.addTab("RDV", jPanel8);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");

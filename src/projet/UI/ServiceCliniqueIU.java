@@ -55,7 +55,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
+        jButtonAjouterPrescription = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jButtonAjouterObservation = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -79,28 +81,48 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTabbedPane1.setName("Prescriptions"); // NOI18N
 
+        jButtonAjouterPrescription.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterPrescription.setText("+ Prescription");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(921, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterPrescription)
+                .addGap(39, 39, 39))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(474, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterPrescription)
+                .addGap(35, 35, 35))
         );
 
         jTabbedPane1.addTab("Prescriptions", jPanel4);
+
+        jButtonAjouterObservation.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterObservation.setText("+ Observation");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(928, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterObservation)
+                .addGap(30, 30, 30))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(475, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterObservation)
+                .addGap(34, 34, 34))
         );
 
         jTabbedPane1.addTab("Observations", jPanel5);
@@ -303,6 +325,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JTextField IPP;
     private javax.swing.JLabel ListePatient;
     private javax.swing.JTextField Patient;
+    private javax.swing.JButton jButtonAjouterObservation;
+    private javax.swing.JButton jButtonAjouterPrescription;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
