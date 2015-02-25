@@ -19,22 +19,39 @@ public class Patient {
     private String nom;
     private String prenom;
     private Date dateNaissance;
-    private Sexe sexe;
-    private Adresse adresse;
+    private String sexe;
+    private String adresse;
     private Location location;
     
-    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, Adresse adresse){
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse){
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
-        this.sexe = sexe;
-        this.adresse = adresse;
+        String sexeString = "";
+        if(sexe == Sexe.F){
+            sexeString = "F";
+        }
+        if(sexe == Sexe.H){
+            sexeString = "H";
+        }
+        this.sexe = sexeString;
+        this.adresse=adresse;        
         this.dpi = new DPI();
         //récupérer les 2 derniers chiffres de l'année de naissance
         int dizaines = (this.dateNaissance.getYear() % 100) / 10;
         int unites = this.dateNaissance.getYear() % 10;
         CHUPP.setCompteur(CHUPP.getCompteur()+1);
         this.IPP = ((dizaines*10+unites)*Math.pow(10,7))+CHUPP.getCompteur();
+    }
+
+    public Patient(double IPP, String nom, String prenom, Date dateNaissance, String sexe, String adresse) {
+        this.IPP = IPP;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.sexe = sexe;
+        this.adresse=adresse;        
+        this.dpi = new DPI();
     }
 
     /**
@@ -97,28 +114,28 @@ public class Patient {
     /**
      * @return the sexe
      */
-    public Sexe getSexe() {
+    public String getSexe() {
         return sexe;
     }
 
     /**
      * @param sexe the sexe to set
      */
-    public void setSexe(Sexe sexe) {
+    public void setSexe(String sexe) {
         this.sexe = sexe;
     }
 
     /**
      * @return the adresse
      */
-    public Adresse getAdresse() {
+    public String getAdresse() {
         return adresse;
     }
 
     /**
      * @param adresse the adresse to set
      */
-    public void setAdresse(Adresse adresse) {
+    public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
 

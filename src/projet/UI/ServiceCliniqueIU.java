@@ -1,13 +1,18 @@
 package projet.UI;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.event.ListSelectionEvent;
 import projet.sih.*;
-//test
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author Tommy
@@ -17,33 +22,29 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private CHUPP chupp;
     private AjouterPatientIU apIU;
     private AjouterPrescriptionIU aprIU;
-    private DefaultListModel dlm=new DefaultListModel();
-    
-    //attribut base de donnée
-    MyDBConnection connection = new MyDBConnection();
+    private DefaultListModel dlm = new DefaultListModel();
+    private JList1ActionPerformed jll;
+    private static Patient currentPatient;
+
     private String sql;
 
-    /**
-     * Creates new form abc
-     */
     public ServiceCliniqueIU() {
         initComponents();
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
-        
+        jll = new JList1ActionPerformed();
+        jList1.addListSelectionListener(jll);
+        sql = "SELECT nom, prenom, date_naissance FROM Patient";
+
         try {
-                sql = "SELECT nom, prenom, date_naissance FROM Patient";
-                ResultSet resultat = connection.getStatement().executeQuery(sql);
-                while (resultat.next()) {
-                    dlm.addElement(resultat.getString("nom")+" "+resultat.getString("prenom")+" / "+resultat.getString("date_naissance"));
-                }
-                jList1.setModel(dlm);
-                repaint();
-            } catch (Exception e) {
-                System.out.println("Failed to get Statement");
-                e.printStackTrace();
+            ResultSet resultat = CHUPP.getRequete(sql);
+            while (resultat.next()) {
+                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
+        }
+        jList1.setModel(dlm);
+        repaint();
 
     }
 
@@ -55,14 +56,16 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
+        jButtonAjouterPrescription = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jButtonAjouterObservation = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        Patient = new javax.swing.JTextField();
+        jLabelPatient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        IPP = new javax.swing.JTextField();
+        jLabelIPP = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -79,31 +82,69 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTabbedPane1.setName("Prescriptions"); // NOI18N
 
+        jButtonAjouterPrescription.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterPrescription.setText("+ Prescription");
+        jButtonAjouterPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterPrescriptionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(921, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterPrescription)
+                .addGap(39, 39, 39))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(474, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterPrescription)
+                .addGap(35, 35, 35))
         );
 
         jTabbedPane1.addTab("Prescriptions", jPanel4);
+
+        jButtonAjouterObservation.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterObservation.setText("+ Observation");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(928, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterObservation)
+                .addGap(30, 30, 30))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(475, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterObservation)
+                .addGap(34, 34, 34))
         );
 
         jTabbedPane1.addTab("Observations", jPanel5);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1067, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 532, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Résultats", jPanel6);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -129,38 +170,25 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             .addGap(0, 532, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Gestion RDV", jPanel8);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1067, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Résultats", jPanel6);
+        jTabbedPane1.addTab("RDV", jPanel8);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
 
-        Patient.setBorder(null);
-        Patient.addActionListener(new java.awt.event.ActionListener() {
+        jLabelPatient.setBorder(null);
+        jLabelPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PatientActionPerformed(evt);
+                jLabelPatientActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("IPP : ");
 
-        IPP.setBorder(null);
-        IPP.addActionListener(new java.awt.event.ActionListener() {
+        jLabelIPP.setBorder(null);
+        jLabelIPP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IPPActionPerformed(evt);
+                jLabelIPPActionPerformed(evt);
             }
         });
 
@@ -177,11 +205,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(10, 10, 10))
         );
@@ -191,9 +219,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jTabbedPane1))
         );
@@ -256,13 +284,19 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void PatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PatientActionPerformed
+    private void jLabelPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelPatientActionPerformed
 
-    }//GEN-LAST:event_PatientActionPerformed
+    }//GEN-LAST:event_jLabelPatientActionPerformed
 
-    private void IPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPPActionPerformed
+    private void jLabelIPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelIPPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_IPPActionPerformed
+    }//GEN-LAST:event_jLabelIPPActionPerformed
+
+    private void jButtonAjouterPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPrescriptionActionPerformed
+        aprIU = new AjouterPrescriptionIU();
+        aprIU.setVisible(true);
+        aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jButtonAjouterPrescriptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,12 +334,14 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField IPP;
     private javax.swing.JLabel ListePatient;
-    private javax.swing.JTextField Patient;
+    private javax.swing.JButton jButtonAjouterObservation;
+    private javax.swing.JButton jButtonAjouterPrescription;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jLabelIPP;
+    private javax.swing.JTextField jLabelPatient;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
@@ -338,4 +374,28 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jLabelService;
     }
 
+    public class JList1ActionPerformed implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent lse) {
+
+            try {
+                
+                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                while (result.next()) {
+                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))){
+                        currentPatient=new Patient(result.getDouble("ipp"),result.getString("nom"),result.getString("prenom"),result.getDate("date_naissance"),result.getString("sexe"),result.getString("adresse"));
+                        jLabelIPP.setText(currentPatient.getIPP());
+                        jLabelPatient.setText(currentPatient.getNom());
+                        repaint();
+            }
+            }
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 }

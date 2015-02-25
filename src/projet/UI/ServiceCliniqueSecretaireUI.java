@@ -6,6 +6,9 @@
 package projet.UI;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import projet.sih.*;
@@ -23,28 +26,26 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
+    
+
 
     /**
      * Creates new form ServiceCliniqueSecretaire
      */
     public ServiceCliniqueSecretaireUI() {
         initComponents();
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
-
+        sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
-            sql = "SELECT nom, prenom, date_naissance FROM Patient";
-            ResultSet resultat = connection.getStatement().executeQuery(sql);
-            while (resultat.next()) {
+            ResultSet resultat =CHUPP.getRequete(sql);
+            while(resultat.next()) {
                 dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
-            jList1.setModel(dlm);
-            repaint();
-        } catch (Exception e) {
-            System.out.println("Failed to get Statement");
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
         }
+        jList1.setModel(dlm);
+        repaint();
     }
 
     /**
@@ -112,6 +113,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Résultats", jPanel6);
 
+        jButtonEditDMA.setBackground(new java.awt.Color(0, 51, 153));
         jButtonEditDMA.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonEditDMA.setText("Editer DMA");
 
@@ -134,14 +136,21 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("DMA", jPanel7);
 
+        jButtonAjoutRDV.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjoutRDV.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjoutRDV.setText("+ RDV");
+        jButtonAjoutRDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjoutRDVActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(964, Short.MAX_VALUE)
+                .addContainerGap(971, Short.MAX_VALUE)
                 .addComponent(jButtonAjoutRDV)
                 .addGap(27, 27, 27))
         );
@@ -175,6 +184,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
             }
         });
 
+        AjoutPatient.setBackground(new java.awt.Color(0, 51, 153));
         AjoutPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AjoutPatient.setText("+ Patient");
         AjoutPatient.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +202,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,7 +212,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjoutPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(AjoutPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -292,6 +302,10 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         apIU.setVisible(true);
         apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_AjoutPatientActionPerformed
+
+    private void jButtonAjoutRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutRDVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAjoutRDVActionPerformed
 
     /**
      * @param args the command line arguments

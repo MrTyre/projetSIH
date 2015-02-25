@@ -52,3 +52,5 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 nbproject/
+.idea/.name
+nbproject/private/private.properties

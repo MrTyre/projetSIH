@@ -6,6 +6,9 @@
 package projet.UI;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import projet.sih.*;
 
@@ -18,29 +21,24 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
-    
+    private DefaultListModel dlm = new DefaultListModel();
     /**
      * Creates new form ServiceCliniqueInfirmières
      */
     public ServiceCliniqueInfirmieresUI() {
         initComponents();
-        // création de la connection à la base de donnée
-        connection.init();
-        connection.getMyConnection();
-        
+        sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
-                sql = "SELECT nom, prenom, date_naissance FROM Patient";
-                ResultSet resultat = connection.getStatement().executeQuery(sql);
-                DefaultListModel dlm=new DefaultListModel();
-                while (resultat.next()) {
-                    dlm.addElement(resultat.getString("nom")+" "+resultat.getString("prenom")+" / "+resultat.getString("date_naissance"));
-                }
-                jList1.setModel(dlm);
-                repaint();
-            } catch (Exception e) {
-                System.out.println("Failed to get Statement");
-                e.printStackTrace();
+            ResultSet resultat =CHUPP.getRequete(sql);
+            while(resultat.next()) {
+                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
+        }
+        jList1.setModel(dlm);
+        repaint();
     }
 
     /**
@@ -64,7 +62,6 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         Patient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         IPP = new javax.swing.JTextField();
-        LettreSortie = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -144,7 +141,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 532, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Gestion RDV", jPanel8);
+        jTabbedPane1.addTab("RDV", jPanel8);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
@@ -166,14 +163,6 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             }
         });
 
-        LettreSortie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        LettreSortie.setText("Ecrire lettre de sortie");
-        LettreSortie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LettreSortieActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,9 +176,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LettreSortie)
-                .addGap(10, 10, 10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
@@ -198,15 +185,13 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(LettreSortie)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(38, 38, 38)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -274,10 +259,6 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_IPPActionPerformed
 
-    private void LettreSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LettreSortieActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LettreSortieActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -318,7 +299,6 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IPP;
-    private javax.swing.JButton LettreSortie;
     private javax.swing.JLabel ListePatient;
     private javax.swing.JTextField Patient;
     private javax.swing.JLabel jLabel1;

@@ -2,6 +2,7 @@ package projet.UI;
 
 import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,10 +20,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private int l = 0;
     private CHUPP chupp;
     DefaultTableModel dtm;
-    //attribut base de donnée
-    MyDBConnection connection = new MyDBConnection();
     private String sql;
+    private String sql2;
     private Prescription prescription = new Prescription();
+    private DefaultListModel<Medicament> listeMed = new DefaultListModel();
+    
 
     /**
      * Creates new form AjouterPrescriptionIU
@@ -36,8 +38,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         dtm.addColumn("Dose");
         dtm.addColumn("Date de fin de traitement");
         jComboBox1.setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
-        connection.init();
-        connection.getMyConnection();
+
     }
 
     /**
@@ -218,12 +219,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelDateFinTraitement)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonAddMed)))
-                        .addContainerGap())))
+                                .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonAddMed))
+                            .addComponent(jLabelDateFinTraitement))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,8 +232,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelDateFinTraitement)
-                    .addComponent(jLabelMedicament)
-                    .addComponent(jButtonAddMed))
+                    .addComponent(jLabelMedicament))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,7 +242,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                     .addComponent(jTextFieldFinTraitementMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAddMed))
                 .addGap(9, 9, 9)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -305,7 +305,14 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
-        ajouterMedicament();
+        
+        JOptionPane j=new JOptionPane();
+        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+           ajouterPrescription(); 
+           setVisible(false);
+        }
+        
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     private void jTextFieldFinTraitementAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementAnneeActionPerformed
@@ -396,17 +403,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
 
         Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()), Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
         String date = d.getDate() + "/" + d.getMonth() + "/" + d.getYear();
-        String dateBD = d.getYear() + "-" + d.getMonth() + "-" + d.getDate();
+        String dateBD = d.getYear()-1900 + "-" + d.getMonth() + "-" + d.getDate();
         dtm.addRow(new Object[]{medicament, posologie, doseString, date});
-        prescription.getMedicaments().addElement(new Medicament(medicament,Double.parseDouble(posologie),up,d));
-        //ajouter a la BD
-//        try {
-//            sql = "INSERT INTO Medicament VALUES ('" + medicament + "','" + posologie + "', '" + doseString + "','" + dateBD + "')";
-//            int statut = connection.getStatement().executeUpdate(sql);
-//        } catch (Exception e) {
-//            System.out.println("Failed to get Statement");
-//            e.printStackTrace();
-//        }
+        Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
+        prescription.getMedicaments().addElement(med);
+        listeMed.addElement(med);
         jTextFieldMedicament.setText("");
         jTextFieldPosologie.setText("");
         jTextFieldFinTraitementJour.setText("");
@@ -415,10 +416,26 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jPanel2.validate();
         jPanel2.repaint();
     }
-    
-        public void ajouterPrescription(){
-            
+
+    public void ajouterPrescription() {
+        
+        try {
+            for (int i = 0; i < listeMed.size(); i++) {
+                sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
+                        + Prescription.getIDMed() + ", '"
+                        + listeMed.get(i).getNomMedoc() + "',"
+                        + listeMed.get(i).getPosologie() + ", '"
+                        + listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie()) + "','"
+                        + listeMed.get(i).getDateFin()+"')";
+                CHUPP.getInsert(sql);
+            }
+//            sql="INSERT INTO Prescription VALUES (";
+//            CHUPP.getInsert(sql2);
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
         }
+    }
 
     /**
      * @return the jComboBox1

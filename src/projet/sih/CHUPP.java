@@ -7,6 +7,7 @@ package projet.sih;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 
 /**
@@ -24,7 +25,7 @@ public class CHUPP {
     //private ServiceUrgences su;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sql;
+    
 
     public CHUPP() {
         //connexion a la BD
@@ -93,9 +94,24 @@ public class CHUPP {
         }
     }
 
-    /**
-     * @return the scs
-     */
+    public static ResultSet getRequete(String sql) throws SQLException{
+        MyDBConnection connection = new MyDBConnection();
+        //connexion a la BD
+        connection.init();
+        connection.getMyConnection();
+        ResultSet resultat = connection.getStatement().executeQuery(sql);
+        return resultat;
+   }
+            
+    public static int getInsert(String sql) throws SQLException{
+        MyDBConnection connection = new MyDBConnection();
+        //connexion a la BD
+        connection.init();
+        connection.getMyConnection();
+        int statut = connection.getStatement().executeUpdate(sql);
+        return statut;
+    }
+    
     public DefaultListModel<ServiceClinique> getScs() {
         return scs;
     }
