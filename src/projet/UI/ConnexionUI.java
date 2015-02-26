@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,7 +8,15 @@ package projet.UI;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.sql.ResultSet;
+
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -47,11 +55,15 @@ public class ConnexionUI extends javax.swing.JFrame {
     /**
      * Creates new form ConnexionUI
      */
-    public ConnexionUI() {
+    public ConnexionUI() throws FileNotFoundException, IOException {
         initComponents();
         this.chupp = new CHUPP();
         setLocationRelativeTo(null);
-        ImageIcon image = new ImageIcon("../Princeton-Plainsboro.jpg");
+
+        FileInputStream input = new FileInputStream("src/Images/Princeton-Plainsboro.jpg");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
         connection.init();
@@ -72,8 +84,8 @@ public class ConnexionUI extends javax.swing.JFrame {
         jLabelMdp = new javax.swing.JLabel();
         jTextFieldId = new javax.swing.JTextField();
         jButtonOK = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -111,27 +123,31 @@ public class ConnexionUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelId)
-                            .addComponent(jLabelMdp))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldId, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelId)
+                                    .addComponent(jLabelMdp))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldId, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 39, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelId)
                     .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -139,7 +155,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMdp)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(jButtonOK)
                 .addContainerGap())
         );
@@ -197,7 +213,11 @@ public class ConnexionUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConnexionUI().setVisible(true);
+                try {
+                    new ConnexionUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ConnexionUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

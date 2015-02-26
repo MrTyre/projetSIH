@@ -109,16 +109,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace pref="246" max="32767" attributes="0"/>
-                                      <Component id="jButtonEnvoyer" min="-2" pref="100" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jTextFieldNom" alignment="0" pref="245" max="32767" attributes="0"/>
                                           <Component id="jTextFieldPrenom" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="45" max="32767" attributes="0"/>
                                       <Component id="jLabelDate" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jTextFieldJour" min="-2" pref="25" max="-2" attributes="0"/>
@@ -134,6 +129,11 @@
                                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButtonEnvoyer" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -147,7 +147,7 @@
                           <Component id="jLabelResultatPrestation" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelRadiologie" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelNom" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldNom" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -158,12 +158,12 @@
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldAnnee" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
@@ -262,6 +262,9 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldJourActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -277,6 +280,9 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldMoisActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>

@@ -151,8 +151,12 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         });
 
         jTextFieldPosologie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPosologie.setText(" ");
         jTextFieldPosologie.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextFieldPosologie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPosologieActionPerformed(evt);
+            }
+        });
 
         jTextFieldFinTraitementJour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -160,6 +164,11 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jLabel2.setText("/");
 
         jTextFieldFinTraitementMois.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldFinTraitementMois.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFinTraitementMoisActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("/");
@@ -207,7 +216,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextFieldPosologie, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +230,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldFinTraitementAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonAddMed))
                             .addComponent(jLabelDateFinTraitement))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -229,12 +238,12 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelDateFinTraitement)
                     .addComponent(jLabelMedicament))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMedicament, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldPosologie)
@@ -294,8 +303,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelNouvellePrescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler)
                     .addComponent(jButtonValider))
@@ -335,6 +344,14 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private void jButtonAddMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddMedActionPerformed
         ajouterMedicament();
     }//GEN-LAST:event_jButtonAddMedActionPerformed
+
+    private void jTextFieldPosologieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPosologieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPosologieActionPerformed
+
+    private void jTextFieldFinTraitementMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementMoisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFinTraitementMoisActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddMed;

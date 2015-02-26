@@ -40,11 +40,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelServiceInformatique" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonAjouterPersonnel" min="-2" pref="145" max="-2" attributes="0"/>
-                      <Component id="jButtonAjouterService" min="-2" pref="145" max="-2" attributes="0"/>
-                      <Component id="jButtonModifierPersonnel" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabelServiceInformatique" max="32767" attributes="0"/>
+                      <Component id="jButtonAjouterPersonnel" max="32767" attributes="0"/>
+                      <Component id="jButtonAjouterService" max="32767" attributes="0"/>
+                      <Component id="jButtonModifierPersonnel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButtonDeconnexion" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="105" max="32767" attributes="0"/>
               </Group>
@@ -57,11 +58,13 @@
                   <Component id="jLabelServiceInformatique" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jButtonAjouterService" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jButtonAjouterPersonnel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jButtonModifierPersonnel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="jButtonDeconnexion" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -119,6 +122,17 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModifierPersonnelActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonDeconnexion">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="33" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Deconnexion"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
