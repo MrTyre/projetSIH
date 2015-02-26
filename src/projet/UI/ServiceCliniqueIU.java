@@ -103,7 +103,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(474, Short.MAX_VALUE)
+                .addContainerGap(451, Short.MAX_VALUE)
                 .addComponent(jButtonAjouterPrescription)
                 .addGap(35, 35, 35))
         );
@@ -126,7 +126,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(475, Short.MAX_VALUE)
+                .addContainerGap(452, Short.MAX_VALUE)
                 .addComponent(jButtonAjouterObservation)
                 .addGap(34, 34, 34))
         );
@@ -141,7 +141,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Résultats", jPanel6);
@@ -154,7 +154,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("DMA", jPanel7);
@@ -167,7 +167,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("RDV", jPanel8);
@@ -175,7 +175,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
 
-        jLabelPatient.setBorder(null);
+        jLabelPatient.setBackground(new java.awt.Color(240, 240, 240));
+        jLabelPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelPatient.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jLabelPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLabelPatientActionPerformed(evt);
@@ -185,7 +187,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("IPP : ");
 
-        jLabelIPP.setBorder(null);
+        jLabelIPP.setBackground(new java.awt.Color(240, 240, 240));
+        jLabelIPP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelIPP.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jLabelIPP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLabelIPPActionPerformed(evt);
@@ -216,7 +220,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

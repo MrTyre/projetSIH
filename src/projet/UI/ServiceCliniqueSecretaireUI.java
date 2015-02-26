@@ -167,6 +167,8 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
 
+        Patient.setBackground(new java.awt.Color(240, 240, 240));
+        Patient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Patient.setBorder(null);
         Patient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,6 +179,8 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("IPP : ");
 
+        IPP.setBackground(new java.awt.Color(240, 240, 240));
+        IPP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         IPP.setBorder(null);
         IPP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
