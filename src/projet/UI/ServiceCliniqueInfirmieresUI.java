@@ -90,7 +90,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.jpg")), jPanel4); // NOI18N
+        jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.png")), jPanel4); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -103,7 +103,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.jpg")), jPanel5); // NOI18N
+        jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -116,7 +116,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.jpg")), jPanel6); // NOI18N
+        jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -129,7 +129,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.jpg")), jPanel7); // NOI18N
+        jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -142,12 +142,12 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.jpg")), jPanel8); // NOI18N
+        jTabbedPane1.addTab("RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
 
-        Patient.setBackground(new java.awt.Color(240, 240, 240));
+        Patient.setBackground(new java.awt.Color(128, 128, 128));
         Patient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Patient.setBorder(null);
         Patient.addActionListener(new java.awt.event.ActionListener() {

@@ -112,7 +112,7 @@
                       <JTabbedPaneConstraints tabName="Prescriptions">
                         <Property name="tabTitle" type="java.lang.String" value="Prescriptions"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/prescriptions.jpg"/>
+                          <Image iconType="3" name="/Images/prescriptions.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -137,7 +137,7 @@
                       <JTabbedPaneConstraints tabName="Observations">
                         <Property name="tabTitle" type="java.lang.String" value="Observations"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/observationchecklist.jpg"/>
+                          <Image iconType="3" name="/Images/observationchecklist.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -162,7 +162,7 @@
                       <JTabbedPaneConstraints tabName="R&#xe9;sultats">
                         <Property name="tabTitle" type="java.lang.String" value="R&#xe9;sultats"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/r&#xe9;sultats-m&#xe9;dicaux-30214840.jpg"/>
+                          <Image iconType="3" name="/Images/r&#xe9;sultats-m&#xe9;dicaux-30214840.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -187,7 +187,7 @@
                       <JTabbedPaneConstraints tabName="DMA">
                         <Property name="tabTitle" type="java.lang.String" value="DMA"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/img_dossier_page_sante_10061.jpg"/>
+                          <Image iconType="3" name="/Images/img_dossier_page_sante_10061.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -212,7 +212,7 @@
                       <JTabbedPaneConstraints tabName="RDV">
                         <Property name="tabTitle" type="java.lang.String" value="RDV"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/rdv.jpg"/>
+                          <Image iconType="3" name="/Images/rdv.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -244,7 +244,7 @@
             <Component class="javax.swing.JTextField" name="Patient">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f0" green="f0" red="f0" type="rgb"/>
+                  <Color blue="80" green="80" red="80" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
