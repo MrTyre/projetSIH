@@ -1,8 +1,4 @@
-﻿/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projet.UI;
 
 import java.awt.BorderLayout;
@@ -279,6 +275,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc.setLocationRelativeTo(this);
                         sc.setVisible(true);
                         sc.getjLabelService().setText("Service "+spe);
+                        System.out.println("BLA");
                         break;
                     }
                 }
