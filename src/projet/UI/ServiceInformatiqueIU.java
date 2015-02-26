@@ -42,6 +42,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jButtonAjouterService = new javax.swing.JButton();
         jButtonAjouterPersonnel = new javax.swing.JButton();
         jButtonModifierPersonnel = new javax.swing.JButton();
+        jButtonDeconnexion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,17 +77,22 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
             }
         });
 
+        jButtonDeconnexion.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeconnexion.setText("Deconnexion");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(101, 101, 101)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelServiceInformatique)
-                    .addComponent(jButtonAjouterPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAjouterService, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonModifierPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelServiceInformatique, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAjouterPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAjouterService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonModifierPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -96,11 +102,13 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
                 .addComponent(jLabelServiceInformatique)
                 .addGap(37, 37, 37)
                 .addComponent(jButtonAjouterService)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(jButtonAjouterPersonnel)
                 .addGap(35, 35, 35)
                 .addComponent(jButtonModifierPersonnel)
-                .addGap(32, 32, 32))
+                .addGap(35, 35, 35)
+                .addComponent(jButtonDeconnexion)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,6 +190,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAjouterPersonnel;
     private javax.swing.JButton jButtonAjouterService;
+    private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonModifierPersonnel;
     private javax.swing.JLabel jLabelServiceInformatique;
     private javax.swing.JPanel jPanel1;

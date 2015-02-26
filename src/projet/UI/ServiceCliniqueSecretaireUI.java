@@ -71,6 +71,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         IPP = new javax.swing.JTextField();
         AjoutPatient = new javax.swing.JButton();
+        jButtonDeconnexion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -104,7 +105,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1056, Short.MAX_VALUE)
+            .addGap(0, 1065, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,14 +123,14 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(942, Short.MAX_VALUE)
+                .addContainerGap(953, Short.MAX_VALUE)
                 .addComponent(jButtonEditDMA)
                 .addGap(19, 19, 19))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(500, Short.MAX_VALUE)
+                .addContainerGap(502, Short.MAX_VALUE)
                 .addComponent(jButtonEditDMA)
                 .addGap(19, 19, 19))
         );
@@ -157,7 +158,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(500, Short.MAX_VALUE)
+                .addContainerGap(502, Short.MAX_VALUE)
                 .addComponent(jButtonAjoutRDV)
                 .addGap(19, 19, 19))
         );
@@ -197,6 +198,10 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
+        jButtonDeconnexion.setText("Deconnexion");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -216,7 +221,9 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AjoutPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(AjoutPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonDeconnexion)))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -228,6 +235,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
                     .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(IPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDeconnexion)
                     .addComponent(AjoutPatient))
                 .addGap(28, 28, 28)
                 .addComponent(jTabbedPane1))
@@ -353,6 +361,7 @@ public class ServiceCliniqueSecretaireUI extends javax.swing.JFrame {
     private javax.swing.JLabel ListePatient;
     private javax.swing.JTextField Patient;
     private javax.swing.JButton jButtonAjoutRDV;
+    private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonEditDMA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
