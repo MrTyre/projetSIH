@@ -5,6 +5,12 @@
  */
 package projet.UI;
 
+import projet.sih.*;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Marina
@@ -227,4 +233,54 @@ public class LettreSortie extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
+    
+//    static public void GenererLettreSortie(PH ph1,Patient p1,Date d) throws Exception{
+//        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+//        DateFormat df2 = new SimpleDateFormat("hh:mm");
+//        // Create a text document from a standard template (empty documents within the JAR)
+//        OdfTextDocument odt = OdfTextDocument.newTextDocument();
+//
+//        // Append text to the end of the document. 
+//        odt.newImage(new File("C:/Users/Tommy/Documents/GitHub/Images/CHUPP.jpg").toURI());
+//        odt.newParagraph();
+//        odt.addText("Dr."+ph1.getNom()+" "+ph1.getPrenom());
+//        odt.newParagraph();
+//        odt.addText("CHU de Princeton-Plainsboro");
+//        odt.newParagraph();
+//        odt.addText("Tel : XX.XX.XX.XX.XX");
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.addText("__________________________________________________________________ le "+df1.format(d)+",");
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.addText("\n\nObjet : Sortie de Mr."+p1.getNom()+" "+p1.getPrenom());
+//        odt.newParagraph();        
+//        odt.newParagraph();
+//        odt.addText("\n\nJe soussigné Dr."+ph1.getNom()+" "+ph1.getPrenom()+", autorise le patient "+p1.getNom()+" "+p1.getPrenom()+" a sortir du Service "+ph1.getSpecialite()+" à compter du "+df1.format(d)+" à "+df2.format(d)+"h.");
+//        odt.newParagraph();
+//        odt.addText("Cette sortie intervient suite au diagnostic suivant :");
+//        odt.newParagraph();
+//        //odt.addText(jTextFieldDiagnostic.getText());
+//        odt.newParagraph();
+//        odt.addText("Le patient "+p1.getNom()+" "+p1.getPrenom()+" est autorisé à sortir du Service "+ph1.getSpecialite()+" suite à l'administration du traitement suivant :");
+//        odt.newParagraph();
+//        //odt.addText(jTextFieldTraitement.getText());
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.addText("Cordialement,");
+//        odt.newParagraph();
+//        odt.newParagraph();
+//        odt.addText("Dr "+ph1.getNom()+" "+ph1.getPrenom());
+//        odt.newParagraph();
+//        //odt.addText("Signature :"+jTextFieldSignature.getText());       
+//
+//        // Save document
+//        odt.save("C:/Users/Tommy/Documents/GitHub/Projet SIH - Netbeans/Lettres/Lettre de sortie de Mr " + p1.getNom() +" " + p1.getPrenom() +", né le "+df1.format(p1.getDateNaissance())+".odt");
+//
+//    }
 }

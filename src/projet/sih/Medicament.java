@@ -89,4 +89,34 @@ public class Medicament {
     public UnitePosologie getUnitePosologie() {
         return unitePosologie;
     }
+    
+    public String getUnitePosoString(UnitePosologie u){
+        
+        String doseString = "";
+        if (u == UnitePosologie.cc) {
+            doseString = "cc";
+        }
+        if (u == UnitePosologie.comprimés) {
+            doseString = "comprimés";
+        }
+        if (u == UnitePosologie.cs) {
+            doseString = "cs";
+        }
+        if (u == UnitePosologie.dL) {
+            doseString = "dL";
+        }
+        if (u == UnitePosologie.g) {
+            doseString = "g";
+        }
+        if (u == UnitePosologie.mL) {
+            doseString = "mL";
+        }
+        if (u == UnitePosologie.mg) {
+            doseString = "mg";
+        }
+        if (u == UnitePosologie.pulvérisations) {
+            doseString = "pulvérisations";
+        } 
+        return doseString;
+    }
 }
