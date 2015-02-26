@@ -5,7 +5,9 @@
  */
 package projet.sih;
 
+import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
+import projet.UI.ConnexionUI;
 
 /**
  *
@@ -17,6 +19,8 @@ public class DM {
     private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
+    private String sql;
+    private String sql2;
 
     public DM() {
         observationsPH = new DefaultListModel<Observation>();
@@ -53,17 +57,32 @@ public class DM {
         return lettreSortie;
     }
 
-    public String afficherPrescriptions() {
+    public String afficherPrescriptions(Patient patient) {
         String s = "";
-        for (int i = 0; i < this.prescriptionsPH.getSize(); i++) {
-            s += "Prescription du " + this.prescriptionsPH.get(i).getDatePrescription().getDate()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getMonth()+"/"+this.prescriptionsPH.get(i).getDatePrescription().getYear() + ", Dr. " + this.prescriptionsPH.get(i).getPhPrescripteur().toString()+"  : "+this.prescriptionsPH.get(i).getNomPrescription();
-            for (int j = 0; j < this.prescriptionsPH.get(i).getMedicaments().getSize(); j++) {
-                s += "\n\t\t- " + this.prescriptionsPH.get(i).getMedicaments().get(j).getNomMedoc();
-                s += "\t\t\t" + this.prescriptionsPH.get(i).getMedicaments().get(j).getPosologie() +" "+ this.prescriptionsPH.get(i).getMedicaments().get(j).getUnitePosologie() + "/j  jusqu'au " + this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getDate()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getMonth()+"/"+this.prescriptionsPH.get(i).getMedicaments().get(j).getDateFin().getYear();
+        try {
+            sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
+
+            ResultSet resultat = CHUPP.getRequete(sql);
+            while (resultat.next()) {
+                sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
+
+                ResultSet resultat2 = CHUPP.getRequete(sql2);
+                s += "Prescription du " + resultat.getDate("prescription.date") + ", Dr. " + ConnexionUI.getCurrentConnected().getNom() + "  numero de prescription: " + resultat.getString("idpresc");
+                while (resultat2.next()) {
+                    if (resultat2.getInt("idpresc") ==resultat.getInt("idpresc")) {
+                        s += "\n\t\t- " + resultat2.getString("nom");
+                        s += "\t\t\t" + resultat2.getString("dose") + " " + resultat2.getString("unite") + "/j  jusqu'au " + resultat2.getString("date_fin");
+                    }
+                }
+                s += "\n------------------------------------------------------------------------------------------------------------------\n";
             }
-            s += "\n------------------------------------------------------------------------------------------------------------------\n";
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
         }
-        return s;
+
     }
 
     public String afficherObservationsPH() {

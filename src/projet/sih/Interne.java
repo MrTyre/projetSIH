@@ -15,6 +15,11 @@ public class Interne extends PersonnelMedical{
     /**
      * @return the ID
      */
+    
+    public Interne(String id, String nom, String prenom, String mdp, String specialite) {
+        super(id, nom, prenom, mdp, specialite);
+    }
+
     public String getID() {
         return this.getID();
     }

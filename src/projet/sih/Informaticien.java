@@ -12,9 +12,8 @@ package projet.sih;
 public class Informaticien extends PersonnelMedical{
 
 
-    public Informaticien(String id, String nom, String prenom, String mdp) {
-        super(id, nom, prenom, mdp);
-        super.specialite = "Technicien Informaticien";
+    public Informaticien(String id, String nom, String prenom, String mdp,String specialite) {
+        super(id, nom, prenom, mdp,specialite);
     }
     
 }

@@ -38,10 +38,8 @@ public class Prescription {
         this.datePrescription = date;
         this.medicaments = medocs;
     }
-    public PH getPhPrescripteur() {
-        return phPrescripteur;
-    }
-    public static int getIDMed() {
+    
+    public static int getIDPresc() {
         try {
             String sql = "SELECT * FROM prescription";
             ResultSet resultat=CHUPP.getRequete(sql);
@@ -54,6 +52,24 @@ public class Prescription {
             return 0;
         }
     }
+    public int getIDPrescNonStatic() {
+        try {
+            String sql = "SELECT * FROM prescription";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getRow() + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    public PH getPhPrescripteur() {
+        return phPrescripteur;
+    }
+    
     /**
      * @param phPrescripteur the phPrescripteur to set
      */

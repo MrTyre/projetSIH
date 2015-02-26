@@ -22,6 +22,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     DefaultTableModel dtm;
     private String sql;
     private String sql2;
+    private Patient currentPatient;
     private Prescription prescription = new Prescription();
     private DefaultListModel<Medicament> listeMed = new DefaultListModel();
     
@@ -401,8 +402,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             up = UnitePosologie.pulvérisations;
         }
 
-        Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()), Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
-        String date = d.getDate() + "/" + d.getMonth() + "/" + d.getYear();
+        Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText())-1900, Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
+        int year=d.getYear()+1900;
+        String date = d.getDate() + "/" + d.getMonth() + "/" + year;
         String dateBD = d.getYear()-1900 + "-" + d.getMonth() + "-" + d.getDate();
         dtm.addRow(new Object[]{medicament, posologie, doseString, date});
         Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
@@ -422,18 +424,22 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         try {
             for (int i = 0; i < listeMed.size(); i++) {
                 sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
-                        + Prescription.getIDMed() + ", '"
+                        + Prescription.getIDPresc() + ", '"
                         + listeMed.get(i).getNomMedoc() + "',"
                         + listeMed.get(i).getPosologie() + ", '"
                         + listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie()) + "','"
                         + listeMed.get(i).getDateFin()+"')";
                 CHUPP.getInsert(sql);
             }
-//            sql="INSERT INTO Prescription VALUES (";
-//            CHUPP.getInsert(sql2);
+            java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+            sql2="INSERT INTO Prescription VALUES ("+Prescription.getIDPresc()+","
+                    +currentPatient.getIPP()+","+ConnexionUI.getCurrentConnected().getID()+",'"
+                    +date+"')";
+            CHUPP.getInsert(sql2);
+            
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
-            e.printStackTrace();
+            e.printStackTrace();   
         }
     }
 
@@ -442,5 +448,12 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
      */
     public javax.swing.JComboBox getjComboBox1() {
         return jComboBox1;
+    }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
     }
 }

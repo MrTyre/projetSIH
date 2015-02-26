@@ -24,7 +24,10 @@ public abstract class PersonnelMedical {
         mdp = "DefaultMdp";
         specialite = "DefaultSpeciality";
     }
-
+    
+    public PersonnelMedical(int id){
+        
+    }
     public PersonnelMedical(String id, String nom, String prenom, String mdp) {
         this.ID = id;
         this.nom = nom;

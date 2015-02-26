@@ -57,6 +57,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jButtonAjouterPrescription = new javax.swing.JButton();
+        jTextAreaPrescription = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterObservation = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -91,19 +93,28 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextAreaPrescription.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(921, Short.MAX_VALUE)
+                .addContainerGap(933, Short.MAX_VALUE)
                 .addComponent(jButtonAjouterPrescription)
                 .addGap(39, 39, 39))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextAreaPrescription)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(474, Short.MAX_VALUE)
+                .addComponent(jTextAreaPrescription, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjouterPrescription)
                 .addGap(35, 35, 35))
         );
@@ -141,7 +152,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 536, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Résultats", jPanel6);
@@ -154,7 +165,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 536, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("DMA", jPanel7);
@@ -167,7 +178,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 536, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("RDV", jPanel8);
@@ -296,6 +307,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         aprIU = new AjouterPrescriptionIU();
         aprIU.setVisible(true);
         aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        aprIU.setCurrentPatient(currentPatient);
     }//GEN-LAST:event_jButtonAjouterPrescriptionActionPerformed
 
     /**
@@ -354,6 +366,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jTextAreaPrescription;
     // End of variables declaration//GEN-END:variables
 
     public CHUPP getChupp() {
@@ -380,18 +394,18 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
-                
+
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
-                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))){
-                        currentPatient=new Patient(result.getDouble("ipp"),result.getString("nom"),result.getString("prenom"),result.getDate("date_naissance"),result.getString("sexe"),result.getString("adresse"));
+                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                        currentPatient = new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
+                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                         repaint();
-            }
-            }
-                
-                
+                    }
+                }
+
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }

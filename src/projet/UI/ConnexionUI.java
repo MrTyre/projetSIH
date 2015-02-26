@@ -7,6 +7,7 @@ package projet.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,18 +20,29 @@ import projet.sih.*;
  */
 public class ConnexionUI extends javax.swing.JFrame {
 
+    /**
+     * @return the currentConnected
+     */
+    
+
     private ServiceCliniqueIU sc;
     private ServiceCliniqueSecretaireUI scs;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
-    private ServiceCliniqueInfirmieresUI sci;
-    private ServiceCliniqueInterneUI scint;
+    private ServiceCliniqueInfirmieresUI scinf;
+    private ServiceCliniqueInterneUI sci;
     //private ServiceAdmission sa;
     private CHUPP chupp;
-    private PersonnelMedical currentConnected;
+    private static PersonnelMedical currentConnected;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sql;
+    private String sqlph;
+    private String sqlint;
+    private String sqlinf;
+    private String sqlsec;
+    private String sqlinfo;
+    private String sqlCSC;
+    private String sqlCSMT;
 
     /**
      * Creates new form ConnexionUI
@@ -38,7 +50,7 @@ public class ConnexionUI extends javax.swing.JFrame {
     public ConnexionUI() {
         initComponents();
         this.chupp = new CHUPP();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         ImageIcon image = new ImageIcon("../Princeton-Plainsboro.jpg");
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
@@ -201,130 +213,124 @@ public class ConnexionUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void connexion() {
-        String id = jTextFieldId.getText();
+        String nom = jTextFieldId.getText();
         String mdp = jPasswordField1.getText();
         String spe = "";
+        try {
 
-        while (spe.equals("")) {
-            //parcours du personnel des Service Cliniques
-            for (int i = 0; i < this.chupp.getScs().getSize(); i++) {
-                for (int j = 0; j < this.chupp.getScs().get(i).getPraticiens().getSize(); j++) {
-                    if ((id.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getPraticiens().get(j).getMdp()))) {
-                        spe = this.chupp.getScs().get(i).getPraticiens().get(j).getSpecialite();
-                        currentConnected = this.chupp.getScs().get(i).getPraticiens().get(j);
+            sqlph = "SELECT * FROM practicien_hospitalier";
+            sqlint = "SELECT * FROM interne";
+            sqlinf = "SELECT * FROM infirmier";
+            sqlsec = "SELECT * FROM secretaire";
+            sqlinfo = "SELECT * FROM informaticien";
+            sqlCSC = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_clinique "
+                    + "WHERE practicien_hospitalier.idph=service_clinique.chef_service AND "
+                    + "practicien_hospitalier.specialite=service_clinique.specialite ";
+            
+            sqlCSMT = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_medico_technique "
+                    + "WHERE practicien_hospitalier.idph=service_medico_technique.chef_service AND "
+                    + "practicien_hospitalier.specialite=service_medico_technique.specialite ";
+            ResultSet resultatPh = CHUPP.getRequete(sqlph);
+            ResultSet resultatInt = CHUPP.getRequete(sqlint);
+            ResultSet resultatInf = CHUPP.getRequete(sqlinf);
+            ResultSet resultatSec = CHUPP.getRequete(sqlsec);
+            ResultSet resultatInfo = CHUPP.getRequete(sqlinfo);
+            ResultSet resultatCSC = CHUPP.getRequete(sqlCSC);
+            ResultSet resultatCSMT = CHUPP.getRequete(sqlCSMT);
+            while (spe.equals("")) {
+                //parcours du personnel des Service Cliniques
+
+                while (resultatPh.next()) {
+                    if ((nom.equals(resultatPh.getString("nom"))) && (mdp.equals(resultatPh.getString("mdp")))) {
+                        spe = resultatPh.getString("specialite");
+                        currentConnected = new PH(resultatPh.getString("idph"), nom, resultatPh.getString("prenom"), mdp, spe);
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
-                        sc.setChupp(this.chupp);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText(spe);
+                        sc.getjLabelService().setText("Service "+spe);
+                        break;
                     }
-                    if ((id.equals(this.chupp.getScs().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getScs().get(i).getChefDeService().getMdp()))) {
-                        spe = this.chupp.getScs().get(i).getPraticiens().get(j).getSpecialite();
-                        currentConnected = this.chupp.getScs().get(i).getChefDeService();
+                }
+                while (resultatCSC.next()) {
+                    if ((nom.equals(resultatCSC.getString("nom"))) && (mdp.equals(resultatCSC.getString("mdp")))) {
+                        spe = resultatCSC.getString("practicien_hospitalier.specialite");
+                        currentConnected = new PH(resultatCSC.getString("idph"), nom, resultatCSC.getString("prenom"), mdp, spe);
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
-                        sc.setChupp(this.chupp);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText(spe);
+                        sc.getjLabelService().setText("Service "+spe);
+                        break;
                     }
                 }
-                for (int j = 0; j < this.chupp.getScs().get(i).getInfirmiers().getSize(); j++) {
-                    if ((id.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInfirmiers().get(j).getMdp()))) {
-                        spe = this.chupp.getScs().get(i).getInfirmiers().get(j).getSpecialite();
-                        currentConnected = this.chupp.getScs().get(i).getInfirmiers().get(j);
-                        sci = new ServiceCliniqueInfirmieresUI();
+                while (resultatInf.next()) {
+                    if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
+                        spe = resultatInf.getString("specialite");
+                        currentConnected = new PersonnelInfirmier(resultatInf.getString("idinf"), nom, resultatInf.getString("prenom"), mdp, spe);
+                        scinf = new ServiceCliniqueInfirmieresUI();
+                        scinf.setLocationRelativeTo(this);
+                        scinf.setVisible(true);
+                        scinf.getjLabelService().setText("Service "+spe);
+                        break;
+                    }
+                }
+                while (resultatInt.next()) {
+                    if ((nom.equals(resultatInt.getString("nom"))) && (mdp.equals(resultatInt.getString("mdp")))) {
+                        spe = resultatInt.getString("specialite");
+                        currentConnected = new Interne(resultatInt.getString("idi"), nom, resultatInt.getString("prenom"), mdp, spe);
+                        sci = new ServiceCliniqueInterneUI();
                         sci.setLocationRelativeTo(this);
-                        sci.setChupp(this.chupp);
                         sci.setVisible(true);
-                        sci.getjLabelService().setText(spe);
+                        sci.getjLabelService().setText("Service "+spe);
+                        break;
                     }
                 }
-                for (int j = 0; j < this.chupp.getScs().get(i).getInternes().getSize(); j++) {
-                    if ((id.equals(this.chupp.getScs().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getScs().get(i).getInternes().get(j).getMdp()))) {
-                        spe = this.chupp.getScs().get(i).getInternes().get(j).getSpecialite();
-                        currentConnected = this.chupp.getScs().get(i).getInternes().get(j);
-                        scint = new ServiceCliniqueInterneUI();
-                        scint.setLocationRelativeTo(this);
-                        scint.setChupp(this.chupp);
-                        scint.setVisible(true);
-                        scint.getjLabelService().setText(spe);
-                    }
-                }
-            }
-            //parcours du personnel des ServicesMedicoTechniques
-            for (int i = 0; i < this.chupp.getSmts().getSize(); i++) {
-                for (int j = 0; j < this.chupp.getSmts().get(i).getPraticiens().getSize(); j++) {
-                    if ((id.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getPraticiens().get(j).getMdp()))) {
-                        spe = this.chupp.getSmts().get(i).getPraticiens().get(j).getSpecialite();
-                        currentConnected = this.chupp.getSmts().get(i).getPraticiens().get(j);
+                
+                // faire quand interface prete
+                
+//                while (resultatSec.next()) {
+//                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
+//                        spe = "Admission";
+//                        currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
+//                        sa = new ;
+//                        sa.setLocationRelativeTo(this);
+//                        sa.setVisible(true);
+//                        break;
+//                    }
+//                }
+                while (resultatCSMT.next()) {
+                    if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
+                        spe = resultatCSMT.getString("specialite");
+                        currentConnected = new PH(resultatCSMT.getString("idph"), nom, resultatCSMT.getString("prenom"), mdp, spe);
                         smt = new ServiceMedicoTechniquesIU();
                         smt.setLocationRelativeTo(this);
-                        smt.setChupp(this.chupp);
                         smt.setVisible(true);
-                        smt.getjLabelService().setText(spe);
-                    }
-                    if ((id.equals(this.chupp.getSmts().get(i).getChefDeService().getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getChefDeService().getMdp()))) {
-                        spe = this.chupp.getSmts().get(i).getPraticiens().get(j).getSpecialite();
-                        currentConnected = this.chupp.getSmts().get(i).getChefDeService();
-                        smt = new ServiceMedicoTechniquesIU();
-                        smt.setLocationRelativeTo(this);
-                        smt.setChupp(this.chupp);
-                        smt.setVisible(true);
-                        smt.getjLabelService().setText(spe);
+                        smt.getjLabelService().setText("Service "+spe);
+                        break;
                     }
                 }
-                for (int j = 0; j < this.chupp.getSmts().get(i).getInfirmiers().getSize(); j++) {
-                    if ((id.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInfirmiers().get(j).getMdp()))) {
-                        spe = this.chupp.getSmts().get(i).getInfirmiers().get(j).getSpecialite();
-                        currentConnected = this.chupp.getSmts().get(i).getInfirmiers().get(j);
-                        sci = new ServiceCliniqueInfirmieresUI();
-                        sci.setLocationRelativeTo(this);
-                        sci.setChupp(this.chupp);
-                        sci.setVisible(true);
-                        sci.getjLabelService().setText(spe);
+                while (resultatInfo.next()) {
+                    if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
+                        spe = "informatique";
+                        currentConnected = new PH(resultatInfo.getString("idinfo"), nom, resultatInfo.getString("prenom"), mdp, spe);
+                        si = new ServiceInformatiqueIU();
+                        si.setLocationRelativeTo(this);
+                        si.setVisible(true);
+                        break;
                     }
                 }
-                for (int j = 0; j < this.chupp.getSmts().get(i).getInternes().getSize(); j++) {
-                    if ((id.equals(this.chupp.getSmts().get(i).getInternes().get(j).getNom())) && (mdp.equals(this.chupp.getSmts().get(i).getInternes().get(j).getMdp()))) {
-                        spe = this.chupp.getSmts().get(i).getInternes().get(j).getSpecialite();
-                        currentConnected = this.chupp.getSmts().get(i).getInternes().get(j);
-                        scint = new ServiceCliniqueInterneUI();
-                        scint.setLocationRelativeTo(this);
-                        scint.setChupp(this.chupp);
-                        scint.setVisible(true);
-                        scint.getjLabelService().setText(spe);
-                    }
-                }
+                break;
             }
-            //parcours du personnel informatique
-            for(int i =0; i < this.chupp.getSi().getInformaticiens().getSize();i++){
-                if((id.equals(this.chupp.getSi().getInformaticiens().get(i).getNom())) && (mdp.equals(this.chupp.getSi().getInformaticiens().get(i).getMdp()))){
-                    spe = "Informatique";
-                    currentConnected = this.chupp.getSi().getInformaticiens().get(i);
-                    si = new ServiceInformatiqueIU();
-                    si.setLocationRelativeTo(this);
-                    si.setVisible(true);
-                }
-            }
-            //parcours du personnel du Service Admission
-            for(int i =0;i<this.chupp.getSa().getSecretaires().getSize();i++){
-                if((id.equals(this.chupp.getSa().getSecretaires().get(i).getNom())) && (mdp.equals(this.chupp.getSa().getSecretaires().get(i).getMdp()))){
-                    spe = "Admission";
-                    currentConnected = this.chupp.getSa().getSecretaires().get(i);
-                    //sa = new ServiceAdmission();
-                    //sa.setLocationRelativeTo(this);
-                    //sa.setVisible();
-                }
-                if((id.equals(this.chupp.getSa().getChefDeService().getNom()) && (mdp.equals(this.chupp.getSa().getChefDeService().getMdp())))){
-                    spe = "Admission";
-                    currentConnected = this.chupp.getSa().getChefDeService();
-                    //sa = new ServiceAdmission();
-                    //sa.setLocationRelativeTo(this);
-                    //sa.setVisible();
-                }
-            }
+
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
         }
-        System.out.println(currentConnected.getNom()+" "+currentConnected.getPrenom());
+//        
+
+        System.out.println(getCurrentConnected().getNom() + " " + getCurrentConnected().getPrenom());
+    }
+    public static PersonnelMedical getCurrentConnected() {
+        return currentConnected;
     }
 
 }

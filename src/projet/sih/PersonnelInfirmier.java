@@ -12,8 +12,8 @@ package projet.sih;
  */
 public class PersonnelInfirmier extends PersonnelMedical{
     
-    public PersonnelInfirmier(String id, String nom, String prenom, String mdp){
-        super(id,nom,prenom,mdp);
+    public PersonnelInfirmier(String id, String nom, String prenom, String mdp, String specialite){
+        super(id,nom,prenom,mdp,specialite);
     }
     /**
      * @return the id
