@@ -37,9 +37,9 @@ public class ConnexionUI extends javax.swing.JFrame {
      */
     public ConnexionUI() {
         initComponents();
-        this.chupp = new CHUPP();
+        //this.chupp = new CHUPP();
         setLocationRelativeTo(null); 
-        ImageIcon image = new ImageIcon("../Princeton-Plainsboro.jpg");
+        ImageIcon image = new ImageIcon("C:\\Princeton-Plainsboro.jpg");
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
         connection.init();
