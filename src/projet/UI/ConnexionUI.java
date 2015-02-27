@@ -30,7 +30,7 @@ public class ConnexionUI extends javax.swing.JFrame {
     
 
     private ServiceCliniqueIU sc;
-    private ServiceCliniqueSecretaireUI scs;
+    private ServiceAdmissionUI scs;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
     private ServiceCliniqueInfirmieresUI scinf;
