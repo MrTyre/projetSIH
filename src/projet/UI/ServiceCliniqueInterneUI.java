@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -286,9 +287,13 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
         JOptionPane j = new JOptionPane();
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
-       // connexion = new ConnexionUI(); Mais ça marche pas, pq ?
-        connexion.setLocationRelativeTo(null);
-        connexion.setResizable(false);
+              setVisible(false);
+            try {
+                connexion = new ConnexionUI();
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceCliniqueInterneUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         connexion.setVisible(true);
         } else {
             j.setVisible(false);
         }

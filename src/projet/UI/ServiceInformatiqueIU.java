@@ -20,6 +20,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
      private ServiceInformatiqueAjouterPersonnelIU siap;
      private ServiceInformatiqueAjouterServiceIU sias;
      private ServiceInformatiqueModifierPersonnel simp;
+     private ConnexionUI connexion;
     /**
      * Creates new form ServiceInformatiqueIU
      */
@@ -162,7 +163,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
        JOptionPane j=new JOptionPane();
          int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
          if(retour == JOptionPane.OK_OPTION){
-            
+              
         }
         else {
             j.setVisible(false);
