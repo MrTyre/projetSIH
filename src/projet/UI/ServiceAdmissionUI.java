@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -205,6 +206,11 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
         jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Tranfert du patient dans le service : ");
@@ -359,6 +365,17 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+         JOptionPane j=new JOptionPane();
+         int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+         if(retour == JOptionPane.OK_OPTION){
+            
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     /**
      * @param args the command line arguments

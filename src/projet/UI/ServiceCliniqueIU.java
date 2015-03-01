@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import projet.sih.*;
 import javax.swing.event.ListSelectionListener;
@@ -24,6 +25,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private AjouterPrescriptionIU aprIU;
     private DefaultListModel dlm = new DefaultListModel();
     private JList1ActionPerformed jll;
+    private ConnexionUI connexion;
     private static Patient currentPatient;
 
     private String sql;
@@ -68,6 +70,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jLabelPatient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabelIPP = new javax.swing.JTextField();
+        jButtonDeconnexion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -204,6 +207,15 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
+        jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -222,20 +234,27 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 633, Short.MAX_VALUE)
+                        .addComponent(jButtonDeconnexion)))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jTabbedPane1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonDeconnexion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE))
         );
 
         jSplitPane2.setRightComponent(jPanel1);
@@ -311,6 +330,18 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         aprIU.setCurrentPatient(currentPatient);
     }//GEN-LAST:event_jButtonAjouterPrescriptionActionPerformed
 
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+        JOptionPane j=new JOptionPane();
+        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+           // cette putain de page serviceCliniqueIU  .setVisible(false);
+           connexion.setVisible(true);
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -350,6 +381,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JLabel ListePatient;
     private javax.swing.JButton jButtonAjouterObservation;
     private javax.swing.JButton jButtonAjouterPrescription;
+    private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

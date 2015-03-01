@@ -7,6 +7,7 @@
 package projet.UI;
     
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
    
 
@@ -80,6 +81,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jButtonDeconnexion.setBackground(new java.awt.Color(0, 51, 153));
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,6 +157,17 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         simp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
         simp.setResizable(false);
     }//GEN-LAST:event_jButtonModifierPersonnelActionPerformed
+
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+       JOptionPane j=new JOptionPane();
+         int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+         if(retour == JOptionPane.OK_OPTION){
+            
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     /**
      * @param args the command line arguments

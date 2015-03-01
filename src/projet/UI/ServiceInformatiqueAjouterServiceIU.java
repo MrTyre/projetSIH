@@ -40,7 +40,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jTextFieldPrenom = new javax.swing.JTextField();
         jComboBoxSpecialite = new javax.swing.JComboBox();
         jButtonOK = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonRetour = new javax.swing.JButton();
         jLabelNomService = new javax.swing.JLabel();
         jTextFieldNomService = new javax.swing.JTextField();
 
@@ -89,12 +89,12 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 153));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRetour.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonRetour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonRetour.setText("Annuler");
+        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRetourActionPerformed(evt);
             }
         });
 
@@ -111,7 +111,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -171,7 +171,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOK)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonRetour))
                 .addContainerGap())
         );
 
@@ -189,12 +189,12 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         setVisible(false);
         si = new ServiceInformatiqueIU();
         si.setLocationRelativeTo(null);
         si.setResizable(false);  
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
@@ -240,8 +240,8 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonRetour;
     private javax.swing.JComboBox jComboBoxService;
     private javax.swing.JComboBox jComboBoxSpecialite;
     private javax.swing.JLabel jLabelChefDeService;

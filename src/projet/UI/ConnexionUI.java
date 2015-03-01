@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import projet.sih.*;
 
@@ -266,6 +267,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc.getjLabelService().setText("Service "+spe);
                         break;
                     }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 while (resultatCSC.next()) {
                     if ((nom.equals(resultatCSC.getString("nom"))) && (mdp.equals(resultatCSC.getString("mdp")))) {
@@ -278,6 +283,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         System.out.println("BLA");
                         break;
                     }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 while (resultatInf.next()) {
                     if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
@@ -289,6 +298,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         scinf.getjLabelService().setText("Service "+spe);
                         break;
                     }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 while (resultatInt.next()) {
                     if ((nom.equals(resultatInt.getString("nom"))) && (mdp.equals(resultatInt.getString("mdp")))) {
@@ -299,6 +312,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sci.setVisible(true);
                         sci.getjLabelService().setText("Service "+spe);
                         break;
+                    }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 
@@ -323,7 +340,13 @@ public class ConnexionUI extends javax.swing.JFrame {
                         smt.setVisible(true);
                         smt.getjLabelService().setText("Service "+spe);
                         break;
+
                     }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
+                    }
+                   
                 }
                 while (resultatInfo.next()) {
                     if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
@@ -333,6 +356,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         si.setLocationRelativeTo(this);
                         si.setVisible(true);
                         break;
+                    }
+                     else {
+                        JOptionPane jop1 = new JOptionPane();
+                        jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 break;

@@ -73,10 +73,15 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
 
         jButtonRetour.setBackground(new java.awt.Color(0, 51, 153));
         jButtonRetour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonRetour.setText("Retour");
+        jButtonRetour.setText("Annuler");
         jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRetourActionPerformed(evt);
@@ -169,6 +174,10 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         si.setResizable(false);
         
     }//GEN-LAST:event_jButtonRetourActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments

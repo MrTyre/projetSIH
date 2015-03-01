@@ -5,6 +5,7 @@
  */
 
 package projet.UI;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -240,7 +241,14 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvoyerActionPerformed
-        // TODO add your handling code here:
+       JOptionPane j=new JOptionPane();
+       int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer ce résultat de prestation ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+            
+        }
+        else {
+            j.setVisible(false);
+        }
     }//GEN-LAST:event_jButtonEnvoyerActionPerformed
 
     private void jTextFieldMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMoisActionPerformed

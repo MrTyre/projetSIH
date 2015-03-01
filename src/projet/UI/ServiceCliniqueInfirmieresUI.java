@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -21,6 +22,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
+    private ConnexionUI connexion;
     private DefaultListModel dlm = new DefaultListModel();
     /**
      * Creates new form ServiceCliniqueInfirmières
@@ -172,6 +174,11 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
         jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -272,6 +279,18 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     private void IPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IPPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IPPActionPerformed
+
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+        JOptionPane j=new JOptionPane();
+        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+           // cette putain de page serviceCliniqueInfIU  .setVisible(false);
+           connexion.setVisible(true);
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     /**
      * @param args the command line arguments

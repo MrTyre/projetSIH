@@ -5,6 +5,8 @@
  */
 package projet.UI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Marina
@@ -101,10 +103,20 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
 
         jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
+        jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,6 +224,21 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
+       setVisible(false);
+    }//GEN-LAST:event_jButtonAnnulerActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        JOptionPane j=new JOptionPane();
+         int retour =j.showConfirmDialog(this, "Êtes-vous sûr de valider ce nouveau RDV ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+         if(retour == JOptionPane.OK_OPTION){
+            
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments
