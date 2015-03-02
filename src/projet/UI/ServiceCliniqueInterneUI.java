@@ -7,12 +7,17 @@ package projet.UI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,8 +39,14 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     /**
      * Creates new form ServiceCliniqueInterne
      */
-    public ServiceCliniqueInterneUI() {
-        initComponents();
+    public ServiceCliniqueInterneUI() throws FileNotFoundException, IOException {
+        initComponents();        
+        setTitle("Bienvenue dans Genesis HealthCare Solutions");        
+        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+        jLabel2.setIcon(image);
+        jLabel2.setVisible(true);
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -50,6 +61,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
+        
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -109,6 +121,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
         ListePatient = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabelService = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,7 +143,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.jpg")), jPanel4); // NOI18N
+        jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.png")), jPanel4); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -143,7 +156,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.jpg")), jPanel5); // NOI18N
+        jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -156,7 +169,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Résultats", jPanel6);
+        jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -169,7 +182,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("DMA", jPanel7);
+        jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -182,7 +195,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             .addGap(0, 502, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("RDV", jPanel8);
+        jTabbedPane1.addTab("RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
@@ -269,9 +282,6 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(ListePatient)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -279,11 +289,16 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
@@ -366,8 +381,13 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ServiceCliniqueInterneUI().setVisible(true);
+                try {
+                    new ServiceCliniqueInterneUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueInterneUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -378,6 +398,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     private javax.swing.JTextField Patient;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelService;
