@@ -5,6 +5,8 @@
  */
 package projet.UI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import projet.sih.*;
 
@@ -37,6 +42,37 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public ServiceAdmissionUI() {
         initComponents();
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
             ResultSet resultat =CHUPP.getRequete(sql);

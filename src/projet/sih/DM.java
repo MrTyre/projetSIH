@@ -19,8 +19,6 @@ public class DM {
     private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
-    private String sql;
-    private String sql2;
 
     public DM() {
         observationsPH = new DefaultListModel<Observation>();
@@ -60,11 +58,11 @@ public class DM {
     public String afficherPrescriptions(Patient patient) {
         String s = "";
         try {
-            sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
+            String sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
 
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
-                sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
+                String sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
 
                 ResultSet resultat2 = CHUPP.getRequete(sql2);
                 s += "Prescription du " + resultat.getDate("prescription.date") + ", Dr. " + ConnexionUI.getCurrentConnected().getNom() + "  numero de prescription: " + resultat.getString("idpresc");
@@ -82,15 +80,36 @@ public class DM {
             e.printStackTrace();
             return "erreur";
         }
-
     }
 
-    public String afficherObservationsPH() {
+    public String afficherObservationsPH(Patient patient) {
         String s = "";
-        for (int i = 0; i < this.observationsPH.getSize(); i++) {
-            s += "Observation du " + this.observationsPH.get(i).getDate() + ", Dr." + this.observationsPH.get(i).getPhWriter().toString();
-            s += "\n-----------------------------------------------------------------------------------";
+        try {
+            s += "OBSERVATIONS RELATIVES A UNE CONSULTATION :";
+            String sqlc = "SELECT observation.* FROM observation, consultation WHERE observation.idch=consultation.idhosp AND consultation.ipp=" + patient.getIPP();
+            ResultSet resultat = CHUPP.getRequete(sqlc);
+            while (resultat.next()) {
+            String sqlc2 = "SELECT practicien_hospitalier.*,consultation.date FROM practicien_hospitalier, consultation, observation WHERE consultation.idph=practicien_hospitalier.idph AND consultation.idhosp=" + resultat.getInt("observation.idch");            
+            ResultSet resultat2 = CHUPP.getRequete(sqlc2);
+                s += "Observation du " + resultat.getDate("observation.date") + ", faite par le Dr. " + resultat2.getString("practicien_hospitalier.nom") +" "+ resultat2.getString("practicien_hospitalier.prenom")+ "se référant à la consultation du "+resultat.getDate("consultation.date");
+                s += resultat.getString("observation.contenu");
+                s += "\n------------------------------------------------------------------------------------------------------------------\n";
+            }
+            s += "OBSERVATIONS RELATIVES A UNE HOSPITALISATION :";
+            String sqlh = "SELECT observation.* FROM observation, hospitalisation WHERE observation.idch=hospitalisation.idhosp AND hospitalisation.ipp=" + patient.getIPP();
+            ResultSet resultat3 = CHUPP.getRequete(sqlh);
+            while (resultat3.next()) {
+            String sqlc2 = "SELECT practicien_hospitalier.*,hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation, observation WHERE hospitalisation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");            
+            ResultSet resultat4 = CHUPP.getRequete(sqlc2);
+                s += "Observation du " + resultat.getDate("observation.date") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") +" "+ resultat4.getString("practicien_hospitalier.prenom")+ "se référant à l'hospitalisation du "+resultat4.getDate("hospitalisation.date")+" au "+resultat4.getDate("hospitalisation.date_sortie");
+                s += resultat3.getString("observation.contenu");
+                s += "\n------------------------------------------------------------------------------------------------------------------\n";
+            }
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
         }
-        return s;
     }
 }

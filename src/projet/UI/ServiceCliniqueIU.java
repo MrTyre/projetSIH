@@ -1,5 +1,7 @@
 package projet.UI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +11,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import projet.sih.*;
@@ -35,6 +39,37 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         initComponents();
         jll = new JList1ActionPerformed();
         jList1.addListSelectionListener(jll);
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         sql = "SELECT nom, prenom, date_naissance FROM Patient";
 
         try {
@@ -64,6 +99,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterObservation = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -130,19 +167,25 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterObservation.setText("+ Observation");
 
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(928, Short.MAX_VALUE)
+                .addContainerGap(917, Short.MAX_VALUE)
                 .addComponent(jButtonAjouterObservation)
                 .addGap(30, 30, 30))
+            .addComponent(jScrollPane3)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(475, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjouterObservation)
                 .addGap(34, 34, 34))
         );
@@ -332,19 +375,18 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAjouterPrescriptionActionPerformed
 
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
-        JOptionPane j=new JOptionPane();
-        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
-        if(retour == JOptionPane.OK_OPTION){
-             setVisible(false);
+        JOptionPane j = new JOptionPane();
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        if (retour == JOptionPane.OK_OPTION) {
+            setVisible(false);
             try {
                 connexionUI = new ConnexionUI();
             } catch (IOException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
-         connexionUI.setVisible(true);
-         
-        }
-        else {
+            connexionUI.setVisible(true);
+
+        } else {
             j.setVisible(false);
         }
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
@@ -405,9 +447,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 
     public CHUPP getChupp() {
@@ -442,6 +486,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+                        jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                         repaint();
                     }
                 }
