@@ -91,6 +91,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
 
         jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -203,6 +208,10 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments

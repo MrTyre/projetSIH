@@ -5,6 +5,7 @@
  */
 
 package projet.UI;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,7 +20,7 @@ import projet.sih.*;
  */
 public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private CHUPP chupp;
-    private ConnexionUI connexion;
+    private ConnexionUI connexionUI;
     
     private DefaultListModel dlm;
     //attribut base de donnée
@@ -217,8 +218,14 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         JOptionPane j = new JOptionPane();
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
-            // cette putain de page serviceMedico texhniqueIU  .setVisible(false);
-            connexion.setVisible(true);
+           setVisible(false);
+             try {
+                 connexionUI = new ConnexionUI();
+             } catch (IOException ex) {
+                 Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         connexionUI.setVisible(true);
+  
         } else {
             j.setVisible(false);
         }

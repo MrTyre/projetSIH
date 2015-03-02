@@ -322,6 +322,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
            ajouterPrescription(); 
            setVisible(false);
         }
+        else {
+            j.setVisible(false);
+        }
         
     }//GEN-LAST:event_jButtonValiderActionPerformed
 

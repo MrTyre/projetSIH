@@ -6,6 +6,9 @@
 
 package projet.UI;
     
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,7 +23,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
      private ServiceInformatiqueAjouterPersonnelIU siap;
      private ServiceInformatiqueAjouterServiceIU sias;
      private ServiceInformatiqueModifierPersonnel simp;
-     private ConnexionUI connexion;
+     private ConnexionUI connexionUI;
     /**
      * Creates new form ServiceInformatiqueIU
      */
@@ -100,7 +103,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
                     .addComponent(jButtonAjouterService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonModifierPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +167,14 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
          if(retour == JOptionPane.OK_OPTION){
               
+         setVisible(false);
+             try {
+                 connexionUI = new ConnexionUI();
+             } catch (IOException ex) {
+                 Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         connexionUI.setVisible(true);
+  
         }
         else {
             j.setVisible(false);

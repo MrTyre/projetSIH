@@ -23,7 +23,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
     private AjouterPatientIU apIU;
     private CHUPP chupp;
-    private ConnexionUI connexion;
+    private ConnexionUI connexionUI;
 
     DefaultListModel dlm = new DefaultListModel();
 //attribut base de donnée
@@ -374,11 +374,11 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
          if(retour == JOptionPane.OK_OPTION){
           setVisible(false);
              try {
-                 connexion = new ConnexionUI();
+                 connexionUI = new ConnexionUI();
              } catch (IOException ex) {
                  Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
              }
-         connexion.setVisible(true);
+         connexionUI.setVisible(true);
   
         }
         else {

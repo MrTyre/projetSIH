@@ -26,7 +26,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private AjouterPrescriptionIU aprIU;
     private DefaultListModel dlm = new DefaultListModel();
     private JList1ActionPerformed jll;
-    private ConnexionUI connexion;
+    private ConnexionUI connexionUI;
     private static Patient currentPatient;
 
     private String sql;
@@ -337,11 +337,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         if(retour == JOptionPane.OK_OPTION){
              setVisible(false);
             try {
-                connexion = new ConnexionUI();
+                connexionUI = new ConnexionUI();
             } catch (IOException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
-         connexion.setVisible(true);
+         connexionUI.setVisible(true);
          
         }
         else {
