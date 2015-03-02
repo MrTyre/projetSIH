@@ -36,7 +36,7 @@ public class ConnexionUI extends javax.swing.JFrame {
     private ServiceMedicoTechniquesIU smt;
     private ServiceCliniqueInfirmieresUI scinf;
     private ServiceCliniqueInterneUI sci;
-    //private ServiceAdmission sa;
+    private ServiceAdmissionUI sa;
     private CHUPP chupp;
     private static PersonnelMedical currentConnected;
     //attribut base de donnée
@@ -319,18 +319,16 @@ public class ConnexionUI extends javax.swing.JFrame {
                     }
                 }
                 
-                // faire quand interface prete
-                
-//                while (resultatSec.next()) {
-//                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
-//                        spe = "Admission";
-//                        currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
-//                        sa = new ;
-//                        sa.setLocationRelativeTo(this);
-//                        sa.setVisible(true);
-//                        break;
-//                    }
-//                }
+                while (resultatSec.next()) {
+                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
+                        spe = "Admission";
+                        currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
+                        sa = new ServiceAdmissionUI();
+                        sa.setLocationRelativeTo(this);
+                        sa.setVisible(true);
+                        break;
+                    }
+                }
                 while (resultatCSMT.next()) {
                     if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
                         spe = resultatCSMT.getString("specialite");
