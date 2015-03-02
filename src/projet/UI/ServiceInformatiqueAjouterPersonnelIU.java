@@ -176,7 +176,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
