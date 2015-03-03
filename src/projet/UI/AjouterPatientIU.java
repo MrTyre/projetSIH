@@ -40,8 +40,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jComboBoxPays.setModel((new DefaultComboBoxModel<>(Pays.values())));
         jComboBoxPays.setSelectedIndex(73);
         jComboBoxSexe.setModel((new DefaultComboBoxModel<>(Sexe.values())));
-        
-
     }
 
     /**

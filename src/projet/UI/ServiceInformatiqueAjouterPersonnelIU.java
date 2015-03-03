@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.UI;
 
 import java.awt.event.ActionEvent;
@@ -25,9 +24,10 @@ import javax.swing.JMenuItem;
  * @author Manounette
  */
 public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
-    
+
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
+
     /**
      * Creates new form ServiceInformatiqueAjouterPersonnelIU
      */
@@ -52,7 +52,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-        
+
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -227,14 +227,18 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
 
     private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         setVisible(false);
-        si = new ServiceInformatiqueIU();
+        try {
+            si = new ServiceInformatiqueIU();
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
         si.setLocationRelativeTo(null);
         si.setResizable(false);
-        
+        si.setVisible(true);
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        
+
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
@@ -292,4 +296,14 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNom;
     private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
+    public String generate() {
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // Tu supprimes les lettres dont tu ne veux pas
+        String pass = "";
+        for (int x = 0; x < 5; x++) {
+            int i = (int) Math.floor(Math.random() * 62); // Si tu supprimes des lettres tu diminues ce nb
+            pass += chars.charAt(i);
+        }
+        System.out.println(pass);
+        return pass;
+    }
 }

@@ -252,9 +252,14 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
 
     private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         setVisible(false);
-        si = new ServiceInformatiqueIU();
+        try {
+            si = new ServiceInformatiqueIU();
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
         si.setLocationRelativeTo(null);
-        si.setResizable(false);  
+        si.setResizable(false);
+        si.setVisible(true);
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed

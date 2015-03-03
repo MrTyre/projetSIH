@@ -514,7 +514,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                         jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient));
+                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                         repaint();
                     }
                 }
@@ -523,6 +523,5 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 }

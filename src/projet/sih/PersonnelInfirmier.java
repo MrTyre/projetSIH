@@ -19,41 +19,41 @@ public class PersonnelInfirmier extends PersonnelMedical{
      * @return the id
      */
     public String getID() {
-        return getID();
+        return super.getID();
     }
 
     /**
      * @param id the id to set
      */
     public void setID(String ID) {
-        this.setID(ID);
+        super.setID(ID);
     }
 
     /**
      * @return the nom
      */
     public String getNom() {
-        return getNom();
+        return super.getNom();
     }
 
     /**
      * @param nom the nom to set
      */
     public void setNom(String nom) {
-        this.setNom(nom);
+        super.setNom(nom);
     }
 
     /**
      * @return the prenom
      */
     public String getPrenom() {
-        return getPrenom();
+        return super.getPrenom();
     }
 
     /**
      * @param prenom the prenom to set
      */
     public void setPrenom(String prenom) {
-        this.setPrenom(prenom);
+        super.setPrenom(prenom);
     }
 }

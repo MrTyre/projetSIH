@@ -279,8 +279,9 @@ public class ConnexionUI extends javax.swing.JFrame {
 //                }
                 while (resultatInf.next()) {
                     if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
-                        spe = resultatInf.getString("specialite");
+                        spe = resultatInf.getString("service");
                         currentConnected = new PersonnelInfirmier(resultatInf.getString("idinf"), nom, resultatInf.getString("prenom"), mdp, spe);
+                        System.out.println("currentConnected OK");
                         scinf = new ServiceCliniqueInfirmieresUI();
                         scinf.setLocationRelativeTo(this);
                         scinf.setVisible(true);

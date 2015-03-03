@@ -264,7 +264,8 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
             Logger.getLogger(ServiceInformatiqueModifierPersonnel.class.getName()).log(Level.SEVERE, null, ex);
         }
         si.setLocationRelativeTo(null);
-        si.setResizable(false);  
+        si.setResizable(false); 
+        si.setVisible(true);
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed

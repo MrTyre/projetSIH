@@ -197,9 +197,9 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          }
         sias.setLocationRelativeTo(null);
         setVisible(false);
-        sias.setVisible(true);
         sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         sias.setResizable(false);
+        sias.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
@@ -210,18 +210,22 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          }
         siap.setLocationRelativeTo(null);
         setVisible(false);
-        siap.setVisible(true);
         siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         siap.setResizable(false);
+        siap.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
     private void jButtonModifierPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierPersonnelActionPerformed
-        simp = new ServiceInformatiqueModifierPersonnel();
+         try {
+             simp = new ServiceInformatiqueModifierPersonnel();
+         } catch (IOException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         }
         simp.setLocationRelativeTo(null);
         setVisible(false);
-        simp.setVisible(true);
         simp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
         simp.setResizable(false);
+        simp.setVisible(true);
     }//GEN-LAST:event_jButtonModifierPersonnelActionPerformed
 
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
