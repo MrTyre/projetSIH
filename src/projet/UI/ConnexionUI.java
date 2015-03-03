@@ -1,4 +1,3 @@
-
 package projet.UI;
 
 import java.awt.BorderLayout;
@@ -27,8 +26,6 @@ public class ConnexionUI extends javax.swing.JFrame {
     /**
      * @return the currentConnected
      */
-    
-
     private ServiceCliniqueIU sc;
     private ServiceCliniqueSecretaireUI scs;
     private ServiceInformatiqueIU si;
@@ -242,7 +239,7 @@ public class ConnexionUI extends javax.swing.JFrame {
             sqlCSC = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_clinique "
                     + "WHERE practicien_hospitalier.idph=service_clinique.chef_service AND "
                     + "practicien_hospitalier.specialite=service_clinique.specialite ";
-            
+
             sqlCSMT = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_medico_technique "
                     + "WHERE practicien_hospitalier.idph=service_medico_technique.chef_service AND "
                     + "practicien_hospitalier.specialite=service_medico_technique.specialite ";
@@ -263,7 +260,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText("Service "+spe);
+                        sc.getjLabelService().setText("Service " + spe);
                         break;
                     }
                 }
@@ -274,7 +271,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText("Service "+spe);
+                        sc.getjLabelService().setText("Service " + spe);
                         System.out.println("BLA");
                         break;
                     }
@@ -286,7 +283,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         scinf = new ServiceCliniqueInfirmieresUI();
                         scinf.setLocationRelativeTo(this);
                         scinf.setVisible(true);
-                        scinf.getjLabelService().setText("Service "+spe);
+                        scinf.getjLabelService().setText("Service " + spe);
                         break;
                     }
                 }
@@ -297,13 +294,12 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sci = new ServiceCliniqueInterneUI();
                         sci.setLocationRelativeTo(this);
                         sci.setVisible(true);
-                        sci.getjLabelService().setText("Service "+spe);
+                        sci.getjLabelService().setText("Service " + spe);
                         break;
                     }
                 }
-                
+
                 // faire quand interface prete
-                
 //                while (resultatSec.next()) {
 //                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
 //                        spe = "Admission";
@@ -321,7 +317,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         smt = new ServiceMedicoTechniquesIU();
                         smt.setLocationRelativeTo(this);
                         smt.setVisible(true);
-                        smt.getjLabelService().setText("Service "+spe);
+                        smt.getjLabelService().setText("Service " + spe);
                         break;
                     }
                 }
@@ -346,6 +342,7 @@ public class ConnexionUI extends javax.swing.JFrame {
 
         System.out.println(getCurrentConnected().getNom() + " " + getCurrentConnected().getPrenom());
     }
+
     public static PersonnelMedical getCurrentConnected() {
         return currentConnected;
     }
