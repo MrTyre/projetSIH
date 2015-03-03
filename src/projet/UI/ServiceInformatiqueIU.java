@@ -6,7 +6,21 @@
 
 package projet.UI;
     
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
    
 
@@ -19,13 +33,51 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
      private ServiceInformatiqueAjouterPersonnelIU siap;
      private ServiceInformatiqueAjouterServiceIU sias;
      private ServiceInformatiqueModifierPersonnel simp;
+     private ConnexionUI connexionUI;
     /**
      * Creates new form ServiceInformatiqueIU
      */
-    public ServiceInformatiqueIU() {
+    public ServiceInformatiqueIU() throws FileNotFoundException, IOException {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+        jLabel1.setIcon(image);
+        jLabel1.setVisible(true);
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     /**
@@ -43,6 +95,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jButtonAjouterPersonnel = new javax.swing.JButton();
         jButtonModifierPersonnel = new javax.swing.JButton();
         jButtonDeconnexion = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +133,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jButtonDeconnexion.setBackground(new java.awt.Color(0, 51, 153));
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,7 +151,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
                     .addComponent(jButtonAjouterService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonModifierPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +170,9 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
                 .addComponent(jButtonModifierPersonnel)
                 .addGap(35, 35, 35)
                 .addComponent(jButtonDeconnexion)
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,31 +190,62 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAjouterServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterServiceActionPerformed
-        sias = new ServiceInformatiqueAjouterServiceIU();
+         try {
+             sias = new ServiceInformatiqueAjouterServiceIU();
+         } catch (IOException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         }
         sias.setLocationRelativeTo(null);
         setVisible(false);
-        sias.setVisible(true);
         sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         sias.setResizable(false);
+        sias.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
-        siap = new ServiceInformatiqueAjouterPersonnelIU();
+         try {
+             siap = new ServiceInformatiqueAjouterPersonnelIU();
+         } catch (IOException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         }
         siap.setLocationRelativeTo(null);
         setVisible(false);
-        siap.setVisible(true);
         siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         siap.setResizable(false);
+        siap.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
     private void jButtonModifierPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierPersonnelActionPerformed
-        simp = new ServiceInformatiqueModifierPersonnel();
+         try {
+             simp = new ServiceInformatiqueModifierPersonnel();
+         } catch (IOException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         }
         simp.setLocationRelativeTo(null);
         setVisible(false);
-        simp.setVisible(true);
         simp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
         simp.setResizable(false);
+        simp.setVisible(true);
     }//GEN-LAST:event_jButtonModifierPersonnelActionPerformed
+
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+       JOptionPane j=new JOptionPane();
+         int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+         if(retour == JOptionPane.OK_OPTION){
+              
+         setVisible(false);
+             try {
+                 connexionUI = new ConnexionUI();
+             } catch (IOException ex) {
+                 Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         connexionUI.setVisible(true);
+  
+        }
+        else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +276,13 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ServiceInformatiqueIU().setVisible(true);
+                try {
+                    new ServiceInformatiqueIU().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -192,6 +292,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAjouterService;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonModifierPersonnel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelServiceInformatique;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

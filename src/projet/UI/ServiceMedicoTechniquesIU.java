@@ -5,11 +5,23 @@
  */
 
 package projet.UI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -18,6 +30,7 @@ import projet.sih.*;
  */
 public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private CHUPP chupp;
+    private ConnexionUI connexionUI;
     
     private DefaultListModel dlm;
     //attribut base de donnée
@@ -26,8 +39,45 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     /**
      * Creates new form ServiceMedicoTechniquesIU
      */
-    public ServiceMedicoTechniquesIU() {
+    public ServiceMedicoTechniquesIU() throws FileNotFoundException, IOException {
         initComponents();
+        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+        jLabel2.setIcon(image);
+        jLabel2.setVisible(true);
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         dlm=new DefaultListModel();
         sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
@@ -59,6 +109,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jLabelListePatients = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListPatients = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaDemandesPrestations = new javax.swing.JTextArea();
@@ -106,16 +157,18 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                     .addComponent(jLabelListePatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jScrollPane1)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelListePatients)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -142,9 +195,14 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jButtonDeconnexion.setBackground(new java.awt.Color(0, 51, 153));
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
         jButtonDeconnexion.setText("Deconnexion");
+        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeconnexionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -206,6 +264,23 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
+        JOptionPane j = new JOptionPane();
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        if (retour == JOptionPane.OK_OPTION) {
+           setVisible(false);
+             try {
+                 connexionUI = new ConnexionUI();
+             } catch (IOException ex) {
+                 Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         connexionUI.setVisible(true);
+  
+        } else {
+            j.setVisible(false);
+        }
+    }//GEN-LAST:event_jButtonDeconnexionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,13 +311,18 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceMedicoTechniquesIU().setVisible(true);
+                try {
+                    new ServiceMedicoTechniquesIU().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceMedicoTechniquesIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeconnexion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelListePatients;
     private javax.swing.JLabel jLabelPatient;

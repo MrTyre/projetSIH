@@ -5,6 +5,15 @@
  */
 
 package projet.UI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import projet.sih.*;
 
 /**
@@ -12,12 +21,43 @@ import projet.sih.*;
  * @author Tommy
  */
 public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
-    private CHUPP chupp;
+    private ConnexionUI connexionUI;
     /**
      * Creates new form ResultatPrestationLaboAnesthesieIU
      */
     public ResultatPrestationLaboAnesthesieIU() {
         initComponents();
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     /**
@@ -240,7 +280,14 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvoyerActionPerformed
-        // TODO add your handling code here:
+       JOptionPane j=new JOptionPane();
+       int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer ce résultat de prestation ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
+        if(retour == JOptionPane.OK_OPTION){
+            
+        }
+        else {
+            j.setVisible(false);
+        }
     }//GEN-LAST:event_jButtonEnvoyerActionPerformed
 
     private void jTextFieldMoisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMoisActionPerformed

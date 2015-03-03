@@ -5,6 +5,7 @@
  */
 package projet.sih;
 
+import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
 
 /**
@@ -49,25 +50,75 @@ public class DMA {
         this.hospitalisations = hospitalisations;
     }
 
-    public String afficherConsultations() {
+    public String afficherConsultations(Patient patient) {
         String s = "";
-        for (int i = 0; i < this.consultations.getSize(); i++) {
-            s += "n° de séjour : " + this.consultations.get(i).getNumSejour() + "\t\t\tDate : " + this.consultations.get(i).getDate().toString();
-            s += "\nPH Responsable : " + this.consultations.get(i).getPhResp().toString();
-            s += "\nNature de la prestation : " + this.consultations.get(i).getNaturePrestation();
-            s += "\n-----------------------------------------------------------------------------------";
+        try {
+            String sql = "SELECT * FROM consultation WHERE consultation.ipp=" + patient.getIPP();
+            String sql2 = "SELECT observation.* FROM observation, consultation WHERE observation.idch = consultation.idconsult AND consultation.ipp=" + patient.getIPP();
+            ResultSet resultat = CHUPP.getRequete(sql);
+            ResultSet resultat2 = CHUPP.getRequete(sql2);
+            resultat.last();
+            int nbrow = resultat.getRow();
+            resultat.first();
+            s += "CONSULTATIONS :";
+            if (nbrow == 0) {
+                s += "\nLa partie \"Consultations\" du DMA du patient " + patient.getNom() + " " + patient.getPrenom() + " est pour le moment inaccessible.";
+            } else {
+                String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("consultation.idph");
+                ResultSet resultat3 = CHUPP.getRequete(sql3);
+                resultat3.first();
+                resultat.beforeFirst();
+                while (resultat.next()) {
+                    s += "\n\nConsultation du " + resultat.getDate("consultation.date") + ", faite par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + "\t\tN° de séjour : " + resultat.getInt("consultation.idconsult");
+                    s += "\n\nNature de la prestation :   ";
+                    s += resultat.getString("consultation.nature_prestation");
+                    while (resultat2.next()) {
+                        s += "\n\tObservation du " + resultat2.getDate("observation.datel")+":\t" + resultat2.getString("observation.contenu");
+                    }
+                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
         }
-        return s;
     }
-    
-    public String afficherHospitalisations() {
+
+    public String afficherHospitalisations(Patient patient) {
         String s = "";
-        for (int i = 0; i < this.hospitalisations.getSize(); i++) {
-            s += "n° de séjour : " + this.hospitalisations.get(i).getNumSejour() + "\t\t\tDurée hospitalisation : " + this.hospitalisations.get(i).dureeHospitalisation();
-            s += "\nPH Responsable : " + this.hospitalisations.get(i).getPhResp().toString();
-            s += "\nNature de la prestation : " + this.hospitalisations.get(i).getNaturePrestation();
-            s += "\n-----------------------------------------------------------------------------------";
+        try {
+            String sql = "SELECT * FROM hospitalisation WHERE hospitalisation.ipp=" + patient.getIPP();
+            String sql2 = "SELECT observation.* FROM observation, hospitalisation WHERE observation.idch = hospitalisation.idhosp AND hospitalisation.ipp=" + patient.getIPP();
+            ResultSet resultat = CHUPP.getRequete(sql);
+            ResultSet resultat2 = CHUPP.getRequete(sql2);
+            resultat.last();
+            int nbrow = resultat.getRow();
+            resultat.first();
+            s += "HOSPITALISATIONS :";
+            if (nbrow == 0) {
+                s += "\nLa partie \"Hospitalisations\" du DMA du patient " + patient.getNom() + " " + patient.getPrenom() + " est pour le moment inaccessible.";
+            } else {
+                String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("hospitalisation.idph");
+                ResultSet resultat3 = CHUPP.getRequete(sql3);
+                resultat3.first();
+                resultat.beforeFirst();
+                while (resultat.next()) {
+                    s += "\n\nHospitalisation du " + resultat.getDate("hospitalisation.date") + " au "+ resultat.getDate("hospitalisation.date_sortie") + ", faite par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + "\t\tN° de séjour : " + resultat.getInt("hospitalisation.idhosp");
+                    s += "\n\nNature de la prestation :   ";
+                    s += resultat.getString("hospitalisation.nature_prestation");
+                    while (resultat2.next()) {
+                        s += "\n\tObservation du " + resultat2.getDate("observation.datel")+":\t" + resultat2.getString("observation.contenu");
+                    }
+                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
         }
-        return s;
     }
 }

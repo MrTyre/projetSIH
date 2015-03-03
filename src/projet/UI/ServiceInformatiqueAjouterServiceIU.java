@@ -6,17 +6,69 @@
 
 package projet.UI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author Manounette
  */
 public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private ServiceInformatiqueIU si;
+    private ConnexionUI connexionUI;
     /**
      * Creates new form ServiceInformatiqueAjouterServiceIU
      */
-    public ServiceInformatiqueAjouterServiceIU() {
+    public ServiceInformatiqueAjouterServiceIU() throws FileNotFoundException, IOException {
         initComponents();
+        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+        jLabel1.setIcon(image);
+        jLabel1.setVisible(true);
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     /**
@@ -40,9 +92,10 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jTextFieldPrenom = new javax.swing.JTextField();
         jComboBoxSpecialite = new javax.swing.JComboBox();
         jButtonOK = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonRetour = new javax.swing.JButton();
         jLabelNomService = new javax.swing.JLabel();
         jTextFieldNomService = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,13 +141,18 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
-
-        jButton1.setBackground(new java.awt.Color(0, 51, 153));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonOKActionPerformed(evt);
+            }
+        });
+
+        jButtonRetour.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonRetour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonRetour.setText("Annuler");
+        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRetourActionPerformed(evt);
             }
         });
 
@@ -110,36 +168,34 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNouveauService)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelNom)
-                                    .addComponent(jLabelPrenom)
-                                    .addComponent(jLabelSpecialite))
-                                .addGap(13, 13, 13)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxSpecialite, 0, 177, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldPrenom)
-                                    .addComponent(jTextFieldNom)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabelService)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabelNomService)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabelChefDeService))
-                        .addGap(0, 54, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jLabelNouveauService)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabelService)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabelNomService)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTextFieldNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelChefDeService)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelNom)
+                                .addComponent(jLabelPrenom)
+                                .addComponent(jLabelSpecialite))
+                            .addGap(13, 13, 13)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxSpecialite, 0, 177, Short.MAX_VALUE)
+                                .addComponent(jTextFieldPrenom)
+                                .addComponent(jTextFieldNom)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +227,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOK)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonRetour))
                 .addContainerGap())
         );
 
@@ -180,21 +236,31 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
         setVisible(false);
-        si = new ServiceInformatiqueIU();
+        try {
+            si = new ServiceInformatiqueIU();
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
         si.setLocationRelativeTo(null);
-        si.setResizable(false);  
-    }//GEN-LAST:event_jButton1ActionPerformed
+        si.setResizable(false);
+        si.setVisible(true);
+    }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
@@ -203,6 +269,10 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private void jTextFieldPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrenomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrenomActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,17 +303,23 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ServiceInformatiqueAjouterServiceIU().setVisible(true);
+                try {
+                    new ServiceInformatiqueAjouterServiceIU().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JButton jButtonRetour;
     private javax.swing.JComboBox jComboBoxService;
     private javax.swing.JComboBox jComboBoxSpecialite;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelChefDeService;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelNomService;

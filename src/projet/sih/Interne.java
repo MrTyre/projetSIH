@@ -21,41 +21,41 @@ public class Interne extends PersonnelMedical{
     }
 
     public String getID() {
-        return this.getID();
+        return super.getID();
     }
 
     /**
      * @param ID the ID to set
      */
     public void setID(String ID) {
-        this.setID(ID);
+        super.setID(ID);
     }
 
     /**
      * @return the nom
      */
     public String getNom() {
-        return this.getNom();
+        return super.getNom();
     }
 
     /**
      * @param nom the nom to set
      */
     public void setNom(String nom) {
-        this.setNom(nom);
+        super.setNom(nom);
     }
 
     /**
      * @return the prenom
      */
     public String getPrenom() {
-        return this.getPrenom();
+        return super.getPrenom();
     }
 
     /**
      * @param prenom the prenom to set
      */
     public void setPrenom(String prenom) {
-        this.setPrenom(prenom);
+        super.setPrenom(prenom);
     }
 }

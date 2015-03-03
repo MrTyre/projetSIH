@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import projet.sih.*;
+import projet.UI.*;
 
 /**
  *
@@ -28,7 +29,9 @@ public class TestFonctionnalCore {
 //        System.out.println(p1.getIPP());
 //        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
 //        System.out.println(p2.getIPP());
-        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-        System.out.println(date);
+        ServiceInformatiqueAjouterPersonnelIU siap = new ServiceInformatiqueAjouterPersonnelIU();
+        siap.generate();
+        siap.generate();
+        
     }
 }

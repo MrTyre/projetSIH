@@ -6,17 +6,69 @@
 
 package projet.UI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 /**
  *
  * @author Manounette
  */
 public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     private ServiceInformatiqueIU si;
+    private ConnexionUI connexionUI;
     /**
      * Creates new form ServiceInformatiqueModifierPersonnel
      */
-    public ServiceInformatiqueModifierPersonnel() {
+    public ServiceInformatiqueModifierPersonnel() throws FileNotFoundException, IOException {
         initComponents();
+        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        BufferedImage myPicture = ImageIO.read(input);
+        ImageIcon image = new ImageIcon(myPicture);
+        jLabel2.setIcon(image);
+        jLabel2.setVisible(true);
+        JMenuBar jmb = new JMenuBar();
+        JMenu menu1 = new JMenu("Fichier");
+        JMenu menu2 = new JMenu("Aide");
+        JMenuItem deco = new JMenuItem("Deconnexion");
+        JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem javadoc = new JMenuItem("Documentation technique");
+        JMenuItem helputil = new JMenuItem("Aide utilisateur");
+        menu1.add(deco);
+        menu1.add(leave);
+        menu2.add(javadoc);
+        menu2.add(helputil);
+        jmb.add(menu1);
+        jmb.add(menu2);
+        setJMenuBar(jmb);
+        
+        deco.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    connexionUI = new ConnexionUI();
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                connexionUI.setLocationRelativeTo(null);
+                connexionUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     /**
@@ -44,6 +96,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jComboBoxNouveauService = new javax.swing.JComboBox();
         jButtonOK = new javax.swing.JButton();
         jButtonAnnuler = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +144,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
+            }
+        });
 
         jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -184,10 +242,15 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -195,14 +258,23 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
         setVisible(false);
-        si = new ServiceInformatiqueIU();
+        try {
+            si = new ServiceInformatiqueIU();
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceInformatiqueModifierPersonnel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         si.setLocationRelativeTo(null);
-        si.setResizable(false);  
+        si.setResizable(false); 
+        si.setVisible(true);
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
+
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,8 +305,13 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ServiceInformatiqueModifierPersonnel().setVisible(true);
+                try {
+                    new ServiceInformatiqueModifierPersonnel().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceInformatiqueModifierPersonnel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -247,6 +324,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxService;
     private javax.swing.JComboBox jComboBoxStatut;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelNouveauService;
     private javax.swing.JLabel jLabelNouveauStatut;

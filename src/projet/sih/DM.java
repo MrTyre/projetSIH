@@ -19,8 +19,6 @@ public class DM {
     private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
-    private String sql;
-    private String sql2;
 
     public DM() {
         observationsPH = new DefaultListModel<Observation>();
@@ -60,18 +58,18 @@ public class DM {
     public String afficherPrescriptions(Patient patient) {
         String s = "";
         try {
-            sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
+            String sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
 
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
-                sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
+                String sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
 
                 ResultSet resultat2 = CHUPP.getRequete(sql2);
                 s += "Prescription du " + resultat.getDate("prescription.date") + ", Dr. " + ConnexionUI.getCurrentConnected().getNom() + "  numero de prescription: " + resultat.getString("idpresc");
                 while (resultat2.next()) {
-                    if (resultat2.getInt("idpresc") ==resultat.getInt("idpresc")) {
+                    if (resultat2.getInt("idpresc") == resultat.getInt("idpresc")) {
                         s += "\n\t\t- " + resultat2.getString("nom");
-                        s += "\t\t\t" + resultat2.getString("dose") + " " + resultat2.getString("unite") + "/j  jusqu'au " + resultat2.getString("date_fin");
+                        s += "\t\t\t" + resultat2.getString("dose") + " " + resultat2.getString("unite") + "/j  jusqu'au "/* + resultat2.getString("date_fin")*/;
                     }
                 }
                 s += "\n------------------------------------------------------------------------------------------------------------------\n";
@@ -82,15 +80,53 @@ public class DM {
             e.printStackTrace();
             return "erreur";
         }
-
     }
 
-    public String afficherObservationsPH() {
+    public String afficherObservationsPH(Patient patient) {
         String s = "";
-        for (int i = 0; i < this.observationsPH.getSize(); i++) {
-            s += "Observation du " + this.observationsPH.get(i).getDate() + ", Dr." + this.observationsPH.get(i).getPhWriter().toString();
-            s += "\n-----------------------------------------------------------------------------------";
+        try {
+            s += "OBSERVATIONS RELATIVES A UNE CONSULTATION :";
+            String sqlc = "SELECT observation.* FROM observation, consultation WHERE observation.idch=consultation.idconsult AND consultation.ipp=" + patient.getIPP();
+            ResultSet resultat = CHUPP.getRequete(sqlc);
+            resultat.last();
+            int nbrow = resultat.getRow();
+            resultat.beforeFirst();
+            if (nbrow == 0) {
+                s += "\nIl n'y a pas d'observations relatives à une consultation pour ce patient.";
+            } else {
+                while (resultat.next()) {
+                    String sqlc2 = "SELECT DISTINCT practicien_hospitalier.*,consultation.date FROM practicien_hospitalier, consultation WHERE consultation.idph=practicien_hospitalier.idph AND consultation.idconsult=" + resultat.getInt("observation.idch");
+                    ResultSet resultat2 = CHUPP.getRequete(sqlc2);
+                    resultat2.first();
+                    s += "\nObservation du " + resultat.getDate("observation.datel") + ", faite par le Dr. " + resultat2.getString("practicien_hospitalier.nom") + " " + resultat2.getString("practicien_hospitalier.prenom") + ", se référant à la consultation du " + resultat2.getDate("consultation.date")+" :";
+                    s += "\n\tContenu : "+resultat.getString("observation.contenu");
+                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            
+            s += "\n\nOBSERVATIONS RELATIVES A UNE HOSPITALISATION :";
+            String sqlh = "SELECT observation.* FROM observation, hospitalisation WHERE observation.idch=hospitalisation.idhosp AND hospitalisation.ipp=" + patient.getIPP();
+            ResultSet resultat3 = CHUPP.getRequete(sqlh);
+            resultat3.last();
+            nbrow = resultat3.getRow();
+            resultat3.beforeFirst();
+            if (nbrow == 0) {
+                s += "\nIl n'y a pas d'observations relatives à une hospitalisation pour ce patient.";
+            } else {
+                while (resultat3.next()) {
+                    String sqlh2 = "SELECT practicien_hospitalier.*,hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation WHERE hospitalisation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");
+                    ResultSet resultat4 = CHUPP.getRequete(sqlh2);
+                    resultat4.first();
+                    s += "\nObservation du " + resultat3.getDate("observation.datel") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + resultat4.getDate("hospitalisation.date_sortie")+" :";
+                    s += "\n\tContenu : "+resultat3.getString("observation.contenu");
+                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
         }
-        return s;
     }
 }

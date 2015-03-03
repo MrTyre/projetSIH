@@ -1,4 +1,4 @@
-package projet.UI;
+﻿package projet.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import projet.sih.*;
 
@@ -27,12 +28,12 @@ public class ConnexionUI extends javax.swing.JFrame {
      * @return the currentConnected
      */
     private ServiceCliniqueIU sc;
-    private ServiceCliniqueSecretaireUI scs;
+    private ServiceAdmissionUI scs;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
     private ServiceCliniqueInfirmieresUI scinf;
     private ServiceCliniqueInterneUI sci;
-    //private ServiceAdmission sa;
+    private ServiceAdmissionUI sa;
     private CHUPP chupp;
     private static PersonnelMedical currentConnected;
     //attribut base de donnée
@@ -241,7 +242,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                     + "practicien_hospitalier.specialite=service_clinique.specialite ";
 
             sqlCSMT = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_medico_technique "
-                    + "WHERE practicien_hospitalier.idph=service_medico_technique.chef_service AND "
+                    + "WHERE practicien_hospitalier.idph=service_medico_technique.chef_de_service AND "
                     + "practicien_hospitalier.specialite=service_medico_technique.specialite ";
             ResultSet resultatPh = CHUPP.getRequete(sqlph);
             ResultSet resultatInt = CHUPP.getRequete(sqlint);
@@ -261,25 +262,27 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc.setLocationRelativeTo(this);
                         sc.setVisible(true);
                         sc.getjLabelService().setText("Service " + spe);
+
                         break;
                     }
                 }
-                while (resultatCSC.next()) {
-                    if ((nom.equals(resultatCSC.getString("nom"))) && (mdp.equals(resultatCSC.getString("mdp")))) {
-                        spe = resultatCSC.getString("practicien_hospitalier.specialite");
-                        currentConnected = new PH(resultatCSC.getString("idph"), nom, resultatCSC.getString("prenom"), mdp, spe);
-                        sc = new ServiceCliniqueIU();
-                        sc.setLocationRelativeTo(this);
-                        sc.setVisible(true);
-                        sc.getjLabelService().setText("Service " + spe);
-                        System.out.println("BLA");
-                        break;
-                    }
-                }
+//                while (resultatCSC.next()) {
+//                    if ((nom.equals(resultatCSC.getString("nom"))) && (mdp.equals(resultatCSC.getString("mdp")))) {
+//                        spe = resultatCSC.getString("practicien_hospitalier.specialite");
+//                        currentConnected = new PH(resultatCSC.getString("idph"), nom, resultatCSC.getString("prenom"), mdp, spe);
+//                        sc = new ServiceCliniqueIU();
+//                        sc.setLocationRelativeTo(this);
+//                        sc.setVisible(true);
+//                        sc.getjLabelService().setText("Service " + spe);
+//                        System.out.println("BLA");
+//                        break;
+//                    }
+//                }
                 while (resultatInf.next()) {
                     if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
-                        spe = resultatInf.getString("specialite");
+                        spe = resultatInf.getString("service");
                         currentConnected = new PersonnelInfirmier(resultatInf.getString("idinf"), nom, resultatInf.getString("prenom"), mdp, spe);
+                        System.out.println("currentConnected OK");
                         scinf = new ServiceCliniqueInfirmieresUI();
                         scinf.setLocationRelativeTo(this);
                         scinf.setVisible(true);
@@ -295,6 +298,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sci.setLocationRelativeTo(this);
                         sci.setVisible(true);
                         sci.getjLabelService().setText("Service " + spe);
+
                         break;
                     }
                 }
@@ -310,6 +314,7 @@ public class ConnexionUI extends javax.swing.JFrame {
 //                        break;
 //                    }
 //                }
+
                 while (resultatCSMT.next()) {
                     if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
                         spe = resultatCSMT.getString("specialite");
@@ -332,6 +337,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                     }
                 }
                 break;
+            }
+            if (spe.equals("")) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Connexion impossible, l'identifiant ou le mot de passe est incorrect", "Attention", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception e) {
