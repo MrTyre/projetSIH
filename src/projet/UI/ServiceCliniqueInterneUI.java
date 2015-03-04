@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -44,7 +45,8 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
      * Creates new form ServiceCliniqueInterne
      */
     public ServiceCliniqueInterneUI() throws FileNotFoundException, IOException {
-        initComponents();        
+        initComponents(); 
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setTitle("Bienvenue dans Genesis HealthCare Solutions");        
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);

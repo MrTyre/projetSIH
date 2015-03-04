@@ -195,7 +195,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                 .addComponent(jComboBoxSpecialite, 0, 177, Short.MAX_VALUE)
                                 .addComponent(jTextFieldPrenom)
                                 .addComponent(jTextFieldNom)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
