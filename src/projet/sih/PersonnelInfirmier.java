@@ -6,11 +6,14 @@
 
 package projet.sih;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Tommy
  */
 public class PersonnelInfirmier extends PersonnelMedical{
+    private static int compteur = 0;
     
     public PersonnelInfirmier(String id, String nom, String prenom, String mdp, String specialite){
         super(id,nom,prenom,mdp,specialite);
@@ -21,7 +24,21 @@ public class PersonnelInfirmier extends PersonnelMedical{
     public String getID() {
         return super.getID();
     }
-
+    
+    public static int getIDInf() {
+        try {
+            String sql = "SELECT * FROM prescription";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getRow() + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
     /**
      * @param id the id to set
      */

@@ -46,7 +46,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     public ServiceCliniqueInterneUI() throws FileNotFoundException, IOException {
         initComponents();        
         setTitle("Bienvenue dans Genesis HealthCare Solutions");        
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);

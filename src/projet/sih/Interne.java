@@ -6,12 +6,14 @@
 
 package projet.sih;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Tommy
  */
 public class Interne extends PersonnelMedical{
-
+    private static int compteur = 0;
     /**
      * @return the ID
      */
@@ -22,6 +24,20 @@ public class Interne extends PersonnelMedical{
 
     public String getID() {
         return super.getID();
+    }
+    
+    public static int getIDint() {
+        try {
+            String sql = "SELECT * FROM prescription";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getRow() + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**
