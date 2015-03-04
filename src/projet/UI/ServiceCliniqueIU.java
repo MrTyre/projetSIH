@@ -1,5 +1,6 @@
 package projet.UI;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -11,7 +12,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -41,8 +41,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
     public ServiceCliniqueIU() throws FileNotFoundException, IOException {
         initComponents();
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setTitle("Bienvenue dans Genesis HealthCare Solutions");        
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);

@@ -1,21 +1,16 @@
 package projet.UI;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.sql.ResultSet;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import projet.sih.*;
 
 /**

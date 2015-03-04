@@ -52,6 +52,7 @@ public class Prescription {
             return 0;
         }
     }
+    
     public int getIDPrescNonStatic() {
         try {
             String sql = "SELECT * FROM prescription";

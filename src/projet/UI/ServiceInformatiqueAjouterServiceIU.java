@@ -32,7 +32,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
      */
     public ServiceInformatiqueAjouterServiceIU() throws FileNotFoundException, IOException {
         initComponents();
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel1.setIcon(image);

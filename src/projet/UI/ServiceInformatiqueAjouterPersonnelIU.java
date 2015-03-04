@@ -18,6 +18,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import projet.sih.Adresse;
+import projet.sih.CHUPP;
+import projet.sih.Patient;
 
 /**
  *
@@ -33,7 +37,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
      */
     public ServiceInformatiqueAjouterPersonnelIU() throws FileNotFoundException, IOException {
         initComponents();
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel1.setIcon(image);
@@ -305,5 +309,31 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         }
         System.out.println(pass);
         return pass;
+    }
+    
+    public void ajouterPatient() {
+        if ((jTextFieldNom.getText().equals(""))
+                || (jTextFieldPrenom.getText().equals(""))) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nom = jTextFieldNom.getText();
+            String prenom = jTextFieldPrenom.getText();
+            String statut = "";
+            
+            if (((String)jComboBoxStatut.getSelectedItem()).equals("Chef de service") || ((String)jComboBoxStatut.getSelectedItem()).equals("Practicien hospitalier")){
+                
+            }
+
+//            try {
+//                sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
+//                        + "','" + sexe + "','" + adress + "')";
+//                CHUPP.getInsert(sql);
+//            } catch (Exception e) {
+//                System.out.println("Failed to get Statement");
+//                e.printStackTrace();
+//            }
+
+        }
     }
 }

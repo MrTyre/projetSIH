@@ -5,18 +5,10 @@
  */
 package projet.UI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import javax.print.attribute.standard.Severity;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import projet.sih.*;
-import sun.security.krb5.Config;
 
 /**
  *
