@@ -1,4 +1,4 @@
-﻿package projet.UI;
+package projet.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
