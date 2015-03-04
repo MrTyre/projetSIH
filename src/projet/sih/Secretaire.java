@@ -24,10 +24,10 @@ public class Secretaire extends PersonnelMedical {
     
    public static int getIDSec() {
         try {
-            String sql = "SELECT * FROM prescription";
+            String sql = "SELECT * FROM secretaire";
             ResultSet resultat=CHUPP.getRequete(sql);
             resultat.last();
-            compteur = resultat.getRow() + 1;
+            compteur = resultat.getInt("ids") + 1;
             return compteur;
         } catch (Exception e) {
             System.out.println("Failed to get Statement");

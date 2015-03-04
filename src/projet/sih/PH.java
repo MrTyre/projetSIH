@@ -73,10 +73,10 @@ public class PH extends PersonnelMedical {
     
     public static int getIDPH() {
         try {
-            String sql = "SELECT * FROM prescription";
+            String sql = "SELECT * FROM practicien_hospitalier";
             ResultSet resultat=CHUPP.getRequete(sql);
             resultat.last();
-            compteur = resultat.getRow() + 1;
+            compteur = resultat.getInt("idph") + 1;
             return compteur;
         } catch (Exception e) {
             System.out.println("Failed to get Statement");

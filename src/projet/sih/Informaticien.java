@@ -20,10 +20,10 @@ public class Informaticien extends PersonnelMedical{
     
     public static int getIDInfo() {
         try {
-            String sql = "SELECT * FROM prescription";
+            String sql = "SELECT * FROM informaticien";
             ResultSet resultat=CHUPP.getRequete(sql);
             resultat.last();
-            compteur = resultat.getRow() + 1;
+            compteur = resultat.getInt("idinfo") + 1;
             return compteur;
         } catch (Exception e) {
             System.out.println("Failed to get Statement");

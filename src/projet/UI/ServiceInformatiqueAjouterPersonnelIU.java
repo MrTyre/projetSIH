@@ -21,7 +21,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import projet.sih.Adresse;
 import projet.sih.CHUPP;
+import projet.sih.Interne;
+import projet.sih.PH;
 import projet.sih.Patient;
+import projet.sih.PersonnelInfirmier;
+import projet.sih.Secretaire;
 
 /**
  *
@@ -31,6 +35,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
 
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
+    private String sql;
 
     /**
      * Creates new form ServiceInformatiqueAjouterPersonnelIU
@@ -109,7 +114,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jLabelStatut.setText("Statut :");
 
         jComboBoxStatut.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de service", "Praticien hospitalier", "Infirmière", "Interne", "Secrétaire médicale" }));
+        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médical" }));
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNom.setText("Nom :");
@@ -242,7 +247,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-
+        ajouterPersonnel();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
@@ -307,11 +312,10 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
             int i = (int) Math.floor(Math.random() * 62); // Si tu supprimes des lettres tu diminues ce nb
             pass += chars.charAt(i);
         }
-        System.out.println(pass);
         return pass;
     }
-    
-    public void ajouterPatient() {
+
+    public void ajouterPersonnel() {
         if ((jTextFieldNom.getText().equals(""))
                 || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
@@ -319,21 +323,61 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         } else {
             String nom = jTextFieldNom.getText();
             String prenom = jTextFieldPrenom.getText();
-            String statut = "";
-            
-            if (((String)jComboBoxStatut.getSelectedItem()).equals("Chef de service") || ((String)jComboBoxStatut.getSelectedItem()).equals("Practicien hospitalier")){
-                
+            String service = "";
+
+            if (((String) jComboBoxStatut.getSelectedItem()).equals("Chef de Service") || ((String) jComboBoxStatut.getSelectedItem()).equals("Praticien Hospitalier")) {
+                service = ((String) jComboBoxService.getSelectedItem());
+                try {
+                    sql = "INSERT INTO practicien_hospitalier VALUES (" + PH.getIDPH() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    if (((String) jComboBoxStatut.getSelectedItem()).equals("Chef de Service")) {
+                        String sql2 = "UPDATE service_clinique SET chef_service =" + (PH.getIDPH() - 1) + " where specialite ='" + service + "'";
+                        CHUPP.getInsert(sql2);
+                    }
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Personnel Infirmier")) {
+                service = ((String) jComboBoxService.getSelectedItem());
+                try {
+                    sql = "INSERT INTO infirmier VALUES (" + PersonnelInfirmier.getIDInf() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Interne")) {
+                service = ((String) jComboBoxService.getSelectedItem());
+                try {
+                    sql = "INSERT INTO interne VALUES (" + Interne.getIDint() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médical")) {
+                service = ((String) jComboBoxService.getSelectedItem());
+                try {
+                    sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
             }
-
-//            try {
-//                sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-//                        + "','" + sexe + "','" + adress + "')";
-//                CHUPP.getInsert(sql);
-//            } catch (Exception e) {
-//                System.out.println("Failed to get Statement");
-//                e.printStackTrace();
-//            }
-
-        }
+        }        
+        jTextFieldNom.setText("");
+        jTextFieldPrenom.setText("");
+        jComboBoxStatut.setSelectedIndex(0);
+        jComboBoxService.setSelectedIndex(0);
     }
 }
