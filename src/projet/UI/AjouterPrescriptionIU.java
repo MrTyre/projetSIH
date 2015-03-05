@@ -440,6 +440,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         
         try {
             for (int i = 0; i < listeMed.size(); i++) {
+                System.out.println(Medicament.getIDMed()+" "+Prescription.getIDPresc());
+                System.out.println(listeMed.get(i).getNomMedoc()+" "+listeMed.get(i).getPosologie()+" "+listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie())+" "+listeMed.get(i).getDateFin());
                 sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
                         + Prescription.getIDPresc() + ", '"
                         + listeMed.get(i).getNomMedoc() + "',"
@@ -452,8 +454,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             sql2="INSERT INTO Prescription VALUES ("+Prescription.getIDPresc()+","
                     +currentPatient.getIPP()+","+ConnexionUI.getCurrentConnected().getID()+",'"
                     +date+"')";
-            CHUPP.getInsert(sql2);
-            
+            CHUPP.getInsert(sql2);            
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
             e.printStackTrace();   

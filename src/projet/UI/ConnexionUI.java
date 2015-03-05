@@ -258,7 +258,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText("<html>Service " + spe+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>");
+                        sc.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
                         break;
                     }
                 }
@@ -306,7 +306,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sa = new ServiceAdmissionUI();
                         sa.setLocationRelativeTo(this);
                         sa.setVisible(true);
-                        sa.getjLabelService().setText(nom);
+                        sa.getjLabelService().setText("Service "+spe);
                         break;
                     }
                 }

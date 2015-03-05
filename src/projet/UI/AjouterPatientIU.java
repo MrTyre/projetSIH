@@ -15,12 +15,10 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterPatientIU extends javax.swing.JFrame {
-
-    private CHUPP chupp;
     private Pays pays;
     private Sexe sexe;
-    private ServiceAdmissionUI scs;
-    private String sql;
+    private String sql;    
+    private ServiceAdmissionUI serviceAdmission;
 
     /**
      * Creates new form AjouterPatientIU
@@ -32,6 +30,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jComboBoxPays.setModel((new DefaultComboBoxModel<>(Pays.values())));
         jComboBoxPays.setSelectedIndex(73);
         jComboBoxSexe.setModel((new DefaultComboBoxModel<>(Sexe.values())));
+        jComboBoxSexe.setSelectedIndex(1);
     }
 
     /**
@@ -69,19 +68,17 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNomDr = new javax.swing.JTextField();
         jLabelAdresse1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextFieldAdresseMedecinG = new javax.swing.JTextField();
-        jTextFieldCodePostalMedecinG = new javax.swing.JTextField();
+        jTextFieldAdresseDr = new javax.swing.JTextField();
+        jTextFieldCodePostalDr = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextFieldVilleMedecinG = new javax.swing.JTextField();
+        jTextFieldVilleDr = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setMinimumSize(null);
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNom.setText("Nom :");
@@ -207,7 +204,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Nom :  Dr ");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNomDr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabelAdresse1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelAdresse1.setText("Adresse :");
@@ -215,27 +212,27 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Code postal :");
 
-        jTextFieldAdresseMedecinG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldAdresseMedecinG.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldAdresseDr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldAdresseDr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAdresseMedecinGActionPerformed(evt);
+                jTextFieldAdresseDrActionPerformed(evt);
             }
         });
 
-        jTextFieldCodePostalMedecinG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldCodePostalMedecinG.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCodePostalDr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldCodePostalDr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCodePostalMedecinGActionPerformed(evt);
+                jTextFieldCodePostalDrActionPerformed(evt);
             }
         });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Ville : ");
 
-        jTextFieldVilleMedecinG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldVilleMedecinG.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldVilleDr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldVilleDr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldVilleMedecinGActionPerformed(evt);
+                jTextFieldVilleDrActionPerformed(evt);
             }
         });
 
@@ -284,7 +281,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldCodePostalMedecinG, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jTextFieldCodePostalDr, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabelNouveauPatient, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -317,15 +314,15 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel7)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                                    .addComponent(jTextFieldNomDr, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabelAdresse1)
                                         .addComponent(jLabel9))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFieldVilleMedecinG)
-                                        .addComponent(jTextFieldAdresseMedecinG, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))))
+                                        .addComponent(jTextFieldVilleDr)
+                                        .addComponent(jTextFieldAdresseDr, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -378,17 +375,17 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNomDr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelAdresse1)
                     .addComponent(jLabel8)
-                    .addComponent(jTextFieldAdresseMedecinG, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCodePostalMedecinG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldAdresseDr, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCodePostalDr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldVilleMedecinG, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldVilleDr, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,6 +425,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         ajouterPatient();
+        serviceAdmission.getJList1().repaint();
         setVisible(false);
     }//GEN-LAST:event_jButtonOKActionPerformed
 
@@ -455,17 +453,17 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldAdresseNewPatientActionPerformed
 
-    private void jTextFieldAdresseMedecinGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAdresseMedecinGActionPerformed
+    private void jTextFieldAdresseDrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAdresseDrActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAdresseMedecinGActionPerformed
+    }//GEN-LAST:event_jTextFieldAdresseDrActionPerformed
 
-    private void jTextFieldCodePostalMedecinGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodePostalMedecinGActionPerformed
+    private void jTextFieldCodePostalDrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodePostalDrActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCodePostalMedecinGActionPerformed
+    }//GEN-LAST:event_jTextFieldCodePostalDrActionPerformed
 
-    private void jTextFieldVilleMedecinGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVilleMedecinGActionPerformed
+    private void jTextFieldVilleDrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVilleDrActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldVilleMedecinGActionPerformed
+    }//GEN-LAST:event_jTextFieldVilleDrActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -492,17 +490,17 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPrenom;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextFieldAdresseMedecinG;
+    private javax.swing.JTextField jTextFieldAdresseDr;
     private javax.swing.JTextField jTextFieldAdresseNewPatient;
-    private javax.swing.JTextField jTextFieldCodePostalMedecinG;
+    private javax.swing.JTextField jTextFieldCodePostalDr;
     private javax.swing.JTextField jTextFieldCodePostalNewPatient;
     private javax.swing.JTextField jTextFieldDateNaissAnnee;
     private javax.swing.JTextField jTextFieldDateNaissJour;
     private javax.swing.JTextField jTextFieldDateNaissMois;
+    private javax.swing.JTextField jTextFieldNomDr;
     private javax.swing.JTextField jTextFieldNomNewPatient;
     private javax.swing.JTextField jTextFieldPrenomNewPatient;
-    private javax.swing.JTextField jTextFieldVilleMedecinG;
+    private javax.swing.JTextField jTextFieldVilleDr;
     private javax.swing.JTextField jTextFieldVilleNewPatient;
     // End of variables declaration//GEN-END:variables
 
@@ -528,15 +526,26 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
                     Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissJour.getText())
             );
-
+            if ((jTextFieldCodePostalDr.getText().length() != 5) && !(jTextFieldCodePostalDr.getText().equals(""))) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Mauvais code postal pour le médecin généraliste", "Attention", JOptionPane.WARNING_MESSAGE);
+                String nomMedGen = jTextFieldNomDr.getText();
+                String adresseMedGen = jTextFieldAdresseDr.getText() + "\n" + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
+            }
             Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
             String adress = adresse.getAdresse();
             Patient p = new Patient(nom, prenom, d, sexe, adress);
-
+            serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
+            serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
+            serviceAdmission.getJList1().revalidate();
+            serviceAdmission.getJList1().repaint();
+            
             try {
                 sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
                         + "','" + sexe + "','" + adress + "')";
                 CHUPP.getInsert(sql);
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
@@ -545,17 +554,18 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * // * @param chupp the chupp to set
-     */
-    public void setChupp(CHUPP chupp) {
-        this.chupp = chupp;
-    }
 
     /**
      * @return the jPanel1
      */
     public javax.swing.JPanel getjPanel1() {
         return jPanel1;
+    }
+
+    /**
+     * @param scs the scs to set
+     */
+    public void setServiceAdmission(ServiceAdmissionUI scs) {
+        this.serviceAdmission = scs;
     }
 }

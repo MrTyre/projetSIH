@@ -27,6 +27,8 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     private String sql;
     private DefaultComboBoxModel dcbm;
     private DefaultListModel<PH> dlm;
+    private ServiceAdmissionUI serviceAdmission;
+
     /**
      * Creates new form AjoutRdvUI
      */
@@ -34,23 +36,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-//        try {
-//                sql = "select * from service_clinique";
-//                sql2= 
-//                ResultSet resultat=CHUPP.getRequete(sql);
-//                dcbm=new DefaultComboBoxModel<>();
-//                while(resultat.next()){
-//                   medecinConcerne=new PH(resultat.getString("idph"),resultat.getString("nom"),resultat.getString("prenom"));
-//                    
-//                   dcbm.addElement(medecinConcerne.getNom()+" "+medecinConcerne.getPrenom());
-//                }
-//                
-                jComboBoxService.setModel(CHUPP.getListeService());
-//            } catch (Exception e) {
-//                System.out.println("Failed to get Statement");
-//                e.printStackTrace();
-//            }
-//        
+        jComboBoxService.setModel(CHUPP.getListeService());
     }
 
     /**
@@ -261,9 +247,9 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldAnneeActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        for (int i=0; i<dlm.size();i++){
-            if ((dlm.get(i).getNom()+" "+dlm.get(i).getPrenom()).equals((String)((JComboBox)evt.getSource()).getSelectedItem())){
-                medecinConcerne=dlm.get(i);
+        for (int i = 0; i < dlm.size(); i++) {
+            if ((dlm.get(i).getNom() + " " + dlm.get(i).getPrenom()).equals((String) ((JComboBox) evt.getSource()).getSelectedItem())) {
+                medecinConcerne = dlm.get(i);
             }
         }
     }//GEN-LAST:event_jComboBox2ActionPerformed
@@ -277,8 +263,10 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de valider ce nouveau RDV ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             ajouterRDV();
+            serviceAdmission.getJPanel8().revalidate();
+            serviceAdmission.getJPanel8().repaint();
             JOptionPane j1 = new JOptionPane();
-            j1.showMessageDialog(null,"rdv ajouté","rdv ajouté",JOptionPane.INFORMATION_MESSAGE);
+            j1.showMessageDialog(null, "Le rendez-vous a bien été ajouté !", "RDV ajouté", JOptionPane.INFORMATION_MESSAGE);
         } else {
             j.setVisible(false);
         }
@@ -286,23 +274,23 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
-        serviceConcerne = (String)jComboBoxService.getSelectedItem();
+        serviceConcerne = (String) jComboBoxService.getSelectedItem();
         try {
-                sql = "select * from practicien_hospitalier where specialite='"+serviceConcerne+"'";
-                ResultSet resultat=CHUPP.getRequete(sql);
-                dcbm=new DefaultComboBoxModel();
-                dlm= new DefaultListModel<>();
-                while(resultat.next()){
-                   medecinConcerne=new PH(resultat.getString("idph"),resultat.getString("nom"),resultat.getString("prenom"));
-                   dlm.addElement(medecinConcerne);
-                   dcbm.addElement(medecinConcerne.getNom()+" "+medecinConcerne.getPrenom());
-                }
-                
-                jComboBox2.setModel(dcbm);
-            } catch (Exception e) {
-                System.out.println("Failed to get Statement");
-                e.printStackTrace();
+            sql = "select * from practicien_hospitalier where specialite='" + serviceConcerne + "'";
+            ResultSet resultat = CHUPP.getRequete(sql);
+            dcbm = new DefaultComboBoxModel();
+            dlm = new DefaultListModel<>();
+            while (resultat.next()) {
+                medecinConcerne = new PH(resultat.getString("idph"), resultat.getString("nom"), resultat.getString("prenom"));
+                dlm.addElement(medecinConcerne);
+                dcbm.addElement(medecinConcerne.getNom() + " " + medecinConcerne.getPrenom());
             }
+
+            jComboBox2.setModel(dcbm);
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
     /**
@@ -367,7 +355,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     public void setCurrentPatient(Patient currentPatient) {
         this.currentPatient = currentPatient;
     }
-    
+
     public void ajouterRDV() {
         if ((jTextFieldJourRDV.getText().equals(""))
                 || (jTextField1.getText().equals(""))
@@ -380,15 +368,15 @@ public class AjoutRdvUI extends javax.swing.JFrame {
             String date = jTextFieldAnnee.getText() + "-" + jTextField1.getText() + "-" + jTextFieldJourRDV.getText();
             int heure = Integer.parseInt(jTextFieldHeure.getText());
             int minute = Integer.parseInt(jTextFieldMinute.getText());
-            String sql ;
+            String sql;
             try {
-                sql = "INSERT INTO Consultation VALUES (" +Consultation.getIDConsult()+","
-                        +medecinConcerne.getID()+","
-                        + currentPatient.getIPP() 
-                        + ", '" + date + "'," 
-                        + heure + "," 
+                sql = "INSERT INTO Consultation VALUES (" + Consultation.getIDConsult() + ","
+                        + medecinConcerne.getID() + ","
+                        + currentPatient.getIPP()
+                        + ", '" + date + "',"
+                        + heure + ","
                         + minute
-                        + ",' ')";
+                        + ",'RDV médical')";
                 CHUPP.getInsert(sql);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
@@ -396,5 +384,19 @@ public class AjoutRdvUI extends javax.swing.JFrame {
             }
 
         }
+    }
+
+    /**
+     * @return the serviceAdmission
+     */
+    public ServiceAdmissionUI getServiceAdmission() {
+        return serviceAdmission;
+    }
+
+    /**
+     * @param serviceAdmission the serviceAdmission to set
+     */
+    public void setServiceAdmission(ServiceAdmissionUI serviceAdmission) {
+        this.serviceAdmission = serviceAdmission;
     }
 }

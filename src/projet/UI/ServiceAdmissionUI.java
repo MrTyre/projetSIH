@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,7 +42,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private static Patient currentPatient;
     private JList1ActionPerformed jll;
 
-    DefaultListModel dlm = new DefaultListModel();
+    private DefaultListModel dlm = new DefaultListModel();
 //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
@@ -52,11 +54,12 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public ServiceAdmissionUI() throws FileNotFoundException, IOException {
         initComponents();
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
-        jLabel2.setIcon(image);
-        jLabel2.setVisible(true);
+        jLabel6.setIcon(image);
+        jLabel6.setVisible(true);
         jll = new JList1ActionPerformed();
         jList1.addListSelectionListener(jll);
         JMenuBar jmb = new JMenuBar();
@@ -414,6 +417,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private void AjoutPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPatientActionPerformed
         apIU = new AjouterPatientIU();
         apIU.setVisible(true);
+        apIU.setServiceAdmission(this);
         apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
@@ -423,6 +427,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             ardvUI.setVisible(true);
             ardvUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             ardvUI.setCurrentPatient(currentPatient);
+            ardvUI.setServiceAdmission(this);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -541,6 +546,24 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
+    }
+    
+    public JList getJList1(){
+        return jList1;
+    }
+
+    /**
+     * @return the dlm
+     */
+    public DefaultListModel getDlm() {
+        return dlm;
+    }
+
+    /**
+     * @return the jPanel8
+     */
+    public javax.swing.JPanel getJPanel8() {
+        return jPanel8;
     }
     
      public class JList1ActionPerformed implements ListSelectionListener {

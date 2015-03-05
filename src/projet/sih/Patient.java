@@ -27,14 +27,12 @@ public class Patient {
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
-        String sexeString = "";
         if(sexe == Sexe.F){
-            sexeString = "F";
+            this.sexe = "F";
         }
         if(sexe == Sexe.H){
-            sexeString = "H";
+            this.sexe = "H";
         }
-        this.sexe = sexeString;
         this.adresse=adresse;        
         this.dpi = new DPI();
         //récupérer les 2 derniers chiffres de l'année de naissance
