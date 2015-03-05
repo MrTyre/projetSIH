@@ -16,7 +16,9 @@ public class PH extends PersonnelMedical {
         super();
         specialite="DefaultSpeciality";
     }
-    
+    public PH(String id,String nom, String prenom){
+        super(id,nom, prenom);
+    }
     public PH(String id, String nom, String prenom, String mdp, String specialite){
         super(id,nom,prenom,mdp,specialite);
     }

@@ -23,6 +23,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import projet.sih.*;
 
 /**
@@ -32,8 +34,11 @@ import projet.sih.*;
 public class ServiceAdmissionUI extends javax.swing.JFrame {
 
     private AjouterPatientIU apIU;
+    private AjoutRdvUI ardvUI;
     private CHUPP chupp;
     private ConnexionUI connexionUI;
+    private static Patient currentPatient;
+    private JList1ActionPerformed jll;
 
     DefaultListModel dlm = new DefaultListModel();
 //attribut base de donnée
@@ -52,6 +57,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);
         jLabel2.setVisible(true);
+        jll = new JList1ActionPerformed();
+        jList1.addListSelectionListener(jll);
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -411,7 +418,14 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
     private void jButtonAjoutRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutRDVActionPerformed
-        // TODO add your handling code here:
+        try {
+            ardvUI = new AjoutRdvUI();
+            ardvUI.setVisible(true);
+            ardvUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            ardvUI.setCurrentPatient(currentPatient);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonAjoutRDVActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -527,5 +541,31 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
+    }
+    
+     public class JList1ActionPerformed implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent lse) {
+
+            try {
+
+                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                while (result.next()) {
+                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                        currentPatient = new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        IPP.setText(currentPatient.getIPP());
+                        Patient.setText(currentPatient.getNom());
+//                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+//                        jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+//                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                        repaint();
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

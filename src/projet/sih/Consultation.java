@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 
 /**
  *
@@ -18,7 +19,21 @@ public class Consultation {
     private PH phResp;
     private String lettreSortie;
     private String naturePrestation;
-
+    private static int compteur=0;
+    
+    public static int getIDConsult() {
+        try {
+            String sql = "SELECT * FROM consultation";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur =resultat.getInt("idconsult")+1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
+    }
     /**
      * @return the numSejour
      */

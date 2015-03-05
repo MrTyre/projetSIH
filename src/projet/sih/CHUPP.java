@@ -8,7 +8,11 @@ package projet.sih;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import projet.UI.*;
 
 /**
  *
@@ -25,25 +29,23 @@ public class CHUPP {
     //private ServiceUrgences su;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    
 
     public CHUPP() {
         //connexion a la BD
         connection.init();
         connection.getMyConnection();
-        
+
         //initialisation du compteur pour les IPP
         try {
             String sql = "SELECT * FROM patient";
             ResultSet resultat = connection.getStatement().executeQuery(sql);
             resultat.last();
-            compteur = (double) resultat.getRow()+1;
+            compteur = (double) resultat.getRow() + 1;
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
             e.printStackTrace();
         }
-        
-        
+
         //initialisationd des services
         scs = new DefaultListModel<ServiceClinique>();
         smts = new DefaultListModel<ServiceMedicoTechnique>();
@@ -74,7 +76,6 @@ public class CHUPP {
         a = new Archives();
 
         //su = new ServiceUrgences();        
-        
         //test pour se connecter avec un practicien
         try {
             String sql = "SELECT * FROM practicien_hospitalier";
@@ -94,16 +95,33 @@ public class CHUPP {
         }
     }
 
-    public static ResultSet getRequete(String sql) throws SQLException{
+    public static DefaultComboBoxModel getListeService() throws SQLException {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String sql = "SELECT specialite FROM service_clinique";
+        String sql2 = "SELECT specialite FROM service_medico_technique";
+        
+            ResultSet resultat = CHUPP.getRequete(sql);
+            ResultSet resultat2 = CHUPP.getRequete(sql2);
+            while (resultat.next()) {
+                dcbm.addElement(resultat.getString("specialite"));
+            }
+            while (resultat2.next()) {
+                dcbm.addElement(resultat2.getString("specialite"));
+            }
+            return dcbm;
+        
+    }
+
+    public static ResultSet getRequete(String sql) throws SQLException {
         MyDBConnection connection = new MyDBConnection();
         //connexion a la BD
         connection.init();
         connection.getMyConnection();
         ResultSet resultat = connection.getStatement().executeQuery(sql);
         return resultat;
-   }
-            
-    public static int getInsert(String sql) throws SQLException{
+    }
+
+    public static int getInsert(String sql) throws SQLException {
         MyDBConnection connection = new MyDBConnection();
         //connexion a la BD
         connection.init();
@@ -111,7 +129,7 @@ public class CHUPP {
         int statut = connection.getStatement().executeUpdate(sql);
         return statut;
     }
-    
+
     public DefaultListModel<ServiceClinique> getScs() {
         return scs;
     }

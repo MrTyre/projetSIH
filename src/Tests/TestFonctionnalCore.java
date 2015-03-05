@@ -29,9 +29,10 @@ public class TestFonctionnalCore {
 //        System.out.println(p1.getIPP());
 //        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
 //        System.out.println(p2.getIPP());
-        ServiceInformatiqueAjouterPersonnelIU siap = new ServiceInformatiqueAjouterPersonnelIU();
-        siap.generate();
-        siap.generate();
-        
+//        ServiceInformatiqueAjouterPersonnelIU siap = new ServiceInformatiqueAjouterPersonnelIU();
+//        siap.generate();
+//        siap.generate();
+        int compteur =(int)Math.pow(10, 5)+1;
+        System.out.println(compteur);
     }
 }

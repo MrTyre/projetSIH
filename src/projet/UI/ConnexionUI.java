@@ -1,4 +1,4 @@
-﻿package projet.UI;
+package projet.UI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -249,8 +249,8 @@ public class ConnexionUI extends javax.swing.JFrame {
             ResultSet resultatInf = CHUPP.getRequete(sqlinf);
             ResultSet resultatSec = CHUPP.getRequete(sqlsec);
             ResultSet resultatInfo = CHUPP.getRequete(sqlinfo);
-            ResultSet resultatCSC = CHUPP.getRequete(sqlCSC);
-            ResultSet resultatCSMT = CHUPP.getRequete(sqlCSMT);
+//            ResultSet resultatCSC = CHUPP.getRequete(sqlCSC);
+//            ResultSet resultatCSMT = CHUPP.getRequete(sqlCSMT);
             while (spe.equals("")) {
                 //parcours du personnel des Service Cliniques
 
@@ -304,28 +304,29 @@ public class ConnexionUI extends javax.swing.JFrame {
                 }
 
                 // faire quand interface prete
-//                while (resultatSec.next()) {
-//                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
-//                        spe = "Admission";
-//                        currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
-//                        sa = new ;
-//                        sa.setLocationRelativeTo(this);
-//                        sa.setVisible(true);
-//                        break;
-//                    }
-//                }
-
-                while (resultatCSMT.next()) {
-                    if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
-                        spe = resultatCSMT.getString("specialite");
-                        currentConnected = new PH(resultatCSMT.getString("idph"), nom, resultatCSMT.getString("prenom"), mdp, spe);
-                        smt = new ServiceMedicoTechniquesIU();
-                        smt.setLocationRelativeTo(this);
-                        smt.setVisible(true);
-                        smt.getjLabelService().setText("Service " + spe);
+                while (resultatSec.next()) {
+                    if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
+                        spe = "Admission";
+                        currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
+                        sa = new ServiceAdmissionUI();
+                        sa.setLocationRelativeTo(this);
+                        sa.setVisible(true);
+                        sa.getjLabelService().setText(nom);
                         break;
                     }
                 }
+
+//                while (resultatCSMT.next()) {
+//                    if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
+//                        spe = resultatCSMT.getString("specialite");
+//                        currentConnected = new PH(resultatCSMT.getString("idph"), nom, resultatCSMT.getString("prenom"), mdp, spe);
+//                        smt = new ServiceMedicoTechniquesIU();
+//                        smt.setLocationRelativeTo(this);
+//                        smt.setVisible(true);
+//                        smt.getjLabelService().setText("Service " + spe);
+//                        break;
+//                    }
+//                }
                 while (resultatInfo.next()) {
                     if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
                         spe = "informatique";
@@ -349,7 +350,8 @@ public class ConnexionUI extends javax.swing.JFrame {
         }
 //        
 
-        System.out.println(getCurrentConnected().getNom() + " " + getCurrentConnected().getPrenom());
+        System.out.println(getCurrentConnected().getNom() );
+        //System.out.println(getCurrentConnected().getPrenom());
     }
 
     public static PersonnelMedical getCurrentConnected() {
