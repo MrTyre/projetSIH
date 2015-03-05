@@ -5,18 +5,10 @@
  */
 package projet.UI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.ResultSet;
-import javax.print.attribute.standard.Severity;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import projet.sih.*;
-import sun.security.krb5.Config;
 
 /**
  *
@@ -89,6 +81,8 @@ public class AjouterPatientIU extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setMinimumSize(null);
+
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNom.setText("Nom :");
 
@@ -120,7 +114,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +123,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
         jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +393,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonOK))
-                .addContainerGap())
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

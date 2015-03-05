@@ -32,7 +32,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
      */
     public ServiceInformatiqueModifierPersonnel() throws FileNotFoundException, IOException {
         initComponents();
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);
@@ -141,7 +141,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jComboBoxNouveauService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jComboBoxNouveauService.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Anesthésie/Réanimation", "Bactériologie", "Cardiologie", "Chirurgie générale", "Cytologie", "Dermatologie", "Endocrinologie", "Gériatrie", "Gynécologie", "Neurologie", "Oncologie", "Pédiatrie", "Pneumologie", "Psychiatrie", "Radiologie" }));
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
             }
         });
 
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
         jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -230,11 +230,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNouveauService)
                     .addComponent(jComboBoxNouveauService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonOK)
                     .addComponent(jButtonAnnuler))
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,8 +249,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

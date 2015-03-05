@@ -5,15 +5,31 @@
  */
 package projet.sih;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Tommy
  */
 public class Informaticien extends PersonnelMedical{
-
+    private static int compteur =0 ;
 
     public Informaticien(String id, String nom, String prenom, String mdp,String specialite) {
         super(id, nom, prenom, mdp,specialite);
+    }
+    
+    public static int getIDInfo() {
+        try {
+            String sql = "SELECT * FROM informaticien";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getInt("idinfo") + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
     }
     
 }

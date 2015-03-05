@@ -5,12 +5,15 @@
  */
 package projet.sih;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author Tommy
  */
 public class PH extends PersonnelMedical {
-
+    
+    private static int compteur =0;
     
     public PH(){
         super();
@@ -68,5 +71,19 @@ public class PH extends PersonnelMedical {
     public String toString() {
         String s = this.getNom() + " " + this.getPrenom();
         return s;
+    }
+    
+    public static int getIDPH() {
+        try {
+            String sql = "SELECT * FROM practicien_hospitalier";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            compteur = resultat.getInt("idph") + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

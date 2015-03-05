@@ -41,7 +41,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel1.setIcon(image);
@@ -103,7 +103,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jLabelServiceInformatique.setForeground(new java.awt.Color(0, 51, 153));
         jLabelServiceInformatique.setText("Service Informatique");
 
-        jButtonAjouterService.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterService.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterService.setText("Ajouter service");
         jButtonAjouterService.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +112,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonAjouterPersonnel.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterPersonnel.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterPersonnel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterPersonnel.setText("Ajouter personnel");
         jButtonAjouterPersonnel.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +121,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonModifierPersonnel.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonModifierPersonnel.setBackground(new java.awt.Color(153, 153, 255));
         jButtonModifierPersonnel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonModifierPersonnel.setText("Modifier personnel");
         jButtonModifierPersonnel.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +130,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonDeconnexion.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonDeconnexion.setBackground(new java.awt.Color(153, 153, 255));
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setText("Deconnexion");
         jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
                     .addComponent(jButtonAjouterService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonModifierPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDeconnexion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,11 +179,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

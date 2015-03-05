@@ -41,7 +41,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
      */
     public ServiceMedicoTechniquesIU() throws FileNotFoundException, IOException {
         initComponents();
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);
@@ -258,7 +258,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         pack();

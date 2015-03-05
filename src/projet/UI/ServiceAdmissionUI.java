@@ -52,7 +52,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public ServiceAdmissionUI() throws FileNotFoundException, IOException {
         initComponents();
-        FileInputStream input = new FileInputStream("src/Images/logogenesis.png");
+        FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);
@@ -144,7 +144,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jSplitPane2.setMinimumSize(new java.awt.Dimension(200, 102));
-        jSplitPane2.setPreferredSize(new java.awt.Dimension(701, 750));
+        jSplitPane2.setPreferredSize(new java.awt.Dimension(1278, 648));
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 51, 153));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -158,10 +158,10 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 528, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Observations", jPanel5);
+        jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -171,12 +171,12 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 528, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Résultats", jPanel6);
+        jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
 
-        jButtonEditDMA.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonEditDMA.setBackground(new java.awt.Color(153, 153, 255));
         jButtonEditDMA.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonEditDMA.setText("Editer DMA");
 
@@ -192,14 +192,14 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(499, Short.MAX_VALUE)
+                .addContainerGap(486, Short.MAX_VALUE)
                 .addComponent(jButtonEditDMA)
                 .addGap(19, 19, 19))
         );
 
-        jTabbedPane1.addTab("DMA", jPanel7);
+        jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
 
-        jButtonAjoutRDV.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjoutRDV.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjoutRDV.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjoutRDV.setText("+ RDV");
         jButtonAjoutRDV.addActionListener(new java.awt.event.ActionListener() {
@@ -220,12 +220,12 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(499, Short.MAX_VALUE)
+                .addContainerGap(486, Short.MAX_VALUE)
                 .addComponent(jButtonAjoutRDV)
                 .addGap(19, 19, 19))
         );
 
-        jTabbedPane1.addTab("Gestion RDV", jPanel8);
+        jTabbedPane1.addTab("Gestion RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
@@ -251,7 +251,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             }
         });
 
-        AjoutPatient.setBackground(new java.awt.Color(0, 51, 153));
+        AjoutPatient.setBackground(new java.awt.Color(153, 153, 255));
         AjoutPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         AjoutPatient.setText("+ Patient");
         AjoutPatient.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +313,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
