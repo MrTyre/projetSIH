@@ -122,6 +122,8 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel1);
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(674, 520));
+
         jLabelResultatPrestation.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelResultatPrestation.setForeground(new java.awt.Color(0, 51, 153));
         jLabelResultatPrestation.setText("Résultat de la prestation");
@@ -142,10 +144,10 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
         jTextAreaCompteRendu.setRows(5);
         jScrollPane1.setViewportView(jTextAreaCompteRendu);
 
-        jButtonEnvoyer.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonEnvoyer.setBackground(new java.awt.Color(153, 153, 255));
         jButtonEnvoyer.setText("Envoyer");
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 153));
+        jButton1.setBackground(new java.awt.Color(153, 153, 255));
         jButton1.setText("Annuler");
 
         jTextFieldJour.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -236,11 +238,11 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEnvoyer)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel2);
