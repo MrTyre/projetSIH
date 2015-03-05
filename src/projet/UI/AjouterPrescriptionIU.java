@@ -72,6 +72,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(702, 321));
+
         jLabelDateFinTraitement.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelDateFinTraitement.setText("Date de fin de traitement :");
 
@@ -185,7 +187,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonAddMed.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAddMed.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAddMed.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAddMed.setText("+");
         jButtonAddMed.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +257,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButtonValider.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonValider.setBackground(new java.awt.Color(153, 153, 255));
         jButtonValider.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonValider.setText("Valider prescription");
         jButtonValider.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +266,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
         jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -300,12 +302,12 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelNouvellePrescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler)
                     .addComponent(jButtonValider))
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
