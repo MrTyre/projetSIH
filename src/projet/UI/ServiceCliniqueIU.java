@@ -139,7 +139,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTabbedPane1.setName("Prescriptions"); // NOI18N
 
-        jButtonAjouterPrescription.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel4.setPreferredSize(new java.awt.Dimension(1280, 621));
+
+        jButtonAjouterPrescription.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterPrescription.setText("+ Prescription");
         jButtonAjouterPrescription.addActionListener(new java.awt.event.ActionListener() {
@@ -177,7 +179,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.png")), jPanel4); // NOI18N
 
-        jButtonAjouterObservation.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterObservation.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterObservation.setText("+ Observation");
 
@@ -345,8 +347,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(151, 151, 151))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,9 +362,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ListePatient)
-                .addGap(203, 203, 203)
+                .addGap(102, 102, 102)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(112, 112, 112))
         );
 
         jSplitPane2.setLeftComponent(jPanel2);

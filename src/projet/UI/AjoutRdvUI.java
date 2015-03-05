@@ -52,6 +52,8 @@ public class AjoutRdvUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setMinimumSize(new java.awt.Dimension(267, 244));
+
         jLabelNouveauRDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelNouveauRDV.setForeground(new java.awt.Color(0, 51, 153));
         jLabelNouveauRDV.setText("Nouveau RDV");
@@ -100,7 +102,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
 
         jTextFieldMinute.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jButtonOK.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonOK.setText("OK");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +111,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
             }
         });
 
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAnnuler.setText("Annuler");
         jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -207,11 +209,13 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();

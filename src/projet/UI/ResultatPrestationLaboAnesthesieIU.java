@@ -121,10 +121,12 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(435, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(571, 511));
 
         jLabelResultatPrestation.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelResultatPrestation.setForeground(new java.awt.Color(0, 51, 153));
@@ -148,7 +150,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
         jTextAreaObservations.setRows(5);
         jScrollPane2.setViewportView(jTextAreaObservations);
 
-        jButtonEnvoyer.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonEnvoyer.setBackground(new java.awt.Color(153, 153, 255));
         jButtonEnvoyer.setText("Envoyer");
         jButtonEnvoyer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +158,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
             }
         });
 
-        jButtonAnnuler.setBackground(new java.awt.Color(0, 51, 153));
+        jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setText("Annuler");
 
         jLabelLaboAnesthesie.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -198,7 +200,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextFieldNom, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                                     .addComponent(jTextFieldPrenom))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabelDate)
@@ -256,7 +258,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelObservations)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEnvoyer)
                     .addComponent(jButtonAnnuler))
@@ -273,7 +275,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
 
         pack();
