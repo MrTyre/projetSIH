@@ -242,7 +242,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             .addGap(0, 528, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Hospitalisations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel9); // NOI18N
+        jTabbedPane1.addTab("Hospitalisations", new javax.swing.ImageIcon(getClass().getResource("/Images/CDT64-tfinal-Hopital.jpg")), jPanel9); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");

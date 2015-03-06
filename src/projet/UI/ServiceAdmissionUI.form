@@ -278,7 +278,7 @@
                       <JTabbedPaneConstraints tabName="Hospitalisations">
                         <Property name="tabTitle" type="java.lang.String" value="Hospitalisations"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Images/observationchecklist.png"/>
+                          <Image iconType="3" name="/Images/CDT64-tfinal-Hopital.jpg"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
