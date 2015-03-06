@@ -153,15 +153,19 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
+              <StringArray count="6">
                 <StringItem index="0" value="Chef de Service"/>
                 <StringItem index="1" value="Praticien Hospitalier"/>
                 <StringItem index="2" value="Personnel Infirmier"/>
                 <StringItem index="3" value="Interne"/>
-                <StringItem index="4" value="Secr&#xe9;taire M&#xe9;dical"/>
+                <StringItem index="4" value="Secr&#xe9;taire M&#xe9;dicale"/>
+                <StringItem index="5" value="Informaticien"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxStatutActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelNom">
           <Properties>
@@ -226,6 +230,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxServiceActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonOK">
           <Properties>

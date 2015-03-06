@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,6 +25,7 @@ import projet.sih.CHUPP;
 import projet.sih.Interne;
 import projet.sih.PH;
 import projet.sih.Patient;
+import projet.sih.Informaticien;
 import projet.sih.PersonnelInfirmier;
 import projet.sih.Secretaire;
 
@@ -115,7 +117,12 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jLabelStatut.setText("Statut :");
 
         jComboBoxStatut.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médical" }));
+        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médicale", "Informaticien" }));
+        jComboBoxStatut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxStatutActionPerformed(evt);
+            }
+        });
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNom.setText("Nom :");
@@ -132,6 +139,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
 
         jComboBoxService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jComboBoxService.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Anesthésie/Réanimation", "Bactériologie", "Cardiologie", "Chirurgie générale", "Cytologie", "Dermatologie", "Endocrinologie", "Gériatrie", "Gynécologie", "Neurologie", "Oncologie", "Pédiatrie", "Pneumologie", "Psychiatrie", "Radiologie" }));
+        jComboBoxService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxServiceActionPerformed(evt);
+            }
+        });
 
         jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -254,6 +266,22 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         ajouterPersonnel();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
+    private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
+        
+    }//GEN-LAST:event_jComboBoxServiceActionPerformed
+
+    private void jComboBoxStatutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatutActionPerformed
+        if ((((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien"))||(((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale"))) {
+                jLabelService.setVisible(false);
+                jComboBoxService.setVisible(false);
+                this.repaint();
+        }else{
+            jLabelService.setVisible(true);
+                jComboBoxService.setVisible(true);
+                this.repaint();
+        }
+    }//GEN-LAST:event_jComboBoxStatutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -366,10 +394,19 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
-            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médical")) {
-                service = ((String) jComboBoxService.getSelectedItem());
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale")) {
                 try {
                     sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            }else if (((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien")) {
+                try {
+                    sql = "INSERT INTO informaticien VALUES (" + Informaticien.getIDInfo()+ ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();
                     jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
