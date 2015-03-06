@@ -126,6 +126,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jButtonEditDMA = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jButtonAjoutRDV = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Patient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -229,6 +230,19 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Gestion RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1065, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 528, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Hospitalisations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel9); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Patient : ");
@@ -522,6 +536,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
