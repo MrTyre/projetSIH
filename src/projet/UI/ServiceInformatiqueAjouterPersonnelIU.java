@@ -354,7 +354,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         if ((jTextFieldNom.getText().equals(""))
                 || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
+            jop1.showMessageDialog(null, "Il manque des informations relatives au personnel", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
             String nom = jTextFieldNom.getText();
             String prenom = jTextFieldPrenom.getText();

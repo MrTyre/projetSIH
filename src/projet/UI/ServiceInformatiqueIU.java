@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -198,12 +199,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
              sias = new ServiceInformatiqueAjouterServiceIU();
          } catch (IOException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
         sias.setLocationRelativeTo(null);
         setVisible(false);
-        sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        sias.setResizable(false);
-        sias.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
@@ -211,12 +211,11 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
              siap = new ServiceInformatiqueAjouterPersonnelIU();
          } catch (IOException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
+         }  catch (SQLException ex) {
+             Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
         siap.setLocationRelativeTo(null);
         setVisible(false);
-        siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        siap.setResizable(false);
-        siap.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
     private void jButtonModifierPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierPersonnelActionPerformed

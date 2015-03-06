@@ -6,19 +6,30 @@
 
 package projet.sih;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Tommy
  */
 public abstract class ServiceMedicoTechnique extends Service {
     private String nom;
-
+    private static int compteur;
     /**
      * @return the nom
      */
     public String getNom() {
         return nom;
     }
+    public static int getIDServiceMedicoTechnique() throws SQLException{
+        String sql="select * from service_medico_technique";
+        ResultSet resultat=CHUPP.getRequete(sql);
+        resultat.last();
+        compteur = resultat.getInt("idsmt") + 1;
+        return compteur;
+    }
+    /*
 
     /**
      * @param nom the nom to set
