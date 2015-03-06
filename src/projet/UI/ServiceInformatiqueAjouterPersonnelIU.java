@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -42,7 +43,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     /**
      * Creates new form ServiceInformatiqueAjouterPersonnelIU
      */
-    public ServiceInformatiqueAjouterPersonnelIU() throws FileNotFoundException, IOException {
+    public ServiceInformatiqueAjouterPersonnelIU() throws FileNotFoundException, IOException, SQLException {
         initComponents();
         setResizable(false);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
@@ -50,6 +51,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(myPicture);
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
+        jComboBoxService.setModel(CHUPP.getListeService());
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -138,7 +140,6 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jTextFieldPrenom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jComboBoxService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxService.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Anesthésie/Réanimation", "Bactériologie", "Cardiologie", "Chirurgie générale", "Cytologie", "Dermatologie", "Endocrinologie", "Gériatrie", "Gynécologie", "Neurologie", "Oncologie", "Pédiatrie", "Pneumologie", "Psychiatrie", "Radiologie" }));
         jComboBoxService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxServiceActionPerformed(evt);
@@ -317,7 +318,9 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     new ServiceInformatiqueAjouterPersonnelIU().setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
+                } 
             }
         });
     }
