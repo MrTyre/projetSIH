@@ -69,7 +69,7 @@ public class DM {
                 while (resultat2.next()) {
                     if (resultat2.getInt("idpresc") == resultat.getInt("idpresc")) {
                         s += "\n\t\t- " + resultat2.getString("nom");
-                        s += "\t\t\t" + resultat2.getString("dose") + " " + resultat2.getString("unite") + "/j  jusqu'au "/* + resultat2.getString("date_fin")*/;
+                        s += "\t\t\t" + resultat2.getString("dose") + " " + resultat2.getString("unite") + "/j  jusqu'au " + resultat2.getString("date_fin");
                     }
                 }
                 s += "\n------------------------------------------------------------------------------------------------------------------\n";
@@ -98,7 +98,7 @@ public class DM {
                     String sqlc2 = "SELECT DISTINCT practicien_hospitalier.*,consultation.date FROM practicien_hospitalier, consultation WHERE consultation.idph=practicien_hospitalier.idph AND consultation.idconsult=" + resultat.getInt("observation.idch");
                     ResultSet resultat2 = CHUPP.getRequete(sqlc2);
                     resultat2.first();
-                    s += "\nObservation du " + resultat.getDate("observation.datel") + ", faite par le Dr. " + resultat2.getString("practicien_hospitalier.nom") + " " + resultat2.getString("practicien_hospitalier.prenom") + ", se référant à la consultation du " + resultat2.getDate("consultation.date")+" :";
+                    s += "\nObservation du " + resultat.getDate("observation.date") + ", faite par le Dr. " + resultat2.getString("practicien_hospitalier.nom") + " " + resultat2.getString("practicien_hospitalier.prenom") + ", se référant à la consultation du " + resultat2.getDate("consultation.date")+" :";
                     s += "\n\tContenu : "+resultat.getString("observation.contenu");
                     s += "\n------------------------------------------------------------------------------------------------------------------\n";
                 }
@@ -117,7 +117,7 @@ public class DM {
                     String sqlh2 = "SELECT practicien_hospitalier.*,hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation WHERE hospitalisation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");
                     ResultSet resultat4 = CHUPP.getRequete(sqlh2);
                     resultat4.first();
-                    s += "\nObservation du " + resultat3.getDate("observation.datel") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + resultat4.getDate("hospitalisation.date_sortie")+" :";
+                    s += "\nObservation du " + resultat3.getDate("observation.date") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + resultat4.getDate("hospitalisation.date_sortie")+" :";
                     s += "\n\tContenu : "+resultat3.getString("observation.contenu");
                     s += "\n------------------------------------------------------------------------------------------------------------------\n";
                 }

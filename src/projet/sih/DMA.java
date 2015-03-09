@@ -62,7 +62,7 @@ public class DMA {
             resultat.first();
             s += "CONSULTATIONS :";
             if (nbrow == 0) {
-                s += "\nLa partie \"Consultations\" du DMA du patient " + patient.getNom() + " " + patient.getPrenom() + " est pour le moment inaccessible.";
+                s += "\nIl n'y a pas de consultations répertoriées pour le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
             } else {
                 String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("consultation.idph");
                 ResultSet resultat3 = CHUPP.getRequete(sql3);
@@ -73,7 +73,7 @@ public class DMA {
                     s += "\n\nNature de la prestation :   ";
                     s += resultat.getString("consultation.nature_prestation");
                     while (resultat2.next()) {
-                        s += "\n\tObservation du " + resultat2.getDate("observation.datel")+":\t" + resultat2.getString("observation.contenu");
+                        s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
                     }
                     s += "\n------------------------------------------------------------------------------------------------------------------\n";
                 }
@@ -98,7 +98,7 @@ public class DMA {
             resultat.first();
             s += "HOSPITALISATIONS :";
             if (nbrow == 0) {
-                s += "\nLa partie \"Hospitalisations\" du DMA du patient " + patient.getNom() + " " + patient.getPrenom() + " est pour le moment inaccessible.";
+                s += "\nIl n'y a pas d'hospitalisations répertoriées pour le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
             } else {
                 String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("hospitalisation.idph");
                 ResultSet resultat3 = CHUPP.getRequete(sql3);
@@ -109,7 +109,7 @@ public class DMA {
                     s += "\n\nNature de la prestation :   ";
                     s += resultat.getString("hospitalisation.nature_prestation");
                     while (resultat2.next()) {
-                        s += "\n\tObservation du " + resultat2.getDate("observation.datel")+":\t" + resultat2.getString("observation.contenu");
+                        s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
                     }
                     s += "\n------------------------------------------------------------------------------------------------------------------\n";
                 }
