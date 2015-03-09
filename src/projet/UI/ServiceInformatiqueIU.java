@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -202,21 +202,29 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          } catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+
         sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-        sias.setLocationRelativeTo(null);
+
         sias.setVisible(true);
+
+        sias.setLocationRelativeTo(null);
+
         setVisible(false);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
          try {
-             siap = new ServiceInformatiqueAjouterPersonnelIU();
+                 siap = new ServiceInformatiqueAjouterPersonnelIU();
          } catch (IOException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }  catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+
         siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+
+
+
         siap.setLocationRelativeTo(null);
         siap.setVisible(true);
         setVisible(false);
@@ -239,7 +247,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
        JOptionPane j=new JOptionPane();
          int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
          if(retour == JOptionPane.OK_OPTION){
-              
+                              
          setVisible(false);
              try {
                  connexionUI = new ConnexionUI();

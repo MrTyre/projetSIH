@@ -10,12 +10,13 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Interne.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/DM.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Pays.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceAdmissionUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Observation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceAdmissionUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/CHUPP.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelInfirmier.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prescription.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PH.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterHospitalisation.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPatientIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/TestConnection.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceInformatiqueAjouterServiceIU.java</file>
@@ -27,6 +28,7 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceMedicoTechniquesIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Patient.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ConnexionUI.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Consultation.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/LettreSortie.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prestation.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Secretaire.java</file>

@@ -35,10 +35,10 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     private CHUPP chupp;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sql;
     private ConnexionUI connexionUI;
     private DefaultListModel dlm = new DefaultListModel();
     private Patient currentPatient;
+    private PersonnelMedical currentInf;
     private JList1ActionPerformed jll;
     /**
      * Creates new form ServiceCliniqueInfirmières
@@ -84,18 +84,18 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-//        sql = "SELECT nom, prenom, date_naissance FROM Patient";
-//        try {
-//            ResultSet resultat =CHUPP.getRequete(sql);
-//            while(resultat.next()) {
-//                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("bla");
-//        }
-//        jList1.setModel(dlm);
-//        repaint();
+        String sql = "SELECT nom, prenom, date_naissance FROM Patient";
+        try {
+            ResultSet resultat =CHUPP.getRequete(sql);
+            while(resultat.next()) {
+                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("bla");
+        }
+        jList1.setModel(dlm);
+        repaint();
     }
 
     /**
@@ -121,6 +121,8 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jPanel8 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabelPatient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -223,15 +225,23 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
 
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane5.setViewportView(jTextArea4);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 945, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 135, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
@@ -409,11 +419,13 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -436,6 +448,20 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
     }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param currentInf the currentInf to set
+     */
+    public void setCurrentInf(PersonnelMedical currentInf) {
+        this.currentInf = currentInf;
+    }
     
     public class JList1ActionPerformed implements ListSelectionListener {
 
@@ -447,12 +473,13 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        currentPatient = new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                         jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                         jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                        jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                         repaint();
                     }
                 }

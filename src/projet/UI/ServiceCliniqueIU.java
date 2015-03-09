@@ -29,20 +29,29 @@ import javax.swing.event.ListSelectionListener;
  */
 public class ServiceCliniqueIU extends javax.swing.JFrame {
 
+    /**
+     * @param aCurrentPatient the currentPatient to set
+     */
+    public static void setCurrentPatient(Patient aCurrentPatient) {
+        currentPatient = aCurrentPatient;
+    }
+
     private CHUPP chupp;
     private AjouterPatientIU apIU;
     private AjouterPrescriptionIU aprIU;
     private DefaultListModel dlm = new DefaultListModel();
     private JList1ActionPerformed jll;
     private ConnexionUI connexionUI;
+    private LettreSortie lettreSortieUI;
     private static Patient currentPatient;
+    private PersonnelMedical currentPH;
 
     private String sql;
 
     public ServiceCliniqueIU() throws FileNotFoundException, IOException {
         initComponents();
         setExtendedState(Frame.MAXIMIZED_BOTH);
-        setTitle("Bienvenue dans Genesis HealthCare Solutions");        
+        setTitle("Bienvenue dans Genesis HealthCare Solutions");
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
@@ -117,11 +126,14 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         jPanel8 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabelPatient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabelIPP = new javax.swing.JTextField();
         jButtonDeconnexion = new javax.swing.JButton();
+        jButtonSortiePatient = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -171,7 +183,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonAjouterPrescription)
                 .addGap(35, 35, 35))
@@ -200,7 +212,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjouterObservation)
                 .addGap(34, 34, 34))
@@ -216,7 +228,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGap(0, 693, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
@@ -233,20 +245,26 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jScrollPane5.setViewportView(jTextArea4);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1058, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 188, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
@@ -280,6 +298,15 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jButtonSortiePatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonSortiePatient.setForeground(new java.awt.Color(0, 51, 153));
+        jButtonSortiePatient.setText("Sortie du patient");
+        jButtonSortiePatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSortiePatientActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -298,7 +325,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                        .addComponent(jButtonSortiePatient)
+                        .addGap(42, 42, 42)
                         .addComponent(jButtonDeconnexion)))
                 .addGap(10, 10, 10))
         );
@@ -316,9 +345,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonDeconnexion)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonDeconnexion)
+                            .addComponent(jButtonSortiePatient))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
         );
 
         jSplitPane2.setRightComponent(jPanel1);
@@ -417,11 +448,22 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
+    private void jButtonSortiePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortiePatientActionPerformed
+        lettreSortieUI = new LettreSortie();
+        lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom()+" "+currentPatient.getPrenom());
+        lettreSortieUI.getjLabelMedecin().setText("Dr. "+currentPH.getNom()+" "+currentPH.getPrenom());
+        lettreSortieUI.setCurrentPatient(currentPatient);
+        lettreSortieUI.setCurrentPH(currentPH);
+        lettreSortieUI.setLocationRelativeTo(null);
+        lettreSortieUI.setVisible(true);
+    }//GEN-LAST:event_jButtonSortiePatientActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListePatient;
     private javax.swing.JButton jButtonAjouterObservation;
     private javax.swing.JButton jButtonAjouterPrescription;
     private javax.swing.JButton jButtonDeconnexion;
+    private javax.swing.JButton jButtonSortiePatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -441,11 +483,13 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
     // End of variables declaration//GEN-END:variables
 
     public CHUPP getChupp() {
@@ -466,22 +510,29 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jLabelService;
     }
 
+    /**
+     * @param currentPH the currentPH to set
+     */
+    public void setCurrentPH(PersonnelMedical currentPH) {
+        this.currentPH = currentPH;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
-
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        currentPatient = new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                         jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                         jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                        jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                         repaint();
                     }
                 }

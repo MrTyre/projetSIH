@@ -22,6 +22,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import static projet.UI.ServiceCliniqueIU.setCurrentPatient;
 import projet.sih.*;
 
 /**
@@ -31,6 +34,7 @@ import projet.sih.*;
 public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private CHUPP chupp;
     private ConnexionUI connexionUI;
+    private Patient currentPatient;
     
     private DefaultListModel dlm;
     //attribut base de donnée
@@ -113,11 +117,11 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaDemandesPrestations = new javax.swing.JTextArea();
-        jLabelPatient = new javax.swing.JLabel();
+        jLabelPatient1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldPatient = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
         jButtonDeconnexion = new javax.swing.JButton();
+        jLabelPatient = new javax.swing.JTextField();
+        jLabelIPP = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,19 +185,11 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jTextAreaDemandesPrestations.setText("Demandes de prestations");
         jScrollPane2.setViewportView(jTextAreaDemandesPrestations);
 
-        jLabelPatient.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelPatient.setText("Patient :");
+        jLabelPatient1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelPatient1.setText("Patient :");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("IPP :");
-
-        jTextFieldPatient.setBackground(new java.awt.Color(240, 240, 240));
-        jTextFieldPatient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPatient.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        jTextField1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
@@ -201,6 +197,20 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeconnexionActionPerformed(evt);
+            }
+        });
+
+        jLabelPatient.setBorder(null);
+        jLabelPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLabelPatientActionPerformed(evt);
+            }
+        });
+
+        jLabelIPP.setBorder(null);
+        jLabelIPP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLabelIPPActionPerformed(evt);
             }
         });
 
@@ -215,14 +225,14 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                         .addComponent(jScrollPane2)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelPatient)
+                        .addComponent(jLabelPatient1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(jButtonDeconnexion))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -230,17 +240,17 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGap(32, 32, 32)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelPatient)
-                            .addComponent(jTextFieldPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelPatient1)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonDeconnexion)))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -281,12 +291,22 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
+    private void jLabelPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelPatientActionPerformed
+
+    }//GEN-LAST:event_jLabelPatientActionPerformed
+
+    private void jLabelIPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelIPPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelIPPActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jLabelIPP;
     private javax.swing.JLabel jLabelListePatients;
-    private javax.swing.JLabel jLabelPatient;
+    private javax.swing.JTextField jLabelPatient;
+    private javax.swing.JLabel jLabelPatient1;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JList jListPatients;
     private javax.swing.JPanel jPanel1;
@@ -296,8 +316,6 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextAreaDemandesPrestations;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextFieldPatient;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -312,5 +330,33 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
      */
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
+    }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+    
+    public class JList1ActionPerformed implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent lse) {
+
+            try {
+                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                while (result.next()) {
+                    if (jListPatients.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                        jLabelIPP.setText(currentPatient.getIPP());
+                        jLabelPatient1.setText(currentPatient.getNom());
+                        repaint();
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

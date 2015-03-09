@@ -220,30 +220,20 @@ public class ConnexionUI extends javax.swing.JFrame {
                         currentConnected = new PH(resultatPh.getString("idph"), nom, resultatPh.getString("prenom"), mdp, spe);
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
+                        sc.setCurrentPH(currentConnected);
                         sc.setVisible(true);
                         sc.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
                         break;
                     }
                 }
-//                while (resultatCSC.next()) {
-//                    if ((nom.equals(resultatCSC.getString("nom"))) && (mdp.equals(resultatCSC.getString("mdp")))) {
-//                        spe = resultatCSC.getString("practicien_hospitalier.specialite");
-//                        currentConnected = new PH(resultatCSC.getString("idph"), nom, resultatCSC.getString("prenom"), mdp, spe);
-//                        sc = new ServiceCliniqueIU();
-//                        sc.setLocationRelativeTo(this);
-//                        sc.setVisible(true);
-//                        sc.getjLabelService().setText("Service " + spe);
-//                        System.out.println("BLA");
-//                        break;
-//                    }
-//                }
                 while (resultatInf.next()) {
                     if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
                         spe = resultatInf.getString("service");
                         currentConnected = new PersonnelInfirmier(resultatInf.getString("idinf"), nom, resultatInf.getString("prenom"), mdp, spe);
                         System.out.println("currentConnected OK");
                         scinf = new ServiceCliniqueInfirmieresUI();
-                        scinf.setLocationRelativeTo(this);
+                        scinf.setLocationRelativeTo(this);                        
+                        scinf.setCurrentInf(currentConnected);
                         scinf.setVisible(true);
                         scinf.getjLabelService().setText("Service " + spe);
                         break;
@@ -255,36 +245,24 @@ public class ConnexionUI extends javax.swing.JFrame {
                         currentConnected = new Interne(resultatInt.getString("idi"), nom, resultatInt.getString("prenom"), mdp, spe);
                         sci = new ServiceCliniqueInterneUI();
                         sci.setLocationRelativeTo(this);
+                        sci.setCurrentInt(currentConnected);
                         sci.setVisible(true);
                         sci.getjLabelService().setText("Service " + spe);
                         break;
                     }
                 }
-
-                // faire quand interface prete
                 while (resultatSec.next()) {
                     if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
                         spe = "Admission";
                         currentConnected = new Secretaire(resultatSec.getString("ids"), nom, resultatSec.getString("prenom"), mdp, spe);
                         sa = new ServiceAdmissionUI();
                         sa.setLocationRelativeTo(this);
+                        sa.setCurrentPers(currentConnected);
                         sa.setVisible(true);
                         sa.getjLabelService().setText("Service "+spe);
                         break;
                     }
                 }
-
-//                while (resultatCSMT.next()) {
-//                    if ((nom.equals(resultatCSMT.getString("nom"))) && (mdp.equals(resultatCSMT.getString("mdp")))) {
-//                        spe = resultatCSMT.getString("specialite");
-//                        currentConnected = new PH(resultatCSMT.getString("idph"), nom, resultatCSMT.getString("prenom"), mdp, spe);
-//                        smt = new ServiceMedicoTechniquesIU();
-//                        smt.setLocationRelativeTo(this);
-//                        smt.setVisible(true);
-//                        smt.getjLabelService().setText("Service " + spe);
-//                        break;
-//                    }
-//                }
                 while (resultatInfo.next()) {
                     if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
                         spe = "informatique";
@@ -306,10 +284,6 @@ public class ConnexionUI extends javax.swing.JFrame {
             System.out.println("Failed to get Statement");
             e.printStackTrace();
         }
-//        
-
-        System.out.println(getCurrentConnected().getNom() );
-        //System.out.println(getCurrentConnected().getPrenom());
     }
 
     public static PersonnelMedical getCurrentConnected() {

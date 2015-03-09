@@ -35,11 +35,19 @@ import projet.sih.*;
  */
 public class ServiceAdmissionUI extends javax.swing.JFrame {
 
+    /**
+     * @param aCurrentPatient the currentPatient to set
+     */
+    public static void setCurrentPatient(Patient aCurrentPatient) {
+        currentPatient = aCurrentPatient;
+    }
+
     private AjouterPatientIU apIU;
     private AjoutRdvUI ardvUI;
     private CHUPP chupp;
     private ConnexionUI connexionUI;
     private static Patient currentPatient;
+    private PersonnelMedical currentPers;
     private JList1ActionPerformed jll;
 
     private DefaultListModel dlm = new DefaultListModel();
@@ -538,6 +546,13 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     public javax.swing.JPanel getJPanel8() {
         return jPanel8;
     }
+
+    /**
+     * @param currentPers the currentPers to set
+     */
+    public void setCurrentPers(PersonnelMedical currentPers) {
+        this.currentPers = currentPers;
+    }
     
      public class JList1ActionPerformed implements ListSelectionListener {
 
@@ -549,7 +564,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        currentPatient = new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         IPP.setText(currentPatient.getIPP());
                         Patient.setText(currentPatient.getNom());
 //                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
