@@ -23,7 +23,7 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
 public class LettreSortie extends javax.swing.JFrame {
 
     private Patient currentPatient;
-    private PH currentPH;
+    private PersonnelMedical currentPH;
 
     /**
      * Creates new form LettreSortie
@@ -32,6 +32,9 @@ public class LettreSortie extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+        DateFormat df1 = new SimpleDateFormat("dd / MM / yyyy");
+        jLabelDate.setText(df1.format(date));
     }
 
     /**
@@ -209,8 +212,10 @@ public class LettreSortie extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(LettreSortie.class.getName()).log(Level.SEVERE, null, ex);
             }
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+            setVisible(false);
         }
-
     }//GEN-LAST:event_jButtonOKActionPerformed
 
 
@@ -233,7 +238,7 @@ public class LettreSortie extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaTraitement;
     // End of variables declaration//GEN-END:variables
 
-    static public void GenererLettreSortie(PH ph1, Patient p1) throws Exception {
+    public void GenererLettreSortie(PersonnelMedical ph1, Patient p1) throws Exception {
         Date d = new Date(new java.util.Date().getTime());
         DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
         DateFormat df2 = new SimpleDateFormat("hh:mm");
@@ -241,13 +246,13 @@ public class LettreSortie extends javax.swing.JFrame {
         OdfTextDocument odt = OdfTextDocument.newTextDocument();
 
         // Append text to the end of the document. 
-        odt.newImage(new File("C:/Users/Marina/Documents/GitHub/projetSIH/projetSIH/src/projet/UI/Princeton-Plainsboro.jpg").toURI());
+        odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
         odt.newParagraph();
-        odt.addText("Dr." + ph1.getNom() + " " + ph1.getPrenom());
+        odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
         odt.newParagraph();
         odt.addText("CHU de Princeton-Plainsboro");
         odt.newParagraph();
-        odt.addText("Tel : XX.XX.XX.XX.XX");
+        odt.addText("Tel : 04.83.73.73.44");
         odt.newParagraph();
         odt.newParagraph();
         odt.newParagraph();
@@ -263,11 +268,14 @@ public class LettreSortie extends javax.swing.JFrame {
         odt.newParagraph();
         odt.addText("Cette sortie intervient suite au diagnostic suivant :");
         odt.newParagraph();
-        //odt.addText(jTextAreaDiagnostic.getText());
+        odt.newParagraph();
+        odt.addText(jTextAreaDiagnostic.getText());
+        odt.newParagraph();
         odt.newParagraph();
         odt.addText("Le patient " + p1.getNom() + " " + p1.getPrenom() + " est autorisé à sortir du Service " + ph1.getSpecialite() + " suite à l'administration du traitement suivant :");
         odt.newParagraph();
-        //odt.addText(jTextAreaTraitement.getText());
+        odt.newParagraph();
+        odt.addText(jTextAreaTraitement.getText());
         odt.newParagraph();
         odt.newParagraph();
         odt.newParagraph();
@@ -279,7 +287,34 @@ public class LettreSortie extends javax.swing.JFrame {
         odt.newParagraph();
 
         // Save document
-        odt.save("C:/Users/Marina/Documents/GitHub/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+        odt.save("C:/Users/Tommy/Documents/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) +".odt");
+    }
 
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param currentPH the currentPH to set
+     */
+    public void setCurrentPH(PersonnelMedical currentPH) {
+        this.currentPH = currentPH;
+    }
+
+    /**
+     * @return the jLabelMedecin
+     */
+    public javax.swing.JLabel getjLabelMedecin() {
+        return jLabelMedecin;
+    }
+
+    /**
+     * @return the jLabelPatient
+     */
+    public javax.swing.JLabel getjLabelPatient() {
+        return jLabelPatient;
     }
 }

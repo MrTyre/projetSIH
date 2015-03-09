@@ -39,6 +39,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     private ConnexionUI connexionUI;
     private DefaultListModel dlm = new DefaultListModel();
     private Patient currentPatient;
+    private PersonnelMedical currentInt;
     private JList1ActionPerformed jll;
 
     /**
@@ -432,6 +433,20 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
     }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param currentInt the currentInt to set
+     */
+    public void setCurrentInt(PersonnelMedical currentInt) {
+        this.currentInt = currentInt;
+    }
     
     public class JList1ActionPerformed implements ListSelectionListener {
 
@@ -443,7 +458,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        currentPatient = new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));

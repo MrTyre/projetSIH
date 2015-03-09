@@ -39,6 +39,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     private ConnexionUI connexionUI;
     private DefaultListModel dlm = new DefaultListModel();
     private Patient currentPatient;
+    private PersonnelMedical currentInf;
     private JList1ActionPerformed jll;
     /**
      * Creates new form ServiceCliniqueInfirmières
@@ -436,6 +437,20 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
     public javax.swing.JLabel getjLabelService() {
         return jLabelService;
     }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param currentInf the currentInf to set
+     */
+    public void setCurrentInf(PersonnelMedical currentInf) {
+        this.currentInf = currentInf;
+    }
     
     public class JList1ActionPerformed implements ListSelectionListener {
 
@@ -447,7 +462,7 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        currentPatient = new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"));
+                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));

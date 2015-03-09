@@ -202,6 +202,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          } catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+        sias.setVisible(true);
         sias.setLocationRelativeTo(null);
         setVisible(false);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
@@ -214,6 +215,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          }  catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+        siap.setVisible(true);
         siap.setLocationRelativeTo(null);
         setVisible(false);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed

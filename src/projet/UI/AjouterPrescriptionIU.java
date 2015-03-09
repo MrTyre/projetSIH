@@ -14,8 +14,6 @@ import projet.sih.*;
 public class AjouterPrescriptionIU extends javax.swing.JFrame {
 
     //attributs
-    private int l = 0;
-    private CHUPP chupp;
     DefaultTableModel dtm;
     private String sql;
     private String sql2;
@@ -442,8 +440,6 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         
         try {
             for (int i = 0; i < listeMed.size(); i++) {
-                System.out.println(Medicament.getIDMed()+" "+Prescription.getIDPresc());
-                System.out.println(listeMed.get(i).getNomMedoc()+" "+listeMed.get(i).getPosologie()+" "+listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie())+" "+listeMed.get(i).getDateFin());
                 sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
                         + Prescription.getIDPresc() + ", '"
                         + listeMed.get(i).getNomMedoc() + "',"
