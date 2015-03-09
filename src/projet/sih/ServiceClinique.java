@@ -6,6 +6,8 @@
 
 package projet.sih;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -15,6 +17,7 @@ import javax.swing.DefaultListModel;
  */
 public class ServiceClinique extends Service {
     private String specialite;
+    private static int compteur;
 
     /**
      * @return the specialite
@@ -22,7 +25,13 @@ public class ServiceClinique extends Service {
     public String getSpecialite() {
         return specialite;
     }
-
+    public static int getIDServiceClinique() throws SQLException{
+        String sql="select * from service_clinique";
+        ResultSet resultat=CHUPP.getRequete(sql);
+        resultat.last();
+        compteur = resultat.getInt("idsc") + 1;
+        return compteur;
+    }
     /**
      * @param specialite the specialite to set
      */

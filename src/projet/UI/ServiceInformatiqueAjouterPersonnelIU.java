@@ -11,9 +11,11 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,6 +26,7 @@ import projet.sih.CHUPP;
 import projet.sih.Interne;
 import projet.sih.PH;
 import projet.sih.Patient;
+import projet.sih.Informaticien;
 import projet.sih.PersonnelInfirmier;
 import projet.sih.Secretaire;
 
@@ -40,13 +43,15 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     /**
      * Creates new form ServiceInformatiqueAjouterPersonnelIU
      */
-    public ServiceInformatiqueAjouterPersonnelIU() throws FileNotFoundException, IOException {
+    public ServiceInformatiqueAjouterPersonnelIU() throws FileNotFoundException, IOException, SQLException {
         initComponents();
+        setResizable(false);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
+        jComboBoxService.setModel(CHUPP.getListeService());
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -114,7 +119,12 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jLabelStatut.setText("Statut :");
 
         jComboBoxStatut.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médical" }));
+        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médicale", "Informaticien" }));
+        jComboBoxStatut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxStatutActionPerformed(evt);
+            }
+        });
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelNom.setText("Nom :");
@@ -130,7 +140,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jTextFieldPrenom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jComboBoxService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxService.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Anesthésie/Réanimation", "Bactériologie", "Cardiologie", "Chirurgie générale", "Cytologie", "Dermatologie", "Endocrinologie", "Gériatrie", "Gynécologie", "Neurologie", "Oncologie", "Pédiatrie", "Pneumologie", "Psychiatrie", "Radiologie" }));
+        jComboBoxService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxServiceActionPerformed(evt);
+            }
+        });
 
         jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -155,37 +169,39 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabelNouveauPersonnel)
+                                        .addGap(45, 45, 45))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabelPrenom)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldPrenom))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelNom)
+                                            .addComponent(jLabelStatut))
+                                        .addGap(11, 12, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBoxStatut, 0, 180, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldNom)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabelService)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 30, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonRetour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelNouveauPersonnel)
-                                .addGap(45, 45, 45))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelPrenom)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldPrenom))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelNom)
-                                    .addComponent(jLabelStatut))
-                                .addGap(11, 12, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxStatut, 0, 180, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldNom))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabelService)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,12 +224,14 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelService))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonOK)
-                    .addComponent(jButtonRetour))
-                .addGap(23, 23, 23))
+                    .addComponent(jButtonRetour)
+                    .addComponent(jButtonOK))
+                .addContainerGap())
         );
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,7 +243,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -249,6 +267,63 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         ajouterPersonnel();
     }//GEN-LAST:event_jButtonOKActionPerformed
 
+    private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
+        
+    }//GEN-LAST:event_jComboBoxServiceActionPerformed
+
+    private void jComboBoxStatutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatutActionPerformed
+        if ((((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien"))||(((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale"))) {
+                jLabelService.setVisible(false);
+                jComboBoxService.setVisible(false);
+                this.repaint();
+        }else{
+            jLabelService.setVisible(true);
+                jComboBoxService.setVisible(true);
+                this.repaint();
+        }
+    }//GEN-LAST:event_jComboBoxStatutActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new ServiceInformatiqueAjouterPersonnelIU().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonRetour;
@@ -278,7 +353,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         if ((jTextFieldNom.getText().equals(""))
                 || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
+            jop1.showMessageDialog(null, "Il manque des informations relatives au personnel", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
             String nom = jTextFieldNom.getText();
             String prenom = jTextFieldPrenom.getText();
@@ -321,10 +396,19 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
-            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médical")) {
-                service = ((String) jComboBoxService.getSelectedItem());
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale")) {
                 try {
                     sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            }else if (((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien")) {
+                try {
+                    sql = "INSERT INTO informaticien VALUES (" + Informaticien.getIDInfo()+ ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();
                     jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);

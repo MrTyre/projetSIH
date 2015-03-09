@@ -97,19 +97,39 @@ public class CHUPP {
 
     public static DefaultComboBoxModel getListeService() throws SQLException {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        
         String sql = "SELECT specialite FROM service_clinique";
         String sql2 = "SELECT specialite FROM service_medico_technique";
-        
-            ResultSet resultat = CHUPP.getRequete(sql);
-            ResultSet resultat2 = CHUPP.getRequete(sql2);
-            while (resultat.next()) {
-                dcbm.addElement(resultat.getString("specialite"));
-            }
-            while (resultat2.next()) {
-                dcbm.addElement(resultat2.getString("specialite"));
-            }
-            return dcbm;
-        
+
+        ResultSet resultat = CHUPP.getRequete(sql);
+        ResultSet resultat2 = CHUPP.getRequete(sql2);
+        while (resultat.next()) {
+            dcbm.addElement(resultat.getString("specialite"));
+        }
+        while (resultat2.next()) {
+            dcbm.addElement(resultat2.getString("specialite"));
+        }
+        return dcbm;
+    }
+
+    public static DefaultComboBoxModel getListeServiceClinique() throws SQLException {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String sql = "SELECT specialite FROM service_clinique";
+        ResultSet resultat = CHUPP.getRequete(sql);
+        while (resultat.next()) {
+            dcbm.addElement(resultat.getString("specialite"));
+        }
+        return dcbm;
+    }
+    
+    public static DefaultComboBoxModel getListeServiceMedicoTechnique() throws SQLException {
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+        String sql = "SELECT specialite FROM service_medico_technique";
+        ResultSet resultat = CHUPP.getRequete(sql);
+        while (resultat.next()) {
+            dcbm.addElement(resultat.getString("specialite"));
+        }
+        return dcbm;
     }
 
     public static ResultSet getRequete(String sql) throws SQLException {
