@@ -208,7 +208,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
          try {
-             siap = new ServiceInformatiqueAjouterPersonnelIU();
+                 siap = new ServiceInformatiqueAjouterPersonnelIU();
          } catch (IOException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }  catch (SQLException ex) {
@@ -235,7 +235,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
        JOptionPane j=new JOptionPane();
          int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
          if(retour == JOptionPane.OK_OPTION){
-              
+                              
          setVisible(false);
              try {
                  connexionUI = new ConnexionUI();
