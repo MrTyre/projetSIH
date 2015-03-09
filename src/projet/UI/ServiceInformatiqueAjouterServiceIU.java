@@ -96,10 +96,8 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jLabelChefDeService = new javax.swing.JLabel();
         jLabelNom = new javax.swing.JLabel();
         jLabelPrenom = new javax.swing.JLabel();
-        jLabelSpecialite = new javax.swing.JLabel();
         jTextFieldNom = new javax.swing.JTextField();
         jTextFieldPrenom = new javax.swing.JTextField();
-        jComboBoxSpecialite = new javax.swing.JComboBox();
         jButtonOK = new javax.swing.JButton();
         jButtonRetour = new javax.swing.JButton();
         jLabelNomService = new javax.swing.JLabel();
@@ -132,9 +130,6 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jLabelPrenom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelPrenom.setText("Prénom :");
 
-        jLabelSpecialite.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelSpecialite.setText("Spécialité :");
-
         jTextFieldNom.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,8 +143,6 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 jTextFieldPrenomActionPerformed(evt);
             }
         });
-
-        jComboBoxSpecialite.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jButtonOK.setBackground(new java.awt.Color(153, 153, 255));
         jButtonOK.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -205,12 +198,8 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabelService)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jComboBoxService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabelSpecialite)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxSpecialite, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                                    .addComponent(jComboBoxService, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,11 +227,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelPrenom)
                             .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelSpecialite)
-                            .addComponent(jComboBoxSpecialite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(86, Short.MAX_VALUE))
+                        .addContainerGap(123, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -301,19 +286,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
-        if (((String) jComboBoxService.getSelectedItem()).equals("Clinique")) {
-            try {
-                jComboBoxSpecialite.setModel(CHUPP.getListeServiceClinique());
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (((String) jComboBoxService.getSelectedItem()).equals("Médico-technique")) {
-            try {
-                jComboBoxSpecialite.setModel(CHUPP.getListeServiceMedicoTechnique());
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
 
@@ -321,7 +294,6 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private javax.swing.JButton jButtonOK;
     private javax.swing.JButton jButtonRetour;
     private javax.swing.JComboBox jComboBoxService;
-    private javax.swing.JComboBox jComboBoxSpecialite;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelChefDeService;
     private javax.swing.JLabel jLabelNom;
@@ -329,7 +301,6 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNouveauService;
     private javax.swing.JLabel jLabelPrenom;
     private javax.swing.JLabel jLabelService;
-    private javax.swing.JLabel jLabelSpecialite;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldNom;
     private javax.swing.JTextField jTextFieldNomService;
@@ -346,33 +317,71 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
             String prenom = jTextFieldPrenom.getText();
             String nomService = jTextFieldNomService.getText();
             String sql2 = "select * from practicien_hospitalier where nom='" + nom + "' and prenom='" + prenom + "'";
+            String sqlChefServiceClinique = "select * from service_clinique";
+            String sqlChefServiceMedicoTechnique = "select * from service_medico_technique";
+            ResultSet resultat2ChefServiceClinique = CHUPP.getRequete(sqlChefServiceClinique);
+            ResultSet resultat2ChefServiceMedicoTechnique = CHUPP.getRequete(sqlChefServiceMedicoTechnique);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
             if (((String) jComboBoxService.getSelectedItem()).equals("Clinique")) {
                 while (resultat2.next()) {
-                    sql = "INSERT INTO service_clinique VALUES (" + ServiceClinique.getIDServiceClinique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
-                    String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
-                    CHUPP.getInsert(sql3);
-                    CHUPP.getInsert(sql);
+                    while (resultat2ChefServiceClinique.next()) {
+                        if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
+                            while (resultat2ChefServiceMedicoTechnique.next()) {
+                                if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
+                                    sql = "INSERT INTO service_clinique VALUES (" + ServiceClinique.getIDServiceClinique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
+                                    String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
+                                    CHUPP.getInsert(sql3);
+                                    CHUPP.getInsert(sql);
+                                    System.out.println("blabla");
+                                    JOptionPane jop1 = new JOptionPane();
+                                    jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    JOptionPane jop1 = new JOptionPane();
+                                    jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service medico technique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                    break;
+                                }
+                            }
+                        } else {
+                            JOptionPane jop1 = new JOptionPane();
+                            jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            break;
+                        }
+                    }
+
                 }
-                JOptionPane jop1 = new JOptionPane();
-                jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
 
             } else if (((String) jComboBoxService.getSelectedItem()).equals("Médico-technique")) {
                 while (resultat2.next()) {
-                    sql = "INSERT INTO service_medico_technique VALUES (" + ServiceMedicoTechnique.getIDServiceMedicoTechnique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
-                    String sql4 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph") + ")";
-                    CHUPP.getInsert(sql4);
-                    CHUPP.getInsert(sql);
-                }
-                JOptionPane jop1 = new JOptionPane();
-                jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                    while (resultat2ChefServiceClinique.next()) {
+                        if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
+                            while (resultat2ChefServiceMedicoTechnique.next()) {
+                                if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
+                                    sql = "INSERT INTO service_medico_technique VALUES (" + ServiceMedicoTechnique.getIDServiceMedicoTechnique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
+                                    String sql4 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph") + ")";
+                                    CHUPP.getInsert(sql4);
+                                    CHUPP.getInsert(sql);
+                                    JOptionPane jop1 = new JOptionPane();
+                                    System.out.println("blqblqblq");
+                                    jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                } else {
+                                    JOptionPane jop1 = new JOptionPane();
+                                    jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service medico technique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                    break;
+                                }
+                            }
+                        } else {
+                            JOptionPane jop1 = new JOptionPane();
+                            jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            break;
+                        }
+                    }
 
+                }
             }
+            jTextFieldNom.setText("");
+            jTextFieldPrenom.setText("");
+            jTextFieldNomService.setText("");
+            jComboBoxService.setSelectedIndex(0);
         }
-        jTextFieldNom.setText("");
-        jTextFieldPrenom.setText("");
-        jTextFieldNomService.setText("");
-        jComboBoxSpecialite.setSelectedIndex(0);
-        jComboBoxService.setSelectedIndex(0);
     }
 }

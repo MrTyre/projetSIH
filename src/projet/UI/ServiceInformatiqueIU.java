@@ -202,7 +202,9 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          } catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+        sias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         sias.setLocationRelativeTo(null);
+        sias.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButtonAjouterServiceActionPerformed
 
@@ -214,7 +216,9 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
          }  catch (SQLException ex) {
              Logger.getLogger(ServiceInformatiqueIU.class.getName()).log(Level.SEVERE, null, ex);
          }
+        siap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         siap.setLocationRelativeTo(null);
+        siap.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
