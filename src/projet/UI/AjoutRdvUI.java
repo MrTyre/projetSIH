@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -56,7 +57,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox();
         jLabelDateRDV = new javax.swing.JLabel();
         jTextFieldJourRDV = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldMois = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldAnnee = new javax.swing.JTextField();
@@ -100,7 +101,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
 
         jTextFieldJourRDV.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldMois.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("/");
@@ -170,7 +171,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1))
+                                        .addComponent(jTextFieldMois))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabelH)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,7 +214,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelDateRDV)
                         .addComponent(jTextFieldJourRDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -312,26 +313,35 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNouveauRDV;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldAnnee;
     private javax.swing.JTextField jTextFieldHeure;
     private javax.swing.JTextField jTextFieldJourRDV;
     private javax.swing.JTextField jTextFieldMinute;
+    private javax.swing.JTextField jTextFieldMois;
     // End of variables declaration//GEN-END:variables
     public void setCurrentPatient(Patient currentPatient) {
         this.currentPatient = currentPatient;
     }
 
     public void ajouterRDV() {
+        Date d = new Date(System.currentTimeMillis());
+        if(((Integer.parseInt(jTextFieldJourRDV.getText()))>31)
+                || ((Integer.parseInt(jTextFieldMois.getText()))>12)
+                || ((Integer.parseInt(jTextFieldAnnee.getText()))<d.getYear())
+                || ((Integer.parseInt(jTextFieldHeure.getText()))>24)
+                || ((Integer.parseInt(jTextFieldMinute.getText()))>60)){
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Attention, la date ou l'heure du RDV n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);       
+        }
         if ((jTextFieldJourRDV.getText().equals(""))
-                || (jTextField1.getText().equals(""))
+                || (jTextFieldMois.getText().equals(""))
                 || (jTextFieldAnnee.getText().equals(""))
-                || (jTextFieldMinute.getText().equals(""))
+                || (jTextFieldHeure.getText().equals(""))
                 || (jTextFieldMinute.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au RDV", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
-            String date = jTextFieldAnnee.getText() + "-" + jTextField1.getText() + "-" + jTextFieldJourRDV.getText();
+            String date = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJourRDV.getText();
             int heure = Integer.parseInt(jTextFieldHeure.getText());
             int minute = Integer.parseInt(jTextFieldMinute.getText());
             String sql;

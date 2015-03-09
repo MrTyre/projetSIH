@@ -32,7 +32,7 @@ public class LettreSortie extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis());
         DateFormat df1 = new SimpleDateFormat("dd / MM / yyyy");
         jLabelDate.setText(df1.format(date));
     }

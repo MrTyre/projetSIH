@@ -129,4 +129,35 @@ public class DM {
             return "erreur";
         }
     }
+    
+    public String afficherRDV(Patient patient) {
+        String s = "";
+        try {
+            String sql = "SELECT * FROM consultation WHERE consultation.nature_prestation='RDV médical' AND consultation.ipp=" + patient.getIPP();
+            ResultSet resultat = CHUPP.getRequete(sql);
+            resultat.last();
+            int nbrow = resultat.getRow();
+            resultat.first();
+            s += "RENDEZ-VOUS :";
+            if (nbrow == 0) {
+                s += "\nIl n'y a pas de rendez-vous prévus pour le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
+            } else {
+                String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("consultation.idph");
+                ResultSet resultat3 = CHUPP.getRequete(sql3);
+                resultat3.first();
+                resultat.beforeFirst();
+                while (resultat.next()) {
+                    s += "\n\nRendez-vous du " + resultat.getDate("consultation.date") + ", avec par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
+                    s += "\n\nNature de la prestation :   ";
+                    s += resultat.getString("consultation.nature_prestation");
+                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                }
+            }
+            return s;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return "erreur";
+        }
+    }
 }
