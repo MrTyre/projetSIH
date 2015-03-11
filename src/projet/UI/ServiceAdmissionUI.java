@@ -62,7 +62,6 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public ServiceAdmissionUI() throws FileNotFoundException, IOException {
         initComponents();
-        setExtendedState(Frame.MAXIMIZED_BOTH);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);

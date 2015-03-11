@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet.UI;
 
 import java.awt.Frame;
@@ -52,7 +47,6 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
      */
     public ServiceMedicoTechniquesIU() throws FileNotFoundException, IOException {
         initComponents();
-        setExtendedState(Frame.MAXIMIZED_BOTH);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);

@@ -75,7 +75,7 @@ public class DMA {
                     while (resultat2.next()) {
                         s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
                     }
-                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                    s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }
             }
             return s;
@@ -107,11 +107,11 @@ public class DMA {
                 while (resultat.next()) {
                     s += "\n\nHospitalisation du " + resultat.getDate("hospitalisation.date") + " au "+ resultat.getDate("hospitalisation.date_sortie") + ", faite par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + "\t\tN° de séjour : " + resultat.getInt("hospitalisation.idhosp");
                     s += "\n\nNature de la prestation :   ";
-                    s += resultat.getString("hospitalisation.nature_prestation");
+                    s += resultat.getString("hospitalisation.raison_sejour");
                     while (resultat2.next()) {
                         s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
                     }
-                    s += "\n------------------------------------------------------------------------------------------------------------------\n";
+                    s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }
             }
             return s;
