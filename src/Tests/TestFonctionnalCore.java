@@ -20,7 +20,7 @@ import projet.UI.*;
 public class TestFonctionnalCore {
 
    
-    public static void main(String[] args) throws IOException, Exception {
+   // public static void main(String[] args) throws IOException, Exception {
 ////        CHUPP chupp = new CHUPP();
 ////        Date date = new Date(new java.util.Date().getTime());
 ////        Patient p1 = new Patient("Riviere", "Tommy", new Date(94, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
@@ -33,7 +33,4 @@ public class TestFonctionnalCore {
 //        int compteur =(int)Math.pow(10, 5)+1;
 //        System.out.println(compteur);
 //    }
-    System.out.println(Resultat.getIDresultat());
-    System.out.println(Resultat.getIDresultat());
-    }
 }

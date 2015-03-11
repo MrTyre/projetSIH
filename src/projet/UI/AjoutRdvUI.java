@@ -3,6 +3,7 @@ package projet.UI;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -264,12 +265,9 @@ public class AjoutRdvUI extends javax.swing.JFrame {
             ajouterRDV();
             serviceAdmission.getJPanel8().revalidate();
             serviceAdmission.getJPanel8().repaint();
-            JOptionPane j1 = new JOptionPane();
-            j1.showMessageDialog(null, "Le rendez-vous a bien été ajouté !", "RDV ajouté", JOptionPane.INFORMATION_MESSAGE);
         } else {
             j.setVisible(false);
         }
-        setVisible(false);
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
@@ -292,7 +290,6 @@ public class AjoutRdvUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
@@ -320,25 +317,44 @@ public class AjoutRdvUI extends javax.swing.JFrame {
 
     public void ajouterRDV() {
         Date d = new Date(System.currentTimeMillis());
-        if(((Integer.parseInt(jTextFieldJourRDV.getText()))>31)
-                || ((Integer.parseInt(jTextFieldMois.getText()))>12)
-                || ((Integer.parseInt(jTextFieldAnnee.getText()))<d.getYear())
-                || ((Integer.parseInt(jTextFieldHeure.getText()))>24)
-                || ((Integer.parseInt(jTextFieldMinute.getText()))>60)){
+        Calendar cal = Calendar.getInstance();
+        int currentHeure = cal.get(Calendar.HOUR_OF_DAY);
+        int currentMin = cal.get(Calendar.MINUTE);
+        int jour = Integer.parseInt(jTextFieldJourRDV.getText());
+        int mois = Integer.parseInt(jTextFieldMois.getText());
+        int annee = Integer.parseInt(jTextFieldAnnee.getText());
+        int heure = Integer.parseInt(jTextFieldHeure.getText());
+        int minute = Integer.parseInt(jTextFieldMinute.getText());
+        if ((jour > 31)
+                || (mois > 12)
+                || (annee < d.getYear() + 1900)
+                || (heure > 24)
+                || (minute > 60)
+                || ((annee == d.getYear() + 1900) && (mois < d.getMonth() + 1))
+                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour < d.getDate()))
+                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour == d.getDate()) && (heure < currentHeure))
+                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour == d.getDate()) && (heure == currentHeure) && (minute < currentMin))) {
             JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Attention, la date ou l'heure du RDV n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);       
-        }
-        if ((jTextFieldJourRDV.getText().equals(""))
+            jop1.showMessageDialog(null, "Attention, la date ou l'heure du RDV n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
+            jTextFieldJourRDV.setText("");
+            jTextFieldMois.setText("");
+            jTextFieldAnnee.setText("");
+            jTextFieldHeure.setText("");
+            jTextFieldMinute.setText("");
+        } else if ((jTextFieldJourRDV.getText().equals(""))
                 || (jTextFieldMois.getText().equals(""))
                 || (jTextFieldAnnee.getText().equals(""))
                 || (jTextFieldHeure.getText().equals(""))
                 || (jTextFieldMinute.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au RDV", "Attention", JOptionPane.WARNING_MESSAGE);
+            jTextFieldJourRDV.setText("");
+            jTextFieldMois.setText("");
+            jTextFieldAnnee.setText("");
+            jTextFieldHeure.setText("");
+            jTextFieldMinute.setText("");
         } else {
             String date = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJourRDV.getText();
-            int heure = Integer.parseInt(jTextFieldHeure.getText());
-            int minute = Integer.parseInt(jTextFieldMinute.getText());
             String sql;
             try {
                 sql = "INSERT INTO Consultation VALUES (" + Consultation.getIDConsult() + ","
@@ -349,11 +365,13 @@ public class AjoutRdvUI extends javax.swing.JFrame {
                         + minute
                         + ",'RDV médical')";
                 CHUPP.getInsert(sql);
+                JOptionPane j1 = new JOptionPane();
+                j1.showMessageDialog(null, "Le rendez-vous a bien été ajouté !", "RDV ajouté", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
             }
-
         }
     }
 
