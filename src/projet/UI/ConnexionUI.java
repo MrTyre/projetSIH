@@ -23,7 +23,6 @@ public class ConnexionUI extends javax.swing.JFrame {
      * @return the currentConnected
      */
     private ServiceCliniqueIU sc;
-    private ServiceAdmissionUI scs;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
     private ServiceCliniqueInfirmieresUI scinf;
@@ -33,13 +32,14 @@ public class ConnexionUI extends javax.swing.JFrame {
     private static PersonnelMedical currentConnected;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sqlph;
-    private String sqlint;
-    private String sqlinf;
+    private String sqlintSC;
+    private String sqlintSMT;
+    private String sqlinfSMT;
+    private String sqlinfSC;
     private String sqlsec;
     private String sqlinfo;
-    private String sqlCSC;
-    private String sqlCSMT;
+    private String sqlPHSC;
+    private String sqlPHSMT;
 
     /**
      * Creates new form ConnexionUI
@@ -191,33 +191,29 @@ public class ConnexionUI extends javax.swing.JFrame {
         String mdp = jPasswordField1.getText();
         String spe = "";
         try {
-
-            sqlph = "SELECT * FROM practicien_hospitalier";
-            sqlint = "SELECT * FROM interne";
-            sqlinf = "SELECT * FROM infirmier";
+            sqlintSC = "SELECT interne.* FROM interne, service_clinique where interne.specialite=service_clinique.specialite";
+            sqlinfSC = "SELECT infirmier.* FROM infirmier, service_clinique where infirmier.service=service_clinique.specialite";
+            sqlintSMT = "SELECT interne.* FROM interne, service_medico_technique where interne.specialite=service_medico_technique.specialite";
+            sqlinfSMT = "SELECT infirmier.* FROM infirmier, service_medico_technique where infirmier.service=service_medico_technique.specialite";
             sqlsec = "SELECT * FROM secretaire";
             sqlinfo = "SELECT * FROM informaticien";
-            sqlCSC = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_clinique "
-                    + "WHERE practicien_hospitalier.idph=service_clinique.chef_service AND "
-                    + "practicien_hospitalier.specialite=service_clinique.specialite ";
-
-            sqlCSMT = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_medico_technique "
-                    + "WHERE practicien_hospitalier.idph=service_medico_technique.chef_de_service AND "
-                    + "practicien_hospitalier.specialite=service_medico_technique.specialite ";
-            ResultSet resultatPh = CHUPP.getRequete(sqlph);
-            ResultSet resultatInt = CHUPP.getRequete(sqlint);
-            ResultSet resultatInf = CHUPP.getRequete(sqlinf);
+            sqlPHSC = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_clinique WHERE practicien_hospitalier.specialite=service_clinique.specialite";
+            sqlPHSMT = "SELECT idph, nom, prenom, mdp, practicien_hospitalier.specialite FROM practicien_hospitalier, service_medico_technique WHERE practicien_hospitalier.specialite=service_medico_technique.specialite";
+            ResultSet resultatPHSC = CHUPP.getRequete(sqlPHSC);
+            ResultSet resultatPHSMT = CHUPP.getRequete(sqlPHSMT);
+            ResultSet resultatIntSC = CHUPP.getRequete(sqlintSC);
+            ResultSet resultatInfSC = CHUPP.getRequete(sqlinfSC);
+            ResultSet resultatIntSMT = CHUPP.getRequete(sqlintSMT);
+            ResultSet resultatInfSMT = CHUPP.getRequete(sqlinfSMT);
             ResultSet resultatSec = CHUPP.getRequete(sqlsec);
             ResultSet resultatInfo = CHUPP.getRequete(sqlinfo);
-//            ResultSet resultatCSC = CHUPP.getRequete(sqlCSC);
-//            ResultSet resultatCSMT = CHUPP.getRequete(sqlCSMT);
             while (spe.equals("")) {
+                
                 //parcours du personnel des Service Cliniques
-
-                while (resultatPh.next()) {
-                    if ((nom.equals(resultatPh.getString("nom"))) && (mdp.equals(resultatPh.getString("mdp")))) {
-                        spe = resultatPh.getString("specialite");
-                        currentConnected = new PH(resultatPh.getString("idph"), nom, resultatPh.getString("prenom"), mdp, spe);
+                while (resultatPHSC.next()) {
+                    if ((nom.equals(resultatPHSC.getString("nom"))) && (mdp.equals(resultatPHSC.getString("mdp")))) {
+                        spe = resultatPHSC.getString("practicien_hospitalier.specialite");
+                        currentConnected = new PH(resultatPHSC.getString("idph"), nom, resultatPHSC.getString("prenom"), mdp, spe);
                         sc = new ServiceCliniqueIU();
                         sc.setLocationRelativeTo(this);
                         sc.setCurrentPH(currentConnected);
@@ -226,11 +222,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
-                while (resultatInf.next()) {
-                    if ((nom.equals(resultatInf.getString("nom"))) && (mdp.equals(resultatInf.getString("mdp")))) {
-                        spe = resultatInf.getString("service");
-                        currentConnected = new PersonnelInfirmier(resultatInf.getString("idinf"), nom, resultatInf.getString("prenom"), mdp, spe);
-                        System.out.println("currentConnected OK");
+                while (resultatInfSC.next()) {
+                    if ((nom.equals(resultatInfSC.getString("nom"))) && (mdp.equals(resultatInfSC.getString("mdp")))) {
+                        spe = resultatInfSC.getString("service");
+                        currentConnected = new PersonnelInfirmier(resultatInfSC.getString("idinf"), nom, resultatInfSC.getString("prenom"), mdp, spe);
                         scinf = new ServiceCliniqueInfirmieresUI();
                         scinf.setLocationRelativeTo(this);                        
                         scinf.setCurrentInf(currentConnected);
@@ -239,10 +234,10 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
-                while (resultatInt.next()) {
-                    if ((nom.equals(resultatInt.getString("nom"))) && (mdp.equals(resultatInt.getString("mdp")))) {
-                        spe = resultatInt.getString("specialite");
-                        currentConnected = new Interne(resultatInt.getString("idi"), nom, resultatInt.getString("prenom"), mdp, spe);
+                while (resultatIntSC.next()) {
+                    if ((nom.equals(resultatIntSC.getString("nom"))) && (mdp.equals(resultatIntSC.getString("mdp")))) {
+                        spe = resultatIntSC.getString("specialite");
+                        currentConnected = new Interne(resultatIntSC.getString("idi"), nom, resultatIntSC.getString("prenom"), mdp, spe);
                         sci = new ServiceCliniqueInterneUI();
                         sci.setLocationRelativeTo(this);
                         sci.setCurrentInt(currentConnected);
@@ -251,6 +246,46 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+                
+                //personnel des service medico techniques
+                while (resultatPHSMT.next()) {
+                    if ((nom.equals(resultatPHSMT.getString("nom"))) && (mdp.equals(resultatPHSMT.getString("mdp")))) {
+                        spe = resultatPHSMT.getString("practicien_hospitalier.specialite");
+                        currentConnected = new PH(resultatPHSMT.getString("idph"), nom, resultatPHSMT.getString("prenom"), mdp, spe);
+                        smt = new ServiceMedicoTechniquesIU();
+                        smt.setLocationRelativeTo(this);
+                        smt.setCurrentConnected(currentConnected);
+                        smt.setVisible(true);
+                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        break;
+                    }
+                }  
+                while (resultatInfSMT.next()) {
+                    if ((nom.equals(resultatInfSMT.getString("nom"))) && (mdp.equals(resultatInfSMT.getString("mdp")))) {
+                        spe = resultatInfSMT.getString("service");
+                        currentConnected = new PersonnelInfirmier(resultatInfSMT.getString("idinf"), nom, resultatInfSMT.getString("prenom"), mdp, spe);
+                        smt = new ServiceMedicoTechniquesIU();
+                        smt.setLocationRelativeTo(this);
+                        smt.setCurrentConnected(currentConnected);
+                        smt.setVisible(true);
+                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        break;
+                    }
+                }
+                while (resultatIntSMT.next()) {
+                    if ((nom.equals(resultatIntSMT.getString("nom"))) && (mdp.equals(resultatIntSMT.getString("mdp")))) {
+                        spe = resultatIntSMT.getString("specialite");
+                        currentConnected = new Interne(resultatIntSMT.getString("idi"), nom, resultatIntSMT.getString("prenom"), mdp, spe);
+                        smt = new ServiceMedicoTechniquesIU();
+                        smt.setLocationRelativeTo(this);
+                        smt.setCurrentConnected(currentConnected);
+                        smt.setVisible(true);
+                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        break;
+                    }
+                }
+                
+                //parcours du personnel secrétaire
                 while (resultatSec.next()) {
                     if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
                         spe = "Admission";
@@ -263,6 +298,8 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+                
+                //parcours du personnel informaticien
                 while (resultatInfo.next()) {
                     if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
                         spe = "informatique";

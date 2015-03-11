@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.UI;
+
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,24 +34,32 @@ import projet.sih.*;
  * @author Tommy
  */
 public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
+
     private CHUPP chupp;
     private ConnexionUI connexionUI;
     private Patient currentPatient;
-    
+    private PersonnelMedical currentConnected;
+    private ResultatPrestationLaboAnesthesieIU rplaUI;
+
     private DefaultListModel dlm;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
     private String sql;
+    private JList1ActionPerformed jll;
+
     /**
      * Creates new form ServiceMedicoTechniquesIU
      */
     public ServiceMedicoTechniquesIU() throws FileNotFoundException, IOException {
         initComponents();
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         FileInputStream input = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
-        jLabel2.setIcon(image);
-        jLabel2.setVisible(true);
+        jLabel1.setIcon(image);
+        jLabel1.setVisible(true);
+        jll = new JList1ActionPerformed();
+        jListPatients.addListSelectionListener(jll);
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -64,7 +74,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-        
+
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -82,11 +92,11 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-        dlm=new DefaultListModel();
+        dlm = new DefaultListModel();
         sql = "SELECT nom, prenom, date_naissance FROM Patient";
         try {
-            ResultSet resultat =CHUPP.getRequete(sql);
-            while(resultat.next()) {
+            ResultSet resultat = CHUPP.getRequete(sql);
+            while (resultat.next()) {
                 dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
             }
         } catch (SQLException ex) {
@@ -114,16 +124,21 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListPatients = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaDemandesPrestations = new javax.swing.JTextArea();
-        jLabelPatient1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButtonDeconnexion = new javax.swing.JButton();
-        jLabelPatient = new javax.swing.JTextField();
-        jLabelIPP = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabelPatient4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButtonDeconnexion3 = new javax.swing.JButton();
+        jButtonResultat3 = new javax.swing.JButton();
+        jLabelCurrentPatient3 = new javax.swing.JLabel();
+        jLabelIPP3 = new javax.swing.JLabel();
+        jLabelDemandePrestation = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jSplitPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(1095, 644));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 620));
 
         javax.swing.GroupLayout jPanelLogoLayout = new javax.swing.GroupLayout(jPanelLogo);
         jPanelLogo.setLayout(jPanelLogoLayout);
@@ -134,7 +149,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jPanelLogoLayout.setVerticalGroup(
             jPanelLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogoLayout.createSequentialGroup()
-                .addGap(0, 45, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -148,6 +163,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jListPatients.setMinimumSize(new java.awt.Dimension(100, 85));
         jScrollPane1.setViewportView(jListPatients);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -160,162 +176,190 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                     .addComponent(jPanelLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelListePatients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jScrollPane1)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelListePatients)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
 
-        jTextAreaDemandesPrestations.setEditable(false);
-        jTextAreaDemandesPrestations.setColumns(20);
-        jTextAreaDemandesPrestations.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextAreaDemandesPrestations.setRows(5);
-        jTextAreaDemandesPrestations.setText("Demandes de prestations");
-        jScrollPane2.setViewportView(jTextAreaDemandesPrestations);
+        jLabelPatient4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelPatient4.setText("Patient :");
 
-        jLabelPatient1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelPatient1.setText("Patient :");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("IPP :");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("IPP :");
-
-        jButtonDeconnexion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonDeconnexion.setForeground(new java.awt.Color(204, 0, 0));
-        jButtonDeconnexion.setText("Deconnexion");
-        jButtonDeconnexion.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDeconnexion3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeconnexion3.setForeground(new java.awt.Color(204, 0, 0));
+        jButtonDeconnexion3.setText("Deconnexion");
+        jButtonDeconnexion3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeconnexionActionPerformed(evt);
             }
         });
 
-        jLabelPatient.setBorder(null);
-        jLabelPatient.addActionListener(new java.awt.event.ActionListener() {
+        jButtonResultat3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonResultat3.setForeground(new java.awt.Color(0, 51, 151));
+        jButtonResultat3.setText("Envoyer Resultat");
+        jButtonResultat3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLabelPatientActionPerformed(evt);
+                jButtonResultatActionPerformed(evt);
             }
         });
 
-        jLabelIPP.setBorder(null);
-        jLabelIPP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLabelIPPActionPerformed(evt);
-            }
-        });
+        jLabelDemandePrestation.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelDemandePrestation.setText("Demandes de prestations :");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelPatient1)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabelPatient4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addComponent(jButtonDeconnexion))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelPatient1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonDeconnexion)))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                        .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelIPP3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
+                .addComponent(jButtonResultat3)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonDeconnexion3)
                 .addContainerGap())
         );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonDeconnexion3)
+                            .addComponent(jButtonResultat3)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelIPP3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelPatient4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(57, 57, 57)
+                .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(487, Short.MAX_VALUE))
+        );
 
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonResultatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResultatActionPerformed
+        if (currentPatient == null) {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(this, "Vous n'avez pas sélectionné de prestation", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            rplaUI = new ResultatPrestationLaboAnesthesieIU();
+            rplaUI.setLocationRelativeTo(null);
+            rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            rplaUI.setCurrentConnected(currentConnected);
+            rplaUI.setCurrentPatient(currentPatient);
+            rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+            rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
+            rplaUI.setSmt(this);
+            rplaUI.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonResultatActionPerformed
+
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
         JOptionPane j = new JOptionPane();
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir vous déconnecter ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
-           setVisible(false);
-             try {
-                 connexionUI = new ConnexionUI();
-             } catch (IOException ex) {
-                 Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
-             }
-         connexionUI.setVisible(true);
-  
+            setVisible(false);
+            try {
+                connexionUI = new ConnexionUI();
+            } catch (IOException ex) {
+                Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            connexionUI.setVisible(true);
         } else {
             j.setVisible(false);
         }
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
-    private void jLabelPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelPatientActionPerformed
-
-    }//GEN-LAST:event_jLabelPatientActionPerformed
-
-    private void jLabelIPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelIPPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabelIPPActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDeconnexion;
+    private javax.swing.JButton jButtonDeconnexion1;
+    private javax.swing.JButton jButtonDeconnexion2;
+    private javax.swing.JButton jButtonDeconnexion3;
+    private javax.swing.JButton jButtonResultat;
+    private javax.swing.JButton jButtonResultat1;
+    private javax.swing.JButton jButtonResultat2;
+    private javax.swing.JButton jButtonResultat3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jLabelIPP;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelCurrentPatient;
+    private javax.swing.JLabel jLabelCurrentPatient1;
+    private javax.swing.JLabel jLabelCurrentPatient2;
+    private javax.swing.JLabel jLabelCurrentPatient3;
+    private javax.swing.JLabel jLabelDemandePrestation;
+    private javax.swing.JLabel jLabelIPP;
+    private javax.swing.JLabel jLabelIPP1;
+    private javax.swing.JLabel jLabelIPP2;
+    private javax.swing.JLabel jLabelIPP3;
     private javax.swing.JLabel jLabelListePatients;
-    private javax.swing.JTextField jLabelPatient;
     private javax.swing.JLabel jLabelPatient1;
+    private javax.swing.JLabel jLabelPatient2;
+    private javax.swing.JLabel jLabelPatient3;
+    private javax.swing.JLabel jLabelPatient4;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JList jListPatients;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextArea jTextAreaDemandesPrestations;
+    private javax.swing.JTextArea jTextAreaDemandesPrestations1;
+    private javax.swing.JTextArea jTextAreaDemandesPrestations2;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -333,12 +377,40 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     }
 
     /**
+     * @param currentConnected the currentConnected to set
+     */
+    public void setCurrentConnected(PersonnelMedical currentConnected) {
+        this.currentConnected = currentConnected;
+    }
+
+    /**
      * @param currentPatient the currentPatient to set
      */
     public void setCurrentPatient(Patient currentPatient) {
         this.currentPatient = currentPatient;
     }
-    
+
+    /**
+     * @return the dlm
+     */
+    public DefaultListModel getDlm() {
+        return dlm;
+    }
+
+    /**
+     * @param dlm the dlm to set
+     */
+    public void setDlm(DefaultListModel dlm) {
+        this.dlm = dlm;
+    }
+
+    /**
+     * @return the jListPatients
+     */
+    public javax.swing.JList getjListPatients() {
+        return jListPatients;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
@@ -347,10 +419,10 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             try {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
-                    if (jListPatients.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                    if (getjListPatients().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
                         setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
-                        jLabelIPP.setText(currentPatient.getIPP());
-                        jLabelPatient1.setText(currentPatient.getNom());
+                        jLabelIPP3.setText(currentPatient.getIPP());
+                        jLabelCurrentPatient3.setText(currentPatient.getNom());
                         repaint();
                     }
                 }

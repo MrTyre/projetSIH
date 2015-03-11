@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 
 /**
  *
@@ -23,6 +24,20 @@ public class Resultat {
         this.phWriter = ph;
         this.prestationAssociee = p;
         this.resultat = resultat;
+    }
+    
+    public static int getIDresultat() {
+        try {
+            String sql = "SELECT * FROM resultat";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            int compteur = resultat.getInt("idresultat") + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**

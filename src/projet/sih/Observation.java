@@ -7,6 +7,7 @@
 package projet.sih;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 
 /**
  *
@@ -24,6 +25,19 @@ public class Observation {
         return date;
     }
 
+    public static int getIDObs() {
+        try {
+            String sql = "SELECT * FROM observation";
+            ResultSet resultat=CHUPP.getRequete(sql);
+            resultat.last();
+            int compteur = resultat.getRow() + 1;
+            return compteur;
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
+    }
     /**
      * @param date the date to set
      */

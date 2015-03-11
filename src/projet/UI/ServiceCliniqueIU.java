@@ -349,7 +349,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             .addComponent(jButtonDeconnexion)
                             .addComponent(jButtonSortiePatient))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         jSplitPane2.setRightComponent(jPanel1);

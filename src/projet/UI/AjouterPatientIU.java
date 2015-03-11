@@ -15,9 +15,10 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterPatientIU extends javax.swing.JFrame {
+
     private Pays pays;
     private Sexe sexe;
-    private String sql;    
+    private String sql;
     private ServiceAdmissionUI serviceAdmission;
 
     /**
@@ -533,26 +534,31 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
             Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
             String adress = adresse.getAdresse();
+            String medGen = jTextFieldNomDr.getText();
+            String adGen = jTextFieldAdresseDr.getText() + " " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
             Patient p = new Patient(nom, prenom, d, sexe, adress);
-            serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
-            serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
-            serviceAdmission.getJList1().revalidate();
-            serviceAdmission.getJList1().repaint();
-            
-            try {
-                sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-                        + "','" + sexe + "','" + adress + "')";
-                CHUPP.getInsert(sql);
-                JOptionPane jop1 = new JOptionPane();
-                jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                System.out.println("Failed to get Statement");
-                e.printStackTrace();
-            }
+            if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + date))) {
+                serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
+                serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
+                serviceAdmission.getJList1().revalidate();
+                serviceAdmission.getJList1().repaint();
 
+                try {
+                    sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
+                            + "','" + sexe + "','" + adress + "', '"+ medGen +"', '"+ adGen +"')";
+                    CHUPP.getInsert(sql);
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    System.out.println("Failed to get Statement");
+                    e.printStackTrace();
+                }
+            } else {
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(null,"Le patient est déjà admis en ce moment","Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
-
 
     /**
      * @return the jPanel1
