@@ -1,26 +1,42 @@
 package projet.UI;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import static projet.UI.ServiceCliniqueIU.setCurrentPatient;
 import projet.sih.*;
 
@@ -41,6 +57,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     MyDBConnection connection = new MyDBConnection();
     private String sql;
     private JList1ActionPerformed jll;
+    private DefaultTableModel dtm;
 
     /**
      * Creates new form ServiceMedicoTechniquesIU
@@ -54,6 +71,12 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jLabel1.setVisible(true);
         jll = new JList1ActionPerformed();
         jListPatients.addListSelectionListener(jll);
+        dtm = new DefaultTableModel(0, 0);
+        getjTablePrestations().setModel(dtm);
+        dtm.addColumn("ID PH");
+        dtm.addColumn("Service demandeur");
+        dtm.addColumn("Date");
+        dtm.addColumn("Nature de la demande");
         JMenuBar jmb = new JMenuBar();
         JMenu menu1 = new JMenu("Fichier");
         JMenu menu2 = new JMenu("Aide");
@@ -126,6 +149,8 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jLabelCurrentPatient3 = new javax.swing.JLabel();
         jLabelIPP3 = new javax.swing.JLabel();
         jLabelDemandePrestation = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTablePrestations = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,7 +209,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelListePatients)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -217,26 +242,43 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jLabelDemandePrestation.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelDemandePrestation.setText("Demandes de prestations :");
 
+        jTablePrestations.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jTablePrestations.setRowHeight(80);
+        jScrollPane5.setViewportView(jTablePrestations);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabelPatient4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelIPP3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
-                .addComponent(jButtonResultat3)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonDeconnexion3)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabelPatient4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelIPP3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                        .addComponent(jButtonResultat3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDeconnexion3)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -258,7 +300,9 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                 .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(57, 57, 57)
                 .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(487, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel5);
@@ -267,7 +311,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,49 +355,24 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDeconnexion;
-    private javax.swing.JButton jButtonDeconnexion1;
-    private javax.swing.JButton jButtonDeconnexion2;
     private javax.swing.JButton jButtonDeconnexion3;
-    private javax.swing.JButton jButtonResultat;
-    private javax.swing.JButton jButtonResultat1;
-    private javax.swing.JButton jButtonResultat2;
     private javax.swing.JButton jButtonResultat3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabelCurrentPatient;
-    private javax.swing.JLabel jLabelCurrentPatient1;
-    private javax.swing.JLabel jLabelCurrentPatient2;
     private javax.swing.JLabel jLabelCurrentPatient3;
     private javax.swing.JLabel jLabelDemandePrestation;
-    private javax.swing.JLabel jLabelIPP;
-    private javax.swing.JLabel jLabelIPP1;
-    private javax.swing.JLabel jLabelIPP2;
     private javax.swing.JLabel jLabelIPP3;
     private javax.swing.JLabel jLabelListePatients;
-    private javax.swing.JLabel jLabelPatient1;
-    private javax.swing.JLabel jLabelPatient2;
-    private javax.swing.JLabel jLabelPatient3;
     private javax.swing.JLabel jLabelPatient4;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JList jListPatients;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelLogo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextArea jTextAreaDemandesPrestations;
-    private javax.swing.JTextArea jTextAreaDemandesPrestations1;
-    private javax.swing.JTextArea jTextAreaDemandesPrestations2;
+    private javax.swing.JTable jTablePrestations;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -398,6 +417,10 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         this.dlm = dlm;
     }
 
+    public ServiceMedicoTechniquesIU getLocalInstance() {
+        return this;
+    }
+
     /**
      * @return the jListPatients
      */
@@ -405,9 +428,15 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         return jListPatients;
     }
 
+    /**
+     * @return the jTablePrestations
+     */
+    public javax.swing.JTable getjTablePrestations() {
+        return jTablePrestations;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
-        @Override
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
@@ -418,6 +447,65 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                         jLabelIPP3.setText(currentPatient.getIPP());
                         jLabelCurrentPatient3.setText(currentPatient.getNom());
                         repaint();
+                    }
+                    ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP());
+                    result2.last();
+                    if (result2.getRow() != 0) {
+                        result2.beforeFirst();
+                        while (result2.next()) {
+                            dtm = new DefaultTableModel() {
+
+                                @Override
+                                public boolean isCellEditable(int row, int column) {
+                                    if (column == 4) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            };
+                            dtm.addColumn("ID PH");
+                            dtm.addColumn("Service demandeur");
+                            dtm.addColumn("Date");
+                            dtm.addColumn("Nature de la demande");
+                            dtm.addColumn("Résultat");
+                            dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                            String naturePrestation = result2.getString("nature_prestation");
+                            Date date = result2.getDate("date");
+                            int idprestation = result2.getInt("idprestation");
+                            getjTablePrestations().setModel(dtm);
+                            Action delete = new AbstractAction() {
+                                public void actionPerformed(ActionEvent e) {
+                                    int selectedRow = Integer.valueOf(e.getActionCommand());
+                                    rplaUI = new ResultatPrestationLaboAnesthesieIU();
+                                    rplaUI.setLocationRelativeTo(null);
+                                    rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                    rplaUI.setCurrentConnected(currentConnected);
+                                    rplaUI.setCurrentPatient(currentPatient);
+                                    rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+                                    rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
+                                    rplaUI.getjLabelNature().setText(naturePrestation);
+                                    rplaUI.getjLabelDatePrestation().setText(date.toString());
+                                    rplaUI.setIdPrestation(idprestation);
+                                    rplaUI.setSmt(getLocalInstance());
+                                    rplaUI.setSelectedRow(selectedRow);
+                                    rplaUI.setVisible(true);
+                                    System.out.println("Action");
+                                }
+                            };
+
+                            ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
+//                            rplaUI.setSmt(this);
+
+                            buttonColumn.setMnemonic(KeyEvent.VK_D);
+                        }
+                    } else {
+                        dtm = new DefaultTableModel(0, 0);
+                        getjTablePrestations().setModel(dtm);
+                        dtm.addColumn("ID PH");
+                        dtm.addColumn("Service demandeur");
+                        dtm.addColumn("Date");
+                        dtm.addColumn("Nature de la demande");
                     }
                 }
             } catch (SQLException ex) {

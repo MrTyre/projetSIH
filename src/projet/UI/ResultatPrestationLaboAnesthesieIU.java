@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import projet.sih.*;
 
 /**
@@ -30,9 +31,11 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     private ConnexionUI connexionUI;
     private Patient currentPatient;
     private String serviceEmetteur;
+    private int idPrestation;
     private PersonnelMedical currentConnected;
     private Date date;
     private ServiceMedicoTechniquesIU smt;
+    private int selectedRow;
 
     /**
      * Creates new form ResultatPrestationLaboAnesthesieIU
@@ -145,6 +148,11 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
 
         jButtonAnnuler.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAnnuler.setText("Annuler");
+        jButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerActionPerformed(evt);
+            }
+        });
 
         jLabelLaboAnesthesie.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelLaboAnesthesie.setForeground(new java.awt.Color(0, 51, 153));
@@ -226,7 +234,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                     .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPrenom))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNature, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -312,7 +320,11 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(this, "Le résultat a bien été pris en compte !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
-                smt.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
+                ((DefaultTableModel)smt.getjTablePrestations().getModel()).removeRow(selectedRow);
+                String sql ="DELETE FROM Prestation WHERE idprestation="+idPrestation;
+                CHUPP.getInsert(sql);
+                smt.revalidate();
+                smt.repaint();
             } catch (SQLException ex) {
                 Logger.getLogger(ResultatPrestationLaboAnesthesieIU.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -320,6 +332,10 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
             j.setVisible(false);
         }
     }//GEN-LAST:event_jButtonEnvoyerActionPerformed
+
+    private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
@@ -441,5 +457,19 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
      */
     public void setSmt(ServiceMedicoTechniquesIU smt) {
         this.smt = smt;
+    }
+
+    /**
+     * @param selectedRow the selectedRow to set
+     */
+    public void setSelectedRow(int selectedRow) {
+        this.selectedRow = selectedRow;
+    }
+
+    /**
+     * @param idPrestation the idPrestation to set
+     */
+    public void setIdPrestation(int idPrestation) {
+        this.idPrestation = idPrestation;
     }
 }

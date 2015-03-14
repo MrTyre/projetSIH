@@ -5,17 +5,30 @@
  */
 package projet.UI;
 
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import projet.sih.*;
+
 /**
  *
- * @author Marina
+ * @author Tommy
  */
-public class AjouterHospitalisation extends javax.swing.JFrame {
+public class DemandePrestationUI extends javax.swing.JFrame {
+
+    private Patient currentPatient;
+    private PersonnelMedical currentConnected;
+    private String serviceDestinataire;
 
     /**
-     * Creates new form AjouterHospitalisation
+     * Creates new form DemandePrestationUI
      */
-    public AjouterHospitalisation() {
+    public DemandePrestationUI() throws SQLException {
         initComponents();
+        jComboBoxService.setModel(CHUPP.getListeServiceMedicoTechnique());
+        jComboBoxService.setSelectedIndex(0);
     }
 
     /**
@@ -31,12 +44,11 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
         jLabelNouveauRDV = new javax.swing.JLabel();
         jLabelService = new javax.swing.JLabel();
         jComboBoxService = new javax.swing.JComboBox();
-        jLabelMedecin = new javax.swing.JLabel();
-        jComboBoxMedecin = new javax.swing.JComboBox();
         jButtonOK = new javax.swing.JButton();
         jButtonAnnuler = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldNatureHospitalisation = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaNaturePrest = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,25 +56,15 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
 
         jLabelNouveauRDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelNouveauRDV.setForeground(new java.awt.Color(0, 51, 153));
-        jLabelNouveauRDV.setText("Nouvelle hospitalisation");
+        jLabelNouveauRDV.setText("Demande de prestation");
 
         jLabelService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelService.setText("Service : ");
+        jLabelService.setText("Service destinataire : ");
 
         jComboBoxService.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jComboBoxService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxServiceActionPerformed(evt);
-            }
-        });
-
-        jLabelMedecin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelMedecin.setText("Médecin : ");
-
-        jComboBoxMedecin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxMedecin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxMedecinActionPerformed(evt);
             }
         });
 
@@ -85,13 +87,11 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Nature hospitalisation : ");
+        jLabel3.setText("Nature de la prestation :");
 
-        jTextFieldNatureHospitalisation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNatureHospitalisationActionPerformed(evt);
-            }
-        });
+        jTextAreaNaturePrest.setColumns(20);
+        jTextAreaNaturePrest.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaNaturePrest);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,27 +100,24 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelService)
-                            .addComponent(jLabelMedecin))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxMedecin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelNouveauRDV)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 71, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldNatureHospitalisation))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelNouveauRDV)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelService)
+                        .addGap(54, 54, 54)
+                        .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,15 +129,11 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelService)
                     .addComponent(jComboBoxService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelMedecin)
-                    .addComponent(jComboBoxMedecin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFieldNatureHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler)
                     .addComponent(jButtonOK))
@@ -151,7 +144,7 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,36 +155,67 @@ public class AjouterHospitalisation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
-        
+        serviceDestinataire = (String) jComboBoxService.getSelectedItem();
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
-    private void jComboBoxMedecinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMedecinActionPerformed
-       
-    }//GEN-LAST:event_jComboBoxMedecinActionPerformed
-
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-      
+        JOptionPane j = new JOptionPane();
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir créer cette lettre ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        if (retour == JOptionPane.OK_OPTION) {
+            try {
+                envoyerPrestation();
+                JOptionPane j2 = new JOptionPane();
+                j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                Logger.getLogger(LettreSortieUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            setVisible(false);
+        }
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
-    private void jTextFieldNatureHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNatureHospitalisationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNatureHospitalisationActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
-    private javax.swing.JComboBox jComboBoxMedecin;
     private javax.swing.JComboBox jComboBoxService;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelMedecin;
     private javax.swing.JLabel jLabelNouveauRDV;
     private javax.swing.JLabel jLabelService;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextFieldNatureHospitalisation;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaNaturePrest;
     // End of variables declaration//GEN-END:variables
+
+    public void envoyerPrestation() throws SQLException {
+        Date date = new Date(System.currentTimeMillis());
+        if (jTextAreaNaturePrest.getText().equals("")) {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Vous n'avez pas spécifier la nature de la prestation demandée", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            String sql = "INSERT INTO prestation values (" + Prestation.getIDPrest()
+                    + "," + currentConnected.getID()
+                    + "," + currentPatient.getIPP()
+                    + ",'" + date
+                    + "','" + jTextAreaNaturePrest.getText()
+                    + "','" + serviceDestinataire + "')";
+            CHUPP.getInsert(sql);
+        }
+    }
+
+    /**
+     * @param currentPatient the currentPatient to set
+     */
+    public void setCurrentPatient(Patient currentPatient) {
+        this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param currentConnected the currentConnected to set
+     */
+    public void setCurrentConnected(PersonnelMedical currentConnected) {
+        this.currentConnected = currentConnected;
+    }
 }

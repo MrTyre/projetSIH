@@ -5,6 +5,7 @@
  */
 package projet.sih;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
 
@@ -53,7 +54,8 @@ public class DMA {
     public String afficherConsultations(Patient patient) {
         String s = "";
         try {
-            String sql = "SELECT * FROM consultation WHERE consultation.ipp=" + patient.getIPP();
+            Date date = new Date(System.currentTimeMillis());
+            String sql = "SELECT * FROM consultation WHERE consultation.date <'"+date+"' AND consultation.ipp=" + patient.getIPP();
             String sql2 = "SELECT observation.* FROM observation, consultation WHERE observation.idch = consultation.idconsult AND consultation.ipp=" + patient.getIPP();
             ResultSet resultat = CHUPP.getRequete(sql);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
@@ -73,7 +75,7 @@ public class DMA {
                     s += "\n\nNature de la prestation :   ";
                     s += resultat.getString("consultation.nature_prestation");
                     while (resultat2.next()) {
-                        s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
+                        s += "\n\tObservation du " + resultat2.getDate("observation.date") + ":\t" + resultat2.getString("observation.contenu");
                     }
                     s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }
@@ -105,11 +107,11 @@ public class DMA {
                 resultat3.first();
                 resultat.beforeFirst();
                 while (resultat.next()) {
-                    s += "\n\nHospitalisation du " + resultat.getDate("hospitalisation.date") + " au "+ resultat.getDate("hospitalisation.date_sortie") + ", faite par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + "\t\tN° de séjour : " + resultat.getInt("hospitalisation.idhosp");
+                    s += "\n\nHospitalisation du " + resultat.getDate("hospitalisation.date") + " au " + resultat.getDate("hospitalisation.date_sortie") + ", faite par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + "\t\tN° de séjour : " + resultat.getInt("hospitalisation.idhosp");
                     s += "\n\nNature de la prestation :   ";
                     s += resultat.getString("hospitalisation.raison_sejour");
                     while (resultat2.next()) {
-                        s += "\n\tObservation du " + resultat2.getDate("observation.date")+":\t" + resultat2.getString("observation.contenu");
+                        s += "\n\tObservation du " + resultat2.getDate("observation.date") + ":\t" + resultat2.getString("observation.contenu");
                     }
                     s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }

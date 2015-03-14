@@ -37,12 +37,12 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }
 
     private CHUPP chupp;
-    private AjouterPatientIU apIU;
+    private DemandePrestationUI dpUI;
     private AjouterPrescriptionIU aprIU;
     private DefaultListModel dlm = new DefaultListModel();
     private JList1ActionPerformed jll;
     private ConnexionUI connexionUI;
-    private LettreSortie lettreSortieUI;
+    private LettreSortieUI lettreSortieUI;
     private static Patient currentPatient;
     private PersonnelMedical currentPH;
 
@@ -135,6 +135,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jLabelIPP = new javax.swing.JTextField();
         jButtonDeconnexion = new javax.swing.JButton();
         jButtonSortiePatient = new javax.swing.JButton();
+        jButtonDemandePrestation = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -314,6 +315,15 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jButtonDemandePrestation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDemandePrestation.setForeground(new java.awt.Color(0, 51, 153));
+        jButtonDemandePrestation.setText("Demander une prestation");
+        jButtonDemandePrestation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDemandePrestationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -332,7 +342,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDemandePrestation)
+                        .addGap(46, 46, 46)
                         .addComponent(jButtonSortiePatient)
                         .addGap(42, 42, 42)
                         .addComponent(jButtonDeconnexion)))
@@ -348,8 +360,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32))
+                            .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDemandePrestation))
+                        .addGap(27, 27, 27))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -456,20 +469,34 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     private void jButtonSortiePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortiePatientActionPerformed
-        lettreSortieUI = new LettreSortie();
-        lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom()+" "+currentPatient.getPrenom());
-        lettreSortieUI.getjLabelMedecin().setText("Dr. "+currentPH.getNom()+" "+currentPH.getPrenom());
+        lettreSortieUI = new LettreSortieUI();
+        lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+        lettreSortieUI.getjLabelMedecin().setText("Dr. " + currentPH.getNom() + " " + currentPH.getPrenom());
         lettreSortieUI.setCurrentPatient(currentPatient);
         lettreSortieUI.setCurrentPH(currentPH);
         lettreSortieUI.setLocationRelativeTo(null);
         lettreSortieUI.setVisible(true);
     }//GEN-LAST:event_jButtonSortiePatientActionPerformed
 
+    private void jButtonDemandePrestationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDemandePrestationActionPerformed
+        try {
+            dpUI = new DemandePrestationUI();
+            dpUI.setLocationRelativeTo(null);
+            dpUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            dpUI.setCurrentPatient(currentPatient);
+            dpUI.setCurrentConnected(currentPH);
+            dpUI.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonDemandePrestationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListePatient;
     private javax.swing.JButton jButtonAjouterObservation;
     private javax.swing.JButton jButtonAjouterPrescription;
     private javax.swing.JButton jButtonDeconnexion;
+    private javax.swing.JButton jButtonDemandePrestation;
     private javax.swing.JButton jButtonSortiePatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

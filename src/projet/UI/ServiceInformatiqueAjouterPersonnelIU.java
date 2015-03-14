@@ -319,8 +319,10 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au personnel", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
-            String nom = jTextFieldNom.getText();
-            String prenom = jTextFieldPrenom.getText();
+            String nom = jTextFieldNom.getText().substring(0,1).toUpperCase();
+            nom += jTextFieldNom.getText().substring(1,jTextFieldNom.getText().length()).toLowerCase();
+            String prenom = jTextFieldPrenom.getText().substring(0,1).toUpperCase();
+            prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase();            
             String service = "";
             String sph = "SELECT * FROM practicien_hospitalier";
             String sinf = "SELECT * FROM infirmier";

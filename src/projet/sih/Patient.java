@@ -22,8 +22,10 @@ public class Patient {
     private String sexe;
     private String adresse;
     private Location location;
+    private String medGen;
+    private String adGen;
     
-    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse){
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen){
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -33,7 +35,9 @@ public class Patient {
         if(sexe == Sexe.H){
             this.sexe = "H";
         }
-        this.adresse=adresse;        
+        this.adresse=adresse; 
+        this.medGen = medGen;
+        this.adGen = adGen;
         this.dpi = new DPI();
         //récupérer les 2 derniers chiffres de l'année de naissance
         int dizaines = (this.dateNaissance.getYear() % 100) / 10;
@@ -163,5 +167,19 @@ public class Patient {
      */
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    /**
+     * @return the medGen
+     */
+    public String getMedGen() {
+        return medGen;
+    }
+
+    /**
+     * @return the adGen
+     */
+    public String getAdGen() {
+        return adGen;
     }
 }

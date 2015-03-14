@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.sih;
+
+import java.sql.ResultSet;
 
 /**
  *
  * @author Tommy
  */
 public class Prestation {
+
     private String naturePrestation;
     private String resultatPrestation;
 
@@ -19,6 +21,25 @@ public class Prestation {
      */
     public String getNaturePrestation() {
         return naturePrestation;
+    }
+
+    public static int getIDPrest() {
+        try {
+            String sql = "SELECT * FROM prestation";
+            ResultSet resultat = CHUPP.getRequete(sql);
+            resultat.last();
+            if (resultat.getRow() == 0) {
+                int compteur = 400000001;
+                return compteur;
+            } else {
+                int compteur = resultat.getRow() + 1;
+                return compteur;
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to get Statement");
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**

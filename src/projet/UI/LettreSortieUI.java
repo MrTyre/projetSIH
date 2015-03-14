@@ -15,7 +15,7 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
  *
  * @author Marina
  */
-public class LettreSortie extends javax.swing.JFrame {
+public class LettreSortieUI extends javax.swing.JFrame {
 
     private Patient currentPatient;
     private PersonnelMedical currentPH;
@@ -23,7 +23,7 @@ public class LettreSortie extends javax.swing.JFrame {
     /**
      * Creates new form LettreSortie
      */
-    public LettreSortie() {
+    public LettreSortieUI() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -204,11 +204,12 @@ public class LettreSortie extends javax.swing.JFrame {
         if (retour == JOptionPane.OK_OPTION) {
             try {
                 GenererLettreSortie(currentPH, currentPatient);
+                JOptionPane j2 = new JOptionPane();
+                j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
             } catch (Exception ex) {
-                Logger.getLogger(LettreSortie.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LettreSortieUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane j2 = new JOptionPane();
-            j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
             setVisible(false);
         }
     }//GEN-LAST:event_jButtonOKActionPerformed
@@ -255,6 +256,10 @@ public class LettreSortie extends javax.swing.JFrame {
         odt.addText("__________________________________________________________________ le " + df1.format(d) + ",");
         odt.newParagraph();
         odt.newParagraph();
+        odt.addText("Lettre à destination de : Dr. " + p1.getMedGen());
+        odt.newParagraph();
+        odt.addText(p1.getAdGen());
+        odt.newParagraph();
         odt.newParagraph();
         odt.addText("\n\nObjet : Sortie de Mr." + p1.getNom() + " " + p1.getPrenom());
         odt.newParagraph();
@@ -282,7 +287,7 @@ public class LettreSortie extends javax.swing.JFrame {
         odt.newParagraph();
 
         // Save document
-        odt.save("C:/Users/Tommy/Documents/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) +".odt");
+        odt.save("C:/Users/Tommy/Documents/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
     }
 
     /**

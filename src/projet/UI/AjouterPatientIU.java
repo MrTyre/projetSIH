@@ -529,14 +529,12 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             if ((jTextFieldCodePostalDr.getText().length() != 5) && !(jTextFieldCodePostalDr.getText().equals(""))) {
                 JOptionPane jop1 = new JOptionPane();
                 jop1.showMessageDialog(null, "Mauvais code postal pour le médecin généraliste", "Attention", JOptionPane.WARNING_MESSAGE);
-                String nomMedGen = jTextFieldNomDr.getText();
-                String adresseMedGen = jTextFieldAdresseDr.getText() + "\n" + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
             }
             Adresse adresse = new Adresse(jTextFieldAdresseNewPatient.getText(), Integer.parseInt(jTextFieldCodePostalNewPatient.getText()), jTextFieldVilleNewPatient.getText(), pays);
             String adress = adresse.getAdresse();
             String medGen = jTextFieldNomDr.getText();
-            String adGen = jTextFieldAdresseDr.getText() + " " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
-            Patient p = new Patient(nom, prenom, d, sexe, adress);
+            String adGen = jTextFieldAdresseDr.getText() + ", " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
+            Patient p = new Patient(nom, prenom, d, sexe, adress, medGen, adGen);
             if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + date))) {
                 serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
                 serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
@@ -545,7 +543,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
 
                 try {
                     sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-                            + "','" + sexe + "','" + adress + "', '"+ medGen +"', '"+ adGen +"')";
+                            + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "')";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();
                     jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
@@ -555,7 +553,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane j = new JOptionPane();
-                j.showMessageDialog(null,"Le patient est déjà admis en ce moment","Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
+                j.showMessageDialog(null, "Le patient est déjà admis en ce moment", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }

@@ -14,7 +14,7 @@ import projet.sih.*;
 public class AjouterPrescriptionIU extends javax.swing.JFrame {
 
     //attributs
-    DefaultTableModel dtm;
+    private DefaultTableModel dtm;
     private String sql;
     private String sql2;
     private Patient currentPatient;
@@ -34,7 +34,6 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         dtm.addColumn("Dose");
         dtm.addColumn("Date de fin de traitement");
         jComboBox1.setModel(new DefaultComboBoxModel<>(UnitePosologie.values()));
-
     }
 
     /**
