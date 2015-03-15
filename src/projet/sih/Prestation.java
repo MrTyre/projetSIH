@@ -32,7 +32,7 @@ public class Prestation {
                 int compteur = 400000001;
                 return compteur;
             } else {
-                int compteur = resultat.getRow() + 1;
+                int compteur = resultat.getInt("idprestation") + 1;
                 return compteur;
             }
         } catch (Exception e) {

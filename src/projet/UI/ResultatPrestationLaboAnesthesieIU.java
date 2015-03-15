@@ -381,8 +381,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                         + currentPatient.getIPP() + ","
                         + currentConnected.getID() + ", '"
                         + date + "', "
-                        + "'Nature prestation test', '" 
-                        //+ getjLabelNature().getText() + "','"
+                        +"'"+getjLabelNature().getText() + "','"
                         + jTextAreaResultats.getText() + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","

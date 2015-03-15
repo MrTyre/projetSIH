@@ -52,6 +52,14 @@ public class PersonnelInfirmier extends PersonnelMedical{
     public String getNom() {
         return super.getNom();
     }
+    
+    public String getSpecialite(){
+        return super.getSpecialite();
+    }
+    
+    public void setSpecialite(String specialite){
+        super.setSpecialite(specialite);
+    }
 
     /**
      * @param nom the nom to set

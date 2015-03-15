@@ -204,7 +204,7 @@ public class DM {
                 while (resultat.next()) {
                     String sql2 = "SELECT DISTINCT observation.* FROM resultat,observation WHERE observation.idch =" + resultat.getInt("idresultat") + " AND observation.idobs=" + resultat.getInt("idobs");
                     ResultSet resultat2 = CHUPP.getRequete(sql2);
-                    s += "\n\nRésultat de la prestation suivante : " + resultat.getInt("idresultat") + ", effectuée par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + " , rédigé le " + resultat.getDate("date");
+                    s += "\n\nRésultat n° : " + resultat.getInt("idresultat") + ", effectuée par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + " , rédigé le " + resultat.getDate("date");
                     s += "\n\nNature de la prestation :   ";
                     s += resultat.getString("resultat.nature_prestation");
                     s += "\nRésultat de la prestation :   ";

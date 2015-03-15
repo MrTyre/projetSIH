@@ -1,6 +1,5 @@
 package projet.UI;
 
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -452,8 +451,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                     result2.last();
                     if (result2.getRow() != 0) {
                         result2.beforeFirst();
-                        while (result2.next()) {
-                            dtm = new DefaultTableModel() {
+                        dtm = new DefaultTableModel() {
 
                                 @Override
                                 public boolean isCellEditable(int row, int column) {
@@ -464,15 +462,16 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                     }
                                 }
                             };
-                            dtm.addColumn("ID PH");
+                        dtm.addColumn("ID PH");
                             dtm.addColumn("Service demandeur");
                             dtm.addColumn("Date");
                             dtm.addColumn("Nature de la demande");
                             dtm.addColumn("Résultat");
+                        while (result2.next()) {
                             dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
-                            String naturePrestation = result2.getString("nature_prestation");
-                            Date date = result2.getDate("date");
-                            int idprestation = result2.getInt("idprestation");
+                            final String naturePrestation = result2.getString("nature_prestation");
+                            final Date date = result2.getDate("date");
+                            final int idprestation = result2.getInt("idprestation");
                             getjTablePrestations().setModel(dtm);
                             Action delete = new AbstractAction() {
                                 public void actionPerformed(ActionEvent e) {

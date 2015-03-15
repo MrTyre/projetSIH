@@ -160,12 +160,12 @@ public class DemandePrestationUI extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         JOptionPane j = new JOptionPane();
-        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir créer cette lettre ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer cette prestation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
                 envoyerPrestation();
                 JOptionPane j2 = new JOptionPane();
-                j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                j2.showMessageDialog(this, "La prestation a bien été envoyée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(LettreSortieUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -193,7 +193,7 @@ public class DemandePrestationUI extends javax.swing.JFrame {
         Date date = new Date(System.currentTimeMillis());
         if (jTextAreaNaturePrest.getText().equals("")) {
             JOptionPane j = new JOptionPane();
-            j.showMessageDialog(null, "Vous n'avez pas spécifier la nature de la prestation demandée", "Attention", JOptionPane.INFORMATION_MESSAGE);
+            j.showMessageDialog(null, "Vous n'avez pas spécifié la nature de la prestation demandée", "Attention", JOptionPane.INFORMATION_MESSAGE);
         } else {
             String sql = "INSERT INTO prestation values (" + Prestation.getIDPrest()
                     + "," + currentConnected.getID()

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -55,6 +56,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
         jLabel2.setIcon(image);
+        System.out.println(ConnexionUI.getCurrentConnected().getSpecialite());
         jLabel2.setVisible(true);
         jll = new JList1ActionPerformed();
         jList1.addListSelectionListener(jll);
@@ -89,12 +91,36 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-        sql = "SELECT nom, prenom, date_naissance FROM Patient";
+        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        String currentDateString = currentDate.toString();
+        sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                + "hospitalisation, practicien_hospitalier, service_clinique "
+                + "where patient.ipp=hospitalisation.ipp "
+                + " and hospitalisation.idph=practicien_hospitalier.idph and"
+                + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
+                + currentDate + "' and service_clinique.specialite='"
+                + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
+        String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                + " consultation, practicien_hospitalier, service_clinique "
+                + "where patient.ipp=consultation.ipp "
+                + " and consultation.idph=practicien_hospitalier.idph and"
+                + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
+                + currentDate + "' and service_clinique.specialite='"
+                + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
+        System.out.println(currentDate);
 
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
+            ResultSet resultat2 = CHUPP.getRequete(sql2);
             while (resultat.next()) {
-                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
+                if (!dlm.contains(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"))) {
+                    dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
+                }
+            }
+            while (resultat2.next()) {
+                if (!dlm.contains(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"))) {
+                    dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
