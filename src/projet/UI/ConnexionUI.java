@@ -171,10 +171,8 @@ public class ConnexionUI extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         connexion();
-        setVisible(false);
     }//GEN-LAST:event_jButtonOKActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
@@ -208,7 +206,7 @@ public class ConnexionUI extends javax.swing.JFrame {
             ResultSet resultatSec = CHUPP.getRequete(sqlsec);
             ResultSet resultatInfo = CHUPP.getRequete(sqlinfo);
             while (spe.equals("")) {
-                
+
                 //parcours du personnel des Service Cliniques
                 while (resultatPHSC.next()) {
                     if ((nom.equals(resultatPHSC.getString("nom"))) && (mdp.equals(resultatPHSC.getString("mdp")))) {
@@ -218,7 +216,8 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sc.setLocationRelativeTo(this);
                         sc.setCurrentPH(currentConnected);
                         sc.setVisible(true);
-                        sc.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        setVisible(false);
+                        sc.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatPHSC.getString("prenom") + "<br>Statut : Practicien Hospitalier</html>");
                         break;
                     }
                 }
@@ -227,10 +226,11 @@ public class ConnexionUI extends javax.swing.JFrame {
                         spe = resultatInfSC.getString("service");
                         currentConnected = new PersonnelInfirmier(resultatInfSC.getString("idinf"), nom, resultatInfSC.getString("prenom"), mdp, spe);
                         scinf = new ServiceCliniqueInfirmieresUI();
-                        scinf.setLocationRelativeTo(this);                        
+                        scinf.setLocationRelativeTo(this);
                         scinf.setCurrentInf(currentConnected);
                         scinf.setVisible(true);
-                        scinf.getjLabelService().setText("Service " + spe);
+                        setVisible(false);
+                        scinf.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatInfSC.getString("prenom") + "<br>Statut : Personnel Infirmier</html>");
                         break;
                     }
                 }
@@ -242,11 +242,11 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sci.setLocationRelativeTo(this);
                         sci.setCurrentInt(currentConnected);
                         sci.setVisible(true);
-                        sci.getjLabelService().setText("Service " + spe);
+                        sci.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatIntSC.getString("prenom") + "<br>Statut : Interne</html>");
                         break;
                     }
                 }
-                
+
                 //personnel des service medico techniques
                 while (resultatPHSMT.next()) {
                     if ((nom.equals(resultatPHSMT.getString("nom"))) && (mdp.equals(resultatPHSMT.getString("mdp")))) {
@@ -256,10 +256,11 @@ public class ConnexionUI extends javax.swing.JFrame {
                         smt.setLocationRelativeTo(this);
                         smt.setCurrentConnected(currentConnected);
                         smt.setVisible(true);
-                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        setVisible(false);
+                        smt.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatPHSMT.getString("prenom") + "<br>Statut : Practicien Hospitalier</html>");
                         break;
                     }
-                }  
+                }
                 while (resultatInfSMT.next()) {
                     if ((nom.equals(resultatInfSMT.getString("nom"))) && (mdp.equals(resultatInfSMT.getString("mdp")))) {
                         spe = resultatInfSMT.getString("service");
@@ -268,7 +269,8 @@ public class ConnexionUI extends javax.swing.JFrame {
                         smt.setLocationRelativeTo(this);
                         smt.setCurrentConnected(currentConnected);
                         smt.setVisible(true);
-                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        setVisible(false);
+                        smt.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatInfSMT.getString("prenom") + "<br>Statut : Personnel Infirmier</html>");
                         break;
                     }
                 }
@@ -280,11 +282,12 @@ public class ConnexionUI extends javax.swing.JFrame {
                         smt.setLocationRelativeTo(this);
                         smt.setCurrentConnected(currentConnected);
                         smt.setVisible(true);
-                        smt.getjLabelService().setText(/*<html>*/"Service " + spe/*+"<br>Connecté en tant que : " + nom +" "+ resultatPh.getString("prenom")+"<br>Statut : Practicien Hospitalier</html>"*/);
+                        setVisible(false);
+                        smt.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatIntSMT.getString("prenom") + "<br>Statut : Interne</html>");
                         break;
                     }
                 }
-                
+
                 //parcours du personnel secrétaire
                 while (resultatSec.next()) {
                     if ((nom.equals(resultatSec.getString("nom"))) && (mdp.equals(resultatSec.getString("mdp")))) {
@@ -294,11 +297,12 @@ public class ConnexionUI extends javax.swing.JFrame {
                         sa.setLocationRelativeTo(this);
                         sa.setCurrentPers(currentConnected);
                         sa.setVisible(true);
-                        sa.getjLabelService().setText("Service "+spe);
+                        setVisible(false);
+                        sa.getjLabelService().setText("<html>Service " + spe + "<br>Connecté en tant que : " + nom + " " + resultatSec.getString("prenom") + "<br>Statut : Secrétaire</html>");
                         break;
                     }
                 }
-                
+
                 //parcours du personnel informaticien
                 while (resultatInfo.next()) {
                     if ((nom.equals(resultatInfo.getString("nom"))) && (mdp.equals(resultatInfo.getString("mdp")))) {
@@ -307,6 +311,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         si = new ServiceInformatiqueIU();
                         si.setLocationRelativeTo(this);
                         si.setVisible(true);
+                        setVisible(false);
                         break;
                     }
                 }

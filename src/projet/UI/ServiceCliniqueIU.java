@@ -139,9 +139,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
-        jButtonAjouterPrescription = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jButtonAjouterPrescriptions = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterObservation = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -181,38 +181,35 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1280, 621));
 
-        jButtonAjouterPrescription.setBackground(new java.awt.Color(153, 153, 255));
-        jButtonAjouterPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonAjouterPrescription.setText("+ Prescription");
-        jButtonAjouterPrescription.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAjouterPrescriptionActionPerformed(evt);
-            }
-        });
-
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
+
+        jButtonAjouterPrescriptions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterPrescriptions.setForeground(new java.awt.Color(0, 51, 153));
+        jButtonAjouterPrescriptions.setText("+ Prescription");
+        jButtonAjouterPrescriptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterPrescriptionsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(910, Short.MAX_VALUE)
-                .addComponent(jButtonAjouterPrescription)
-                .addGap(39, 39, 39))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterPrescriptions))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonAjouterPrescription)
-                .addGap(35, 35, 35))
+                .addComponent(jButtonAjouterPrescriptions)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.png")), jPanel4); // NOI18N
@@ -238,7 +235,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjouterObservation)
                 .addGap(34, 34, 34))
@@ -260,9 +257,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 693, Short.MAX_VALUE)
+            .addGap(0, 697, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
@@ -279,7 +276,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
@@ -456,7 +453,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -469,13 +466,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private void jLabelIPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLabelIPPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabelIPPActionPerformed
-
-    private void jButtonAjouterPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPrescriptionActionPerformed
-        aprIU = new AjouterPrescriptionIU();
-        aprIU.setVisible(true);
-        aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        aprIU.setCurrentPatient(currentPatient);
-    }//GEN-LAST:event_jButtonAjouterPrescriptionActionPerformed
 
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
         JOptionPane j = new JOptionPane();
@@ -517,10 +507,19 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonDemandePrestationActionPerformed
 
+    private void jButtonAjouterPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPrescriptionsActionPerformed
+        aprIU = new AjouterPrescriptionIU();
+        aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        aprIU.setCurrentPatient(currentPatient);
+        aprIU.setScUI(this);
+        aprIU.setLocationRelativeTo(null);
+        aprIU.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterPrescriptionsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListePatient;
     private javax.swing.JButton jButtonAjouterObservation;
-    private javax.swing.JButton jButtonAjouterPrescription;
+    private javax.swing.JButton jButtonAjouterPrescriptions;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonDemandePrestation;
     private javax.swing.JButton jButtonSortiePatient;
@@ -577,6 +576,13 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
      */
     public void setCurrentPH(PersonnelMedical currentPH) {
         this.currentPH = currentPH;
+    }
+
+    /**
+     * @return the jTabbedPane1
+     */
+    public javax.swing.JTabbedPane getjTabbedPane1() {
+        return jTabbedPane1;
     }
 
     public class JList1ActionPerformed implements ListSelectionListener {

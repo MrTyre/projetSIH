@@ -206,7 +206,6 @@ public class LettreSortieUI extends javax.swing.JFrame {
                 GenererLettreSortie(currentPH, currentPatient);
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-
             } catch (Exception ex) {
                 Logger.getLogger(LettreSortieUI.class.getName()).log(Level.SEVERE, null, ex);
             }

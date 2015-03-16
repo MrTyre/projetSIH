@@ -16,8 +16,10 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/CHUPP.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelInfirmier.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prescription.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Hospitalisation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/DemandePrestationUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PH.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterHospitalisation.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterHospitalisationUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPatientIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/TestConnection.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceInformatiqueAjouterServiceIU.java</file>
@@ -30,7 +32,6 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Patient.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ConnexionUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Consultation.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/LettreSortie.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Prestation.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Secretaire.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Medicament.java</file>
@@ -42,6 +43,8 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceCliniqueIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Adresse.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceMedicoTechnique.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/LettreSortieUI.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ButtonColumn.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ServiceClinique.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceInformatiqueAjouterPersonnelIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Archives.java</file>

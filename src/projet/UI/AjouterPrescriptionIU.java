@@ -20,6 +20,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private Patient currentPatient;
     private Prescription prescription = new Prescription();
     private DefaultListModel<Medicament> listeMed = new DefaultListModel();
+    private ServiceCliniqueIU scUI;
     
 
     /**
@@ -288,7 +289,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 505, Short.MAX_VALUE)
                         .addComponent(jButtonValider)))
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,10 +419,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             up = UnitePosologie.pulvérisations;
         }
 
-        Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText())-1900, Integer.parseInt(jTextFieldFinTraitementMois.getText()), Integer.parseInt(jTextFieldFinTraitementJour.getText()));
+        Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText())-1900, Integer.parseInt(jTextFieldFinTraitementMois.getText())-1, Integer.parseInt(jTextFieldFinTraitementJour.getText()));
         int year=d.getYear()+1900;
         String date = d.getDate() + "/" + d.getMonth() + "/" + year;
-        String dateBD = d.getYear()-1900 + "-" + d.getMonth() + "-" + d.getDate();
         dtm.addRow(new Object[]{medicament, posologie, doseString, date});
         Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
         prescription.getMedicaments().addElement(med);
@@ -433,6 +433,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jTextFieldFinTraitementAnnee.setText("");
         jPanel2.validate();
         jPanel2.repaint();
+        scUI.getjTabbedPane1().revalidate();
+        scUI.getjTabbedPane1().repaint();
     }
 
     public void ajouterPrescription() {
@@ -451,7 +453,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             sql2="INSERT INTO Prescription VALUES ("+Prescription.getIDPresc()+","
                     +currentPatient.getIPP()+","+ConnexionUI.getCurrentConnected().getID()+",'"
                     +date+"')";
-            CHUPP.getInsert(sql2);            
+            CHUPP.getInsert(sql2);   
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null,"La prescription a bien été ajoutée !","Ajout prescription",JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
             e.printStackTrace();   
@@ -470,5 +474,12 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
      */
     public void setCurrentPatient(Patient currentPatient) {
         this.currentPatient = currentPatient;
+    }
+
+    /**
+     * @param scUI the scUI to set
+     */
+    public void setScUI(ServiceCliniqueIU scUI) {
+        this.scUI = scUI;
     }
 }

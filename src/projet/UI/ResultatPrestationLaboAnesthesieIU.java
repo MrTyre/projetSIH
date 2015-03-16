@@ -102,7 +102,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
         jTextAreaObservations = new javax.swing.JTextArea();
         jButtonEnvoyer = new javax.swing.JButton();
         jButtonAnnuler = new javax.swing.JButton();
-        jLabelLaboAnesthesie = new javax.swing.JLabel();
+        jLabelCurrentService = new javax.swing.JLabel();
         jLabelNom1 = new javax.swing.JLabel();
         jLabelNomPatient = new javax.swing.JLabel();
         jLabelIPP = new javax.swing.JLabel();
@@ -154,9 +154,8 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
             }
         });
 
-        jLabelLaboAnesthesie.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelLaboAnesthesie.setForeground(new java.awt.Color(0, 51, 153));
-        jLabelLaboAnesthesie.setText("Laboratoire/Anesthésie");
+        jLabelCurrentService.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelCurrentService.setForeground(new java.awt.Color(0, 51, 153));
 
         jLabel3.setText("Demande de prestation : ");
 
@@ -177,7 +176,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                                 .addComponent(jLabelDate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelLaboAnesthesie)))
+                            .addComponent(jLabelCurrentService)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,7 +219,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelResultatPrestation)
-                    .addComponent(jLabelLaboAnesthesie))
+                    .addComponent(jLabelCurrentService))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNomPatient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,10 +341,10 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEnvoyer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelCurrentService;
     private javax.swing.JLabel jLabelDate;
     private javax.swing.JLabel jLabelDatePrestation;
     private javax.swing.JLabel jLabelIPP;
-    private javax.swing.JLabel jLabelLaboAnesthesie;
     private javax.swing.JLabel jLabelNature;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelNom1;
@@ -381,7 +380,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                         + currentPatient.getIPP() + ","
                         + currentConnected.getID() + ", '"
                         + date + "', "
-                        +"'"+getjLabelNature().getText() + "','"
+                        +"'"+ jLabelNature.getText() + "','"
                         + jTextAreaResultats.getText() + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
@@ -470,5 +469,12 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
      */
     public void setIdPrestation(int idPrestation) {
         this.idPrestation = idPrestation;
+    }
+
+    /**
+     * @return the jLabelCurrentService
+     */
+    public javax.swing.JLabel getjLabelCurrentService() {
+        return jLabelCurrentService;
     }
 }

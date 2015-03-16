@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import projet.sih.*;
 
@@ -21,13 +22,17 @@ public class DemandePrestationUI extends javax.swing.JFrame {
     private Patient currentPatient;
     private PersonnelMedical currentConnected;
     private String serviceDestinataire;
+    private DefaultComboBoxModel dcbb;
 
     /**
      * Creates new form DemandePrestationUI
      */
     public DemandePrestationUI() throws SQLException {
         initComponents();
-        jComboBoxService.setModel(CHUPP.getListeServiceMedicoTechnique());
+        dcbb = CHUPP.getListeServiceMedicoTechnique();
+        dcbb.addElement("Anesthesie - Réanimation");
+        dcbb.addElement("Radiologie");
+        jComboBoxService.setModel(dcbb);
         jComboBoxService.setSelectedIndex(0);
     }
 
