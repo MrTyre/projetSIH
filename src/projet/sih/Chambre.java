@@ -12,7 +12,8 @@ package projet.sih;
 public class Chambre {
     private Lit litC;
     private Lit litF;
-
+/** constructeur de la classe Chambre
+ */
     public Chambre() {
         this.litC.setEmplacement("Coté Couloir");
         this.litF.setEmplacement("Coté Fenêtre");

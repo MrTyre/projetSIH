@@ -20,7 +20,11 @@ public class Consultation {
     private String lettreSortie;
     private String naturePrestation;
     private static int compteur=0;
-    
+    /** 
+     * 
+     * @return compteur
+     * compteur est le nombre de consultations
+     */
     public static int getIDConsult() {
         try {
             String sql = "SELECT * FROM consultation";

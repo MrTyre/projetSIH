@@ -17,7 +17,9 @@ public class DMA {
 
     private DefaultListModel<Consultation> consultations;
     private DefaultListModel<Hospitalisation> hospitalisations;
-
+/**
+ * constructeur de la classe DMA
+ */
     public DMA() {
         consultations = new DefaultListModel<Consultation>();
         hospitalisations = new DefaultListModel<Hospitalisation>();
@@ -50,7 +52,11 @@ public class DMA {
     public void setHospitalisations(DefaultListModel<Hospitalisation> hospitalisations) {
         this.hospitalisations = hospitalisations;
     }
-
+/**
+ * affiche la liste des consultations du patient sélectionné
+ * @param patient
+ * @return les chaines de caractères correspondant aux consultations du patient sélectionné
+ */
     public String afficherConsultations(Patient patient) {
         String s = "";
         try {
@@ -87,7 +93,11 @@ public class DMA {
             return "erreur";
         }
     }
-
+/**
+ * affiche la liste des hospitalisations du patient sélectionné
+ * @param patient
+ * @return les chaines de caractères correspondant aux hospitalisations du patient sélectionné
+ */
     public String afficherHospitalisations(Patient patient) {
         String s = "";
         try {

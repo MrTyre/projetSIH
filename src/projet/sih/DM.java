@@ -21,7 +21,8 @@ public class DM {
     private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
-
+/** constructeur de la classe DM
+ */
     public DM() {
         observationsPH = new DefaultListModel<Observation>();
         prescriptionsPH = new DefaultListModel<Prescription>();
@@ -56,7 +57,11 @@ public class DM {
     public String getLettreSortie() {
         return lettreSortie;
     }
-
+/**
+ * affiche la liste des prescriptions pour la patient sélectionné
+ * @param patient
+ * @return les chaines de caractères correspondant aux prescriptions
+ */
     public String afficherPrescriptions(Patient patient) {
         String s = "";
         try {
@@ -83,7 +88,13 @@ public class DM {
             return "erreur";
         }
     }
-
+/** affiche la liste des observations (relatives à une consultation et/ou une hospitalisation) du patient sélectionné
+ * 
+ * @param patient
+ * @return les chaines de caractères correspondant à la liste des observations du patient sélectionné. S'il
+ * n'y à pas d'obervation pour ce patient, la chaine de caractères retournée est : "Il n'y a pas d'obervations relatives
+ * à une consultation/hospitalisation pour ce patient.
+ */
     public String afficherObservationsPH(Patient patient) {
         String s = "";
         try {
@@ -131,7 +142,11 @@ public class DM {
             return "erreur";
         }
     }
-
+/**
+ * affiche la liste des RDV pour un patient sélectionné
+ * @param patient
+ * @return les chaines de caractères correspondant aux RDV du patient sélectionné
+ */
     public String afficherRDV(Patient patient) {
         String s = "";
         Date date = new Date(System.currentTimeMillis());
@@ -184,7 +199,11 @@ public class DM {
             return "erreur";
         }
     }
-
+/**
+ * affiche la liste des résultats de prestation pour le patient sélectionné
+ * @param patient
+ * @return les chaines de caractères correspondant aux résultats de prestation du patient sélectionné
+ */
     public String afficherResultats(Patient patient) {
         String s = "";
         try {

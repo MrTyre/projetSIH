@@ -16,6 +16,13 @@ public class Adresse {
     private String ville;
     private Pays pays;
 
+    /** constructeur de la classe Adresse
+     * 
+     * @param libelle
+     * @param codePostal
+     * @param ville
+     * @param pays 
+     */
     public Adresse(String libelle, int codePostal, String ville, Pays pays) {
         this.libelleRue = libelle;
         this.codePostal = codePostal;
@@ -71,7 +78,10 @@ public class Adresse {
     public Pays getPays() {
         return pays;
     }
-
+/** crée une chaine de caractères correspondant à l'adresse
+ * 
+ * @return adresse 
+ */
     public String getAdresse() {
         String adresse = libelleRue+ "  "+ codePostal+"  "+ville+"  "+pays;
         return adresse;

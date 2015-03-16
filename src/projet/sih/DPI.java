@@ -16,7 +16,9 @@ public class DPI {
     private DMA dma;
     private DM dm;
     private DefaultListModel<Prestation> prestations;
-    
+ /**
+  * constructeur de la classe DPI
+  */
     public DPI(){
         dma = new DMA();
         dm = new DM();

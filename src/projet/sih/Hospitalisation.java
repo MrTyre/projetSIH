@@ -21,7 +21,10 @@ public class Hospitalisation {
     private String lettreSortie;
     private String naturePrestation;
 
-    
+    /**
+     * crée un ID d'hopitalisation pour chaque hospitalisation via un compteur
+     * @return 
+     */
     
     public static int getIDHosp() {
         try {
@@ -37,7 +40,7 @@ public class Hospitalisation {
         }
     }
     /**
-     * @return the numSejour
+     * @return the numSejour (numéro de séjour)
      */
     public double getNumSejour() {
         return numSejour;
@@ -51,7 +54,7 @@ public class Hospitalisation {
     }
 
     /**
-     * @return the phResp
+     * @return the phResp (le praticien hospitalier responsable)
      */
     public PH getPhResp() {
         return phResp;
@@ -93,7 +96,7 @@ public class Hospitalisation {
     }
 
     /**
-     * @return the dateEntree
+     * @return the dateEntree 
      */
     public Date getDateEntree() {
         return dateEntree;
@@ -120,6 +123,10 @@ public class Hospitalisation {
         this.dateSortie = dateSortie;
     }
     
+   /**
+    * définit la durée d'une hospitalisation
+    * @return la durée d'une hospitalisation 
+    */ 
     public long dureeHospitalisation(){
         long duree;
         duree = (dateEntree.getTime()-dateSortie.getTime()/86400000); //conversion ms en jours
