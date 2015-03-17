@@ -19,14 +19,23 @@ public class Medicament {
     private UnitePosologie unitePosologie;
     private Date dateFin;
     private static int compteur=0;
-
+/**
+ * constructeur de la classe Medicament
+ * @param nomMedoc
+ * @param posologie
+ * @param up
+ * @param date 
+ */
     public Medicament(String nomMedoc, double posologie, UnitePosologie up, Date date) {
         this.nomMedoc = nomMedoc;
         this.posologie = posologie;
         this.unitePosologie = up;
         this.dateFin = date;
     }
-
+/**
+ * crée un ID pour chaque médicament 
+ * @return compteur, l'ID du médicalment
+ */
     public static int getIDMed() {
         try {
             String sql = "SELECT * FROM medicament";
@@ -89,7 +98,12 @@ public class Medicament {
     public UnitePosologie getUnitePosologie() {
         return unitePosologie;
     }
-    
+  /**
+   * définit une unité de posologie pour chaque médicament à partir de la classe UnitePosologie pour entrer
+   * le nouveau médicament dans la base de donées
+   * @param u
+   * @return doseString, la chaine de caractère représentant l'unité de posologie du médicament
+   */  
     public String getUnitePosoString(UnitePosologie u){
         
         String doseString = "";

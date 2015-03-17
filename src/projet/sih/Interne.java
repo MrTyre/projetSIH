@@ -14,8 +14,14 @@ import java.sql.ResultSet;
  */
 public class Interne extends PersonnelMedical{
     private static int compteur = 0;
+   
     /**
-     * @return the ID
+     * constructeur de la classe Interne
+     * @param id
+     * @param nom
+     * @param prenom
+     * @param mdp
+     * @param specialite 
      */
     
     public Interne(String id, String nom, String prenom, String mdp, String specialite) {
@@ -25,7 +31,10 @@ public class Interne extends PersonnelMedical{
     public String getID() {
         return super.getID();
     }
-    
+  /**
+   * crée un ID pour chaque interne
+   * @return compteur, l'ID de l'interne
+   */  
     public static int getIDint() {
         try {
             String sql = "SELECT * FROM interne";

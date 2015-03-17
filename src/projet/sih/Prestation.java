@@ -23,6 +23,10 @@ public class Prestation {
         return naturePrestation;
     }
 
+    /**
+     * crée un ID pour chaque prestation 
+     * @return compteur, l'ID de la prestation 
+     */
     public static int getIDPrest() {
         try {
             String sql = "SELECT * FROM prestation";

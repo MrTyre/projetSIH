@@ -8,9 +8,10 @@ package projet.sih;
 import java.sql.*;
 
 /**
- *
- * @author noniko
+ * Cette classe permet de connecter la base de données à notre projet
+ * @author Marina
  */
+
 public class MyDBConnection {
 
     private ResultSet resultat;

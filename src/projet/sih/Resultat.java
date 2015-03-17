@@ -18,14 +18,25 @@ public class Resultat {
     private PH phWriter;
     private Prestation prestationAssociee;
     private String resultat;
-    
+  
+    /**
+     * constructeur de la classe Resultat
+     * @param date
+     * @param ph
+     * @param p
+     * @param resultat 
+     */
     public Resultat(Date date, PH ph, Prestation p, String resultat){
         this.date= date;
         this.phWriter = ph;
         this.prestationAssociee = p;
         this.resultat = resultat;
     }
-    
+  
+    /**
+     * crée un ID pour chaque résultat de prestation 
+     * @return compteur, l'ID du résultat
+     */
     public static int getIDresultat() {
         try {
             String sql = "SELECT * FROM resultat";

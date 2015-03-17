@@ -11,16 +11,22 @@ import java.sql.ResultSet;
  *
  * @author Tommy
  */
+
 public class PH extends PersonnelMedical {
     
     private static int compteur =0;
+  /**
+   * constructeur de la classe PH, praticien hospitalier
+   */ 
     
     public PH(){
         super();
         specialite="DefaultSpeciality";
     }
+    
     public PH(String id,String nom, String prenom){
         super(id,nom, prenom);
+        
     }
     public PH(String id, String nom, String prenom, String mdp, String specialite){
         super(id,nom,prenom,mdp,specialite);
@@ -67,12 +73,19 @@ public class PH extends PersonnelMedical {
     public void setPrenom(String prenom) {
         super.setPrenom(prenom);
     }
-
+/**
+ * crée une chaine de caractères avec le nom et le prénom du praticien hospitalier
+ * @return 
+ */
     public String toString() {
         String s = this.getNom() + " " + this.getPrenom();
         return s;
     }
     
+  /**
+   * crée un ID pour chaque praticien hospitalier
+   * @return compteur, l'ID du praticien hospitalier
+   */  
     public static int getIDPH() {
         try {
             String sql = "SELECT * FROM practicien_hospitalier";

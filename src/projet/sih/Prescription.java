@@ -21,6 +21,9 @@ public class Prescription {
     private DefaultListModel<Medicament> medicaments;
     private static int compteur=0;
 
+    /**
+     * constructeur de la classe Prescription
+     */
     public Prescription() {
         this.nomPrescription ="";
         this.phPrescripteur = null;
@@ -29,7 +32,7 @@ public class Prescription {
     }
 
     /**
-     * @return the phPrescripteur
+     * constructeur de la classe Prescription
      */
     
     public Prescription(String nom, PH phRes, Date date, DefaultListModel<Medicament> medocs){
@@ -38,7 +41,11 @@ public class Prescription {
         this.datePrescription = date;
         this.medicaments = medocs;
     }
-    
+  
+    /**
+     * crée un ID pour chaque prescription, accessible partout
+     * @return compteur, l'ID de la prescription
+     */
     public static int getIDPresc() {
         try {
             String sql = "SELECT * FROM prescription";
@@ -52,7 +59,11 @@ public class Prescription {
             return 0;
         }
     }
-    
+ 
+    /**
+     * crée un ID pour chaque prescription, accessible que dans la classe Prescription
+     * @return compteur, l'ID de la prescription
+     */
     public int getIDPrescNonStatic() {
         try {
             String sql = "SELECT * FROM prescription";
@@ -66,7 +77,11 @@ public class Prescription {
             return 0;
         }
     }
-    
+ 
+    /**
+     * 
+     * @return le phPrescripteur, le praticien hospitalier prescripteur
+     */
     public PH getPhPrescripteur() {
         return phPrescripteur;
     }

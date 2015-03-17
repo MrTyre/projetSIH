@@ -24,7 +24,17 @@ public class Patient {
     private Location location;
     private String medGen;
     private String adGen;
-    
+ 
+    /**
+     * constructeur de classe Patient
+     * @param nom
+     * @param prenom
+     * @param dateNaissance
+     * @param sexe
+     * @param adresse
+     * @param medGen
+     * @param adGen 
+     */
     public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen){
         this.nom = nom;
         this.prenom = prenom;

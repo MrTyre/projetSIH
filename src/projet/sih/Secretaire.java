@@ -13,15 +13,31 @@ import java.sql.ResultSet;
  */
 public class Secretaire extends PersonnelMedical {
     private static int compteur = 0;
-    
+
+    /**
+     * constructeur de la classe Secretaire
+     * @param id
+     * @param nom
+     * @param prenom
+     * @param mdp
+     * @param specialite 
+     */
     public Secretaire(String id, String nom, String prenom, String mdp, String specialite) {
         super(id, nom, prenom, mdp, specialite);
     }
 
+ /**
+  * 
+  * @return ID
+  */
     public String getID() {
         return super.getID();
     }
-    
+ 
+    /**
+     * crée un ID pour chaque secrétaire
+     * @return compteur, l'ID de la secrétaire
+     */
    public static int getIDSec() {
         try {
             String sql = "SELECT * FROM secretaire";

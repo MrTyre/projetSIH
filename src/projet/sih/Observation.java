@@ -13,6 +13,7 @@ import java.sql.ResultSet;
  *
  * @author Tommy
  */
+
 public class Observation {
     private Date date;
     private PH phWriter;
@@ -21,10 +22,15 @@ public class Observation {
     /**
      * @return the date
      */
+    
     public Date getDate() {
         return date;
     }
 
+    /**
+     * crée un ID pour chaque observation 
+     * @return compteur, l'ID de l'observation
+     */
     public static int getIDObs() {
         try {
             String sql = "SELECT * FROM observation";
@@ -46,7 +52,8 @@ public class Observation {
     }
 
     /**
-     * @return the phWriter
+     * @return the phWriter, le praticien hospitalier ayant rédigé 
+     * l'observation
      */
     public PH getPhWriter() {
         return phWriter;

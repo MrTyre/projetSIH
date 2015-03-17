@@ -12,7 +12,11 @@ package projet.sih;
 public class Location {
     private Chambre chambre;
     private Lit lit;
-
+/**
+ * constructeur de la classe Location
+ * @param chambre
+ * @param lit 
+ */
     public Location(Chambre chambre, Lit lit) {
         this.chambre = chambre;
         this.lit = lit;

@@ -21,7 +21,7 @@ public abstract class Service {
     private DefaultListModel<Chambre> chambres;    
 
     /**
-     * @return the chefDeService
+     * @return the chefDeService 
      */
     public PH getChefDeService() {
         return chefDeService;
@@ -35,7 +35,7 @@ public abstract class Service {
     }
 
     /**
-     * @return the praticiens
+     * @return la liste des praticiens du service
      */
     public DefaultListModel<PH> getPraticiens() {
         return praticiens;
@@ -49,21 +49,21 @@ public abstract class Service {
     }
 
     /**
-     * @return the etudiants
+     * @return la liste des internes du service
      */
     public DefaultListModel<Interne> getInternes() {
         return internes;
     }
 
     /**
-     * @param etudiants the etudiants to set
+     * @param internes internes to set
      */
     public void setInternes(DefaultListModel<Interne> internes) {
         this.internes = internes;
     }
 
     /**
-     * @return the patients
+     * @return la liste des patients du service
      */
     public DefaultListModel<Patient> getPatients() {
         return patients;
@@ -77,7 +77,7 @@ public abstract class Service {
     }
     
         /**
-     * @return the chambres
+     * @return la liste des chambres du service
      */
     public DefaultListModel<Chambre> getChambres() {
         return chambres;
@@ -91,7 +91,7 @@ public abstract class Service {
     }
 
     /**
-     * @return the infirmiers
+     * @return la liste des infirmiers du service
      */
     public DefaultListModel<PersonnelInfirmier> getInfirmiers() {
         return infirmiers;

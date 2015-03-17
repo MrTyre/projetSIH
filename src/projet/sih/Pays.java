@@ -10,6 +10,7 @@ package projet.sih;
  *
  * @author Tommy
  */
+
 public enum Pays {
     Afghanistan,
     Afrique_du_Sud,
