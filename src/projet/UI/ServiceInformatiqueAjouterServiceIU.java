@@ -364,7 +364,6 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                     CHUPP.getInsert(sql4);
                                     CHUPP.getInsert(sql);
                                     JOptionPane jop1 = new JOptionPane();
-                                    System.out.println("blqblqblq");
                                     jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
                                 } else {
                                     JOptionPane jop1 = new JOptionPane();

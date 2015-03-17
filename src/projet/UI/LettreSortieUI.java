@@ -286,7 +286,7 @@ public class LettreSortieUI extends javax.swing.JFrame {
         odt.newParagraph();
 
         // Save document
-        odt.save("C:/Users/Tommy/Documents/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+        odt.save("src/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
     }
 
     /**
