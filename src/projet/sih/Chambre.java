@@ -20,7 +20,7 @@ public class Chambre {
     }
 
     /**
-     * @return the litC
+     * @return the litC, un lit coté couloir
      */
     public Lit getLitC() {
         return litC;
@@ -34,7 +34,7 @@ public class Chambre {
     }
 
     /**
-     * @return the litF
+     * @return the litF, un lit coté fenetre
      */
     public Lit getLitF() {
         return litF;
