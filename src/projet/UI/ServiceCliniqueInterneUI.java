@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -507,6 +508,11 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
                         jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                         jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                         jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                        jTextArea1.setBackground(new Color(240,240,255));
+                        jTextArea2.setBackground(new Color(240,240,255));
+                        jTextArea3.setBackground(new Color(240,240,255));
+                        jTextArea4.setBackground(new Color(240,240,255));
+                        jTextArea5.setBackground(new Color(240,240,255));
                         repaint();
                     }
                 }

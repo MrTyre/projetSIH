@@ -116,6 +116,23 @@ public class Patient {
         return dateNaissance;
     }
 
+    public String getDateNaissanceString() {
+        String s;
+        if(dateNaissance.getMonth()<=9){
+            if(dateNaissance.getDate()>=10){
+            s=(dateNaissance.getYear()+1900)+"-0"+(dateNaissance.getMonth()+1)+"-"+dateNaissance.getDate();
+            }else{
+                s=(dateNaissance.getYear()+1900)+"-0"+(dateNaissance.getMonth()+1)+"-0"+dateNaissance.getDate();
+            }
+        }else{
+            if(dateNaissance.getDate()>=10){
+            s=(dateNaissance.getYear()+1900)+"-"+(dateNaissance.getMonth()+1)+"-"+dateNaissance.getDate();
+            }else{
+                s=(dateNaissance.getYear()+1900)+"-"+(dateNaissance.getMonth()+1)+"-0"+dateNaissance.getDate();
+            }
+        }
+        return s;
+    }
     /**
      * @param dateNaissance the dateNaissance to set
      */

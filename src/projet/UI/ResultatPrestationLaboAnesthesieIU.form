@@ -153,7 +153,7 @@
                                           <Component id="jLabelDatePrestation" min="-2" pref="427" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -208,7 +208,7 @@
                                   <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <EmptySpace pref="38" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButtonEnvoyer" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonAnnuler" alignment="3" min="-2" max="-2" attributes="0"/>
