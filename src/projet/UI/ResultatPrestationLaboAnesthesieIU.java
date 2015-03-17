@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package projet.UI;
 
 import java.awt.event.ActionEvent;
@@ -31,7 +26,6 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
 
     private ConnexionUI connexionUI;
     private Patient currentPatient;
-    private String serviceEmetteur;
     private int idPrestation;
     private PersonnelMedical currentConnected;
     private Date date;
@@ -393,7 +387,9 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                         + jTextAreaObservations.getText() + "')";
                 CHUPP.getInsert(sql3);
                 
-                if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance()))){
+                if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance())) 
+                        && (((DefaultTableModel)smt.getjTablePrestations().getModel()).getRowCount()==1)){
+                    smt.getjListPatients().setSelectedIndex(1);
                     smt.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance());
                     smt.getjListPatients().setModel(smt.getDlm());
                     smt.getjListPatients().revalidate();
@@ -403,7 +399,6 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -412,13 +407,6 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
      */
     public void setCurrentPatient(Patient currentPatient) {
         this.currentPatient = currentPatient;
-    }
-
-    /**
-     * @param serviceEmetteur the serviceEmetteur to set
-     */
-    public void setServiceEmetteur(String serviceEmetteur) {
-        this.serviceEmetteur = serviceEmetteur;
     }
 
     public void setCurrentConnected(PersonnelMedical currentConnected) {

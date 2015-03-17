@@ -30,7 +30,7 @@ public class DemandePrestationUI extends javax.swing.JFrame {
     public DemandePrestationUI() throws SQLException {
         initComponents();
         dcbb = CHUPP.getListeServiceMedicoTechnique();
-        dcbb.addElement("Anesthesie - Réanimation");
+        dcbb.addElement("Anesthesie - Reanimation");
         dcbb.addElement("Radiologie");
         jComboBoxService.setModel(dcbb);
         jComboBoxService.setSelectedIndex(0);
@@ -205,7 +205,7 @@ public class DemandePrestationUI extends javax.swing.JFrame {
                     + "," + currentPatient.getIPP()
                     + ",'" + date
                     + "','" + jTextAreaNaturePrest.getText()
-                    + "','" + serviceDestinataire + "')";
+                    + "','" + serviceDestinataire + "',0)";
             CHUPP.getInsert(sql);
         }
     }

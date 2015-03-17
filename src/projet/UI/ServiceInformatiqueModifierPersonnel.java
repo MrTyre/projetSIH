@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package projet.UI;
 
 import java.awt.event.ActionEvent;
@@ -25,8 +24,10 @@ import javax.swing.JMenuItem;
  * @author Manounette
  */
 public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
+
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
+
     /**
      * Creates new form ServiceInformatiqueModifierPersonnel
      */
@@ -52,7 +53,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-        
+
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -264,12 +265,12 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         setVisible(false);
         try {
             si = new ServiceInformatiqueIU();
+            si.setLocationRelativeTo(null);
+            si.setResizable(false);
+            si.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ServiceInformatiqueModifierPersonnel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        si.setLocationRelativeTo(null);
-        si.setResizable(false); 
-        si.setVisible(true);
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
@@ -277,7 +278,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
-        
+
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

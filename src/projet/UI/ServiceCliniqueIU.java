@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,6 +40,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }
 
     private CHUPP chupp;
+    private String directory;
     private DemandePrestationUI dpUI;
     private AjouterPrescriptionIU aprIU;
     private DefaultListModel dlm = new DefaultListModel();
@@ -66,10 +68,12 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         JMenu menu2 = new JMenu("Aide");
         JMenuItem deco = new JMenuItem("Deconnexion");
         JMenuItem leave = new JMenuItem("Quitter");
+        JMenuItem letterDirectory = new JMenuItem("Spécifier le dossier de stockage des lettres de sorties");
         JMenuItem javadoc = new JMenuItem("Documentation technique");
         JMenuItem helputil = new JMenuItem("Aide utilisateur");
         menu1.add(deco);
         menu1.add(leave);
+        menu2.add(letterDirectory);
         menu2.add(javadoc);
         menu2.add(helputil);
         jmb.add(menu1);
@@ -92,23 +96,37 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
+        directory = "";
+        letterDirectory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int returnVal = chooser.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    directory = chooser.getSelectedFile().getPath();
+                    System.out.println(directory);
+                }
+            }
+        });
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         String currentDateString = currentDate.toString();
         sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "hospitalisation, practicien_hospitalier, service_clinique "
                 + "where patient.ipp=hospitalisation.ipp "
+                + "and patient.etat = 0"
                 + " and hospitalisation.idph=practicien_hospitalier.idph and"
                 + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
                 + currentDate + "' and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
         String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + " consultation, practicien_hospitalier, service_clinique "
-                + "where patient.ipp=consultation.ipp "
+                + "where patient.ipp=consultation.ipp "                
+                + "and patient.etat = 0"
                 + " and consultation.idph=practicien_hospitalier.idph and"
                 + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
                 + currentDate + "' and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
-        System.out.println(currentDate);
 
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
@@ -125,7 +143,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("bla");
         }
         jList1.setModel(dlm);
         repaint();
@@ -493,6 +510,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         lettreSortieUI.getjLabelMedecin().setText("Dr. " + currentPH.getNom() + " " + currentPH.getPrenom());
         lettreSortieUI.setCurrentPatient(currentPatient);
         lettreSortieUI.setCurrentPH(currentPH);
+        lettreSortieUI.setDirectory(directory);
+        lettreSortieUI.setScIU(this);
         lettreSortieUI.setLocationRelativeTo(null);
         lettreSortieUI.setVisible(true);
     }//GEN-LAST:event_jButtonSortiePatientActionPerformed
@@ -588,6 +607,20 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jTabbedPane1;
     }
 
+    /**
+     * @return the dlm
+     */
+    public DefaultListModel getDlm() {
+        return dlm;
+    }
+
+    /**
+     * @return the jList1
+     */
+    public javax.swing.JList getjList1() {
+        return jList1;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
@@ -596,7 +629,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             try {
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
-                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                    if (getjList1().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
                         setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP.setText(currentPatient.getIPP());
                         jLabelPatient.setText(currentPatient.getNom());
@@ -610,11 +643,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         jTextArea3.setCaretPosition(0);
                         jTextArea4.setCaretPosition(0);
                         jTextArea5.setCaretPosition(0);
-                        jTextArea1.setBackground(new Color(240,240,255));
-                        jTextArea2.setBackground(new Color(240,240,255));
-                        jTextArea3.setBackground(new Color(240,240,255));
-                        jTextArea4.setBackground(new Color(240,240,255));
-                        jTextArea5.setBackground(new Color(240,240,255));
+                        jTextArea1.setBackground(new Color(240, 240, 255));
+                        jTextArea2.setBackground(new Color(240, 240, 255));
+                        jTextArea3.setBackground(new Color(240, 240, 255));
+                        jTextArea4.setBackground(new Color(240, 240, 255));
+                        jTextArea5.setBackground(new Color(240, 240, 255));
                         repaint();
                     }
                 }

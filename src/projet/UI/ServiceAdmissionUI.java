@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,13 +13,16 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -82,9 +86,10 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-        
-        jComboBoxServiceTri.setModel(CHUPP.getListeService());
-        
+
+        jComboBoxServiceTri.setModel(CHUPP.getListeServiceClinique());
+        ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Archives");
+
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -102,7 +107,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-        sql = "SELECT nom, prenom, date_naissance FROM Patient";
+        sql = "SELECT nom, prenom, date_naissance FROM Patient where etat = 0";
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
@@ -153,7 +158,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         AjoutPatient = new javax.swing.JButton();
         jButtonDeconnexion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBoxTransfert = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -185,9 +190,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
@@ -268,7 +271,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjoutRDV)
-                .addGap(0, 236, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gestion RDV", new javax.swing.ImageIcon(getClass().getResource("/Images/rdv.png")), jPanel8); // NOI18N
@@ -302,7 +305,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAjoutHospitalisation)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hospitalisations", new javax.swing.ImageIcon(getClass().getResource("/Images/CDT64-tfinal-Hopital.jpg")), jPanel9); // NOI18N
@@ -352,10 +355,10 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Tranfert du patient dans le service : ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxTransfert.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTransfert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jComboBoxTransfertActionPerformed(evt);
             }
         });
 
@@ -374,7 +377,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -393,7 +396,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Patient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,9 +407,9 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jSplitPane2.setRightComponent(jPanel1);
@@ -423,6 +426,11 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jLabel2.setText("Service : ");
 
         jComboBoxServiceTri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxServiceTri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxServiceTriActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -451,7 +459,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 69, Short.MAX_VALUE)
                 .addComponent(jLabelService, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel1)
@@ -461,8 +469,9 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBoxServiceTri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         jSplitPane2.setLeftComponent(jPanel2);
@@ -477,7 +486,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -498,9 +507,9 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jComboBoxTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTransfertActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jComboBoxTransfertActionPerformed
 
     private void jButtonDeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeconnexionActionPerformed
         JOptionPane j = new JOptionPane();
@@ -545,6 +554,63 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAjoutHospitalisationActionPerformed
 
+    private void jComboBoxServiceTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceTriActionPerformed
+        String spe = (String) ((JComboBox) evt.getSource()).getSelectedItem();
+        try {
+            jComboBoxTransfert.setModel(CHUPP.getListeServiceClinique());
+            ((DefaultComboBoxModel)jComboBoxTransfert.getModel()).removeElement(spe);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                + "hospitalisation, practicien_hospitalier, service_clinique "
+                + "where patient.ipp=hospitalisation.ipp "
+                + "and patient.etat = 0"
+                + " and hospitalisation.idph=practicien_hospitalier.idph and"
+                + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
+                + currentDate + "' and service_clinique.specialite='"
+                + spe + "'";
+        String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                + " consultation, practicien_hospitalier, service_clinique "
+                + "where patient.ipp=consultation.ipp "
+                + "and patient.etat = 0"
+                + " and consultation.idph=practicien_hospitalier.idph and"
+                + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
+                + currentDate + "' and service_clinique.specialite='"
+                + spe + "'";
+        String sql3 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient where etat = 1";
+        dlm = new DefaultListModel();
+
+        try {
+            ResultSet resultat = CHUPP.getRequete(sql);
+            ResultSet resultat2 = CHUPP.getRequete(sql2);
+            ResultSet resultat3 = CHUPP.getRequete(sql3);
+            if (spe.equals("Archives")) {
+                while (resultat3.next()){
+                    if (!dlm.contains(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"))) {
+                        dlm.addElement(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"));
+                    }
+                }
+            } else {
+                while (resultat.next()) {
+                    if (!dlm.contains(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"))) {
+                        dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
+                    }
+                }
+                while (resultat2.next()) {
+                    if (!dlm.contains(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"))) {
+                        dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jList1.setModel(dlm);
+        repaint();
+    }//GEN-LAST:event_jComboBoxServiceTriActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AjoutPatient;
@@ -555,8 +621,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAjoutRDV;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonEditDMA;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBoxServiceTri;
+    private javax.swing.JComboBox jComboBoxTransfert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -648,9 +714,19 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                         Patient.setText(currentPatient.getNom());
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                         jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                         jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                         jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                        jTextArea1.setCaretPosition(0);
+                        jTextArea2.setCaretPosition(0);
+                        jTextArea3.setCaretPosition(0);
+                        jTextArea4.setCaretPosition(0);
+                        jTextArea5.setCaretPosition(0);
+                        jTextArea1.setBackground(new Color(240, 240, 255));
+                        jTextArea2.setBackground(new Color(240, 240, 255));
+                        jTextArea3.setBackground(new Color(240, 240, 255));
+                        jTextArea4.setBackground(new Color(240, 240, 255));
+                        jTextArea5.setBackground(new Color(240, 240, 255));
                         repaint();
                     }
                 }

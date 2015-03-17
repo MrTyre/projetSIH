@@ -1,5 +1,6 @@
 package projet.UI;
 
+import java.awt.Color;
 import java.sql.ResultSet;
 
 import java.awt.image.BufferedImage;
@@ -48,7 +49,6 @@ public class ConnexionUI extends javax.swing.JFrame {
         initComponents();
         this.chupp = new CHUPP();
         setLocationRelativeTo(null);
-
         FileInputStream input = new FileInputStream("src/Images/Princeton-Plainsboro.jpg");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
@@ -79,7 +79,7 @@ public class ConnexionUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabelId.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabelId.setText("Identifiant : ");

@@ -111,7 +111,6 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             }
         });
         dlm = new DefaultListModel();
-        java.sql.Date currentDate = new Date(System.currentTimeMillis());
         String sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "prestation, service_medico_technique "
                 + "where patient.ipp=prestation.ipp "
@@ -413,17 +412,10 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                         + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
                 ResultSet result = CHUPP.getRequete(sql2);
                 while (result.next()) {
-                    System.out.println(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"));
-                    System.out.println(result.getString("nom"));
-                    System.out.println(result.getString("prenom"));
-                    System.out.println(result.getString("date_naissance"));
-                    System.out.println(getjListPatients().getSelectedValue());
-                    
                     if (getjListPatients().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
                         setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP3.setText(currentPatient.getIPP());
                         jLabelCurrentPatient3.setText(currentPatient.getNom());
-                        System.out.println(currentPatient.getIPP());
                         repaint();
 
                         ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP() + " and etat=0");
@@ -448,11 +440,12 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                             dtm.addColumn("Résultat");
                             while (result2.next()) {
                                 if (result2.getString("service_destinataire").equals("Radiologie")) {
-                                    dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                    ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
+                                    result3.last();
+                                    dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
                                     final String naturePrestation = result2.getString("nature_prestation");
                                     final Date date = result2.getDate("date");
                                     final int idprestation = result2.getInt("idprestation");
-                                    final String currentService = result2.getString("service_destinataire");
                                     getjTablePrestations().setModel(dtm);
                                     Action delete = new AbstractAction() {
                                         public void actionPerformed(ActionEvent e) {
@@ -470,13 +463,14 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                             rprUI.setSmt(getLocalInstance());
                                             rprUI.setSelectedRow(selectedRow);
                                             rprUI.setVisible(true);
-                                            System.out.println("Action");
                                         }
                                     };
                                     ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
                                     buttonColumn.setMnemonic(KeyEvent.VK_D);
                                 } else {
-                                    dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                    ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
+                                    result3.last();
+                                    dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
                                     final String naturePrestation = result2.getString("nature_prestation");
                                     final Date date = result2.getDate("date");
                                     final int idprestation = result2.getInt("idprestation");
@@ -499,10 +493,9 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                             rplaUI.setSmt(getLocalInstance());
                                             rplaUI.setSelectedRow(selectedRow);
                                             rplaUI.setVisible(true);
-                                            System.out.println("Action");
                                         }
                                     };
-                                    
+
                                     ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
                                     buttonColumn.setMnemonic(KeyEvent.VK_D);
                                 }

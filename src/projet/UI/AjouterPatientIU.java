@@ -543,7 +543,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
 
                 try {
                     sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-                            + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "')";
+                            + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "' + 0 )";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();
                     jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);

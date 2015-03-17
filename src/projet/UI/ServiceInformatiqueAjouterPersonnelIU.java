@@ -324,6 +324,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
             String prenom = jTextFieldPrenom.getText().substring(0,1).toUpperCase();
             prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase();            
             String service = "";
+            String mdp = generate();
             String sph = "SELECT * FROM practicien_hospitalier";
             String sinf = "SELECT * FROM infirmier";
             String sint = "SELECT * FROM interne";
@@ -345,14 +346,14 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } else {
-                            sql = "INSERT INTO practicien_hospitalier VALUES (" + PH.getIDPH() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                            sql = "INSERT INTO practicien_hospitalier VALUES (" + PH.getIDPH() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
                             if (((String) jComboBoxStatut.getSelectedItem()).equals("Chef de Service")) {
                                 String sql2 = "UPDATE service_clinique SET chef_service =" + (PH.getIDPH() - 1) + " where specialite ='" + service + "'";
                                 CHUPP.getInsert(sql2);
                             }
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         }
                     }
@@ -369,10 +370,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } else {
-                            sql = "INSERT INTO infirmier VALUES (" + PersonnelInfirmier.getIDInf() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                            sql = "INSERT INTO infirmier VALUES (" + PersonnelInfirmier.getIDInf() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break;
                         }
                     }
                 } catch (Exception e) {
@@ -388,10 +390,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } else {
-                            sql = "INSERT INTO interne VALUES (" + Interne.getIDint() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + generate() + "')";
+                            sql = "INSERT INTO interne VALUES (" + Interne.getIDint() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break;
                         }
                     }
                 } catch (Exception e) {
@@ -406,10 +409,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } else {
-                            sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
+                            sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break;
                         }
                     }
                 } catch (Exception e) {
@@ -424,10 +428,11 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } else {
-                            sql = "INSERT INTO informaticien VALUES (" + Informaticien.getIDInfo() + ", '" + nom + "', '" + prenom + "', '" + generate() + "')";
+                            sql = "INSERT INTO informaticien VALUES (" + Informaticien.getIDInfo() + ", '" + nom + "', '" + prenom + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break;
                         }
                     }
                 } catch (Exception e) {
