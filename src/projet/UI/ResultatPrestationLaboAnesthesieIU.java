@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -42,6 +43,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
      */
     public ResultatPrestationLaboAnesthesieIU() {
         initComponents();
+
         date = new Date(System.currentTimeMillis());
         DateFormat df1 = new SimpleDateFormat("dd / MM / yyyy");
         jLabelTextDate.setText(df1.format(date));
@@ -311,6 +313,8 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvoyerActionPerformed
+
+        System.out.println(currentPatient.getDateNaissanceString() + " bullshit");
         JOptionPane j = new JOptionPane();
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer ce résultat de prestation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
@@ -319,8 +323,8 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(this, "Le résultat a bien été pris en compte !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
-                ((DefaultTableModel)smt.getjTablePrestations().getModel()).removeRow(selectedRow);
-                String sql ="DELETE FROM Prestation WHERE idprestation="+idPrestation;
+                ((DefaultTableModel) smt.getjTablePrestations().getModel()).removeRow(selectedRow);
+                String sql = "update prestation set etat=1 WHERE idprestation=" + idPrestation;
                 CHUPP.getInsert(sql);
                 smt.revalidate();
                 smt.repaint();
@@ -369,7 +373,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au Résultats", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
-            String sql2 = "SELECT idsmt from service_medico_technique where specialite='"+currentConnected.getSpecialite()+"'";
+            String sql2 = "SELECT idsmt from service_medico_technique where specialite='" + currentConnected.getSpecialite() + "'";
             ResultSet resultat = CHUPP.getRequete(sql2);
             resultat.first();
             int idsmt = resultat.getInt("idsmt");
@@ -380,7 +384,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                         + currentPatient.getIPP() + ","
                         + currentConnected.getID() + ", '"
                         + date + "', "
-                        +"'"+ jLabelNature.getText() + "','"
+                        + "'" + jLabelNature.getText() + "','"
                         + jTextAreaResultats.getText() + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
@@ -388,6 +392,13 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                         + date + "','"
                         + jTextAreaObservations.getText() + "')";
                 CHUPP.getInsert(sql3);
+                
+                if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance()))){
+                    smt.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance());
+                    smt.getjListPatients().setModel(smt.getDlm());
+                    smt.getjListPatients().revalidate();
+                    smt.getjListPatients().repaint();
+                }
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");
                 e.printStackTrace();
@@ -410,7 +421,6 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
         this.serviceEmetteur = serviceEmetteur;
     }
 
-     
     public void setCurrentConnected(PersonnelMedical currentConnected) {
         this.currentConnected = currentConnected;
     }

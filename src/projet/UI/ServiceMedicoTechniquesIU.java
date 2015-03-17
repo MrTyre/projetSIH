@@ -111,11 +111,21 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
             }
         });
         dlm = new DefaultListModel();
-        sql = "SELECT nom, prenom, date_naissance FROM Patient";
+        java.sql.Date currentDate = new Date(System.currentTimeMillis());
+        String sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                + "prestation, service_medico_technique "
+                + "where patient.ipp=prestation.ipp "
+                + " and prestation.service_destinataire=service_medico_technique.specialite and"
+                + " prestation.etat=0"
+                + " and service_medico_technique.specialite='"
+                + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
+
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
-                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
+
+                dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
@@ -394,102 +404,119 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
-                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                String sql2 = "select DISTINCT patient.* from patient,"
+                        + "prestation, service_medico_technique "
+                        + "where patient.ipp=prestation.ipp "
+                        + " and prestation.service_destinataire=service_medico_technique.specialite and"
+                        + " prestation.etat=0"
+                        + " and service_medico_technique.specialite='"
+                        + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
+                ResultSet result = CHUPP.getRequete(sql2);
                 while (result.next()) {
+                    System.out.println(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"));
+                    System.out.println(result.getString("nom"));
+                    System.out.println(result.getString("prenom"));
+                    System.out.println(result.getString("date_naissance"));
+                    System.out.println(getjListPatients().getSelectedValue());
+                    
                     if (getjListPatients().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
                         setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
                         jLabelIPP3.setText(currentPatient.getIPP());
                         jLabelCurrentPatient3.setText(currentPatient.getNom());
+                        System.out.println(currentPatient.getIPP());
                         repaint();
-                    }
-                    ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP());
-                    result2.last();
-                    if (result2.getRow() != 0) {
-                        result2.beforeFirst();
-                        dtm = new DefaultTableModel() {
 
-                            @Override
-                            public boolean isCellEditable(int row, int column) {
-                                if (column == 4) {
-                                    return true;
+                        ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP() + " and etat=0");
+                        result2.last();
+                        if (result2.getRow() != 0) {
+                            result2.beforeFirst();
+                            dtm = new DefaultTableModel() {
+
+                                @Override
+                                public boolean isCellEditable(int row, int column) {
+                                    if (column == 4) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            };
+                            dtm.addColumn("ID PH");
+                            dtm.addColumn("Service demandeur");
+                            dtm.addColumn("Date");
+                            dtm.addColumn("Nature de la demande");
+                            dtm.addColumn("Résultat");
+                            while (result2.next()) {
+                                if (result2.getString("service_destinataire").equals("Radiologie")) {
+                                    dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                    final String naturePrestation = result2.getString("nature_prestation");
+                                    final Date date = result2.getDate("date");
+                                    final int idprestation = result2.getInt("idprestation");
+                                    final String currentService = result2.getString("service_destinataire");
+                                    getjTablePrestations().setModel(dtm);
+                                    Action delete = new AbstractAction() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            int selectedRow = Integer.valueOf(e.getActionCommand());
+                                            rprUI = new ResultatPrestationRadiologieIU();
+                                            rprUI.setLocationRelativeTo(null);
+                                            rprUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            rprUI.setCurrentConnected(currentConnected);
+                                            rprUI.setCurrentPatient(currentPatient);
+                                            rprUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+                                            rprUI.getjLabelIPP().setText(currentPatient.getIPP());
+                                            rprUI.getjLabelNature().setText(naturePrestation);
+                                            rprUI.getjLabelDatePrestation().setText(date.toString());
+                                            rprUI.setIdPrestation(idprestation);
+                                            rprUI.setSmt(getLocalInstance());
+                                            rprUI.setSelectedRow(selectedRow);
+                                            rprUI.setVisible(true);
+                                            System.out.println("Action");
+                                        }
+                                    };
+                                    ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
+                                    buttonColumn.setMnemonic(KeyEvent.VK_D);
                                 } else {
-                                    return false;
+                                    dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                    final String naturePrestation = result2.getString("nature_prestation");
+                                    final Date date = result2.getDate("date");
+                                    final int idprestation = result2.getInt("idprestation");
+                                    final String currentService = result2.getString("service_destinataire");
+                                    getjTablePrestations().setModel(dtm);
+                                    Action delete = new AbstractAction() {
+                                        public void actionPerformed(ActionEvent e) {
+                                            int selectedRow = Integer.valueOf(e.getActionCommand());
+                                            rplaUI = new ResultatPrestationLaboAnesthesieIU();
+                                            rplaUI.setLocationRelativeTo(null);
+                                            rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                            rplaUI.setCurrentConnected(currentConnected);
+                                            rplaUI.setCurrentPatient(currentPatient);
+                                            rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+                                            rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
+                                            rplaUI.getjLabelNature().setText(naturePrestation);
+                                            rplaUI.getjLabelDatePrestation().setText(date.toString());
+                                            rplaUI.getjLabelCurrentService().setText(currentService);
+                                            rplaUI.setIdPrestation(idprestation);
+                                            rplaUI.setSmt(getLocalInstance());
+                                            rplaUI.setSelectedRow(selectedRow);
+                                            rplaUI.setVisible(true);
+                                            System.out.println("Action");
+                                        }
+                                    };
+                                    
+                                    ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
+                                    buttonColumn.setMnemonic(KeyEvent.VK_D);
                                 }
                             }
-                        };
-                        dtm.addColumn("ID PH");
-                        dtm.addColumn("Service demandeur");
-                        dtm.addColumn("Date");
-                        dtm.addColumn("Nature de la demande");
-                        dtm.addColumn("Résultat");
-                        while (result2.next()) {
-                            if (result2.getString("service_destinataire").equals("Radiologie")) {
-                                dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
-                                final String naturePrestation = result2.getString("nature_prestation");
-                                final Date date = result2.getDate("date");
-                                final int idprestation = result2.getInt("idprestation");
-                                final String currentService = result2.getString("service_destinataire");
-                                getjTablePrestations().setModel(dtm);
-                                Action delete = new AbstractAction() {
-                                    public void actionPerformed(ActionEvent e) {
-                                        int selectedRow = Integer.valueOf(e.getActionCommand());
-                                        rprUI = new ResultatPrestationRadiologieIU();
-                                        rprUI.setLocationRelativeTo(null);
-                                        rprUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                        rprUI.setCurrentConnected(currentConnected);
-                                        rprUI.setCurrentPatient(currentPatient);
-                                        rprUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
-                                        rprUI.getjLabelIPP().setText(currentPatient.getIPP());
-                                        rprUI.getjLabelNature().setText(naturePrestation);
-                                        rprUI.getjLabelDatePrestation().setText(date.toString());
-                                        rprUI.setIdPrestation(idprestation);
-                                        rprUI.setSmt(getLocalInstance());
-                                        rprUI.setSelectedRow(selectedRow);
-                                        rprUI.setVisible(true);
-                                        System.out.println("Action");
-                                    }
-                                };
-                                ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
-                                buttonColumn.setMnemonic(KeyEvent.VK_D);
-                            } else {
-                                dtm.addRow(new Object[]{result2.getInt("idph"), result2.getString("service_destinataire"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
-                                final String naturePrestation = result2.getString("nature_prestation");
-                                final Date date = result2.getDate("date");
-                                final int idprestation = result2.getInt("idprestation");
-                                final String currentService = result2.getString("service_destinataire");
-                                getjTablePrestations().setModel(dtm);
-                                Action delete = new AbstractAction() {
-                                    public void actionPerformed(ActionEvent e) {
-                                        int selectedRow = Integer.valueOf(e.getActionCommand());
-                                        rplaUI = new ResultatPrestationLaboAnesthesieIU();
-                                        rplaUI.setLocationRelativeTo(null);
-                                        rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                        rplaUI.setCurrentConnected(currentConnected);
-                                        rplaUI.setCurrentPatient(currentPatient);
-                                        rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
-                                        rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
-                                        rplaUI.getjLabelNature().setText(naturePrestation);
-                                        rplaUI.getjLabelDatePrestation().setText(date.toString());
-                                        rplaUI.getjLabelCurrentService().setText(currentService);
-                                        rplaUI.setIdPrestation(idprestation);
-                                        rplaUI.setSmt(getLocalInstance());
-                                        rplaUI.setSelectedRow(selectedRow);
-                                        rplaUI.setVisible(true);
-                                        System.out.println("Action");
-                                    }
-                                };
-                                ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
-                                buttonColumn.setMnemonic(KeyEvent.VK_D);
-                            }
+                        } else {
+                            dtm = new DefaultTableModel(0, 0);
+                            getjTablePrestations().setModel(dtm);
+                            dtm.addColumn("ID PH");
+                            dtm.addColumn("Service demandeur");
+                            dtm.addColumn("Date");
+                            dtm.addColumn("Nature de la demande");
+                            dtm.addColumn("Résultat");
                         }
-                    } else {
-                        dtm = new DefaultTableModel(0, 0);
-                        getjTablePrestations().setModel(dtm);
-                        dtm.addColumn("ID PH");
-                        dtm.addColumn("Service demandeur");
-                        dtm.addColumn("Date");
-                        dtm.addColumn("Nature de la demande");
-                        dtm.addColumn("Résultat");
+                        break;
                     }
                 }
             } catch (SQLException ex) {
