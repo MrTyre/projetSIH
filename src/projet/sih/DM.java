@@ -31,7 +31,9 @@ public class DM {
     }
 
     /**
+     * crée une liste d'observations
      * @return the observationsPH
+     * qui sont les observations du praticien hospitalier
      */
     public DefaultListModel<Observation> getObservationsPH() {
         return observationsPH;
@@ -45,7 +47,9 @@ public class DM {
     }
 
     /**
+     * crée une liste de resultats de prestations ecrits par un praticien hospitalier
      * @return the resultatsPH
+     * qui sont les resultats de prestation ecrits par un praticien hospitalier
      */
     public DefaultListModel<String> getResultatsPH() {
         return resultatsPH;

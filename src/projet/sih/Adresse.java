@@ -32,6 +32,7 @@ public class Adresse {
 
     /**
      * @return the libelleRue
+     *          le nom de la rue
      */
     public String getLibelleRue() {
         return libelleRue;
@@ -46,6 +47,7 @@ public class Adresse {
 
     /**
      * @return the codePostal
+     *          le code postal
      */
     public int getCodePostal() {
         return codePostal;

@@ -30,6 +30,9 @@ public class CHUPP {
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
 
+    /**
+     * Constructeur de la classe CHUPP
+     */
     public CHUPP() {
         //connexion a la BD
         connection.init();
@@ -46,7 +49,7 @@ public class CHUPP {
             e.printStackTrace();
         }
 
-        //initialisationd des services
+        //initialisation des services
         scs = new DefaultListModel<ServiceClinique>();
         smts = new DefaultListModel<ServiceMedicoTechnique>();
 
@@ -95,6 +98,11 @@ public class CHUPP {
         }
     }
 
+    /**
+     * définit les valeurs prises par la comboBox "liste de services"
+     * @return les valeurs prises par la comboBox "liste de services"
+     * @throws SQLException 
+     */
     public static DefaultComboBoxModel getListeService() throws SQLException {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         
@@ -112,6 +120,11 @@ public class CHUPP {
         return dcbm;
     }
 
+    /**
+     * définit les valeurs prises par la comboBox "liste de services cliniques"
+     * @return les valeurs prises par la comboBox "liste de services cliniques"
+     * @throws SQLException 
+     */
     public static DefaultComboBoxModel getListeServiceClinique() throws SQLException {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String sql = "SELECT specialite FROM service_clinique";
@@ -121,7 +134,12 @@ public class CHUPP {
         }
         return dcbm;
     }
-    
+  
+    /**
+     * definit les valeurs prises par la comboBox "liste de services médico-techniques
+     * @return les valeurs prises par la comboBox "liste de services"
+     * @throws SQLException 
+     */
     public static DefaultComboBoxModel getListeServiceMedicoTechnique() throws SQLException {
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
         String sql = "SELECT specialite FROM service_medico_technique";
@@ -132,6 +150,12 @@ public class CHUPP {
         return dcbm;
     }
 
+    /**
+     * 
+     * @param sql, la chaine de caractère correspondant à la requête sql
+     * @return resultat
+     * @throws SQLException 
+     */
     public static ResultSet getRequete(String sql) throws SQLException {
         MyDBConnection connection = new MyDBConnection();
         //connexion a la BD

@@ -53,6 +53,7 @@ public class DPI {
     }
 
     /**
+     * crée une liste de prestations
      * @return the prestations
      */
     public DefaultListModel<Prestation> getPrestations() {

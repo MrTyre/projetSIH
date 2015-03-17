@@ -20,10 +20,11 @@ public class Consultation {
     private String lettreSortie;
     private String naturePrestation;
     private static int compteur=0;
+    
     /** 
-     * 
+     * crée un ID pour chaque consultation
      * @return compteur
-     * compteur est le nombre de consultations
+     * compteur est l'ID de la consultations
      */
     public static int getIDConsult() {
         try {
@@ -68,6 +69,7 @@ public class Consultation {
 
     /**
      * @return the phResp
+     * phResp est le praticien hospitalier responsable
      */
     public PH getPhResp() {
         return phResp;

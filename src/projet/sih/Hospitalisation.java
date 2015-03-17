@@ -96,7 +96,8 @@ public class Hospitalisation {
     }
 
     /**
-     * @return the dateEntree 
+     * @return the dateEntree
+     * date d'entrée à l'hopital pour une hospitalisation
      */
     public Date getDateEntree() {
         return dateEntree;
@@ -111,6 +112,7 @@ public class Hospitalisation {
 
     /**
      * @return the dateSortie
+     * date de sortie de l'hospitalisation
      */
     public Date getDateSortie() {
         return dateSortie;

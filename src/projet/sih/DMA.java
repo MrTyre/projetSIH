@@ -26,6 +26,7 @@ public class DMA {
     }
 
     /**
+     * crée une liste de consultations
      * @return the consultations
      */
     public DefaultListModel<Consultation> getConsultations() {
@@ -40,6 +41,7 @@ public class DMA {
     }
 
     /**
+     * crée une liste d'hospitalisations
      * @return the hospitalisations
      */
     public DefaultListModel<Hospitalisation> getHospitalisations() {
