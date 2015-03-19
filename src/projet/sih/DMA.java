@@ -57,7 +57,7 @@ public class DMA {
 /**
  * affiche la liste des consultations du patient sélectionné
  * @param patient
- * @return les chaines de caractères correspondant aux consultations du patient sélectionné
+ * @return s, les chaines de caractères correspondant aux consultations du patient sélectionné
  */
     public String afficherConsultations(Patient patient) {
         String s = "";
@@ -98,7 +98,7 @@ public class DMA {
 /**
  * affiche la liste des hospitalisations du patient sélectionné
  * @param patient
- * @return les chaines de caractères correspondant aux hospitalisations du patient sélectionné
+ * @return s, les chaines de caractères correspondant aux hospitalisations du patient sélectionné
  */
     public String afficherHospitalisations(Patient patient) {
         String s = "";

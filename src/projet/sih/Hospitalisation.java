@@ -23,7 +23,7 @@ public class Hospitalisation {
 
     /**
      * crée un ID d'hopitalisation pour chaque hospitalisation via un compteur
-     * @return 
+     * @return compteur, l'ID de l'hospitalisation
      */
     
     public static int getIDHosp() {
@@ -127,7 +127,7 @@ public class Hospitalisation {
     
    /**
     * définit la durée d'une hospitalisation
-    * @return la durée d'une hospitalisation 
+    * @return duree, la durée d'une hospitalisation 
     */ 
     public long dureeHospitalisation(){
         long duree;

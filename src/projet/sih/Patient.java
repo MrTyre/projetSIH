@@ -56,6 +56,15 @@ public class Patient {
         this.IPP = ((dizaines*10+unites)*Math.pow(10,7))+CHUPP.getCompteur();
     }
 
+    /**
+     * Constructeur de la classe Patient
+     * @param IPP
+     * @param nom
+     * @param prenom
+     * @param dateNaissance
+     * @param sexe
+     * @param adresse 
+     */
     public Patient(double IPP, String nom, String prenom, Date dateNaissance, String sexe, String adresse) {
         this.IPP = IPP;
         this.nom = nom;
@@ -67,7 +76,7 @@ public class Patient {
     }
 
     /**
-     * @return the IPP
+     * @return the IPP,P du patient
      */
     public String getIPP() {        
         DecimalFormat decimalPrintFormat = new DecimalFormat("###0");
@@ -197,7 +206,7 @@ public class Patient {
     }
 
     /**
-     * @return the medGen
+     * @return the medGen, le médecin généraliste du patient
      */
     public String getMedGen() {
         return medGen;

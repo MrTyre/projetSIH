@@ -64,7 +64,7 @@ public class DM {
 /**
  * affiche la liste des prescriptions pour la patient sélectionné
  * @param patient
- * @return les chaines de caractères correspondant aux prescriptions
+ * @return s, les chaines de caractères correspondant aux prescriptions
  */
     public String afficherPrescriptions(Patient patient) {
         String s = "";
@@ -149,7 +149,7 @@ public class DM {
 /**
  * affiche la liste des RDV pour un patient sélectionné
  * @param patient
- * @return les chaines de caractères correspondant aux RDV du patient sélectionné
+ * @return s, les chaines de caractères correspondant aux RDV du patient sélectionné
  */
     public String afficherRDV(Patient patient) {
         String s = "";
@@ -206,7 +206,7 @@ public class DM {
 /**
  * affiche la liste des résultats de prestation pour le patient sélectionné
  * @param patient
- * @return les chaines de caractères correspondant aux résultats de prestation du patient sélectionné
+ * @return s, les chaines de caractères correspondant aux résultats de prestation du patient sélectionné
  */
     public String afficherResultats(Patient patient) {
         String s = "";

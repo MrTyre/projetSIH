@@ -21,7 +21,7 @@ public abstract class Service {
     private DefaultListModel<Chambre> chambres;    
 
     /**
-     * @return the chefDeService 
+     * @return the chefDeService, le chef du service 
      */
     public PH getChefDeService() {
         return chefDeService;

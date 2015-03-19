@@ -100,7 +100,7 @@ public class CHUPP {
 
     /**
      * définit les valeurs prises par la comboBox "liste de services"
-     * @return les valeurs prises par la comboBox "liste de services"
+     * @return dcbm, les valeurs prises par la comboBox "liste de services"
      * @throws SQLException 
      */
     public static DefaultComboBoxModel getListeService() throws SQLException {
@@ -122,7 +122,7 @@ public class CHUPP {
 
     /**
      * définit les valeurs prises par la comboBox "liste de services cliniques"
-     * @return les valeurs prises par la comboBox "liste de services cliniques"
+     * @return dcbm, les valeurs prises par la comboBox "liste de services cliniques"
      * @throws SQLException 
      */
     public static DefaultComboBoxModel getListeServiceClinique() throws SQLException {
@@ -153,7 +153,7 @@ public class CHUPP {
     /**
      * 
      * @param sql, la chaine de caractère correspondant à la requête sql
-     * @return resultat
+     * @return resultat 
      * @throws SQLException 
      */
     public static ResultSet getRequete(String sql) throws SQLException {
@@ -164,7 +164,12 @@ public class CHUPP {
         ResultSet resultat = connection.getStatement().executeQuery(sql);
         return resultat;
     }
-
+/**
+ * met à jour la base de données
+ * @param sql
+ * @return statut, l'état de la base de données
+ * @throws SQLException 
+ */
     public static int getInsert(String sql) throws SQLException {
         MyDBConnection connection = new MyDBConnection();
         //connexion a la BD
@@ -173,13 +178,17 @@ public class CHUPP {
         int statut = connection.getStatement().executeUpdate(sql);
         return statut;
     }
-
+/**
+ * définit une liste de services cliniques
+ * @return scs, la liste des services cliniques
+ */
     public DefaultListModel<ServiceClinique> getScs() {
         return scs;
     }
 
     /**
-     * @return the smts
+     * définit une liste de services médico-techniques
+     * @return the smts, la liste des services médico-techniques
      */
     public DefaultListModel<ServiceMedicoTechnique> getSmts() {
         return smts;
@@ -213,6 +222,16 @@ public class CHUPP {
         compteur = aCompteur;
     }
 
+    /**
+     * crée un nouveau service clinique, ayant une spécialité, un chef de service, des praticiens, 
+     * des patients, des infirmiers et des internes et ajoute ce service dans la liste des services cliniques
+     * @param specialite
+     * @param chefDeService
+     * @param praticiens
+     * @param patients
+     * @param infirmiers
+     * @param internes 
+     */
     public void creerServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients, DefaultListModel<PersonnelInfirmier> infirmiers, DefaultListModel<Interne> internes) {
         ServiceClinique sc = new ServiceClinique(specialite, chefDeService, praticiens, patients, infirmiers, internes);
         scs.addElement(sc);

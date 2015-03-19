@@ -17,7 +17,7 @@ public class ServiceAdmission {
     private DefaultListModel<Secretaire> secretaires;
 
     /**
-     * @return the chefDeService
+     * @return the chefDeService, le chef du service d'admission
      */
     public PH getChefDeService() {
         return chefDeService;
@@ -31,7 +31,7 @@ public class ServiceAdmission {
     }
 
     /**
-     * @return the secretaires
+     * @return the secretaires, les secretaires du service d'admission
      */
     public DefaultListModel<Secretaire> getSecretaires() {
         return secretaires;

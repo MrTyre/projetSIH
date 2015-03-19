@@ -66,7 +66,7 @@ public class Resultat {
     }
 
     /**
-     * @return the phWriter
+     * @return the phWriter, le praticien hospitalier ayant rédigé le résultat de prestation
      */
     public PH getPhWriter() {
         return phWriter;
@@ -80,7 +80,7 @@ public class Resultat {
     }
 
     /**
-     * @return the presciptionAssociee
+     * @return the presciptionAssociee, la prescription associée au résultat de prestation
      */
     public Prestation getPrestationAssociee() {
         return prestationAssociee;

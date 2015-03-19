@@ -27,6 +27,9 @@ public abstract class PersonnelMedical {
         mdp = "DefaultMdp";
         specialite = "DefaultSpeciality";
     }
+      /**
+     * constructeur de la classe PersonnelMedical
+     */
 
     public PersonnelMedical(String id, String nom, String prenom, String mdp) {
         this.ID = id;
@@ -34,12 +37,18 @@ public abstract class PersonnelMedical {
         this.prenom = prenom;
         this.mdp = mdp;
     }
-    
+   
+      /**
+     * constructeur de la classe PersonnelMedical
+     */
     public PersonnelMedical(String id,String nom, String prenom){
         this.ID=id;
         this.nom=nom;
         this.prenom=prenom;
     }
+      /**
+     * constructeur de la classe PersonnelMedical
+     */
     public PersonnelMedical(String id, String nom, String prenom, String mdp, String specialite) {
         this.ID = id;
         this.nom = nom;
@@ -49,7 +58,7 @@ public abstract class PersonnelMedical {
     }
 
     /**
-     * @return the ID
+     * @return the ID, l'ID du personnel médical
      */
     public String getID() {
         return ID;
@@ -91,7 +100,7 @@ public abstract class PersonnelMedical {
     }
 
     /**
-     * @return the mdp
+     * @return the mdp, le mot de passe de connexion du personnel médical
      */
     public String getMdp() {
         return mdp;

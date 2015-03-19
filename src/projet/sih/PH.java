@@ -33,7 +33,7 @@ public class PH extends PersonnelMedical {
     }
 
     /**
-     * @return the id
+     * @return the id, l'ID du praticien hospitalier
      */
     public String getID() {
         return super.ID;
@@ -75,7 +75,7 @@ public class PH extends PersonnelMedical {
     }
 /**
  * crée une chaine de caractères avec le nom et le prénom du praticien hospitalier
- * @return 
+ * @return s, la chaine de caractère correspondant au nom et prenom du praticien hospitalier 
  */
     public String toString() {
         String s = this.getNom() + " " + this.getPrenom();

@@ -122,7 +122,7 @@ public class Prescription {
     }
 
     /**
-     * @return the medicaments
+     * @return the medicaments, les médicaments contenus dans la prescription
      */
     public DefaultListModel<Medicament> getMedicaments() {
         return medicaments;
