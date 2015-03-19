@@ -358,7 +358,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                     + "," + currentPatient.getIPP()
                     + ",'" + date_debut + "','"
                     + jTextFieldNatureHospitalisation.getText()
-                    + "','" + date_fin + "')";
+                    + "','" + date_fin + "',0)";
             CHUPP.getInsert(sql);
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
