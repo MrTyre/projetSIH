@@ -51,7 +51,7 @@ public class PersonnelInfirmier extends PersonnelMedical{
     }
     
     /**
-     * @param id the id to set
+     * @param ID the id to set
      */
     public void setID(String ID) {
         super.setID(ID);

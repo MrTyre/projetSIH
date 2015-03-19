@@ -61,6 +61,8 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
 
     /**
      * Creates new form ServiceMedicoTechniquesIU
+     * @throws FileNotFoundException
+     * @throws IOException
      */
     public ServiceMedicoTechniquesIU() throws FileNotFoundException, IOException {
         initComponents();
