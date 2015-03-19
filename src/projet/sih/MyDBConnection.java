@@ -27,7 +27,8 @@ public class MyDBConnection {
 
             Class.forName("com.mysql.jdbc.Driver");
             myConnection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/MyDB", "root", "Genesis2014");
+                    //"jdbc:mysql://localhost:3306/mydb", "root", "Genesis2014");
+                    "jdbc:mysql://192.168.1.1:3306/mydb", "genesis" , "" );
             statement = myConnection.createStatement(
                     ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);

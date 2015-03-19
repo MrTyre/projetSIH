@@ -105,7 +105,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 int returnVal = chooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     directory = chooser.getSelectedFile().getPath();
-                    System.out.println(directory);
                 }
             }
         });
