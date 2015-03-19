@@ -219,7 +219,7 @@ public class CHUPP {
     }
 
     /**
-     * @return the si
+     * @return the si, le service informatique
      */
     public ServiceInformatique getSi() {
         return si;

@@ -8,7 +8,7 @@ Caller-Allowable-Codebase: www.javaquery.com javaquery.com
 Application-Name: javaQuery
 Bundle-Name: Name of your llibrary
 Bundle-Version: 1.4.1
-Bundle-Date: 2015-03-17 15:02:37 CET
+Bundle-Date: 2015-03-19 13:04:03 CET
 Implementation-Title: Name of your llibrary
 Implementation-Version: 1.4.1
 Implementation-URL: http://www.javaquery.com
