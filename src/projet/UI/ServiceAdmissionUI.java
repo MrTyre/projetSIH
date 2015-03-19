@@ -89,6 +89,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
         jComboBoxServiceTri.setModel(CHUPP.getListeServiceClinique());
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Archives");
+        ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Tous");
+        jComboBoxServiceTri.setSelectedItem("Tous");
 
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -107,16 +109,6 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-        sql = "SELECT nom, prenom, date_naissance FROM Patient where etat = 0";
-        try {
-            ResultSet resultat = CHUPP.getRequete(sql);
-            while (resultat.next()) {
-                dlm.addElement(resultat.getString("nom") + " " + resultat.getString("prenom") + " / " + resultat.getString("date_naissance"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("bla");
-        }
         jList1.setModel(dlm);
         repaint();
     }
@@ -159,6 +151,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jButtonDeconnexion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxTransfert = new javax.swing.JComboBox();
+        jButtonTransfert = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -362,6 +355,15 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             }
         });
 
+        jButtonTransfert.setBackground(new java.awt.Color(153, 153, 255));
+        jButtonTransfert.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonTransfert.setText("Transférer");
+        jButtonTransfert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTransfertActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -378,6 +380,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBoxTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -407,7 +411,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBoxTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTransfert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonTransfert))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -558,7 +563,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         String spe = (String) ((JComboBox) evt.getSource()).getSelectedItem();
         try {
             jComboBoxTransfert.setModel(CHUPP.getListeServiceClinique());
-            ((DefaultComboBoxModel)jComboBoxTransfert.getModel()).removeElement(spe);
+            ((DefaultComboBoxModel) jComboBoxTransfert.getModel()).removeElement(spe);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -580,16 +585,28 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 + currentDate + "' and service_clinique.specialite='"
                 + spe + "'";
         String sql3 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient where etat = 1";
+        String sql4 = "SELECT nom, prenom, date_naissance FROM Patient where etat = 0";
         dlm = new DefaultListModel();
 
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
             ResultSet resultat3 = CHUPP.getRequete(sql3);
+            ResultSet resultat4 = CHUPP.getRequete(sql4);
             if (spe.equals("Archives")) {
-                while (resultat3.next()){
+                while (resultat3.next()) {
                     if (!dlm.contains(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"))) {
                         dlm.addElement(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"));
+                        jList1.setModel(dlm);
+                        repaint();
+                    }
+                }
+            } else if (spe.equals("Tous")) {
+                while (resultat4.next()) {
+                    if (!dlm.contains(resultat4.getString("patient.nom") + " " + resultat4.getString("patient.prenom") + " / " + resultat4.getString("patient.date_naissance"))) {
+                        dlm.addElement(resultat4.getString("nom") + " " + resultat4.getString("prenom") + " / " + resultat4.getString("date_naissance"));
+                        jList1.setModel(dlm);
+                        repaint();
                     }
                 }
             } else {
@@ -603,13 +620,17 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                         dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
                     }
                 }
+                jList1.setModel(dlm);
+                repaint();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jList1.setModel(dlm);
-        repaint();
     }//GEN-LAST:event_jComboBoxServiceTriActionPerformed
+
+    private void jButtonTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransfertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTransfertActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -621,6 +642,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAjoutRDV;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonEditDMA;
+    private javax.swing.JButton jButtonTransfert;
     private javax.swing.JComboBox jComboBoxServiceTri;
     private javax.swing.JComboBox jComboBoxTransfert;
     private javax.swing.JLabel jLabel1;
@@ -705,7 +727,6 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
-
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
@@ -730,7 +751,6 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                         repaint();
                     }
                 }
-
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }

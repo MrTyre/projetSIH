@@ -1,6 +1,7 @@
 package projet.UI;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 
 import java.awt.image.BufferedImage;
@@ -20,9 +21,7 @@ import projet.sih.*;
  */
 public class ConnexionUI extends javax.swing.JFrame {
 
-    /**
-     * @return the currentConnected
-     */
+   
     private ServiceCliniqueIU sc;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
@@ -98,10 +97,20 @@ public class ConnexionUI extends javax.swing.JFrame {
                 jButtonOKActionPerformed(evt);
             }
         });
+        jButtonOK.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonOKKeyPressed(evt);
+            }
+        });
 
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
+            }
+        });
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
             }
         });
 
@@ -172,6 +181,16 @@ public class ConnexionUI extends javax.swing.JFrame {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         connexion();
     }//GEN-LAST:event_jButtonOKActionPerformed
+
+    private void jButtonOKKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonOKKeyPressed
+       
+    }//GEN-LAST:event_jButtonOKKeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            connexion();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

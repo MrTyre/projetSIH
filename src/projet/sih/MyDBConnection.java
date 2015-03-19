@@ -31,9 +31,6 @@ public class MyDBConnection {
             statement = myConnection.createStatement(
                     ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
-            String sql="SELECT * FROM Patient";
-
-            resultat = statement.executeQuery(sql);
 
         } catch (Exception e) {
             System.out.println("Failed to get connection");
