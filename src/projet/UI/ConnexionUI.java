@@ -21,7 +21,6 @@ import projet.sih.*;
  */
 public class ConnexionUI extends javax.swing.JFrame {
 
-   
     private ServiceCliniqueIU sc;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
@@ -51,9 +50,13 @@ public class ConnexionUI extends javax.swing.JFrame {
         FileInputStream input = new FileInputStream("src/Images/Princeton-Plainsboro.jpg");
         BufferedImage myPicture = ImageIO.read(input);
         ImageIcon image = new ImageIcon(myPicture);
-
+        FileInputStream input2 = new FileInputStream("src/Images/GenesisHealthCareSolution.png");
+        BufferedImage myPicture2 = ImageIO.read(input2);
+        ImageIcon image2 = new ImageIcon(myPicture2);
         jLabel1.setIcon(image);
         jLabel1.setVisible(true);
+        jLabel2.setIcon(image2);
+        jLabel2.setVisible(true);
         connection.init();
         connection.getMyConnection();
     }
@@ -74,6 +77,7 @@ public class ConnexionUI extends javax.swing.JFrame {
         jButtonOK = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -137,7 +141,9 @@ public class ConnexionUI extends javax.swing.JFrame {
                         .addGap(0, 19, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -155,7 +161,9 @@ public class ConnexionUI extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jButtonOK)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,7 +176,9 @@ public class ConnexionUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -183,11 +193,11 @@ public class ConnexionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonOKKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonOKKeyPressed
-       
+
     }//GEN-LAST:event_jButtonOKKeyPressed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             connexion();
         }
     }//GEN-LAST:event_jPasswordField1KeyPressed
@@ -196,6 +206,7 @@ public class ConnexionUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOK;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelMdp;
     private javax.swing.JPanel jPanel1;

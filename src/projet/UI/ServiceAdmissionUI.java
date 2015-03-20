@@ -725,34 +725,35 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
-
-            try {
-                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
-                while (result.next()) {
-                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
-                        IPP.setText(currentPatient.getIPP());
-                        Patient.setText(currentPatient.getNom());
-                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                        jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                        jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
-                        jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                        jTextArea1.setCaretPosition(0);
-                        jTextArea2.setCaretPosition(0);
-                        jTextArea3.setCaretPosition(0);
-                        jTextArea4.setCaretPosition(0);
-                        jTextArea5.setCaretPosition(0);
-                        jTextArea1.setBackground(new Color(240, 240, 255));
-                        jTextArea2.setBackground(new Color(240, 240, 255));
-                        jTextArea3.setBackground(new Color(240, 240, 255));
-                        jTextArea4.setBackground(new Color(240, 240, 255));
-                        jTextArea5.setBackground(new Color(240, 240, 255));
-                        repaint();
+            if (!lse.getValueIsAdjusting()) {
+                try {
+                    ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                    while (result.next()) {
+                        if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                            IPP.setText(currentPatient.getIPP());
+                            Patient.setText(currentPatient.getNom());
+                            jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+                            jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                            jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
+                            jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea1.setCaretPosition(0);
+                            jTextArea2.setCaretPosition(0);
+                            jTextArea3.setCaretPosition(0);
+                            jTextArea4.setCaretPosition(0);
+                            jTextArea5.setCaretPosition(0);
+                            jTextArea1.setBackground(new Color(240, 240, 255));
+                            jTextArea2.setBackground(new Color(240, 240, 255));
+                            jTextArea3.setBackground(new Color(240, 240, 255));
+                            jTextArea4.setBackground(new Color(240, 240, 255));
+                            jTextArea5.setBackground(new Color(240, 240, 255));
+                            repaint();
+                        }
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
