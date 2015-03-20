@@ -27,7 +27,7 @@ public class PersonnelInfirmier extends PersonnelMedical{
         super(id,nom,prenom,mdp,specialite);
     }
     /**
-     * @return the id
+     * @return the id, l'ID du personnel infirmier
      */
     public String getID() {
         return super.getID();

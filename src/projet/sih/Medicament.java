@@ -34,7 +34,7 @@ public class Medicament {
     }
 /**
  * crée un ID pour chaque médicament 
- * @return compteur, l'ID du médicalment
+ * @return compteur, l'ID du médicament
  */
     public static int getIDMed() {
         try {
@@ -51,7 +51,7 @@ public class Medicament {
     }
 
     /**
-     * @return the nomMedoc
+     * @return the nomMedoc, le nom du médicament
      */
     public String getNomMedoc() {
         return nomMedoc;
@@ -79,7 +79,7 @@ public class Medicament {
     }
 
     /**
-     * @return the dateFin
+     * @return the dateFin, la date de fin du traitement
      */
     public Date getDateFin() {
         return dateFin;

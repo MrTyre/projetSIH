@@ -38,7 +38,10 @@ public class ServiceClinique extends Service {
     public void setSpecialite(String specialite) {
         this.specialite = specialite;
     }
-    
+  
+    /**
+     * constructeur de la classe ServiceClinique
+     */
     public ServiceClinique(){
         this.setChefDeService(new PH());
         this.setPraticiens(new DefaultListModel<PH>());
@@ -46,6 +49,10 @@ public class ServiceClinique extends Service {
         this.setInternes(new DefaultListModel<Interne>());
         this.setInfirmiers(new DefaultListModel<PersonnelInfirmier>());
     }
+    
+     /**
+     * constructeur de la classe ServiceClinique
+     */
     
     public ServiceClinique(String specialite, PH chefDeService, DefaultListModel<PH> praticiens, DefaultListModel<Patient> patients,DefaultListModel<PersonnelInfirmier> infirmiers, DefaultListModel<Interne> internes){
         this.setSpecialite(specialite);
@@ -55,7 +62,11 @@ public class ServiceClinique extends Service {
         this.setInternes(internes);
         this.setInfirmiers(infirmiers);
     }
-    
+
+    /**
+     * crée un DM pour un patient s'il n'en a pas déjà un
+     * @param p, le patient sujet du DM
+     */
     public void creerDM(Patient p){
         if (p.getDpi().getDm() == null){
             p.getDpi().setDm(new DM());

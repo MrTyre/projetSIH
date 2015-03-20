@@ -20,7 +20,7 @@ public class Observation {
     private String observation;
 
     /**
-     * @return the date
+     * @return the date, la date de l'observation
      */
     
     public Date getDate() {

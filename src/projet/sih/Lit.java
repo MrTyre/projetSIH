@@ -13,7 +13,7 @@ public class Lit {
     private String emplacement;
 
     /**
-     * @return the emplacement
+     * @return the emplacement, l'emplacement du lit
      */
     public String getEmplacement() {
         return emplacement;

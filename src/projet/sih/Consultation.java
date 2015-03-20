@@ -23,8 +23,7 @@ public class Consultation {
     
     /** 
      * crée un ID pour chaque consultation
-     * @return compteur
-     * compteur est l'ID de la consultations
+     * @return compteur, l'ID de la consultations
      */
     public static int getIDConsult() {
         try {
@@ -40,7 +39,7 @@ public class Consultation {
         }
     }
     /**
-     * @return the numSejour
+     * @return the numSejour, le numéro de séjour
      */
     public double getNumSejour() {
         return numSejour;
