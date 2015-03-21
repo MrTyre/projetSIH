@@ -597,17 +597,17 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 while (resultat3.next()) {
                     if (!dlm.contains(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"))) {
                         dlm.addElement(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"));
-                        jList1.setModel(dlm);
-                        repaint();
                     }
+                    jList1.setModel(dlm);
+                    repaint();
                 }
             } else if (spe.equals("Tous")) {
                 while (resultat4.next()) {
                     if (!dlm.contains(resultat4.getString("patient.nom") + " " + resultat4.getString("patient.prenom") + " / " + resultat4.getString("patient.date_naissance"))) {
                         dlm.addElement(resultat4.getString("nom") + " " + resultat4.getString("prenom") + " / " + resultat4.getString("date_naissance"));
-                        jList1.setModel(dlm);
-                        repaint();
                     }
+                    jList1.setModel(dlm);
+                    repaint();
                 }
             } else {
                 while (resultat.next()) {
@@ -619,6 +619,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     if (!dlm.contains(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"))) {
                         dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
                     }
+
                 }
                 jList1.setModel(dlm);
                 repaint();
@@ -725,7 +726,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
-            if (!lse.getValueIsAdjusting()) {
+            if (lse.getValueIsAdjusting()) {
                 try {
                     ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                     while (result.next()) {

@@ -259,7 +259,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         JOptionPane j = new JOptionPane();
-        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette hospitalisation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
                 ajouterHospitalisation();
@@ -358,7 +358,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                     + "," + currentPatient.getIPP()
                     + ",'" + date_debut + "','"
                     + jTextFieldNatureHospitalisation.getText()
-                    + "','" + date_fin + "',0)";
+                    + "','" + date_fin + "')";
             CHUPP.getInsert(sql);
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);

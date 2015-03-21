@@ -35,7 +35,7 @@ public class Patient {
      * @param medGen
      * @param adGen 
      */
-    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen){
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen, Date dateActu){
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
@@ -50,8 +50,8 @@ public class Patient {
         this.adGen = adGen;
         this.dpi = new DPI();
         //récupérer les 2 derniers chiffres de l'année de naissance
-        int dizaines = (this.dateNaissance.getYear() % 100) / 10;
-        int unites = this.dateNaissance.getYear() % 10;
+        int dizaines = (dateActu.getYear() % 100) / 10;
+        int unites = dateActu.getYear() % 10;
         CHUPP.setCompteur(CHUPP.getCompteur()+1);
         this.IPP = ((dizaines*10+unites)*Math.pow(10,7))+CHUPP.getCompteur();
     }
@@ -74,12 +74,33 @@ public class Patient {
         this.adresse=adresse;        
         this.dpi = new DPI();
     }
-
+    
+    /**
+     * Constructeur de la classe Patient
+     * @param IPP
+     * @param nom
+     * @param prenom
+     * @param dateNaissance
+     * @param sexe
+     * @param adresse 
+     * @param medGen
+     * @param adGen
+     */
+    public Patient(double IPP, String nom, String prenom, Date dateNaissance, String sexe, String adresse, String medGen, String adGen) {
+        this.IPP = IPP;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        this.sexe = sexe;
+        this.adresse=adresse;        
+        this.dpi = new DPI();
+    }
+    
     /**
      * @return the IPP,P du patient
      */
     public String getIPP() {        
-        DecimalFormat decimalPrintFormat = new DecimalFormat("###0");
+        DecimalFormat decimalPrintFormat = new DecimalFormat("000000000");
         return decimalPrintFormat.format(this.IPP);
     }
 
