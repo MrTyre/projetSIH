@@ -175,7 +175,7 @@ public class DM {
                     if ((resultat.getString("date").equals(date.toString()))) {
                         if ((resultat.getInt("heure") == heure)) {
                             if (resultat.getInt("minute") > min) {
-                                s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
+                                s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
                                 s += "\n\nNature de la prestation :   ";
                                 s += resultat.getString("consultation.nature_prestation");
                                 s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
@@ -183,13 +183,13 @@ public class DM {
                                 s += "\nIl n'y a pas de rendez-vous prévus pour le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
                             }
                         } else if (resultat.getInt("heure") > heure) {
-                            s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
+                            s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
                             s += "\n\nNature de la prestation :   ";
                             s += resultat.getString("consultation.nature_prestation");
                             s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                         }
                     } else if (resultat.getDate("date").compareTo(date) > 0) {
-                        s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
+                        s += "\n\nRendez-vous prévu le " + resultat.getDate("consultation.date") + " à " + resultat.getInt("heure") + "h" + resultat.getInt("minute") + ", avec le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom");
                         s += "\n\nNature de la prestation :   ";
                         s += resultat.getString("consultation.nature_prestation");
                         s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";

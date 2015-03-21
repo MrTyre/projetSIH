@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private String sql;
     private ServiceAdmissionUI serviceAdmission;
     private DemandeConsHosp dchUI;
+    private Patient currentPatient;
 
     /**
      * Creates new form AjouterPatientIU
@@ -413,6 +415,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         dchUI = new DemandeConsHosp();
         dchUI.setLocationRelativeTo(null);
         dchUI.setServiceAdmissionUI(serviceAdmission);
+        dchUI.setCurrentPatient(currentPatient);
         dchUI.setVisible(true);
         setVisible(false);        
     }//GEN-LAST:event_jButtonOKActionPerformed
@@ -491,6 +494,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterPatient() {
+        Date dateActu = new Date(System.currentTimeMillis());
+        int jourNaiss = Integer.parseInt(jTextFieldDateNaissJour.getText());
+        int moisNaiss = Integer.parseInt(jTextFieldDateNaissMois.getText());
+        int anneeNaiss = Integer.parseInt(jTextFieldDateNaissAnnee.getText());
         if ((jTextFieldNomNewPatient.getText().equals(""))
                 || (jTextFieldPrenomNewPatient.getText().equals(""))
                 || (jTextFieldAdresseNewPatient.getText().equals(""))
@@ -504,11 +511,15 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         } else if ((jTextFieldCodePostalNewPatient.getText().length() != 5) && !(jTextFieldCodePostalNewPatient.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Mauvais code postal", "Attention", JOptionPane.WARNING_MESSAGE);
-
+        } else if ((anneeNaiss > dateActu.getYear())
+                ||(moisNaiss > 12)
+                ||(jourNaiss > 31)){
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Date de naissance : date incorrecte", "Attention", JOptionPane.WARNING_MESSAGE);      
         } else {
             String nom = jTextFieldNomNewPatient.getText();
             String prenom = jTextFieldPrenomNewPatient.getText();
-            String date = jTextFieldDateNaissAnnee.getText() + "-" + jTextFieldDateNaissMois.getText() + "-" + jTextFieldDateNaissJour.getText();
+            String date = anneeNaiss + "-" + moisNaiss + "-" + jourNaiss;
             java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
                     Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissJour.getText())
             );
@@ -520,15 +531,11 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             String adress = adresse.getAdresse();
             String medGen = jTextFieldNomDr.getText();
             String adGen = jTextFieldAdresseDr.getText() + ", " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
-            Patient p = new Patient(nom, prenom, d, sexe, adress, medGen, adGen);
+            
+            currentPatient = new Patient(nom, prenom, d, sexe, adress, medGen, adGen, dateActu);
             if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + date))) {
-                serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
-                serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
-                serviceAdmission.getJList1().revalidate();
-                serviceAdmission.getJList1().repaint();
-
                 try {
-                    sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
+                    sql = "INSERT INTO Patient VALUES (" + currentPatient.getIPP() + ", '" + nom + "','" + prenom + "','" + date
                             + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "',0 )";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();

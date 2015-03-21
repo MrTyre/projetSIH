@@ -22,7 +22,7 @@ import projet.sih.*;
  *
  * @author Tommy
  */
-public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
+public class ResultatPrestationLaboIU extends javax.swing.JFrame {
 
     private ConnexionUI connexionUI;
     private Patient currentPatient;
@@ -35,7 +35,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
     /**
      * Creates new form ResultatPrestationLaboAnesthesieIU
      */
-    public ResultatPrestationLaboAnesthesieIU() {
+    public ResultatPrestationLaboIU() {
         initComponents();
 
         date = new Date(System.currentTimeMillis());
@@ -206,7 +206,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelDatePrestation, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -247,7 +247,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEnvoyer)
                     .addComponent(jButtonAnnuler))
@@ -323,7 +323,7 @@ public class ResultatPrestationLaboAnesthesieIU extends javax.swing.JFrame {
                 smt.revalidate();
                 smt.repaint();
             } catch (SQLException ex) {
-                Logger.getLogger(ResultatPrestationLaboAnesthesieIU.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ResultatPrestationLaboIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             j.setVisible(false);
