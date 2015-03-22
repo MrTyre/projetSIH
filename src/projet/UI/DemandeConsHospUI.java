@@ -8,6 +8,7 @@ package projet.UI;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import projet.sih.Patient;
 
@@ -15,16 +16,17 @@ import projet.sih.Patient;
  *
  * @author Tommy
  */
-public class DemandeConsHosp extends javax.swing.JFrame {
+public class DemandeConsHospUI extends javax.swing.JFrame {
     private Patient currentPatient;
     private ServiceAdmissionUI serviceAdmissionUI;
     private AjoutRdvUI ardvUI;
     private AjouterHospitalisationUI ahUI;
+    private String serviceTransmis = "";
     
     /**
      * Creates new form DemandeConsHosp
      */
-    public DemandeConsHosp() {
+    public DemandeConsHospUI() {
         initComponents();
     }
 
@@ -95,7 +97,14 @@ public class DemandeConsHosp extends javax.swing.JFrame {
             ardvUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             ardvUI.setCurrentPatient(currentPatient);
             ardvUI.setServiceAdmission(serviceAdmissionUI);
+            if(!(serviceTransmis.equals(""))){
+                DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+                dcbm.addElement(serviceTransmis);
+                ardvUI.getjComboBoxService().setModel(dcbm);
+                ardvUI.getjComboBoxService().setSelectedIndex(0);
+            }
             ardvUI.setVisible(true);
+            setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,7 +117,14 @@ public class DemandeConsHosp extends javax.swing.JFrame {
             ahUI.setLocationRelativeTo(null);
             ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             ahUI.setServiceAdmission(serviceAdmissionUI);
+            if(!(serviceTransmis.equals(""))){
+                DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+                dcbm.addElement(serviceTransmis);
+                ahUI.getjComboBoxService().setModel(dcbm);
+                ahUI.getjComboBoxService().setSelectedIndex(0);
+            }
             ahUI.setVisible(true);
+            setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,5 +149,12 @@ public class DemandeConsHosp extends javax.swing.JFrame {
      */
     public void setServiceAdmissionUI(ServiceAdmissionUI serviceAdmissionUI) {
         this.serviceAdmissionUI = serviceAdmissionUI;
+    }
+
+    /**
+     * @param serviceTransmis the serviceTransmis to set
+     */
+    public void setServiceTransmis(String serviceTransmis) {
+        this.serviceTransmis = serviceTransmis;
     }
 }

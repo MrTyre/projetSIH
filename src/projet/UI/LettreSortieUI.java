@@ -207,7 +207,7 @@ public class LettreSortieUI extends javax.swing.JFrame {
             try {
                 GenererLettreSortie(currentPH, currentPatient);
                 JOptionPane j2 = new JOptionPane();
-                String sql = "update patient set etat =1 where ipp =" + currentPatient.getIPP();
+                String sql = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
                 CHUPP.getInsert(sql);
                 scIU.getjLabelIPP().setText("");
                 scIU.getjLabelPatient().setText("");

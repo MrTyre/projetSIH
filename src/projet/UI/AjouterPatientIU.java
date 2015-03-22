@@ -21,7 +21,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private Sexe sexe;
     private String sql;
     private ServiceAdmissionUI serviceAdmission;
-    private DemandeConsHosp dchUI;
+    private DemandeConsHospUI dchUI;
     private Patient currentPatient;
 
     /**
@@ -412,7 +412,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         ajouterPatient();
         serviceAdmission.getJList1().repaint();
-        dchUI = new DemandeConsHosp();
+        dchUI = new DemandeConsHospUI();
         dchUI.setLocationRelativeTo(null);
         dchUI.setServiceAdmissionUI(serviceAdmission);
         dchUI.setCurrentPatient(currentPatient);

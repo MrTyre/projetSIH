@@ -317,8 +317,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPrenomActionPerformed
 
     private void jTextFieldPrenomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrenomKeyPressed
-        nom = jTextFieldNom.getText();
-        prenom = jTextFieldPrenom.getText();
+        nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
+        nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase();
+        prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
+        prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase();
+
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 DefaultComboBoxModel cbStatut = new DefaultComboBoxModel();
@@ -379,7 +382,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         jLabelNouveauStatut.setVisible(false);
                         jLabelStatutActuel.setText("Personnel Infirmier");
                         jLabelServiceActuel.setText(resultinf.getString("service"));
-                        String spe = "select specialite from service_clinique where specialite !='" + resultinf.getString("service") +"'";
+                        String spe = "select specialite from service_clinique where specialite !='" + resultinf.getString("service") + "'";
                         ResultSet resultspe = CHUPP.getRequete(spe);
                         while (resultspe.next()) {
                             cbService.addElement(resultspe.getString("specialite"));

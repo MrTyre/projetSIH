@@ -214,21 +214,18 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNomService)
-                    .addComponent(jTextFieldNomService))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelChefDeService)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNom))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelNom)
-                    .addComponent(jTextFieldNom))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelPrenom)
-                        .addGap(40, 40, 40))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldPrenom)
-                        .addGap(30, 30, 30)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPrenom))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRetour)
                     .addComponent(jButtonOK))
@@ -334,24 +331,24 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                     String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
                                     CHUPP.getInsert(sql3);
                                     CHUPP.getInsert(sql);
-                                    System.out.println("blabla");
                                     JOptionPane jop1 = new JOptionPane();
                                     jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                    break;
                                 } else {
                                     JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service medico technique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                    jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service médico-technique", "Attention", JOptionPane.WARNING_MESSAGE);
                                     break;
                                 }
                             }
                         } else {
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
                             break;
                         }
+                        break;
                     }
-
+                    break;
                 }
-
             } else if (((String) jComboBoxService.getSelectedItem()).equals("Médico-technique")) {
                 while (resultat2.next()) {
                     while (resultat2ChefServiceClinique.next()) {
@@ -364,19 +361,21 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                                     CHUPP.getInsert(sql);
                                     JOptionPane jop1 = new JOptionPane();
                                     jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                    break;
                                 } else {
                                     JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service medico technique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                    jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service médico-technique", "Attention", JOptionPane.WARNING_MESSAGE);
                                     break;
                                 }
                             }
                         } else {
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "le practicien hospitalier selectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            jop1.showMessageDialog(null, "Le Practicien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
                             break;
                         }
+                        break;
                     }
-
+                    break;
                 }
             }
             jTextFieldNom.setText("");
