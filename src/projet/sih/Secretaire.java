@@ -28,7 +28,7 @@ public class Secretaire extends PersonnelMedical {
 
  /**
   * 
-  * @return ID
+  * @return ID, l'ID du secretaire
   */
     public String getID() {
         return super.getID();
