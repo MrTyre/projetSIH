@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/UnitePosologie.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/ProjetSIH.java</file>
+            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/DemandeConsHospUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceCliniqueInfirmieresUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/DMA.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/Interne.java</file>
@@ -24,7 +25,6 @@
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/TestConnection.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ServiceInformatiqueAjouterServiceIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ResultatPrestationRadiologieIU.java</file>
-            <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/ResultatPrestationLaboAnesthesieIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjoutRdvUI.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/UI/AjouterPrescriptionIU.java</file>
             <file>file:/C:/Users/Tommy/Documents/GitHub/Projet%20SIH%20-%20Netbeans/projetSIH/src/projet/sih/PersonnelMedical.java</file>

@@ -263,7 +263,7 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
                 smt.revalidate();
                 smt.repaint();
             } catch (SQLException ex) {
-                Logger.getLogger(ResultatPrestationLaboAnesthesieIU.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ResultatPrestationLaboIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             j.setVisible(false);

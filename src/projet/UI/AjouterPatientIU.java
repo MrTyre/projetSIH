@@ -5,6 +5,7 @@
  */
 package projet.UI;
 
+import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -20,6 +21,8 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private Sexe sexe;
     private String sql;
     private ServiceAdmissionUI serviceAdmission;
+    private DemandeConsHospUI dchUI;
+    private Patient currentPatient;
 
     /**
      * Creates new form AjouterPatientIU
@@ -76,8 +79,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         jTextFieldCodePostalDr = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldVilleDr = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -237,11 +238,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("Service : ");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -256,19 +252,13 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelAdresse)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboBox1, 0, 162, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelAdresse)
-                                            .addComponent(jLabel2))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextFieldVilleNewPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldAdresseNewPatient))))
+                                    .addComponent(jTextFieldVilleNewPatient, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldAdresseNewPatient))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -366,11 +356,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(jComboBoxPays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -390,7 +376,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonOK))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -426,7 +412,12 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         ajouterPatient();
         serviceAdmission.getJList1().repaint();
-        setVisible(false);
+        dchUI = new DemandeConsHospUI();
+        dchUI.setLocationRelativeTo(null);
+        dchUI.setServiceAdmissionUI(serviceAdmission);
+        dchUI.setCurrentPatient(currentPatient);
+        dchUI.setVisible(true);
+        setVisible(false);        
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxPaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPaysActionPerformed
@@ -469,11 +460,9 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBoxPays;
     private javax.swing.JComboBox jComboBoxSexe;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -505,6 +494,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterPatient() {
+        Date dateActu = new Date(System.currentTimeMillis());
+        int jourNaiss = Integer.parseInt(jTextFieldDateNaissJour.getText());
+        int moisNaiss = Integer.parseInt(jTextFieldDateNaissMois.getText());
+        int anneeNaiss = Integer.parseInt(jTextFieldDateNaissAnnee.getText());
         if ((jTextFieldNomNewPatient.getText().equals(""))
                 || (jTextFieldPrenomNewPatient.getText().equals(""))
                 || (jTextFieldAdresseNewPatient.getText().equals(""))
@@ -518,11 +511,15 @@ public class AjouterPatientIU extends javax.swing.JFrame {
         } else if ((jTextFieldCodePostalNewPatient.getText().length() != 5) && !(jTextFieldCodePostalNewPatient.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Mauvais code postal", "Attention", JOptionPane.WARNING_MESSAGE);
-
+        } else if ((anneeNaiss > dateActu.getYear())
+                ||(moisNaiss > 12)
+                ||(jourNaiss > 31)){
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Date de naissance : date incorrecte", "Attention", JOptionPane.WARNING_MESSAGE);      
         } else {
             String nom = jTextFieldNomNewPatient.getText();
             String prenom = jTextFieldPrenomNewPatient.getText();
-            String date = jTextFieldDateNaissAnnee.getText() + "-" + jTextFieldDateNaissMois.getText() + "-" + jTextFieldDateNaissJour.getText();
+            String date = anneeNaiss + "-" + moisNaiss + "-" + jourNaiss;
             java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
                     Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissJour.getText())
             );
@@ -534,16 +531,12 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             String adress = adresse.getAdresse();
             String medGen = jTextFieldNomDr.getText();
             String adGen = jTextFieldAdresseDr.getText() + ", " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText();
-            Patient p = new Patient(nom, prenom, d, sexe, adress, medGen, adGen);
+            
+            currentPatient = new Patient(nom, prenom, d, sexe, adress, medGen, adGen, dateActu);
             if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + date))) {
-                serviceAdmission.getDlm().addElement(nom + " " + prenom + " / " + date);
-                serviceAdmission.getJList1().setModel(serviceAdmission.getDlm());
-                serviceAdmission.getJList1().revalidate();
-                serviceAdmission.getJList1().repaint();
-
                 try {
-                    sql = "INSERT INTO Patient VALUES (" + p.getIPP() + ", '" + nom + "','" + prenom + "','" + date
-                            + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "' + 0 )";
+                    sql = "INSERT INTO Patient VALUES (" + currentPatient.getIPP() + ", '" + nom + "','" + prenom + "','" + date
+                            + "','" + sexe + "','" + adress + "', '" + medGen + "', '" + adGen + "',0 )";
                     CHUPP.getInsert(sql);
                     JOptionPane jop1 = new JOptionPane();
                     jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);

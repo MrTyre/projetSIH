@@ -273,7 +273,7 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
-        serviceConcerne = (String) jComboBoxService.getSelectedItem();
+        serviceConcerne = (String) getjComboBoxService().getSelectedItem();
         try {
             sql = "select * from practicien_hospitalier where specialite='" + serviceConcerne + "'";
             ResultSet resultat = CHUPP.getRequete(sql);
@@ -389,5 +389,12 @@ public class AjoutRdvUI extends javax.swing.JFrame {
      */
     public void setServiceAdmission(ServiceAdmissionUI serviceAdmission) {
         this.serviceAdmission = serviceAdmission;
+    }
+
+    /**
+     * @return the jComboBoxService
+     */
+    public javax.swing.JComboBox getjComboBoxService() {
+        return jComboBoxService;
     }
 }

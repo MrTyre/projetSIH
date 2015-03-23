@@ -238,7 +238,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
-        serviceConcerne = (String) jComboBoxService.getSelectedItem();
+        serviceConcerne = (String) getjComboBoxService().getSelectedItem();
         try {
             String sql = "select * from practicien_hospitalier where specialite='" + serviceConcerne + "'";
             ResultSet resultat = CHUPP.getRequete(sql);
@@ -259,7 +259,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         JOptionPane j = new JOptionPane();
-        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+        int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette hospitalisation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
                 ajouterHospitalisation();
@@ -358,7 +358,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                     + "," + currentPatient.getIPP()
                     + ",'" + date_debut + "','"
                     + jTextFieldNatureHospitalisation.getText()
-                    + "','" + date_fin + "',0)";
+                    + "','" + date_fin + "')";
             CHUPP.getInsert(sql);
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
@@ -378,5 +378,12 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
      */
     public void setServiceAdmission(ServiceAdmissionUI serviceAdmission) {
         this.serviceAdmission = serviceAdmission;
+    }
+
+    /**
+     * @return the jComboBoxService
+     */
+    public javax.swing.JComboBox getjComboBoxService() {
+        return jComboBoxService;
     }
 }

@@ -54,6 +54,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private static Patient currentPatient;
     private PersonnelMedical currentPers;
     private JList1ActionPerformed jll;
+    private DemandeConsHospUI dchUI;
 
     private DefaultListModel dlm = new DefaultListModel();
 //attribut base de donnée
@@ -90,6 +91,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jComboBoxServiceTri.setModel(CHUPP.getListeServiceClinique());
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Archives");
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Tous");
+        ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("DMA Fermés");
         jComboBoxServiceTri.setSelectedItem("Tous");
 
         deco.addActionListener(new ActionListener() {
@@ -564,72 +566,124 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         try {
             jComboBoxTransfert.setModel(CHUPP.getListeServiceClinique());
             ((DefaultComboBoxModel) jComboBoxTransfert.getModel()).removeElement(spe);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        java.sql.Date currentDate = new Date(System.currentTimeMillis());
-        sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
-                + "hospitalisation, practicien_hospitalier, service_clinique "
-                + "where patient.ipp=hospitalisation.ipp "
-                + "and patient.etat = 0"
-                + " and hospitalisation.idph=practicien_hospitalier.idph and"
-                + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
-                + currentDate + "' and service_clinique.specialite='"
-                + spe + "'";
-        String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
-                + " consultation, practicien_hospitalier, service_clinique "
-                + "where patient.ipp=consultation.ipp "
-                + "and patient.etat = 0"
-                + " and consultation.idph=practicien_hospitalier.idph and"
-                + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
-                + currentDate + "' and service_clinique.specialite='"
-                + spe + "'";
-        String sql3 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient where etat = 1";
-        String sql4 = "SELECT nom, prenom, date_naissance FROM Patient where etat = 0";
-        dlm = new DefaultListModel();
 
-        try {
-            ResultSet resultat = CHUPP.getRequete(sql);
+            java.sql.Date currentDate = new Date(System.currentTimeMillis());
+            String sqlc = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                    + "hospitalisation, practicien_hospitalier, service_clinique "
+                    + "where patient.ipp=hospitalisation.ipp "
+                    + "and patient.etat = 0"
+                    + " and hospitalisation.idph=practicien_hospitalier.idph and"
+                    + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
+                    + currentDate + "' and service_clinique.specialite='"
+                    + spe + "'";
+            String sqlh = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
+                    + " consultation, practicien_hospitalier, service_clinique "
+                    + "where patient.ipp=consultation.ipp "
+                    + "and patient.etat = 0"
+                    + " and consultation.idph=practicien_hospitalier.idph and"
+                    + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
+                    + currentDate + "' and service_clinique.specialite='"
+                    + spe + "'";
+            String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient where etat = 2";
+            String sql0 = "SELECT distinct patient.nom, patient.prenom, patient.date_naissance FROM Patient where etat = 0";
+            String sql1 = "SELECT distinct patient.nom, patient.prenom, patient.date_naissance FROM Patient where etat = 1";
+
+            ResultSet resultat0 = CHUPP.getRequete(sql0);
+            ResultSet resultat1 = CHUPP.getRequete(sql1);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
-            ResultSet resultat3 = CHUPP.getRequete(sql3);
-            ResultSet resultat4 = CHUPP.getRequete(sql4);
+            ResultSet resultatc = CHUPP.getRequete(sqlc);
+            ResultSet resultath = CHUPP.getRequete(sqlh);
+
+            dlm = new DefaultListModel();
+            System.out.println(spe.equals("Archives"));
             if (spe.equals("Archives")) {
-                while (resultat3.next()) {
-                    if (!dlm.contains(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"))) {
-                        dlm.addElement(resultat3.getString("patient.nom") + " " + resultat3.getString("patient.prenom") + " / " + resultat3.getString("patient.date_naissance"));
+                resultat2.last();
+                if (resultat2.getRow() != 0) {
+                    resultat2.beforeFirst();
+                    while (resultat2.next()) {
+                        if (!dlm.contains(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"))) {
+                            dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
+                        }
                         jList1.setModel(dlm);
                         repaint();
                     }
+                } else {
+                    jList1.setModel(new DefaultListModel());
+                    repaint();
+                }
+            } else if (spe.equals("DMA Fermés")) {
+                resultat1.last();
+                if (resultat1.getRow() != 0) {
+                    resultat1.beforeFirst();
+                    while (resultat1.next()) {
+                        if (!dlm.contains(resultat1.getString("patient.nom") + " " + resultat1.getString("patient.prenom") + " / " + resultat1.getString("patient.date_naissance"))) {
+                            dlm.addElement(resultat1.getString("patient.nom") + " " + resultat1.getString("patient.prenom") + " / " + resultat1.getString("patient.date_naissance"));
+                        }
+                        jList1.setModel(dlm);
+                        repaint();
+                    }
+                } else {
+                    jList1.setModel(new DefaultListModel());
+                    repaint();
                 }
             } else if (spe.equals("Tous")) {
-                while (resultat4.next()) {
-                    if (!dlm.contains(resultat4.getString("patient.nom") + " " + resultat4.getString("patient.prenom") + " / " + resultat4.getString("patient.date_naissance"))) {
-                        dlm.addElement(resultat4.getString("nom") + " " + resultat4.getString("prenom") + " / " + resultat4.getString("date_naissance"));
+                resultat0.last();
+                if (resultat0.getRow() != 0) {
+                    resultat0.beforeFirst();
+                    while (resultat0.next()) {
+                        if (!dlm.contains(resultat0.getString("patient.nom") + " " + resultat0.getString("patient.prenom") + " / " + resultat0.getString("patient.date_naissance"))) {
+                            dlm.addElement(resultat0.getString("nom") + " " + resultat0.getString("prenom") + " / " + resultat0.getString("date_naissance"));
+                        }
                         jList1.setModel(dlm);
                         repaint();
                     }
+                } else {
+                    jList1.setModel(new DefaultListModel());
+                    repaint();
                 }
             } else {
-                while (resultat.next()) {
-                    if (!dlm.contains(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"))) {
-                        dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
+                resultatc.last();
+                if (resultatc.getRow() != 0) {
+                    resultatc.beforeFirst();
+                    while (resultatc.next()) {
+                        if (!dlm.contains(resultatc.getString("patient.nom") + " " + resultatc.getString("patient.prenom") + " / " + resultatc.getString("patient.date_naissance"))) {
+                            dlm.addElement(resultatc.getString("patient.nom") + " " + resultatc.getString("patient.prenom") + " / " + resultatc.getString("patient.date_naissance"));
+                        }
                     }
+                } else {
+                    jList1.setModel(new DefaultListModel());
+                    repaint();
                 }
-                while (resultat2.next()) {
-                    if (!dlm.contains(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"))) {
-                        dlm.addElement(resultat2.getString("patient.nom") + " " + resultat2.getString("patient.prenom") + " / " + resultat2.getString("patient.date_naissance"));
+                resultath.last();
+                if (resultath.getRow() != 0) {
+                    resultath.beforeFirst();
+                    while (resultath.next()) {
+                        if (!dlm.contains(resultath.getString("patient.nom") + " " + resultath.getString("patient.prenom") + " / " + resultath.getString("patient.date_naissance"))) {
+                            dlm.addElement(resultath.getString("patient.nom") + " " + resultath.getString("patient.prenom") + " / " + resultath.getString("patient.date_naissance"));
+                        }
+
                     }
+                } else {
+                    jList1.setModel(new DefaultListModel());
+                    repaint();
                 }
                 jList1.setModel(dlm);
                 repaint();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jComboBoxServiceTriActionPerformed
 
     private void jButtonTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransfertActionPerformed
-        // TODO add your handling code here:
+        dchUI = new DemandeConsHospUI();
+        dchUI.setLocationRelativeTo(null);
+        dchUI.setServiceAdmissionUI(this);
+        dchUI.setServiceTransmis((String) jComboBoxTransfert.getSelectedItem());
+        dchUI.setCurrentPatient(currentPatient);
+        dchUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        dchUI.setVisible(true);
+
     }//GEN-LAST:event_jButtonTransfertActionPerformed
 
 
@@ -725,34 +779,35 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
-
-            try {
-                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
-                while (result.next()) {
-                    if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
-                        IPP.setText(currentPatient.getIPP());
-                        Patient.setText(currentPatient.getNom());
-                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                        jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                        jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
-                        jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                        jTextArea1.setCaretPosition(0);
-                        jTextArea2.setCaretPosition(0);
-                        jTextArea3.setCaretPosition(0);
-                        jTextArea4.setCaretPosition(0);
-                        jTextArea5.setCaretPosition(0);
-                        jTextArea1.setBackground(new Color(240, 240, 255));
-                        jTextArea2.setBackground(new Color(240, 240, 255));
-                        jTextArea3.setBackground(new Color(240, 240, 255));
-                        jTextArea4.setBackground(new Color(240, 240, 255));
-                        jTextArea5.setBackground(new Color(240, 240, 255));
-                        repaint();
+            if (lse.getValueIsAdjusting()) {
+                try {
+                    ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                    while (result.next()) {
+                        if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                            IPP.setText(currentPatient.getIPP());
+                            Patient.setText(currentPatient.getNom());
+                            jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+                            jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                            jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
+                            jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea1.setCaretPosition(0);
+                            jTextArea2.setCaretPosition(0);
+                            jTextArea3.setCaretPosition(0);
+                            jTextArea4.setCaretPosition(0);
+                            jTextArea5.setCaretPosition(0);
+                            jTextArea1.setBackground(new Color(240, 240, 255));
+                            jTextArea2.setBackground(new Color(240, 240, 255));
+                            jTextArea3.setBackground(new Color(240, 240, 255));
+                            jTextArea4.setBackground(new Color(240, 240, 255));
+                            jTextArea5.setBackground(new Color(240, 240, 255));
+                            repaint();
+                        }
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

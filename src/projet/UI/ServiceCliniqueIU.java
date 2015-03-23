@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -49,6 +50,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private LettreSortieUI lettreSortieUI;
     private static Patient currentPatient;
     private PersonnelMedical currentPH;
+    private AjouterHospitalisationUI ahUI;
 
     private String sql;
 
@@ -105,12 +107,16 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 int returnVal = chooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     directory = chooser.getSelectedFile().getPath();
-                    System.out.println(directory);
+                }
+                String update = "update pracitien_hospitaliser set accesslettre='" + directory + "' where nom='" + currentPH.getNom() + "' and prenom='" + currentPH.getPrenom() + "'";
+                try {
+                    CHUPP.getInsert(update);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
-        String currentDateString = currentDate.toString();
         sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "hospitalisation, practicien_hospitalier, service_clinique "
                 + "where patient.ipp=hospitalisation.ipp "
@@ -121,7 +127,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
         String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + " consultation, practicien_hospitalier, service_clinique "
-                + "where patient.ipp=consultation.ipp "                
+                + "where patient.ipp=consultation.ipp "
                 + "and patient.etat = 0"
                 + " and consultation.idph=practicien_hospitalier.idph and"
                 + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
@@ -170,6 +176,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
+        jButtonDeces = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea4 = new javax.swing.JTextArea();
@@ -180,6 +187,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jButtonDeconnexion = new javax.swing.JButton();
         jButtonSortiePatient = new javax.swing.JButton();
         jButtonDemandePrestation = new javax.swing.JButton();
+        jButtonHospitaliser = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -287,15 +295,30 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jTextArea3.setRows(5);
         jScrollPane4.setViewportView(jTextArea3);
 
+        jButtonDeces.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonDeces.setForeground(new java.awt.Color(255, 0, 0));
+        jButtonDeces.setText("Décès");
+        jButtonDeces.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDecesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonDeces))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonDeces))
         );
 
         jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
@@ -366,6 +389,15 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jButtonHospitaliser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonHospitaliser.setForeground(new java.awt.Color(0, 51, 153));
+        jButtonHospitaliser.setText("Hospitaliser");
+        jButtonHospitaliser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHospitaliserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -385,6 +417,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonHospitaliser)
+                        .addGap(31, 31, 31)
                         .addComponent(jButtonDemandePrestation)
                         .addGap(46, 46, 46)
                         .addComponent(jButtonSortiePatient)
@@ -403,7 +437,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             .addComponent(jLabelPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabelIPP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonDemandePrestation))
+                            .addComponent(jButtonDemandePrestation)
+                            .addComponent(jButtonHospitaliser))
                         .addGap(30, 30, 30))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -510,7 +545,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         lettreSortieUI.getjLabelMedecin().setText("Dr. " + currentPH.getNom() + " " + currentPH.getPrenom());
         lettreSortieUI.setCurrentPatient(currentPatient);
         lettreSortieUI.setCurrentPH(currentPH);
-        lettreSortieUI.setDirectory(directory);
         lettreSortieUI.setScIU(this);
         lettreSortieUI.setLocationRelativeTo(null);
         lettreSortieUI.setVisible(true);
@@ -538,12 +572,47 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         aprIU.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterPrescriptionsActionPerformed
 
+    private void jButtonHospitaliserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHospitaliserActionPerformed
+        try {
+            ahUI = new AjouterHospitalisationUI();
+            ahUI.setCurrentPatient(currentPatient);
+            ahUI.setLocationRelativeTo(null);
+            ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+            dcbm.addElement(currentPH.getSpecialite());
+            ahUI.getjComboBoxService().setModel(dcbm);
+            ahUI.getjComboBoxService().setSelectedIndex(0);
+            ahUI.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonHospitaliserActionPerformed
+
+    private void jButtonDecesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecesActionPerformed
+        try {
+            JOptionPane j = new JOptionPane();
+            int retour = j.showConfirmDialog(null, "Confirmez-vous le décès du patient " + currentPatient.getNom() + " " + currentPatient.getPrenom() + " ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+            if (retour == JOptionPane.OK_OPTION) {
+                String sql = "update patient set etat = 2 where ipp =" + currentPatient.getIPP();
+                CHUPP.getInsert(sql);
+                dlm.removeElement(currentPatient.getNom()+" "+currentPatient.getPrenom()+" / "+currentPatient.getDateNaissanceString());
+                jList1.setModel(dlm);
+                repaint();
+                j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonDecesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListePatient;
     private javax.swing.JButton jButtonAjouterObservation;
     private javax.swing.JButton jButtonAjouterPrescriptions;
+    private javax.swing.JButton jButtonDeces;
     private javax.swing.JButton jButtonDeconnexion;
     private javax.swing.JButton jButtonDemandePrestation;
+    private javax.swing.JButton jButtonHospitaliser;
     private javax.swing.JButton jButtonSortiePatient;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -621,39 +690,54 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jList1;
     }
 
+    /**
+     * @return the jLabelIPP
+     */
+    public javax.swing.JTextField getjLabelIPP() {
+        return jLabelIPP;
+    }
+
+    /**
+     * @return the jLabelPatient
+     */
+    public javax.swing.JTextField getjLabelPatient() {
+        return jLabelPatient;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
-
-            try {
-                ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
-                while (result.next()) {
-                    if (getjList1().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
-                        jLabelIPP.setText(currentPatient.getIPP());
-                        jLabelPatient.setText(currentPatient.getNom());
-                        jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
-                        jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                        jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                        jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
-                        jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                        jTextArea1.setCaretPosition(0);
-                        jTextArea2.setCaretPosition(0);
-                        jTextArea3.setCaretPosition(0);
-                        jTextArea4.setCaretPosition(0);
-                        jTextArea5.setCaretPosition(0);
-                        jTextArea1.setBackground(new Color(240, 240, 255));
-                        jTextArea2.setBackground(new Color(240, 240, 255));
-                        jTextArea3.setBackground(new Color(240, 240, 255));
-                        jTextArea4.setBackground(new Color(240, 240, 255));
-                        jTextArea5.setBackground(new Color(240, 240, 255));
-                        repaint();
+            if (lse.getValueIsAdjusting()) {
+                try {
+                    ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
+                    while (result.next()) {
+                        if (getjList1().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"), result.getString("medecin_generaliste"), result.getString("adresse_med_gen")));
+                            getjLabelIPP().setText(currentPatient.getIPP());
+                            getjLabelPatient().setText(currentPatient.getNom());
+                            jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+                            jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+                            jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
+                            jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                            jTextArea1.setCaretPosition(0);
+                            jTextArea2.setCaretPosition(0);
+                            jTextArea3.setCaretPosition(0);
+                            jTextArea4.setCaretPosition(0);
+                            jTextArea5.setCaretPosition(0);
+                            jTextArea1.setBackground(new Color(240, 240, 255));
+                            jTextArea2.setBackground(new Color(240, 240, 255));
+                            jTextArea3.setBackground(new Color(240, 240, 255));
+                            jTextArea4.setBackground(new Color(240, 240, 255));
+                            jTextArea5.setBackground(new Color(240, 240, 255));
+                            repaint();
+                        }
                     }
-                }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

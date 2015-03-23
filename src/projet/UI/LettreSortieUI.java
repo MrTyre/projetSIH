@@ -4,6 +4,7 @@ import projet.sih.*;
 
 import java.io.File;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -18,7 +19,6 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
 public class LettreSortieUI extends javax.swing.JFrame {
 
     private Patient currentPatient;
-    private String directory;
     private ServiceCliniqueIU scIU;
     private PersonnelMedical currentPH;
 
@@ -207,8 +207,10 @@ public class LettreSortieUI extends javax.swing.JFrame {
             try {
                 GenererLettreSortie(currentPH, currentPatient);
                 JOptionPane j2 = new JOptionPane();
-                String sql ="update patient set etat =1 where ipp ="+currentPatient.getIPP();
+                String sql = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
                 CHUPP.getInsert(sql);
+                scIU.getjLabelIPP().setText("");
+                scIU.getjLabelPatient().setText("");
                 scIU.revalidate();
                 scIU.repaint();
                 j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -292,15 +294,14 @@ public class LettreSortieUI extends javax.swing.JFrame {
         odt.newParagraph();
 
         // Save document
-        if (directory.equals("")) {
-            odt.save("src/LettresSorties/Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
-        } else {
-            odt.save(directory + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
-        }
-        
+        String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
+        ResultSet result = CHUPP.getRequete(sql);
+        result.first();
+        odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+
         if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
             scIU.getjList1().setSelectedIndex(1);
-            scIU.getDlm().removeElement(currentPatient.getNom() + " " +currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
+            scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
             scIU.getjList1().setModel(scIU.getDlm());
             scIU.getjList1().revalidate();
             scIU.getjList1().repaint();
@@ -333,13 +334,6 @@ public class LettreSortieUI extends javax.swing.JFrame {
      */
     public javax.swing.JLabel getjLabelPatient() {
         return jLabelPatient;
-    }
-
-    /**
-     * @param directory the directory to set
-     */
-    public void setDirectory(String directory) {
-        this.directory = directory;
     }
 
     /**

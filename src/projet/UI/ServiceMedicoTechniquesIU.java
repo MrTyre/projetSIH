@@ -49,7 +49,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     private ConnexionUI connexionUI;
     private Patient currentPatient;
     private PersonnelMedical currentConnected;
-    private ResultatPrestationLaboAnesthesieIU rplaUI;
+    private ResultatPrestationLaboIU rplaUI;
     private ResultatPrestationRadiologieIU rprUI;
 
     private DefaultListModel dlm;
@@ -481,7 +481,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                     Action delete = new AbstractAction() {
                                         public void actionPerformed(ActionEvent e) {
                                             int selectedRow = Integer.valueOf(e.getActionCommand());
-                                            rplaUI = new ResultatPrestationLaboAnesthesieIU();
+                                            rplaUI = new ResultatPrestationLaboIU();
                                             rplaUI.setLocationRelativeTo(null);
                                             rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                                             rplaUI.setCurrentConnected(currentConnected);

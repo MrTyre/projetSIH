@@ -20,21 +20,21 @@ import projet.UI.*;
 public class TestFonctionnalCore {
 
    
-    public static void main(String[] args) throws IOException, Exception {
-////        CHUPP chupp = new CHUPP();
-////        Date date = new Date(new java.util.Date().getTime());
-////        Patient p1 = new Patient("Riviere", "Tommy", new Date(94, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
-////        System.out.println(p1.getIPP());
-////        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
-////        System.out.println(p2.getIPP());
-////        ServiceInformatiqueAjouterPersonnelIU siap = new ServiceInformatiqueAjouterPersonnelIU();
-////        siap.generate();
-////        siap.generate();
+//    public static void main(String[] args) throws IOException, Exception {
+//        CHUPP chupp = new CHUPP();
+//        Date date = new Date(new java.util.Date().getTime());
+//        Patient p1 = new Patient("Riviere", "Tommy", new Date(94, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
+//        System.out.println(p1.getIPP());
+//        Patient p2 = new Patient("Riviere", "Tommy", new Date(1985, 9, 23), Sexe.H, new Adresse("27 rue de la Poterie", 44690, "Chateauthebaud", Pays.France));
+//        System.out.println(p2.getIPP());
+//        ServiceInformatiqueAjouterPersonnelIU siap = new ServiceInformatiqueAjouterPersonnelIU();
+//        siap.generate();
+//        siap.generate();
 //        int compteur =(int)Math.pow(10, 5)+1;
 //        System.out.println(compteur);
-        String texte = "duBost";
-        System.out.println(texte.substring(0,1).toUpperCase()+texte.substring(1,texte.length()).toLowerCase());
-        Patient p = new Patient("lol","trolol", new java.sql.Date(2000,5,6),Sexe.H,"adresse","Leon Albou","28 rue Thiers, 38 Grenoble");
-        System.out.println(p.getAdGen()+" "+p.getMedGen());
-    }
+//        String texte = "duBost";
+//        System.out.println(texte.substring(0,1).toUpperCase()+texte.substring(1,texte.length()).toLowerCase());
+//        Patient p = new Patient("lol","trolol", new java.sql.Date(2000,5,6),Sexe.H,"adresse","Leon Albou","28 rue Thiers, 38 Grenoble");
+//        System.out.println(p.getAdGen()+" "+p.getMedGen());
+//    }
 }
