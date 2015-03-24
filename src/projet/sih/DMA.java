@@ -112,8 +112,8 @@ public class DMA {
     public String afficherHospitalisations(Patient patient) {
         String s = "";
         try {
-            String sql = "SELECT * FROM hospitalisation WHERE hospitalisation.ipp=" + patient.getIPP() + " and hospitalisation.date_sortie != '0000-00-00'";
-            String sqlbis = "SELECT * FROM hospitalisation WHERE hospitalisation.ipp=" + patient.getIPP() + " and hospitalisation.date_sortie = '0000-00-00'";
+            String sql = "SELECT * FROM hospitalisation WHERE hospitalisation.ipp=" + patient.getIPP() + " and hospitalisation.date_sortie != '1111-11-11'";
+            String sqlbis = "SELECT * FROM hospitalisation WHERE hospitalisation.ipp=" + patient.getIPP() + " and hospitalisation.date_sortie = '1111-11-11'";
             String sql2 = "SELECT observation.* FROM observation, hospitalisation WHERE observation.idch = hospitalisation.idhosp AND hospitalisation.ipp=" + patient.getIPP();
             ResultSet resultat = CHUPP.getRequete(sql);
             ResultSet resultatbis = CHUPP.getRequete(sqlbis);

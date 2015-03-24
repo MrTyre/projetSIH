@@ -406,7 +406,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 setVisible(false);
             }
         } else {
-            String date_fin = "0000-00-00";
+            String date_fin = "1111-11-11";
             if ((jTextFieldNatureHospitalisation.getText().equals(""))) {
                 JOptionPane jop1 = new JOptionPane();
                 jop1.showMessageDialog(null, "Il manque des informations relatives à l'hospitalisation", "Attention", JOptionPane.WARNING_MESSAGE);;

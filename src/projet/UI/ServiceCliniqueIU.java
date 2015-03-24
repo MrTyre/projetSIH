@@ -51,6 +51,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private static Patient currentPatient;
     private PersonnelMedical currentPH;
     private AjouterHospitalisationUI ahUI;
+    private AjouterObservationUI aoUI;
 
     private String sql;
 
@@ -123,7 +124,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 + "and patient.etat = 0"
                 + " and hospitalisation.idph=practicien_hospitalier.idph and"
                 + " practicien_hospitalier.specialite=service_clinique.specialite and (hospitalisation.date_sortie>='"
-                + currentDate + "' or hospitalisation.date_sortie='0000-00-00') and service_clinique.specialite='"
+                + currentDate + "' or hospitalisation.date_sortie='1111-11-11') and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
         String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + " consultation, practicien_hospitalier, service_clinique "
@@ -244,6 +245,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jButtonAjouterObservation.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAjouterObservation.setText("+ Observation");
+        jButtonAjouterObservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterObservationActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -253,19 +259,17 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(917, Short.MAX_VALUE)
-                .addComponent(jButtonAjouterObservation)
-                .addGap(30, 30, 30))
-            .addComponent(jScrollPane3)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1058, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAjouterObservation))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAjouterObservation)
-                .addGap(34, 34, 34))
+                .addComponent(jButtonAjouterObservation))
         );
 
         jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
@@ -547,6 +551,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         lettreSortieUI.setCurrentPH(currentPH);
         lettreSortieUI.setScIU(this);
         lettreSortieUI.setLocationRelativeTo(null);
+        lettreSortieUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         lettreSortieUI.setVisible(true);
     }//GEN-LAST:event_jButtonSortiePatientActionPerformed
 
@@ -604,6 +609,16 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonDecesActionPerformed
+
+    private void jButtonAjouterObservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterObservationActionPerformed
+        aoUI = new AjouterObservationUI();
+        aoUI.setLocationRelativeTo(null);
+        aoUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        aoUI.setCurrentConnected(currentPH);
+        aoUI.setCurrentPatient(currentPatient);
+        aoUI.setScUI(this);
+        aoUI.setVisible(true);
+    }//GEN-LAST:event_jButtonAjouterObservationActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ListePatient;
@@ -704,6 +719,13 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jLabelPatient;
     }
 
+    /**
+     * @return the jTextArea2
+     */
+    public javax.swing.JTextArea getjTextArea2() {
+        return jTextArea2;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
@@ -717,17 +739,17 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             getjLabelIPP().setText(currentPatient.getIPP());
                             getjLabelPatient().setText(currentPatient.getNom());
                             jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
-                            jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+                            getjTextArea2().setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                             jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                             jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                             jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
                             jTextArea1.setCaretPosition(0);
-                            jTextArea2.setCaretPosition(0);
+                            getjTextArea2().setCaretPosition(0);
                             jTextArea3.setCaretPosition(0);
                             jTextArea4.setCaretPosition(0);
                             jTextArea5.setCaretPosition(0);
                             jTextArea1.setBackground(new Color(240, 240, 255));
-                            jTextArea2.setBackground(new Color(240, 240, 255));
+                            getjTextArea2().setBackground(new Color(240, 240, 255));
                             jTextArea3.setBackground(new Color(240, 240, 255));
                             jTextArea4.setBackground(new Color(240, 240, 255));
                             jTextArea5.setBackground(new Color(240, 240, 255));

@@ -382,7 +382,8 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
                         + jTextAreaResultats.getText().replaceAll("'","''") + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
-                        + (Resultat.getIDresultat() - 1) + ",'"
+                        + (Resultat.getIDresultat() - 1) +","
+                        + currentConnected.getID() + ",'"
                         + date + "','"
                         + jTextAreaObservations.getText().replaceAll("'","''") + "')";
                 CHUPP.getInsert(sql3);

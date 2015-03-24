@@ -131,10 +131,17 @@ public class DM {
                 s += "\nIl n'y a pas d'observations relatives à une hospitalisation pour ce patient.";
             } else {
                 while (resultat3.next()) {
-                    String sqlh2 = "SELECT practicien_hospitalier.*,hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation WHERE hospitalisation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");
+                    String sqlh2 = "SELECT practicien_hospitalier.*, hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation, observation WHERE observation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");
                     ResultSet resultat4 = CHUPP.getRequete(sqlh2);
                     resultat4.first();
-                    s += "\nObservation du " + resultat3.getDate("observation.date") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + resultat4.getDate("hospitalisation.date_sortie") + " :";
+                    String date_sortie;
+                    if(resultat4.getDate("date_sortie").toString().equals(("1111-11-11"))){
+                        date_sortie ="<date de sortie inconnue>";
+                    } else {
+                        date_sortie = resultat4.getDate("date_sortie").toString();
+                    }
+                    System.out.println(date_sortie);
+                    s += "\nObservation du " + resultat3.getDate("observation.date") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + date_sortie + " :";
                     s += "\n\tContenu : " + resultat3.getString("observation.contenu");
                     s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }
