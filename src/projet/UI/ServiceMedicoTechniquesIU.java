@@ -1,13 +1,8 @@
 package projet.UI;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,21 +17,15 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-import static projet.UI.ServiceCliniqueIU.setCurrentPatient;
 import projet.sih.*;
 
 /**
@@ -204,7 +193,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelListePatients)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -261,7 +250,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelIPP3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 627, Short.MAX_VALUE)
                         .addComponent(jButtonDeconnexion3)))
                 .addContainerGap())
         );
@@ -282,8 +271,8 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                 .addComponent(jLabelCurrentPatient3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(57, 57, 57)
                 .addComponent(jLabelDemandePrestation, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -293,11 +282,11 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1161, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
         );
 
         pack();
@@ -423,7 +412,6 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                         if (result2.getRow() != 0) {
                             result2.beforeFirst();
                             dtm = new DefaultTableModel() {
-
                                 @Override
                                 public boolean isCellEditable(int row, int column) {
                                     if (column == 4) {
@@ -495,19 +483,22 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                                             rplaUI.setVisible(true);
                                         }
                                     };
-
                                     ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
                                     buttonColumn.setMnemonic(KeyEvent.VK_D);
                                 }
                             }
                         } else {
                             dtm = new DefaultTableModel(0, 0);
-                            getjTablePrestations().setModel(dtm);
+                            jTablePrestations.setModel(dtm);
                             dtm.addColumn("ID PH");
                             dtm.addColumn("Service demandeur");
                             dtm.addColumn("Date");
                             dtm.addColumn("Nature de la demande");
                             dtm.addColumn("Résultat");
+                            jTablePrestations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                            jTablePrestations.getColumnModel().getColumn(0).setPreferredWidth(30);                            
+                            jTablePrestations.getColumnModel().getColumn(2).setPreferredWidth(30);
+                            jTablePrestations.getColumnModel().getColumn(4).setPreferredWidth(20);
                         }
                         break;
                     }

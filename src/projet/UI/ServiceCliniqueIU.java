@@ -208,6 +208,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jPanel4.setPreferredSize(new java.awt.Dimension(1280, 621));
 
+        jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -251,6 +252,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             }
         });
 
+        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane3.setViewportView(jTextArea2);
@@ -274,6 +276,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Observations", new javax.swing.ImageIcon(getClass().getResource("/Images/observationchecklist.png")), jPanel5); // NOI18N
 
+        jTextArea5.setEditable(false);
         jTextArea5.setColumns(20);
         jTextArea5.setRows(5);
         jScrollPane7.setViewportView(jTextArea5);
@@ -295,6 +298,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Résultats", new javax.swing.ImageIcon(getClass().getResource("/Images/résultats-médicaux-30214840.png")), jPanel6); // NOI18N
 
+        jTextArea3.setEditable(false);
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
         jScrollPane4.setViewportView(jTextArea3);
@@ -327,6 +331,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("DMA", new javax.swing.ImageIcon(getClass().getResource("/Images/img_dossier_page_sante_10061.png")), jPanel7); // NOI18N
 
+        jTextArea4.setEditable(false);
         jTextArea4.setColumns(20);
         jTextArea4.setRows(5);
         jScrollPane5.setViewportView(jTextArea4);
@@ -544,50 +549,67 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     private void jButtonSortiePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortiePatientActionPerformed
-        lettreSortieUI = new LettreSortieUI();
-        lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
-        lettreSortieUI.getjLabelMedecin().setText("Dr. " + currentPH.getNom() + " " + currentPH.getPrenom());
-        lettreSortieUI.setCurrentPatient(currentPatient);
-        lettreSortieUI.setCurrentPH(currentPH);
-        lettreSortieUI.setScIU(this);
-        lettreSortieUI.setLocationRelativeTo(null);
-        lettreSortieUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        lettreSortieUI.setVisible(true);
+        if (currentPatient != null) {
+            lettreSortieUI = new LettreSortieUI();
+            lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+            lettreSortieUI.getjLabelMedecin().setText("Dr. " + currentPH.getNom() + " " + currentPH.getPrenom());
+            lettreSortieUI.setCurrentPatient(currentPatient);
+            lettreSortieUI.setCurrentPH(currentPH);
+            lettreSortieUI.setScIU(this);
+            lettreSortieUI.setLocationRelativeTo(null);
+            lettreSortieUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            lettreSortieUI.setVisible(true);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonSortiePatientActionPerformed
 
     private void jButtonDemandePrestationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDemandePrestationActionPerformed
         try {
-            dpUI = new DemandePrestationUI();
-            dpUI.setLocationRelativeTo(null);
-            dpUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            dpUI.setCurrentPatient(currentPatient);
-            dpUI.setCurrentConnected(currentPH);
-            dpUI.setVisible(true);
+            if (currentPatient != null) {
+                dpUI = new DemandePrestationUI();
+                dpUI.setLocationRelativeTo(null);
+                dpUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                dpUI.setCurrentPatient(currentPatient);
+                dpUI.setCurrentConnected(currentPH);
+                dpUI.setVisible(true);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonDemandePrestationActionPerformed
 
     private void jButtonAjouterPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPrescriptionsActionPerformed
-        aprIU = new AjouterPrescriptionIU();
-        aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        aprIU.setCurrentPatient(currentPatient);
-        aprIU.setScUI(this);
-        aprIU.setLocationRelativeTo(null);
-        aprIU.setVisible(true);
+        if (currentPatient != null) {
+            aprIU = new AjouterPrescriptionIU();
+            aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            aprIU.setCurrentPatient(currentPatient);
+            aprIU.setScUI(this);
+            aprIU.setLocationRelativeTo(null);
+            aprIU.setVisible(true);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonAjouterPrescriptionsActionPerformed
 
     private void jButtonHospitaliserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHospitaliserActionPerformed
         try {
-            ahUI = new AjouterHospitalisationUI();
-            ahUI.setCurrentPatient(currentPatient);
-            ahUI.setLocationRelativeTo(null);
-            ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-            dcbm.addElement(currentPH.getSpecialite());
-            ahUI.getjComboBoxService().setModel(dcbm);
-            ahUI.getjComboBoxService().setSelectedIndex(0);
-            ahUI.setVisible(true);
+            if (currentPatient != null) {
+                ahUI = new AjouterHospitalisationUI();
+                ahUI.setCurrentPatient(currentPatient);
+                ahUI.setLocationRelativeTo(null);
+                ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+                dcbm.addElement(currentPH.getSpecialite());
+                ahUI.getjComboBoxService().setModel(dcbm);
+                ahUI.getjComboBoxService().setSelectedIndex(0);
+                ahUI.setVisible(true);
+            } else {
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -600,10 +622,13 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
             if (retour == JOptionPane.OK_OPTION) {
                 String sql = "update patient set etat = 2 where ipp =" + currentPatient.getIPP();
                 CHUPP.getInsert(sql);
-                dlm.removeElement(currentPatient.getNom()+" "+currentPatient.getPrenom()+" / "+currentPatient.getDateNaissanceString());
+                dlm.removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissanceString());
                 jList1.setModel(dlm);
                 repaint();
                 j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane j2 = new JOptionPane();
+                j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
@@ -611,13 +636,18 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDecesActionPerformed
 
     private void jButtonAjouterObservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterObservationActionPerformed
-        aoUI = new AjouterObservationUI();
-        aoUI.setLocationRelativeTo(null);
-        aoUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        aoUI.setCurrentConnected(currentPH);
-        aoUI.setCurrentPatient(currentPatient);
-        aoUI.setScUI(this);
-        aoUI.setVisible(true);
+        if (currentPatient != null) {
+            aoUI = new AjouterObservationUI();
+            aoUI.setLocationRelativeTo(null);
+            aoUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            aoUI.setCurrentConnected(currentPH);
+            aoUI.setCurrentPatient(currentPatient);
+            aoUI.setScUI(this);
+            aoUI.setVisible(true);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonAjouterObservationActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -756,7 +786,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             repaint();
                         }
                     }
-
                 } catch (SQLException ex) {
                     Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }

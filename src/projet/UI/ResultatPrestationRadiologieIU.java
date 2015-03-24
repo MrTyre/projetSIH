@@ -112,7 +112,7 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
 
         jLabelNom.setText("Nom du patient :");
 
-        jLabelPrenom.setText("IPP");
+        jLabelPrenom.setText("IPP :");
 
         jLabelDate.setText("Date :");
 

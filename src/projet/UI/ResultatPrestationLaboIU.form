@@ -237,7 +237,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelPrenom">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="IPP"/>
+                    <Property name="text" type="java.lang.String" value="IPP :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelDate">

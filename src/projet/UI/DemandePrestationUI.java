@@ -30,8 +30,6 @@ public class DemandePrestationUI extends javax.swing.JFrame {
     public DemandePrestationUI() throws SQLException {
         initComponents();
         dcbb = CHUPP.getListeServiceMedicoTechnique();
-        dcbb.addElement("Anesthesie - Reanimation");
-        dcbb.addElement("Radiologie");
         jComboBoxService.setModel(dcbb);
         jComboBoxService.setSelectedIndex(0);
     }

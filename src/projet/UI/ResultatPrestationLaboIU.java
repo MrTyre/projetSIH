@@ -118,7 +118,7 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
 
         jLabelNom.setText("Nom du patient :");
 
-        jLabelPrenom.setText("IPP");
+        jLabelPrenom.setText("IPP :");
 
         jLabelDate.setText("Date :");
 
@@ -247,7 +247,7 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonEnvoyer)
                     .addComponent(jButtonAnnuler))
