@@ -379,12 +379,12 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
                         + currentConnected.getID() + ", '"
                         + date + "', "
                         + "'" + jLabelNature.getText() + "','"
-                        + jTextAreaResultats.getText() + "')";
+                        + jTextAreaResultats.getText().replaceAll("'","''") + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
                         + (Resultat.getIDresultat() - 1) + ",'"
                         + date + "','"
-                        + jTextAreaObservations.getText() + "')";
+                        + jTextAreaObservations.getText().replaceAll("'","''") + "')";
                 CHUPP.getInsert(sql3);
                 
                 if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance())) 

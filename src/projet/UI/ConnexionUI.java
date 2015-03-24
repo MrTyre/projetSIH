@@ -215,8 +215,8 @@ public class ConnexionUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void connexion() {
-        String nom = jTextFieldId.getText();
-        String mdp = jPasswordField1.getText();
+        String nom = jTextFieldId.getText().replaceAll("'","''");
+        String mdp = jPasswordField1.getText().replaceAll("'","''");
         String spe = "";
         try {
             sqlintSC = "SELECT interne.* FROM interne, service_clinique where interne.specialite=service_clinique.specialite";

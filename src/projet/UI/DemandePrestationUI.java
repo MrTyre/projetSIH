@@ -204,7 +204,7 @@ public class DemandePrestationUI extends javax.swing.JFrame {
                     + "," + currentConnected.getID()
                     + "," + currentPatient.getIPP()
                     + ",'" + date
-                    + "','" + jTextAreaNaturePrest.getText()
+                    + "','" + jTextAreaNaturePrest.getText().replaceAll("'","''")
                     + "','" + serviceDestinataire + "',0)";
             CHUPP.getInsert(sql);
         }

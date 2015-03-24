@@ -312,7 +312,7 @@ public void envoyerResultat() throws SQLException {
                         + currentConnected.getID() + ", '"
                         + date + "', "
                         + "'" + getjLabelNature().getText() + "','"
-                        + jTextAreaResultats.getText() + "')";
+                        + jTextAreaResultats.getText().replaceAll("'","''") + "')";
                 CHUPP.getInsert(sql);
             } catch (Exception e) {
                 System.out.println("Failed to get Statement");

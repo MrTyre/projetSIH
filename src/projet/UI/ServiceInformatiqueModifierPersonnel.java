@@ -317,12 +317,12 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPrenomActionPerformed
 
     private void jTextFieldPrenomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrenomKeyPressed
-        nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
-        nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase();
-        prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
-        prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase();
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
+            nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'","''");
+            prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
+            prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'","''");
             try {
                 DefaultComboBoxModel cbStatut = new DefaultComboBoxModel();
                 DefaultComboBoxModel cbService = new DefaultComboBoxModel();
@@ -560,7 +560,8 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                             + ",'" + nom
                             + "','" + prenom
                             + "','" + nouveauService
-                            + "','" + resultint.getString("mdp") + "')";
+                            + "','" + resultint.getString("mdp")
+                            + "','src/LettresSorties')";
                     CHUPP.getInsert(update2);
                     String update3 = "delete from interne where nom='" + nom + "' and prenom ='" + prenom + "'";
                     CHUPP.getInsert(update3);

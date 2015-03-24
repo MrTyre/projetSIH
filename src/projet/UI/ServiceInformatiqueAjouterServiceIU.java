@@ -310,11 +310,11 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
             jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
             String nom = jTextFieldNom.getText().substring(0,1).toUpperCase();
-            nom += jTextFieldNom.getText().substring(1,jTextFieldNom.getText().length()).toLowerCase();
+            nom += jTextFieldNom.getText().substring(1,jTextFieldNom.getText().length()).toLowerCase().replaceAll("'","''");
             String prenom = jTextFieldPrenom.getText().substring(0,1).toUpperCase();
-            prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase();            
+            prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'","''");            
             String nomService = jTextFieldNomService.getText().substring(0,1).toUpperCase();
-            nomService += jTextFieldNomService.getText().substring(1,jTextFieldNomService.getText().length()).toLowerCase();  
+            nomService += jTextFieldNomService.getText().substring(1,jTextFieldNomService.getText().length()).toLowerCase().replaceAll("'","''");  
             String sql2 = "select * from practicien_hospitalier where nom='" + nom + "' and prenom='" + prenom + "'";
             String sqlChefServiceClinique = "select * from service_clinique";
             String sqlChefServiceMedicoTechnique = "select * from service_medico_technique";

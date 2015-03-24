@@ -124,9 +124,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
-
                 dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);

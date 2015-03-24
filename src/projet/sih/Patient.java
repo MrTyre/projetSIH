@@ -34,6 +34,7 @@ public class Patient {
      * @param adresse
      * @param medGen
      * @param adGen 
+     * @param dateActu
      */
     public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen, Date dateActu){
         this.nom = nom;
@@ -54,6 +55,34 @@ public class Patient {
         int unites = dateActu.getYear() % 10;
         CHUPP.setCompteur(CHUPP.getCompteur()+1);
         this.IPP = ((dizaines*10+unites)*Math.pow(10,7))+CHUPP.getCompteur();
+    }
+    
+    /**
+     * constructeur de classe Patient
+     * @param nom
+     * @param prenom
+     * @param dateNaissance
+     * @param sexe
+     * @param adresse
+     * @param medGen
+     * @param adGen 
+     * @param ipp
+     */
+    public Patient(String nom, String prenom, Date dateNaissance, Sexe sexe, String adresse,String medGen, String adGen, int ipp){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateNaissance = dateNaissance;
+        if(sexe == Sexe.F){
+            this.sexe = "F";
+        }
+        if(sexe == Sexe.H){
+            this.sexe = "H";
+        }
+        this.adresse=adresse; 
+        this.medGen = medGen;
+        this.adGen = adGen;
+        this.dpi = new DPI();
+        this.IPP = ipp;
     }
 
     /**

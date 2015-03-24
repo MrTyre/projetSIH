@@ -122,8 +122,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 + "where patient.ipp=hospitalisation.ipp "
                 + "and patient.etat = 0"
                 + " and hospitalisation.idph=practicien_hospitalier.idph and"
-                + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
-                + currentDate + "' and service_clinique.specialite='"
+                + " practicien_hospitalier.specialite=service_clinique.specialite and (hospitalisation.date_sortie>='"
+                + currentDate + "' or hospitalisation.date_sortie='0000-00-00') and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
         String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + " consultation, practicien_hospitalier, service_clinique "

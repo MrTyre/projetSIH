@@ -381,8 +381,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Veuillez entrer toutes les informations nécessaires", "Attention", JOptionPane.WARNING_MESSAGE);
         }
-        String medicament = jTextFieldMedicament.getText();
-        String posologie = jTextFieldPosologie.getText();
+        String medicament = jTextFieldMedicament.getText().replaceAll("'","''");
+        String posologie = jTextFieldPosologie.getText().replaceAll("'","''");
         Object dose = jComboBox1.getSelectedItem();
         UnitePosologie up = null;
         String doseString = "";

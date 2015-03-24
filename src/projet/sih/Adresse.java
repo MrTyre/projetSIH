@@ -12,7 +12,7 @@ package projet.sih;
 public class Adresse {
 
     private String libelleRue;
-    private int codePostal;
+    private String codePostal;
     private String ville;
     private Pays pays;
 
@@ -23,7 +23,7 @@ public class Adresse {
      * @param ville
      * @param pays 
      */
-    public Adresse(String libelle, int codePostal, String ville, Pays pays) {
+    public Adresse(String libelle, String codePostal, String ville, Pays pays) {
         this.libelleRue = libelle;
         this.codePostal = codePostal;
         this.ville = ville;
@@ -49,14 +49,14 @@ public class Adresse {
      * @return the codePostal
      *          le code postal
      */
-    public int getCodePostal() {
+    public String getCodePostal() {
         return codePostal;
     }
 
     /**
      * @param codePostal the codePostal to set
      */
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
 

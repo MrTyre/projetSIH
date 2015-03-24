@@ -38,6 +38,12 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         jComboBoxService.setModel(CHUPP.getListeServiceClinique());
         jComboBoxService.setSelectedIndex(0);
+        jLabelDateHosp.setVisible(false);
+        jLabel1.setVisible(false);
+        jLabel2.setVisible(false);
+        jTextFieldJour.setVisible(false);
+        jTextFieldMois.setVisible(false);
+        jTextFieldAnnee.setVisible(false);
     }
 
     /**
@@ -65,6 +71,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
         jTextFieldAnnee = new javax.swing.JTextField();
         jLabelMedecin = new javax.swing.JLabel();
         jComboBoxMedecin = new javax.swing.JComboBox();
+        jCheckBoxDateSortie = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +138,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("/");
 
         jTextFieldAnnee.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +157,14 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
             }
         });
 
+        jCheckBoxDateSortie.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jCheckBoxDateSortie.setText("    Date de sortie connue");
+        jCheckBoxDateSortie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxDateSortieActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,38 +173,40 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 113, Short.MAX_VALUE)
-                                .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldNatureHospitalisation)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelNouveauRDV)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 139, Short.MAX_VALUE)
+                        .addComponent(jButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelService)
-                            .addComponent(jLabelDateHosp)
                             .addComponent(jLabelMedecin))
-                        .addGap(24, 24, 24)
+                        .addGap(61, 61, 61)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxMedecin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
+                                .addGap(33, 33, 33)
                                 .addComponent(jLabel1)
-                                .addGap(0, 0, 0)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldNatureHospitalisation))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNouveauRDV)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelDateHosp)
+                                .addGap(25, 25, 25)
+                                .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
+                                .addGap(4, 4, 4)
                                 .addComponent(jLabel2)
                                 .addGap(0, 0, 0)
-                                .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBoxService, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCheckBoxDateSortie))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -204,19 +222,21 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMedecin)
                     .addComponent(jComboBoxMedecin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jCheckBoxDateSortie)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDateHosp)
                     .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
+                    .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldNatureHospitalisation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnuler)
                     .addComponent(jButtonOK))
@@ -302,10 +322,29 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxMedecinActionPerformed
 
+    private void jCheckBoxDateSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDateSortieActionPerformed
+        if (jCheckBoxDateSortie.isSelected()) {
+            jLabelDateHosp.setVisible(true);
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            jTextFieldJour.setVisible(true);
+            jTextFieldMois.setVisible(true);
+            jTextFieldAnnee.setVisible(true);
+        } else {
+            jLabelDateHosp.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            jTextFieldJour.setVisible(false);
+            jTextFieldMois.setVisible(false);
+            jTextFieldAnnee.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBoxDateSortieActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnuler;
     private javax.swing.JButton jButtonOK;
+    private javax.swing.JCheckBox jCheckBoxDateSortie;
     private javax.swing.JComboBox jComboBoxMedecin;
     private javax.swing.JComboBox jComboBoxService;
     private javax.swing.JLabel jLabel1;
@@ -325,44 +364,66 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
     public void ajouterHospitalisation() throws SQLException {
         String sql = "";
         Date d = new Date(System.currentTimeMillis());
-        String date_debut = (d.getYear()+1900) +"-" + (d.getMonth()+1) +"-" +d.getDate();
-        String date_fin = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJour.getText();
-        int jour = Integer.parseInt(jTextFieldJour.getText());
-        int mois = Integer.parseInt(jTextFieldMois.getText());
-        int annee = Integer.parseInt(jTextFieldAnnee.getText());
-        if ((jour > 31)
-                || (mois > 12)
-                || (annee < d.getYear() + 1900)
-                || ((annee == d.getYear() + 1900) && (mois < d.getMonth() + 1))
-                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour < d.getDate()))) {
-            JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Attention, la date n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
-            jTextFieldJour.setText("");
-            jTextFieldMois.setText("");
-            jTextFieldAnnee.setText("");
-            jTextFieldNatureHospitalisation.setText("");
-        } else if ((jTextFieldJour.getText().equals(""))
-                || (jTextFieldMois.getText().equals(""))
-                || (jTextFieldAnnee.getText().equals(""))
-                || (jTextFieldNatureHospitalisation.getText().equals(""))) {
-            JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Il manque des informations relatives à l'hospitalisation", "Attention", JOptionPane.WARNING_MESSAGE);
-            jTextFieldJour.setText("");
-            jTextFieldMois.setText("");
-            jTextFieldAnnee.setText("");
-            jTextFieldNatureHospitalisation.setText("");
+        String date_debut = (d.getYear() + 1900) + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+        if (jCheckBoxDateSortie.isSelected()) {
+            String date_fin = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJour.getText();
+            int jour = Integer.parseInt(jTextFieldJour.getText());
+            int mois = Integer.parseInt(jTextFieldMois.getText());
+            int annee = Integer.parseInt(jTextFieldAnnee.getText());
+            if ((jour > 31)
+                    || (mois > 12)
+                    || (annee < d.getYear() + 1900)
+                    || ((annee == d.getYear() + 1900) && (mois < d.getMonth() + 1))
+                    || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour < d.getDate()))) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Attention, la date n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
+                jTextFieldJour.setText("");
+                jTextFieldMois.setText("");
+                jTextFieldAnnee.setText("");
+                jTextFieldNatureHospitalisation.setText("");
+            } else if ((jTextFieldJour.getText().equals(""))
+                    || (jTextFieldMois.getText().equals(""))
+                    || (jTextFieldAnnee.getText().equals(""))
+                    || (jTextFieldNatureHospitalisation.getText().equals(""))) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Il manque des informations relatives à l'hospitalisation", "Attention", JOptionPane.WARNING_MESSAGE);
+                jTextFieldJour.setText("");
+                jTextFieldMois.setText("");
+                jTextFieldAnnee.setText("");
+                jTextFieldNatureHospitalisation.setText("");
+            } else {
+                sql = "INSERT INTO hospitalisation values ("
+                        + Hospitalisation.getIDHosp() + ","
+                        + medecinConcerne.getID()
+                        + "," + currentPatient.getIPP()
+                        + ",'" + date_debut + "','"
+                        + jTextFieldNatureHospitalisation.getText().replaceAll("'", "''")
+                        + "','" + date_fin + "')";
+                CHUPP.getInsert(sql);
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
+            }
         } else {
-            sql = "INSERT INTO hospitalisation values ("
-                    + Hospitalisation.getIDHosp() + ","
-                    + medecinConcerne.getID()
-                    + "," + currentPatient.getIPP()
-                    + ",'" + date_debut + "','"
-                    + jTextFieldNatureHospitalisation.getText()
-                    + "','" + date_fin + "')";
-            CHUPP.getInsert(sql);
-            JOptionPane j = new JOptionPane();
-            j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
-            setVisible(false);
+            String date_fin = "0000-00-00";
+            if ((jTextFieldNatureHospitalisation.getText().equals(""))) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(null, "Il manque des informations relatives à l'hospitalisation", "Attention", JOptionPane.WARNING_MESSAGE);;
+                jTextFieldNatureHospitalisation.setText("");
+            } else {
+                sql = "INSERT INTO hospitalisation values ("
+                        + Hospitalisation.getIDHosp() + ","
+                        + medecinConcerne.getID()
+                        + "," + currentPatient.getIPP()
+                        + ",'" + date_debut + "','"
+                        + jTextFieldNatureHospitalisation.getText().replaceAll("'", "''")
+                        + "','" + date_fin + "')";
+                CHUPP.getInsert(sql);
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
+                setVisible(false);
+            }
         }
     }
 
