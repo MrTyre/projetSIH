@@ -350,8 +350,8 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                                 CHUPP.getInsert(sql2);
                             }
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a correctement été ajouté !\nSon mot de passe est : " + mdp, "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
-                            break;
+                            jop1.showMessageDialog(null, "Le personnel a été correctement ajouté !\nSon mot de passe est : " + mdp +"\n Pensez à le noter dans un endroit sur.", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break; 
                         }
                     }
                 } catch (Exception e) {
