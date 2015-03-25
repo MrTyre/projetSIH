@@ -471,6 +471,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         resultph.last();
         resultint.last();
         resultinf.last();
+
         //on vérifie que tous les champs sont remplis
         if ((jTextFieldNom.getText().equals("")) || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane j = new JOptionPane();
@@ -563,6 +564,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+
                         //cas ou l'on change le service et le statut
                         } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
                              //on vérifie que le médecin n'est pas chef d'un service medico technique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci

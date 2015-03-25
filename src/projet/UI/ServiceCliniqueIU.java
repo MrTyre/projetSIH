@@ -667,7 +667,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } 
         } else {
             JOptionPane j2 = new JOptionPane();
             j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);

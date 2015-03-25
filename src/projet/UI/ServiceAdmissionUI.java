@@ -722,6 +722,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxServiceTriActionPerformed
 
     private void jButtonTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransfertActionPerformed
+
         //on vérifie qu'un patient est selectionné avant de le transférer
         if (currentPatient != null) {
             //pour le transfert on demande si le patient doit être envoyé en consultation ou en hospitalisation
