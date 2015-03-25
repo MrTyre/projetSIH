@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,6 +32,8 @@ import projet.sih.PH;
  * @author Manounette
  */
 public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
+
+    //attributs
 
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
@@ -62,7 +65,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -78,6 +81,30 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         leave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+            }
+        });
+
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -283,12 +310,12 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
-        setVisible(false);
         try {
             si = new ServiceInformatiqueIU();
             si.setLocationRelativeTo(null);
             si.setResizable(false);
             si.setVisible(true);
+            setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(ServiceInformatiqueModifierPersonnel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -296,6 +323,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         try {
+            //on modifie le personnel et on remet tous les champs à vide
             modifierPersonnel();
             jTextFieldNom.setText("");
             jTextFieldPrenom.setText("");
@@ -317,12 +345,15 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPrenomActionPerformed
 
     private void jTextFieldPrenomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrenomKeyPressed
+        //a faire par l'utilisateur : l'action se délenche une fois que le nom et le prénom sont rentrés et que l'utilisateur a appuyé sur 'Entrée'
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            //on récupère les entrées utilisateurs et on les formalise + prévention de SQL Injection
             nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
             nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'", "''");
             prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
             prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'", "''");
             try {
+                //on initialise les modèles
                 DefaultComboBoxModel cbStatut = new DefaultComboBoxModel();
                 DefaultComboBoxModel cbService = new DefaultComboBoxModel();
                 String sqlph = "select distinct * from practicien_hospitalier where nom='" + nom + "' and prenom ='" + prenom + "'";
@@ -335,11 +366,12 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                 resultph.last();
                 resultint.last();
                 resultinf.last();
-                System.out.println(resultph.getRow() + " " + resultint.getRow() + " " + resultinf.getRow());
-
+                
+                //si on veut modifier un médecin
                 if (resultph.getRow() != 0) {
                     resultph.beforeFirst();
                     while (resultph.next()) {
+                        //remplissage dynamique des champs du logiciel et de la combobox pour modifier le statut : un praticien peut devenir un chef de service et un chef de service peut devenir un praticien
                         cbStatut.addElement("Praticien hospitalier");
                         cbStatut.addElement("Chef de Service");
                         jComboBoxNouveauStatut.setModel(cbStatut);
@@ -350,15 +382,18 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         jLabelServiceActuel.setText(resultph.getString("specialite"));
                         String spe = "select specialite from service_clinique where specialite !='" + resultph.getString("specialite") + "'";
                         ResultSet resultspe = CHUPP.getRequete(spe);
+                        //on remplit la combobox pour modifier le service avec tous les services sauf celui du médecin sélectionné
                         while (resultspe.next()) {
                             cbService.addElement(resultspe.getString("specialite"));
                         }
                     }
                     jComboBoxNouveauService.setModel(cbService);
                     jComboBoxNouveauService.setSelectedIndex(-1);
+                //si on veut modifier un interne
                 } else if (resultint.getRow() != 0) {
                     resultint.beforeFirst();
                     while (resultint.next()) {
+                        //remplissage dynamique des champs du logiciel et de la combo box pour modifier le statut : un interne peut évoluer en praticien hospitalier
                         cbStatut.addElement("Practicien hospitalier");
                         jComboBoxNouveauStatut.setModel(cbStatut);
                         jComboBoxNouveauStatut.setSelectedIndex(-1);
@@ -368,21 +403,25 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         jLabelServiceActuel.setText(resultint.getString("specialite"));
                         String spe = "select specialite from service_clinique where specialite !='" + resultint.getString("specialite") + "'";
                         ResultSet resultspe = CHUPP.getRequete(spe);
+                        //on remplit la combobox pour modifier le service avec tous les services sauf celui de l'interne sélectionné
                         while (resultspe.next()) {
                             cbService.addElement(resultspe.getString("specialite"));
                         }
                     }
                     jComboBoxNouveauService.setModel(cbService);
                     jComboBoxNouveauService.setSelectedIndex(-1);
+                //si on veut modifier un personnel infirmier
                 } else if (resultinf.getRow() != 0) {
                     resultinf.beforeFirst();
                     while (resultinf.next()) {
+                        //pas de remplissage de la combo box pour changer de statut, un personnel infirmier ne peut pas change de statut
                         jComboBoxNouveauStatut.setVisible(false);
                         jLabelNouveauStatut.setVisible(false);
                         jLabelStatutActuel.setText("Personnel Infirmier");
                         jLabelServiceActuel.setText(resultinf.getString("service"));
                         String spe = "select specialite from service_clinique where specialite !='" + resultinf.getString("service") + "'";
                         ResultSet resultspe = CHUPP.getRequete(spe);
+                        //on remplit la combobox pour modifier le service avec tous les services sauf celui du médecin sélectionné
                         while (resultspe.next()) {
                             cbService.addElement(resultspe.getString("specialite"));
                         }
@@ -419,7 +458,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void modifierPersonnel() throws SQLException {
-        String nouveauStatut = (String) jComboBoxNouveauStatut.getSelectedItem();
+        //on récupère le nouveau service du personnel
         String nouveauService = (String) jComboBoxNouveauService.getSelectedItem();
 
         String sqlph = "select distinct * from practicien_hospitalier where nom='" + nom + "' and prenom ='" + prenom + "'";
@@ -432,10 +471,13 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         resultph.last();
         resultint.last();
         resultinf.last();
+        //on vérifie que tous les champs sont remplis
         if ((jTextFieldNom.getText().equals("")) || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Vous n'avez pas rentré de nom ou de prénom pour le personnel à modifier", "Attention", JOptionPane.WARNING_MESSAGE);
+        //on modifie le personnel
         } else {
+            //si le personnel à modifier est un médecin
             if (resultph.getRow() != 0) {
                 resultph.beforeFirst();
                 while (resultph.next()) {
@@ -443,12 +485,16 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                     String sql3 = "select * from service_medico_technique where specialite ='" + resultph.getString("specialite") + "'";
                     ResultSet result2 = CHUPP.getRequete(sql2);
                     ResultSet result3 = CHUPP.getRequete(sql3);
+                    //dans le cas ou le praticien est dans un service clinique
                     while (result2.next()) {
+                        //cas ou l'on change juste le service
                         if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            //on vérifie que le médecin n'est pas chef d'un service clinique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result2.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                            //on modifie la spécialité du médecin
                             } else {
                                 String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
                                 CHUPP.getInsert(update);
@@ -456,11 +502,14 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou l'on change de service et de statut
                         } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            //on vérifie que le médecin n'est pas chef d'un service clinique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result2.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                            //on modifie la spécialité du médecin et on le place en tant que chef de ce service
                             } else {
                                 String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
                                 CHUPP.getInsert(update);
@@ -470,11 +519,14 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou l'on change juste le statut
                         } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
+                            //on vérifie que le médecin n'est pas chef d'un service clinique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result2.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                            //on passe le médecin en chef de service
                             } else {
                                 String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
                                 CHUPP.getInsert(update);
@@ -482,6 +534,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou aucune sélection n'est faite par l'utilisateur
                         } else {
                             JOptionPane j = new JOptionPane();
                             int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
@@ -493,12 +546,16 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         }
                         break;
                     }
+                    //dans le cas ou le praticien est dans un service médico-technique
                     while (result3.next()) {
+                        //cas ou l'on change juste le service
                         if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            //on vérifie que le médecin n'est pas chef d'un service medico technique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result3.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                                //on modifie la spécialité du médecin
                             } else {
                                 String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
                                 CHUPP.getInsert(update);
@@ -506,11 +563,14 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou l'on change le service et le statut
                         } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                             //on vérifie que le médecin n'est pas chef d'un service medico technique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result3.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                                //on modifie la spécialité et le service du médecin
                             } else {
                                 String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
                                 CHUPP.getInsert(update);
@@ -520,11 +580,14 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou l'on change juste le statut
                         } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
+                             //on vérifie que le médecin n'est pas chef d'un service medico technique, auquel cas il faudra nommer un nouveau chef de service avant de modifier le statut de celui-ci
                             if (result3.getInt("chef_service") == resultph.getInt("idph")) {
                                 JOptionPane j = new JOptionPane();
                                 j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
                                 break;
+                                //on modifie le statut du médecin
                             } else {
                                 String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
                                 CHUPP.getInsert(update);
@@ -532,6 +595,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                                 j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
+                        //cas ou aucune sélection n'est faite par l'utilisateur
                         } else {
                             JOptionPane j = new JOptionPane();
                             int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
@@ -545,16 +609,18 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                     }
                     break;
                 }
-            } else if (resultint.getRow()
-                    != 0) {
+            //cas ou l'on veut modifier un interne
+            } else if (resultint.getRow() != 0) {
                 resultint.beforeFirst();
                 while (resultint.next()) {
+                    //cas ou l'on change juste le service
                     if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
                         String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
                         CHUPP.getInsert(update);
                         JOptionPane j2 = new JOptionPane();
                         j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                         break;
+                    //cas ou l'on change le service et le statut
                     } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
                         String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
                         CHUPP.getInsert(update);
@@ -570,6 +636,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         JOptionPane j2 = new JOptionPane();
                         j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                         break;
+                    //cas ou l'on change juste le statut
                     } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
                         String update2 = "insert into practicien_hospitalier values (" + PH.getIDPH()
                                 + ",'" + nom
@@ -582,6 +649,7 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                         JOptionPane j2 = new JOptionPane();
                         j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                         break;
+                    //cas ou aucune sélection n'est faite par l'utilisateur
                     } else {
                         JOptionPane j = new JOptionPane();
                         int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
@@ -593,16 +661,18 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                     }
                     break;
                 }
-            } else if (resultinf.getRow()
-                    != 0) {
+            //cas ou l'on veut modifier un personnel infirmier
+            } else if (resultinf.getRow() != 0) {
                 resultinf.beforeFirst();
                 while (resultinf.next()) {
+                    //cas ou l'on change le service
                     if (jComboBoxNouveauService.getSelectedIndex() >= 0) {
                         String update = "update infirmier set service ='" + nouveauService + "' where nom ='" + nom + "' and prenom='" + prenom + "'";
                         CHUPP.getInsert(update);
                         JOptionPane j2 = new JOptionPane();
                         j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                         break;
+                    //cas ou aucune sélection n'est faite par l'utilisateur
                     } else {
                         JOptionPane j = new JOptionPane();
                         int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);

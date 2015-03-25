@@ -25,7 +25,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
-
+    //attributs
     private ConnexionUI connexionUI;
     private int idPrestation;
     private ServiceMedicoTechniquesIU smt;
@@ -250,9 +250,11 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
 
     private void jButtonEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvoyerActionPerformed
         JOptionPane j = new JOptionPane();
+        //demande de confirmation
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer ce résultat de prestation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
+                //envoi des résultats
                 envoyerResultat();
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(this, "Le résultat a bien été pris en compte !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -296,14 +298,18 @@ public class ResultatPrestationRadiologieIU extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaResultats;
     // End of variables declaration//GEN-END:variables
 public void envoyerResultat() throws SQLException {
+        //on vérifie que tous les champs sont remplis
         if ((jTextAreaResultats.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au Résultats", "Attention", JOptionPane.WARNING_MESSAGE);
+        //on ajoute le résultat
         } else {
+            //pour le service Radiologie (cas présent), on ne demande d'envoyer qu'un compte rendu de la radio, sans commentaire
             String sql2 = "SELECT idsmt from service_medico_technique where specialite='" + currentConnected.getSpecialite() + "'";
             ResultSet resultat = CHUPP.getRequete(sql2);
             resultat.first();
             int idsmt = resultat.getInt("idsmt");
+            //on ajoute donc simplement ce compte-rendu en tant que résultat, sans d'observation reliée
             try {
                 String sql = "INSERT INTO Resultat VALUES (" + Resultat.getIDresultat() + ","
                         + 0 + ","
