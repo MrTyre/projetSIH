@@ -18,7 +18,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class DemandePrestationUI extends javax.swing.JFrame {
-
+    //attributs
     private Patient currentPatient;
     private PersonnelMedical currentConnected;
     private String serviceDestinataire;
@@ -158,6 +158,7 @@ public class DemandePrestationUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
+        //on récupère le service de destination
         serviceDestinataire = (String) jComboBoxService.getSelectedItem();
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
@@ -193,10 +194,12 @@ public class DemandePrestationUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void envoyerPrestation() throws SQLException {
+        //récupération de la date courante
         Date date = new Date(System.currentTimeMillis());
         if (jTextAreaNaturePrest.getText().equals("")) {
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Vous n'avez pas spécifié la nature de la prestation demandée", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        //ajout de la prestation à la base de données
         } else {
             String sql = "INSERT INTO prestation values (" + Prestation.getIDPrest()
                     + "," + currentConnected.getID()

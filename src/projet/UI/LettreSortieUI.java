@@ -17,7 +17,7 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
  * @author Marina
  */
 public class LettreSortieUI extends javax.swing.JFrame {
-
+    //attributs
     private Patient currentPatient;
     private ServiceCliniqueIU scIU;
     private PersonnelMedical currentPH;
@@ -205,6 +205,7 @@ public class LettreSortieUI extends javax.swing.JFrame {
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir créer cette lettre ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
+                //générer la lettre de sortie
                 GenererLettreSortie(currentPH, currentPatient);
                 JOptionPane j2 = new JOptionPane();
                 String sql = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
@@ -242,17 +243,19 @@ public class LettreSortieUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void GenererLettreSortie(PersonnelMedical ph1, Patient p1) throws Exception {
+        //on vérifie que les champs nécessaires à l'ajout soient bien remplis
         if (jTextAreaDiagnostic.getText().equals("") || jTextAreaTraitement.getText().equals("")) {
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null,"Vous avez oublié de remplir un des champ","Attention",JOptionPane.WARNING_MESSAGE);
+        //on créé la lettre de sortie en odt
         } else {
             Date d = new Date(new java.util.Date().getTime());
             DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat df2 = new SimpleDateFormat("hh:mm");
-            // Create a text document from a standard template (empty documents within the JAR)
+            // Création du document odt à partir d'un standard
             OdfTextDocument odt = OdfTextDocument.newTextDocument();
 
-            // Append text to the end of the document. 
+            // Ajout de texte au document (newParagraph() sert à passer à la ligne suivante (correspond à 'Entrée' du clavier)) 
             odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
             odt.newParagraph();
             odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
@@ -297,12 +300,12 @@ public class LettreSortieUI extends javax.swing.JFrame {
             odt.addText("Dr " + ph1.getNom() + " " + ph1.getPrenom());
             odt.newParagraph();
 
-            // Save document
+            // Sauvegarde du document dans le dossier d'accès du médecin, qu'il peut choisir dans son interface
             String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
             ResultSet result = CHUPP.getRequete(sql);
             result.first();
             odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
-
+            //on retire le patient de la liste actuelle
             if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
                 scIU.getjList1().setSelectedIndex(1);
                 scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
