@@ -10,6 +10,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -83,6 +84,29 @@ public class ServiceCliniqueInfirmieresUI extends javax.swing.JFrame {
         leave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+            }
+        });
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+            
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         java.sql.Date currentDate = new Date(System.currentTimeMillis());

@@ -309,12 +309,12 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
-            String nom = jTextFieldNom.getText().substring(0,1).toUpperCase();
-            nom += jTextFieldNom.getText().substring(1,jTextFieldNom.getText().length()).toLowerCase().replaceAll("'","''");
-            String prenom = jTextFieldPrenom.getText().substring(0,1).toUpperCase();
-            prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'","''");            
-            String nomService = jTextFieldNomService.getText().substring(0,1).toUpperCase();
-            nomService += jTextFieldNomService.getText().substring(1,jTextFieldNomService.getText().length()).toLowerCase().replaceAll("'","''");  
+            String nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
+            nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'", "''");
+            String prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
+            prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'", "''");
+            String nomService = jTextFieldNomService.getText().substring(0, 1).toUpperCase();
+            nomService += jTextFieldNomService.getText().substring(1, jTextFieldNomService.getText().length()).toLowerCase().replaceAll("'", "''");
             String sql2 = "select * from practicien_hospitalier where nom='" + nom + "' and prenom='" + prenom + "'";
             String sqlChefServiceClinique = "select * from service_clinique";
             String sqlChefServiceMedicoTechnique = "select * from service_medico_technique";
@@ -324,26 +324,32 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
             if (((String) jComboBoxService.getSelectedItem()).equals("Clinique")) {
                 while (resultat2.next()) {
                     while (resultat2ChefServiceClinique.next()) {
-                        if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
-                            while (resultat2ChefServiceMedicoTechnique.next()) {
-                                if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
-                                    sql = "INSERT INTO service_clinique VALUES (" + ServiceClinique.getIDServiceClinique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
-                                    String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
-                                    CHUPP.getInsert(sql3);
-                                    CHUPP.getInsert(sql);
-                                    JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
-                                    break;
-                                } else {
-                                    JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service médico-technique", "Attention", JOptionPane.WARNING_MESSAGE);
-                                    break;
-                                }
-                            }
-                        } else {
+                        if (CHUPP.getListeServiceCliniqueDLM().contains(nomService)) {
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            jop1.showMessageDialog(null, "Ce service existe déjà", "Attention", JOptionPane.WARNING_MESSAGE);
                             break;
+                        } else {
+                            if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
+                                while (resultat2ChefServiceMedicoTechnique.next()) {
+                                    if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
+                                        sql = "INSERT INTO service_clinique VALUES (" + ServiceClinique.getIDServiceClinique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
+                                        String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
+                                        CHUPP.getInsert(sql3);
+                                        CHUPP.getInsert(sql);
+                                        JOptionPane jop1 = new JOptionPane();
+                                        jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                        break;
+                                    } else {
+                                        JOptionPane jop1 = new JOptionPane();
+                                        jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service médico-technique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                JOptionPane jop1 = new JOptionPane();
+                                jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            }
                         }
                         break;
                     }
@@ -351,29 +357,35 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                 }
             } else if (((String) jComboBoxService.getSelectedItem()).equals("Médico-technique")) {
                 while (resultat2.next()) {
-                    while (resultat2ChefServiceClinique.next()) {
-                        if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
-                            while (resultat2ChefServiceMedicoTechnique.next()) {
-                                if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
-                                    sql = "INSERT INTO service_medico_technique VALUES (" + ServiceMedicoTechnique.getIDServiceMedicoTechnique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
-                                    String sql4 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
-                                    CHUPP.getInsert(sql4);
-                                    CHUPP.getInsert(sql);
-                                    JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
-                                    break;
-                                } else {
-                                    JOptionPane jop1 = new JOptionPane();
-                                    jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service médico-technique", "Attention", JOptionPane.WARNING_MESSAGE);
-                                    break;
-                                }
-                            }
-                        } else {
+                    while (resultat2ChefServiceMedicoTechnique.next()) {
+                        if (CHUPP.getListeServiceMedicoTechniqueDLM().contains(nomService)) {
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le Practicien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                            jop1.showMessageDialog(null, "Ce service existe déjà", "Attention", JOptionPane.WARNING_MESSAGE);
+                            break;
+                        } else {
+                            if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
+                                while (resultat2ChefServiceClinique.next()) {
+                                    if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
+                                        sql = "INSERT INTO service_medico_technique VALUES (" + ServiceMedicoTechnique.getIDServiceMedicoTechnique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
+                                        String sql4 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
+                                        CHUPP.getInsert(sql4);
+                                        CHUPP.getInsert(sql);
+                                        JOptionPane jop1 = new JOptionPane();
+                                        jop1.showMessageDialog(null, "Le service a correctement été ajouté !", "Service ajouté", JOptionPane.INFORMATION_MESSAGE);
+                                        break;
+                                    } else {
+                                        JOptionPane jop1 = new JOptionPane();
+                                        jop1.showMessageDialog(null, "Le praticien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                JOptionPane jop1 = new JOptionPane();
+                                jop1.showMessageDialog(null, "Le Practicien hospitalier sélectionné est déjà chef d'un service clinique", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            }
                             break;
                         }
-                        break;
                     }
                     break;
                 }

@@ -21,7 +21,6 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     private Prescription prescription = new Prescription();
     private DefaultListModel<Medicament> listeMed = new DefaultListModel();
     private ServiceCliniqueIU scUI;
-    
 
     /**
      * Creates new form AjouterPrescriptionIU
@@ -113,7 +112,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,9 +202,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(122, 122, 122))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelMedicament)
@@ -230,7 +229,8 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonAddMed))
                             .addComponent(jLabelDateFinTraitement))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 110, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,13 +286,15 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelNouvellePrescription)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(683, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 505, Short.MAX_VALUE)
-                        .addComponent(jButtonValider)))
-                .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonValider)
+                        .addGap(163, 163, 163))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,17 +314,20 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
-        
-        JOptionPane j=new JOptionPane();
-        int retour =j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?","Confirmation",JOptionPane.OK_CANCEL_OPTION);
-        if(retour == JOptionPane.OK_OPTION){
-           ajouterPrescription(); 
-           setVisible(false);
+        System.out.println(dtm.getRowCount());
+        if (dtm.getRowCount() >= 1) {
+            JOptionPane j = new JOptionPane();
+            int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+            if (retour == JOptionPane.OK_OPTION) {
+                ajouterPrescription();
+                setVisible(false);
+            } else {
+                j.setVisible(false);
+            }
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showConfirmDialog(this, "Vous n'avez ajouté aucun médicament à la prescription", "Attention", JOptionPane.OK_CANCEL_OPTION);
         }
-        else {
-            j.setVisible(false);
-        }
-        
     }//GEN-LAST:event_jButtonValiderActionPerformed
 
     private void jTextFieldFinTraitementAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFinTraitementAnneeActionPerformed
@@ -377,68 +382,78 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterMedicament() {
+        int jour = Integer.parseInt(jTextFieldFinTraitementJour.getText());
+        int mois = Integer.parseInt(jTextFieldFinTraitementMois.getText());
+        int annee = Integer.parseInt(jTextFieldFinTraitementAnnee.getText());
+        Date d1 = new Date(System.currentTimeMillis());
         if ((jTextFieldMedicament.getText().equals("")) || (jTextFieldPosologie.getText().equals("")) || (jTextFieldFinTraitementJour.getText().equals("")) || (jTextFieldFinTraitementMois.getText().equals("")) || (jTextFieldFinTraitementAnnee.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Veuillez entrer toutes les informations nécessaires", "Attention", JOptionPane.WARNING_MESSAGE);
-        }
-        String medicament = jTextFieldMedicament.getText().replaceAll("'","''");
-        String posologie = jTextFieldPosologie.getText().replaceAll("'","''");
-        Object dose = jComboBox1.getSelectedItem();
-        UnitePosologie up = null;
-        String doseString = "";
-        if (dose == UnitePosologie.cc) {
-            doseString = "cc";
-            up = UnitePosologie.cc;
-        }
-        if (dose == UnitePosologie.comprimés) {
-            doseString = "comprimés";
-            up = UnitePosologie.comprimés;
-        }
-        if (dose == UnitePosologie.cs) {
-            doseString = "cs";
-            up = UnitePosologie.cs;
-        }
-        if (dose == UnitePosologie.dL) {
-            doseString = "dL";
-            up = UnitePosologie.dL;
-        }
-        if (dose == UnitePosologie.g) {
-            doseString = "g";
-            up = UnitePosologie.g;
-        }
-        if (dose == UnitePosologie.mL) {
-            doseString = "mL";
-            up = UnitePosologie.mL;
-        }
-        if (dose == UnitePosologie.mg) {
-            doseString = "mg";
-            up = UnitePosologie.mg;
-        }
-        if (dose == UnitePosologie.pulvérisations) {
-            doseString = "pulvérisations";
-            up = UnitePosologie.pulvérisations;
-        }
+        } else if ((jour > 31)
+                || (mois > 12)
+                || (annee < d1.getYear() + 1900)
+                || ((annee == d1.getYear() + 1900) && (mois < d1.getMonth() + 1))
+                || ((annee == d1.getYear() + 1900) && (mois == d1.getMonth() + 1) && (jour < d1.getDate()))) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Attention, la date de fin n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String medicament = jTextFieldMedicament.getText().substring(0, 1).toUpperCase().replaceAll("'", "''");
+            medicament += jTextFieldMedicament.getText().substring(1, jTextFieldMedicament.getText().length()).toLowerCase().replaceAll("'", "''");
+            String posologie = jTextFieldPosologie.getText().replaceAll("'", "''");
+            Object dose = jComboBox1.getSelectedItem();
+            UnitePosologie up = null;
+            String doseString = "";
+            if (dose == UnitePosologie.cc) {
+                doseString = "cc";
+                up = UnitePosologie.cc;
+            }
+            if (dose == UnitePosologie.comprimés) {
+                doseString = "comprimés";
+                up = UnitePosologie.comprimés;
+            }
+            if (dose == UnitePosologie.cs) {
+                doseString = "cs";
+                up = UnitePosologie.cs;
+            }
+            if (dose == UnitePosologie.dL) {
+                doseString = "dL";
+                up = UnitePosologie.dL;
+            }
+            if (dose == UnitePosologie.g) {
+                doseString = "g";
+                up = UnitePosologie.g;
+            }
+            if (dose == UnitePosologie.mL) {
+                doseString = "mL";
+                up = UnitePosologie.mL;
+            }
+            if (dose == UnitePosologie.mg) {
+                doseString = "mg";
+                up = UnitePosologie.mg;
+            }
+            if (dose == UnitePosologie.pulvérisations) {
+                doseString = "pulvérisations";
+                up = UnitePosologie.pulvérisations;
+            }
 
-        Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText())-1900, Integer.parseInt(jTextFieldFinTraitementMois.getText())-1, Integer.parseInt(jTextFieldFinTraitementJour.getText()));
-        int year=d.getYear()+1900;
-        String date = d.getDate() + "/" + d.getMonth() + "/" + year;
-        dtm.addRow(new Object[]{medicament, posologie, doseString, date});
-        Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
-        prescription.getMedicaments().addElement(med);
-        listeMed.addElement(med);
-        jTextFieldMedicament.setText("");
-        jTextFieldPosologie.setText("");
-        jTextFieldFinTraitementJour.setText("");
-        jTextFieldFinTraitementMois.setText("");
-        jTextFieldFinTraitementAnnee.setText("");
-        jPanel2.validate();
-        jPanel2.repaint();
-        scUI.getjTabbedPane1().revalidate();
-        scUI.getjTabbedPane1().repaint();
+            Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()) - 1900, Integer.parseInt(jTextFieldFinTraitementMois.getText()) - 1, Integer.parseInt(jTextFieldFinTraitementJour.getText()));
+            String date = d.getDate() + "/" + (d.getMonth()+1) + "/" + (d.getYear()+1900);
+            dtm.addRow(new Object[]{medicament, posologie, doseString, date});
+            Medicament med = new Medicament(medicament, Double.parseDouble(posologie), up, d);
+            prescription.getMedicaments().addElement(med);
+            listeMed.addElement(med);
+            jTextFieldMedicament.setText("");
+            jTextFieldPosologie.setText("");
+            jTextFieldFinTraitementJour.setText("");
+            jTextFieldFinTraitementMois.setText("");
+            jTextFieldFinTraitementAnnee.setText("");
+            jPanel2.validate();
+            jPanel2.repaint();
+        }
     }
 
     public void ajouterPrescription() {
-        
+
         try {
             for (int i = 0; i < listeMed.size(); i++) {
                 sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
@@ -446,19 +461,22 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                         + listeMed.get(i).getNomMedoc() + "',"
                         + listeMed.get(i).getPosologie() + ", '"
                         + listeMed.get(i).getUnitePosoString(listeMed.get(i).getUnitePosologie()) + "','"
-                        + listeMed.get(i).getDateFin()+"')";
+                        + listeMed.get(i).getDateFin() + "')";
                 CHUPP.getInsert(sql);
             }
             java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-            sql2="INSERT INTO Prescription VALUES ("+Prescription.getIDPresc()+","
-                    +currentPatient.getIPP()+","+ConnexionUI.getCurrentConnected().getID()+",'"
-                    +date+"')";
-            CHUPP.getInsert(sql2);   
+            sql2 = "INSERT INTO Prescription VALUES (" + Prescription.getIDPresc() + ","
+                    + currentPatient.getIPP() + "," + ConnexionUI.getCurrentConnected().getID() + ",'"
+                    + date + "')";
+            CHUPP.getInsert(sql2);
             JOptionPane j = new JOptionPane();
-            j.showMessageDialog(null,"La prescription a bien été ajoutée !","Ajout prescription",JOptionPane.INFORMATION_MESSAGE);
+            j.showMessageDialog(null, "La prescription a bien été ajoutée !", "Ajout prescription", JOptionPane.INFORMATION_MESSAGE);
+            scUI.getjTextArea1().setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+            scUI.revalidate();
+            scUI.repaint();
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
-            e.printStackTrace();   
+            e.printStackTrace();
         }
     }
 

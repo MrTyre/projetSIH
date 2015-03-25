@@ -508,10 +508,15 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_IPPActionPerformed
 
     private void AjoutPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPatientActionPerformed
+        if(jComboBoxServiceTri.getSelectedItem().equals("Tous")){
         apIU = new AjouterPatientIU();
         apIU.setVisible(true);
         apIU.setServiceAdmission(this);
         apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null,"Veuillez sélectionner \"Tous\" dans le choix des services pour ajouter un patient.","Attention",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
     private void jComboBoxTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTransfertActionPerformed
@@ -566,15 +571,14 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         try {
             jComboBoxTransfert.setModel(CHUPP.getListeServiceClinique());
             ((DefaultComboBoxModel) jComboBoxTransfert.getModel()).removeElement(spe);
-
             java.sql.Date currentDate = new Date(System.currentTimeMillis());
             String sqlc = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                     + "hospitalisation, practicien_hospitalier, service_clinique "
                     + "where patient.ipp=hospitalisation.ipp "
                     + "and patient.etat = 0"
                     + " and hospitalisation.idph=practicien_hospitalier.idph and"
-                    + " practicien_hospitalier.specialite=service_clinique.specialite and hospitalisation.date_sortie>='"
-                    + currentDate + "' and service_clinique.specialite='"
+                    + " practicien_hospitalier.specialite=service_clinique.specialite and (hospitalisation.date_sortie>='"
+                    + currentDate + "' or hospitalisation.date_sortie='1111-11-11') and service_clinique.specialite='"
                     + spe + "'";
             String sqlh = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                     + " consultation, practicien_hospitalier, service_clinique "

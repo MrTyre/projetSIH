@@ -134,6 +134,21 @@ public class CHUPP {
         }
         return dcbm;
     }
+    
+    /**
+     * définit les valeurs prises par la comboBox "liste de services cliniques"
+     * @return dcbm, les valeurs prises par la comboBox "liste de services cliniques"
+     * @throws SQLException 
+     */
+    public static DefaultListModel getListeServiceCliniqueDLM() throws SQLException {
+        DefaultListModel dlm = new DefaultListModel();
+        String sql = "SELECT specialite FROM service_clinique";
+        ResultSet resultat = CHUPP.getRequete(sql);
+        while (resultat.next()) {
+            dlm.addElement(resultat.getString("specialite"));
+        }
+        return dlm;
+    }
   
     /**
      * definit les valeurs prises par la comboBox "liste de services médico-techniques
@@ -148,6 +163,21 @@ public class CHUPP {
             dcbm.addElement(resultat.getString("specialite"));
         }
         return dcbm;
+    }
+    
+    /**
+     * definit les valeurs prises par la comboBox "liste de services médico-techniques
+     * @return les valeurs prises par la comboBox "liste de services"
+     * @throws SQLException 
+     */
+    public static DefaultListModel getListeServiceMedicoTechniqueDLM() throws SQLException {
+        DefaultListModel dlm = new DefaultListModel();
+        String sql = "SELECT specialite FROM service_medico_technique";
+        ResultSet resultat = CHUPP.getRequete(sql);
+        while (resultat.next()) {
+            dlm.addElement(resultat.getString("specialite"));
+        }
+        return dlm;
     }
 
     /**

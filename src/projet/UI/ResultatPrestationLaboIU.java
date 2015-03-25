@@ -367,6 +367,9 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au Résultats", "Attention", JOptionPane.WARNING_MESSAGE);
         } else {
+            String nature = jLabelNature.getText().replaceAll("'","''");
+            String resultats = jTextAreaResultats.getText().replaceAll("'","''");
+            String observation = jTextAreaObservations.getText().replaceAll("'","''");
             String sql2 = "SELECT idsmt from service_medico_technique where specialite='" + currentConnected.getSpecialite() + "'";
             ResultSet resultat = CHUPP.getRequete(sql2);
             resultat.first();
@@ -377,15 +380,15 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
                         + idsmt + ","
                         + currentPatient.getIPP() + ","
                         + currentConnected.getID() + ", '"
-                        + date + "', "
-                        + "'" + jLabelNature.getText() + "','"
-                        + jTextAreaResultats.getText().replaceAll("'","''") + "')";
+                        + date + "','"
+                        + nature + "','"
+                        + resultats + "')";
                 CHUPP.getInsert(sql);
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
                         + (Resultat.getIDresultat() - 1) +","
                         + currentConnected.getID() + ",'"
                         + date + "','"
-                        + jTextAreaObservations.getText().replaceAll("'","''") + "')";
+                        + observation + "')";
                 CHUPP.getInsert(sql3);
                 
                 if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance())) 

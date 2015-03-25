@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -103,16 +104,41 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         letterDirectory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int returnVal = chooser.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    directory = chooser.getSelectedFile().getPath();
-                }
-                String update = "update pracitien_hospitaliser set accesslettre='" + directory + "' where nom='" + currentPH.getNom() + "' and prenom='" + currentPH.getPrenom() + "'";
                 try {
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    int returnVal = chooser.showOpenDialog(null);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        directory = chooser.getSelectedFile().getPath();
+                    }
+                    String update = "update practicien_hospitalier set accesslettre='" + directory + "' where nom='" + currentPH.getNom() + "' and prenom='" + currentPH.getPrenom() + "'";
                     CHUPP.getInsert(update);
+                    JOptionPane j = new JOptionPane();
+                    j.showMessageDialog(null, "Dossier de stockage des lettres de sorties changé !", "Accès Lettres", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+             }
+            
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
                     Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -574,6 +600,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 dpUI.setCurrentPatient(currentPatient);
                 dpUI.setCurrentConnected(currentPH);
                 dpUI.setVisible(true);
+            } else {
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
@@ -625,6 +654,14 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 dlm.removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissanceString());
                 jList1.setModel(dlm);
                 repaint();
+                currentPatient = null;
+                jLabelPatient.setText("");
+                jLabelIPP.setText("");
+                jTextArea1.setText("");
+                jTextArea2.setText("");
+                jTextArea3.setText("");
+                jTextArea4.setText("");
+                jTextArea5.setText("");
                 j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane j2 = new JOptionPane();
@@ -756,6 +793,34 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         return jTextArea2;
     }
 
+    /**
+     * @return the jTextArea1
+     */
+    public javax.swing.JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    /**
+     * @return the jTextArea3
+     */
+    public javax.swing.JTextArea getjTextArea3() {
+        return jTextArea3;
+    }
+
+    /**
+     * @return the jTextArea4
+     */
+    public javax.swing.JTextArea getjTextArea4() {
+        return jTextArea4;
+    }
+
+    /**
+     * @return the jTextArea5
+     */
+    public javax.swing.JTextArea getjTextArea5() {
+        return jTextArea5;
+    }
+
     public class JList1ActionPerformed implements ListSelectionListener {
 
         @Override
@@ -768,21 +833,21 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                             setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"), result.getString("medecin_generaliste"), result.getString("adresse_med_gen")));
                             getjLabelIPP().setText(currentPatient.getIPP());
                             getjLabelPatient().setText(currentPatient.getNom());
-                            jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+                            getjTextArea1().setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                             getjTextArea2().setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                            jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                            jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
-                            jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                            jTextArea1.setCaretPosition(0);
+                            getjTextArea3().setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            getjTextArea4().setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
+                            getjTextArea5().setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                            getjTextArea1().setCaretPosition(0);
                             getjTextArea2().setCaretPosition(0);
-                            jTextArea3.setCaretPosition(0);
-                            jTextArea4.setCaretPosition(0);
-                            jTextArea5.setCaretPosition(0);
-                            jTextArea1.setBackground(new Color(240, 240, 255));
+                            getjTextArea3().setCaretPosition(0);
+                            getjTextArea4().setCaretPosition(0);
+                            getjTextArea5().setCaretPosition(0);
+                            getjTextArea1().setBackground(new Color(240, 240, 255));
                             getjTextArea2().setBackground(new Color(240, 240, 255));
-                            jTextArea3.setBackground(new Color(240, 240, 255));
-                            jTextArea4.setBackground(new Color(240, 240, 255));
-                            jTextArea5.setBackground(new Color(240, 240, 255));
+                            getjTextArea3().setBackground(new Color(240, 240, 255));
+                            getjTextArea4().setBackground(new Color(240, 240, 255));
+                            getjTextArea5().setBackground(new Color(240, 240, 255));
                             repaint();
                         }
                     }

@@ -217,6 +217,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Il manque des informations relatives à l'ajout d'une observation.", "Erreur", JOptionPane.WARNING_MESSAGE);
         } else {
+            String obs = jTextAreaObs.getText().replaceAll("'","''");
             if (jCheckBoxConsultation.isSelected()) {
                 while (result1.next()) {
                     if (((String) jComboBoxListe.getSelectedItem()).equals("Consultation du " + result1.getDate("date") + " / " + result1.getString("nature_prestation"))) {
@@ -224,7 +225,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                                 + "," + result1.getInt("idconsult")
                                 + "," + currentConnected.getID()
                                 + ",'" + dateActu1
-                                + "','" + jTextAreaObs.getText() + "')";
+                                + "','" + obs + "')";
                         CHUPP.getInsert(insert);
                         JOptionPane j = new JOptionPane();
                         j.showMessageDialog(null, "Observation bien ajoutée !", "Ajout Observation", JOptionPane.INFORMATION_MESSAGE);
@@ -238,7 +239,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                                 + "," + result2.getInt("idhosp")
                                 + "," + currentConnected.getID()
                                 + ",'" + dateActu1
-                                + "','" + jTextAreaObs.getText() + "')";
+                                + "','" + obs + "')";
                         CHUPP.getInsert(insert);
                         JOptionPane j = new JOptionPane();
                         j.showMessageDialog(null, "Observation bien ajoutée !", "Ajout Observation", JOptionPane.INFORMATION_MESSAGE);
