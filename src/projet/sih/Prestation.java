@@ -12,7 +12,7 @@ import java.sql.ResultSet;
  * @author Tommy
  */
 public class Prestation {
-
+    //attributs
     private String naturePrestation;
     private String resultatPrestation;
 

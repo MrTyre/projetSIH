@@ -242,69 +242,74 @@ public class LettreSortieUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void GenererLettreSortie(PersonnelMedical ph1, Patient p1) throws Exception {
-        Date d = new Date(new java.util.Date().getTime());
-        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
-        DateFormat df2 = new SimpleDateFormat("hh:mm");
-        // Create a text document from a standard template (empty documents within the JAR)
-        OdfTextDocument odt = OdfTextDocument.newTextDocument();
+        if (jTextAreaDiagnostic.getText().equals("") || jTextAreaTraitement.getText().equals("")) {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null,"Vous avez oublié de remplir un des champ","Attention",JOptionPane.WARNING_MESSAGE);
+        } else {
+            Date d = new Date(new java.util.Date().getTime());
+            DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat df2 = new SimpleDateFormat("hh:mm");
+            // Create a text document from a standard template (empty documents within the JAR)
+            OdfTextDocument odt = OdfTextDocument.newTextDocument();
 
-        // Append text to the end of the document. 
-        odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
-        odt.newParagraph();
-        odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
-        odt.newParagraph();
-        odt.addText("CHU de Princeton-Plainsboro");
-        odt.newParagraph();
-        odt.addText("Tel : 04.83.73.73.44");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("__________________________________________________________________ le " + df1.format(d) + ",");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Lettre à destination de : Dr. " + p1.getMedGen());
-        odt.newParagraph();
-        odt.addText(p1.getAdGen());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("\n\nObjet : Sortie de Mr." + p1.getNom() + " " + p1.getPrenom());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("\n\nJe soussigné Dr." + ph1.getNom() + " " + ph1.getPrenom() + ", autorise le patient " + p1.getNom() + " " + p1.getPrenom() + " à sortir du Service " + ph1.getSpecialite() + " à compter du " + df1.format(d) + " à " + df2.format(d) + "h.");
-        odt.newParagraph();
-        odt.addText("Cette sortie intervient suite au diagnostic suivant :");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText(jTextAreaDiagnostic.getText());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Le patient " + p1.getNom() + " " + p1.getPrenom() + " est autorisé à sortir du Service " + ph1.getSpecialite() + " suite à l'administration du traitement suivant :");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText(jTextAreaTraitement.getText());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Cordialement,");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Dr " + ph1.getNom() + " " + ph1.getPrenom());
-        odt.newParagraph();
+            // Append text to the end of the document. 
+            odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
+            odt.newParagraph();
+            odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
+            odt.newParagraph();
+            odt.addText("CHU de Princeton-Plainsboro");
+            odt.newParagraph();
+            odt.addText("Tel : 04.83.73.73.44");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("__________________________________________________________________ le " + df1.format(d) + ",");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Lettre à destination de : Dr. " + p1.getMedGen());
+            odt.newParagraph();
+            odt.addText(p1.getAdGen());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("\n\nObjet : Sortie de Mr." + p1.getNom() + " " + p1.getPrenom());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("\n\nJe soussigné Dr." + ph1.getNom() + " " + ph1.getPrenom() + ", autorise le patient " + p1.getNom() + " " + p1.getPrenom() + " à sortir du Service " + ph1.getSpecialite() + " à compter du " + df1.format(d) + " à " + df2.format(d) + "h.");
+            odt.newParagraph();
+            odt.addText("Cette sortie intervient suite au diagnostic suivant :");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText(jTextAreaDiagnostic.getText());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Le patient " + p1.getNom() + " " + p1.getPrenom() + " est autorisé à sortir du Service " + ph1.getSpecialite() + " suite à l'administration du traitement suivant :");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText(jTextAreaTraitement.getText());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Cordialement,");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Dr " + ph1.getNom() + " " + ph1.getPrenom());
+            odt.newParagraph();
 
-        // Save document
-        String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
-        ResultSet result = CHUPP.getRequete(sql);
-        result.first();
-        odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+            // Save document
+            String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
+            ResultSet result = CHUPP.getRequete(sql);
+            result.first();
+            odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
 
-        if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
-            scIU.getjList1().setSelectedIndex(1);
-            scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
-            scIU.getjList1().setModel(scIU.getDlm());
-            scIU.getjList1().revalidate();
-            scIU.getjList1().repaint();
+            if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
+                scIU.getjList1().setSelectedIndex(1);
+                scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
+                scIU.getjList1().setModel(scIU.getDlm());
+                scIU.getjList1().revalidate();
+                scIU.getjList1().repaint();
+            }
         }
     }
 

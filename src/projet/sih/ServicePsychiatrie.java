@@ -16,7 +16,5 @@ public class ServicePsychiatrie extends ServiceClinique {
     
     public ServicePsychiatrie(){
         this.setSpecialite("Psychiatrie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

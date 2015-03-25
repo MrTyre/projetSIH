@@ -16,7 +16,5 @@ public class ServiceNeurologie extends ServiceClinique {
     
     public ServiceNeurologie(){
         this.setSpecialite("Neurologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

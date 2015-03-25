@@ -11,6 +11,7 @@ package projet.sih;
  * @author Tommy
  */
 public class LaboratoireBiologieMedicale extends ServiceMedicoTechnique {
+    //attributs
     private String typeAnalyse;
 
     /**

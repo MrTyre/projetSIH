@@ -317,12 +317,11 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPrenomActionPerformed
 
     private void jTextFieldPrenomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPrenomKeyPressed
-
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
-            nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'","''");
+            nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'", "''");
             prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
-            prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'","''");
+            prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'", "''");
             try {
                 DefaultComboBoxModel cbStatut = new DefaultComboBoxModel();
                 DefaultComboBoxModel cbService = new DefaultComboBoxModel();
@@ -433,56 +432,159 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
         resultph.last();
         resultint.last();
         resultinf.last();
-
-        if (resultph.getRow() != 0) {
-            resultph.beforeFirst();
-            while (resultph.next()) {
-                String sql2 = "select * from service_clinique where specialite ='" + resultph.getString("specialite") + "'";
-                String sql3 = "select * from service_medico_technique where specialite ='" + resultph.getString("specialite") + "'";
-                ResultSet result2 = CHUPP.getRequete(sql2);
-                ResultSet result3 = CHUPP.getRequete(sql3);
-                while (result2.next()) {
+        if ((jTextFieldNom.getText().equals("")) || (jTextFieldPrenom.getText().equals(""))) {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Vous n'avez pas rentré de nom ou de prénom pour le personnel à modifier", "Attention", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (resultph.getRow() != 0) {
+                resultph.beforeFirst();
+                while (resultph.next()) {
+                    String sql2 = "select * from service_clinique where specialite ='" + resultph.getString("specialite") + "'";
+                    String sql3 = "select * from service_medico_technique where specialite ='" + resultph.getString("specialite") + "'";
+                    ResultSet result2 = CHUPP.getRequete(sql2);
+                    ResultSet result3 = CHUPP.getRequete(sql3);
+                    while (result2.next()) {
+                        if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            if (result2.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
+                                CHUPP.getInsert(update);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            if (result2.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
+                                CHUPP.getInsert(update);
+                                String update2 = "update practicien_hospitalier set specialite='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
+                                CHUPP.getInsert(update2);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
+                            if (result2.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
+                                CHUPP.getInsert(update);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else {
+                            JOptionPane j = new JOptionPane();
+                            int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
+                            if (retour == JOptionPane.OK_OPTION) {
+                                setVisible(false);
+                            } else {
+                                j.setVisible(false);
+                            }
+                        }
+                        break;
+                    }
+                    while (result3.next()) {
+                        if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            if (result3.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
+                                CHUPP.getInsert(update);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
+                            if (result3.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
+                                CHUPP.getInsert(update);
+                                String update2 = "update practicien_hospitalier set specialite='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
+                                CHUPP.getInsert(update2);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
+                            if (result3.getInt("chef_service") == resultph.getInt("idph")) {
+                                JOptionPane j = new JOptionPane();
+                                j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
+                                break;
+                            } else {
+                                String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
+                                CHUPP.getInsert(update);
+                                JOptionPane j2 = new JOptionPane();
+                                j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        } else {
+                            JOptionPane j = new JOptionPane();
+                            int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
+                            if (retour == JOptionPane.OK_OPTION) {
+                                setVisible(false);
+                            } else {
+                                j.setVisible(false);
+                            }
+                        }
+                        break;
+                    }
+                    break;
+                }
+            } else if (resultint.getRow()
+                    != 0) {
+                resultint.beforeFirst();
+                while (resultint.next()) {
                     if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                        if (result2.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
-                            CHUPP.getInsert(update);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
+                        String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
+                        CHUPP.getInsert(update);
+                        JOptionPane j2 = new JOptionPane();
+                        j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        break;
                     } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                        if (result2.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
-                            CHUPP.getInsert(update);
-                            String update2 = "update practicien_hospitalier set specialite='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
-                            CHUPP.getInsert(update2);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
+                        String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
+                        CHUPP.getInsert(update);
+                        String update2 = "insert into practicien_hospitalier values (" + PH.getIDPH()
+                                + ",'" + nom
+                                + "','" + prenom
+                                + "','" + nouveauService
+                                + "','" + resultint.getString("mdp")
+                                + "','src/LettresSorties')";
+                        CHUPP.getInsert(update2);
+                        String update3 = "delete from interne where nom='" + nom + "' and prenom ='" + prenom + "'";
+                        CHUPP.getInsert(update3);
+                        JOptionPane j2 = new JOptionPane();
+                        j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        break;
                     } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
-                        if (result2.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
-                            CHUPP.getInsert(update);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
+                        String update2 = "insert into practicien_hospitalier values (" + PH.getIDPH()
+                                + ",'" + nom
+                                + "','" + prenom
+                                + "','" + resultint.getString("specialite")
+                                + "','" + resultint.getString("mdp") + "')";
+                        CHUPP.getInsert(update2);
+                        String update3 = "delete from interne where nom='" + nom + "' and prenom ='" + prenom + "'";
+                        CHUPP.getInsert(update3);
+                        JOptionPane j2 = new JOptionPane();
+                        j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        break;
                     } else {
                         JOptionPane j = new JOptionPane();
-                        int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
+                        int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
                         if (retour == JOptionPane.OK_OPTION) {
                             setVisible(false);
                         } else {
@@ -491,48 +593,19 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                     }
                     break;
                 }
-                while (result3.next()) {
-                    if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                        if (result3.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien que vous souhaitez changer de service est Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update practicien_hospitalier set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
-                            CHUPP.getInsert(update);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
-                    } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                        if (result3.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien que vous souhaitez passer Chef du Service " + nouveauService + " est déjà Chef du Service " + resultph.getString("specialite") + ".\nMerci de nommer un nouveau Chef de Service pour ce dernier avant d'effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + nouveauService + "'";
-                            CHUPP.getInsert(update);
-                            String update2 = "update practicien_hospitalier set specialite='" + nouveauService + "' where nom='" + nom + "' and prenom='" + prenom + "'";
-                            CHUPP.getInsert(update2);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
-                    } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
-                        if (result3.getInt("chef_service") == resultph.getInt("idph")) {
-                            JOptionPane j = new JOptionPane();
-                            j.showMessageDialog(null, "Attention, le praticien dont vous souhaitez changer le statut est Chef du Service " + resultph.getString("specialite") + ".\nMerci de directement nommer un nouveau Chef de Service pour effectuer ce changement", "Attention", JOptionPane.WARNING_MESSAGE);
-                            break;
-                        } else {
-                            String update = "update service_clinique set chef_service=" + resultph.getInt("idph") + " where specialite='" + resultph.getString("specialite") + "'";
-                            CHUPP.getInsert(update);
-                            JOptionPane j2 = new JOptionPane();
-                            j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                            break;
-                        }
+            } else if (resultinf.getRow()
+                    != 0) {
+                resultinf.beforeFirst();
+                while (resultinf.next()) {
+                    if (jComboBoxNouveauService.getSelectedIndex() >= 0) {
+                        String update = "update infirmier set service ='" + nouveauService + "' where nom ='" + nom + "' and prenom='" + prenom + "'";
+                        CHUPP.getInsert(update);
+                        JOptionPane j2 = new JOptionPane();
+                        j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                        break;
                     } else {
                         JOptionPane j = new JOptionPane();
-                        int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
+                        int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
                         if (retour == JOptionPane.OK_OPTION) {
                             setVisible(false);
                         } else {
@@ -541,76 +614,6 @@ public class ServiceInformatiqueModifierPersonnel extends javax.swing.JFrame {
                     }
                     break;
                 }
-                break;
-            }
-        } else if (resultint.getRow()
-                != 0) {
-            resultint.beforeFirst();
-            while (resultint.next()) {
-                if ((jComboBoxNouveauStatut.getSelectedIndex() < 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                    String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
-                    CHUPP.getInsert(update);
-                    JOptionPane j2 = new JOptionPane();
-                    j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() >= 0)) {
-                    String update = "update interne set specialite ='" + nouveauService + "' where nom='" + nom + "' and prenom ='" + prenom + "'";
-                    CHUPP.getInsert(update);
-                    String update2 = "insert into practicien_hospitalier values (" + PH.getIDPH()
-                            + ",'" + nom
-                            + "','" + prenom
-                            + "','" + nouveauService
-                            + "','" + resultint.getString("mdp")
-                            + "','src/LettresSorties')";
-                    CHUPP.getInsert(update2);
-                    String update3 = "delete from interne where nom='" + nom + "' and prenom ='" + prenom + "'";
-                    CHUPP.getInsert(update3);
-                    JOptionPane j2 = new JOptionPane();
-                    j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                } else if ((jComboBoxNouveauStatut.getSelectedIndex() >= 0) && (jComboBoxNouveauService.getSelectedIndex() < 0)) {
-                    String update2 = "insert into practicien_hospitalier values (" + PH.getIDPH()
-                            + ",'" + nom
-                            + "','" + prenom
-                            + "','" + resultint.getString("specialite")
-                            + "','" + resultint.getString("mdp") + "')";
-                    CHUPP.getInsert(update2);
-                    String update3 = "delete from interne where nom='" + nom + "' and prenom ='" + prenom + "'";
-                    CHUPP.getInsert(update3);
-                    JOptionPane j2 = new JOptionPane();
-                    j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                } else {
-                    JOptionPane j = new JOptionPane();
-                    int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
-                    if (retour == JOptionPane.OK_OPTION) {
-                        setVisible(false);
-                    } else {
-                        j.setVisible(false);
-                    }
-                }
-                break;
-            }
-        } else if (resultinf.getRow()
-                != 0) {
-            resultinf.beforeFirst();
-            while (resultinf.next()) {
-                if (jComboBoxNouveauService.getSelectedIndex() >= 0) {
-                    String update = "update infirmier set service ='" + nouveauService + "' where nom ='" + nom + "' and prenom='" + prenom + "'";
-                    CHUPP.getInsert(update);
-                    JOptionPane j2 = new JOptionPane();
-                    j2.showMessageDialog(null, "Modification enregistrée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                } else {
-                    JOptionPane j = new JOptionPane();
-                    int retour = j.showConfirmDialog(null, "Aucun changement demandé. Voulez-vous quitter ce menu ?", "Attention", JOptionPane.OK_CANCEL_OPTION);
-                    if (retour == JOptionPane.OK_OPTION) {
-                        setVisible(false);
-                    } else {
-                        j.setVisible(false);
-                    }
-                }
-                break;
             }
         }
     }

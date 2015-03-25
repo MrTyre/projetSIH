@@ -20,8 +20,11 @@ import javax.swing.table.*;
  *
  */
 public class ButtonColumn extends AbstractCellEditor
-	implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener
-{
+	implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
+    
+        /** variables
+        **/
+        
 	private JTable table;
 	private Action action;
 	private int mnemonic;

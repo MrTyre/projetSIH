@@ -16,7 +16,5 @@ public class ServicePneumologie extends ServiceClinique {
     
     public ServicePneumologie(){
         this.setSpecialite("Pneumologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

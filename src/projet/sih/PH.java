@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  */
 
 public class PH extends PersonnelMedical {
-    
+    //attributs
     private static int compteur =0;
   /**
    * constructeur de la classe PH, praticien hospitalier
@@ -24,10 +24,25 @@ public class PH extends PersonnelMedical {
         specialite="DefaultSpeciality";
     }
     
+    /**
+     * constructeur n°2
+     * @param id
+     * @param nom
+     * @param prenom 
+     */
     public PH(String id,String nom, String prenom){
         super(id,nom, prenom);
         
     }
+    
+    /**
+     * constructeur n°3
+     * @param id
+     * @param nom
+     * @param prenom
+     * @param mdp
+     * @param specialite 
+     */
     public PH(String id, String nom, String prenom, String mdp, String specialite){
         super(id,nom,prenom,mdp,specialite);
     }

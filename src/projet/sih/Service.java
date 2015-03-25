@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public abstract class Service {
+    //attributs
     private PH chefDeService;
     private DefaultListModel<PH> praticiens;
     private DefaultListModel<Interne> internes;
@@ -75,20 +76,7 @@ public abstract class Service {
     public void setPatients(DefaultListModel<Patient> patients) {
         this.patients = patients;
     }
-    
-        /**
-     * @return la liste des chambres du service
-     */
-    public DefaultListModel<Chambre> getChambres() {
-        return chambres;
-    }
 
-    /**
-     * @param chambres the chambres to set
-     */
-    public void setChambres(DefaultListModel<Chambre> chambres) {
-        this.chambres = chambres;
-    }
 
     /**
      * @return la liste des infirmiers du service

@@ -10,7 +10,7 @@ package projet.sih;
  * @author Tommy
  */
 public abstract class PersonnelMedical {
-
+    //attributs
     protected String ID;
     protected String nom;
     protected String prenom;

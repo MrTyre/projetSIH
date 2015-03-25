@@ -8,7 +8,6 @@ package projet.sih;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.DefaultListModel;
 
 /**
@@ -16,6 +15,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class ServiceClinique extends Service {
+    //attributs
     private String specialite;
     private static int compteur;
 
@@ -25,6 +25,12 @@ public class ServiceClinique extends Service {
     public String getSpecialite() {
         return specialite;
     }
+    
+    /**
+     * méthode pour donner un nouvel ID à un nouveau service
+     * @return compteur
+     * @throws SQLException 
+     */
     public static int getIDServiceClinique() throws SQLException{
         String sql="select * from service_clinique";
         ResultSet resultat=CHUPP.getRequete(sql);
