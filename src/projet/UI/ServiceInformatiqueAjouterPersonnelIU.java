@@ -8,6 +8,7 @@ package projet.UI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,17 +17,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import projet.sih.Adresse;
 import projet.sih.CHUPP;
 import projet.sih.Interne;
 import projet.sih.PH;
-import projet.sih.Patient;
 import projet.sih.Informaticien;
 import projet.sih.PersonnelInfirmier;
 import projet.sih.Secretaire;
@@ -37,6 +35,7 @@ import projet.sih.Secretaire;
  */
 public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
 
+    //attributs
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
     private String sql;
@@ -67,7 +66,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -83,6 +82,30 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         leave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+            }
+        });
+
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -120,7 +143,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         jLabelStatut.setText("Statut :");
 
         jComboBoxStatut.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chef de Service", "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médicale", "Informaticien" }));
+        jComboBoxStatut.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Praticien Hospitalier", "Personnel Infirmier", "Interne", "Secrétaire Médical(e)", "Informaticien" }));
         jComboBoxStatut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxStatutActionPerformed(evt);
@@ -253,16 +276,17 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
         setVisible(false);
         try {
             si = new ServiceInformatiqueIU();
+            si.setLocationRelativeTo(null);
+            si.setResizable(false);
+            si.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
         }
-        si.setLocationRelativeTo(null);
-        si.setResizable(false);
-        si.setVisible(true);
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         try {
+            //ajout du personnel
             ajouterPersonnel();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInformatiqueAjouterPersonnelIU.class.getName()).log(Level.SEVERE, null, ex);
@@ -274,6 +298,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxServiceActionPerformed
 
     private void jComboBoxStatutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatutActionPerformed
+        //si le personnel a ajouter est un Infomaticien ou une secrétaire médicale on ne précise pas son futur service
         if ((((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien")) || (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale"))) {
             jLabelService.setVisible(false);
             jComboBoxService.setVisible(false);
@@ -300,8 +325,10 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNom;
     private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
+    //génération de mot de passe aléatoire sur 5 caractères (respect des 7 items en mémoire max)
+
     public String generate() {
-        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // Tu supprimes les lettres dont tu ne veux pas
+        String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         String pass = "";
         for (int x = 0; x < 5; x++) {
             int i = (int) Math.floor(Math.random() * 62); // Si tu supprimes des lettres tu diminues ce nb
@@ -311,17 +338,21 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
     }
 
     public void ajouterPersonnel() throws SQLException {
+        //on vérifie que tous les champs nécessaires sont remplis
         if ((jTextFieldNom.getText().equals(""))
                 || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au personnel", "Attention", JOptionPane.WARNING_MESSAGE);
+            //on ajoute le personnel
         } else {
-            String nom = jTextFieldNom.getText().substring(0,1).toUpperCase();
-            nom += jTextFieldNom.getText().substring(1,jTextFieldNom.getText().length()).toLowerCase().replaceAll("'","''");
-            String prenom = jTextFieldPrenom.getText().substring(0,1).toUpperCase();
-            prenom += jTextFieldPrenom.getText().substring(1,jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'","''");            
+            //récupération et normalisation du nom de personnel tel quel : Nom Prénom et prévention de SQL Injection
+            String nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
+            nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'", "''");
+            String prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
+            prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'", "''");
             String service = "";
             String mdp = generate();
+            //requête pour vérifier que le personnel n'existe pas déjà
             String sph = "SELECT * FROM practicien_hospitalier";
             String sinf = "SELECT * FROM infirmier";
             String sint = "SELECT * FROM interne";
@@ -333,39 +364,46 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
             ResultSet rint = CHUPP.getRequete(sint);
             ResultSet rsec = CHUPP.getRequete(ssec);
             ResultSet rinfo = CHUPP.getRequete(sinfo);
-
-            if (((String) jComboBoxStatut.getSelectedItem()).equals("Chef de Service") || ((String) jComboBoxStatut.getSelectedItem()).equals("Praticien Hospitalier")) {
+            //ajout d'un praticien hospitalier
+            if (((String) jComboBoxStatut.getSelectedItem()).equals("Praticien Hospitalier")) {
+                //on garde le service demandé en mémoire
                 service = ((String) jComboBoxService.getSelectedItem());
                 try {
                     while (rph.next()) {
+                        //on vérifie qu'il n'est pas déjà présent dans la base de données en vérifiant le nom et le prénom
                         if ((rph.getString("nom").equals(nom)) && (rph.getString("prenom").equals(prenom))) {
                             JOptionPane j = new JOptionPane();
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
+                            //on l'ajoute à la BD
                         } else {
-                            sql = "INSERT INTO practicien_hospitalier VALUES (" + PH.getIDPH() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp +"','src/LettresSorties')";
+                            sql = "INSERT INTO practicien_hospitalier VALUES (" + PH.getIDPH() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "','src/LettresSorties')";
                             CHUPP.getInsert(sql);
                             if (((String) jComboBoxStatut.getSelectedItem()).equals("Chef de Service")) {
                                 String sql2 = "UPDATE service_clinique SET chef_service =" + (PH.getIDPH() - 1) + " where specialite ='" + service + "'";
                                 CHUPP.getInsert(sql2);
                             }
                             JOptionPane jop1 = new JOptionPane();
-                            jop1.showMessageDialog(null, "Le personnel a été correctement ajouté !\nSon mot de passe est : " + mdp +"\n Pensez à le noter dans un endroit sur.", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
-                            break; 
+                            jop1.showMessageDialog(null, "Le personnel a été correctement ajouté !\nSon mot de passe est : " + mdp + "\n Pensez à le noter dans un endroit sur.", "Personnel ajouté", JOptionPane.INFORMATION_MESSAGE);
+                            break;
                         }
                     }
                 } catch (Exception e) {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
+                //ajout d'un personnel infirmier
             } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Personnel Infirmier")) {
+                //on garde le service demandé en mémoire
                 service = ((String) jComboBoxService.getSelectedItem());
                 try {
                     while (rinf.next()) {
+                        //on vérifie qu'il n'est pas déjà présent dans la base de données en vérifiant le nom et le prénom
                         if ((rinf.getString("nom").equals(nom)) && (rinf.getString("prenom").equals(prenom))) {
                             JOptionPane j = new JOptionPane();
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
+                            //on l'ajoute à la BD
                         } else {
                             sql = "INSERT INTO infirmier VALUES (" + PersonnelInfirmier.getIDInf() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
@@ -378,14 +416,18 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
+                //ajout d'un personnel interne
             } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Interne")) {
+                //on garde le service demandé en mémoire
                 service = ((String) jComboBoxService.getSelectedItem());
                 try {
                     while (rint.next()) {
+                        //on vérifie qu'il n'est pas déjà présent dans la base de données en vérifiant le nom et le prénom
                         if ((rint.getString("nom").equals(nom)) && (rint.getString("prenom").equals(prenom))) {
                             JOptionPane j = new JOptionPane();
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
+                            //on l'ajoute à la BD
                         } else {
                             sql = "INSERT INTO interne VALUES (" + Interne.getIDint() + ", '" + nom + "', '" + prenom + "', '" + service + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
@@ -398,13 +440,16 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
-            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médicale")) {
+                //ajout d'un(e) secrétaire médical(e)
+            } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Secrétaire Médical(e)")) {
                 try {
                     while (rsec.next()) {
+                        //on vérifie qu'il n'est pas déjà présent dans la base de données en vérifiant le nom et le prénom
                         if ((rsec.getString("nom").equals(nom)) && (rsec.getString("prenom").equals(prenom))) {
                             JOptionPane j = new JOptionPane();
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
+                            //on l'ajoute à la BD
                         } else {
                             sql = "INSERT INTO secretaire VALUES (" + Secretaire.getIDSec() + ", '" + nom + "', '" + prenom + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
@@ -417,13 +462,16 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                     System.out.println("Failed to get Statement");
                     e.printStackTrace();
                 }
+                //ajout d'un informaticien
             } else if (((String) jComboBoxStatut.getSelectedItem()).equals("Informaticien")) {
                 try {
                     while (rinfo.next()) {
+                        //on vérifie qu'il n'est pas déjà présent dans la base de données en vérifiant le nom et le prénom
                         if ((rinfo.getString("nom").equals(nom)) && (rinfo.getString("prenom").equals(prenom))) {
                             JOptionPane j = new JOptionPane();
                             j.showMessageDialog(null, "Le personnel existe déjà", "Attention", JOptionPane.INFORMATION_MESSAGE);
                             break;
+                            //on l'ajoute à la BD
                         } else {
                             sql = "INSERT INTO informaticien VALUES (" + Informaticien.getIDInfo() + ", '" + nom + "', '" + prenom + "', '" + mdp + "')";
                             CHUPP.getInsert(sql);
@@ -438,6 +486,7 @@ public class ServiceInformatiqueAjouterPersonnelIU extends javax.swing.JFrame {
                 }
             }
         }
+        //on réaffiche les champs vides
         jTextFieldNom.setText("");
         jTextFieldPrenom.setText("");
         jComboBoxStatut.setSelectedIndex(0);

@@ -3,6 +3,7 @@ package projet.UI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,6 +23,8 @@ import javax.swing.JOptionPane;
  * @author Manounette
  */
 public class ServiceInformatiqueIU extends javax.swing.JFrame {
+
+    //attributs
 
     private ServiceInformatiqueAjouterPersonnelIU siap;
     private ServiceInformatiqueAjouterServiceIU sias;
@@ -54,7 +57,7 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -70,6 +73,30 @@ public class ServiceInformatiqueIU extends javax.swing.JFrame {
         leave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+            }
+        });
+
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

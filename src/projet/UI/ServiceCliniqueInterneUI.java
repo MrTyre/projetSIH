@@ -6,7 +6,6 @@
 package projet.UI;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -35,10 +34,9 @@ import projet.sih.*;
  * @author Marina
  */
 public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
-    private CHUPP chupp;
     //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sql;
+    //Attributs
     private ConnexionUI connexionUI;
     private DefaultListModel dlm = new DefaultListModel();
     private Patient currentPatient;
@@ -72,7 +70,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-        
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -114,7 +112,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
             }
         });
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
-        String currentDateString = currentDate.toString();
+        //on remplit la liste avec les patients du service
         String sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "hospitalisation, practicien_hospitalier, service_clinique "
                 + "where patient.ipp=hospitalisation.ipp "
@@ -132,6 +130,7 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
                 + currentDate + "' and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
         try {
+            //remplissage du modèle
             ResultSet resultat =CHUPP.getRequete(sql);
             ResultSet resultat2=CHUPP.getRequete(sql2);
             while (resultat.next()) {
@@ -493,19 +492,6 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea5;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the chupp
-     */
-    public CHUPP getChupp() {
-        return chupp;
-    }
-
-    /**
-     * @param chupp the chupp to set
-     */
-    public void setChupp(CHUPP chupp) {
-        this.chupp = chupp;
-    }
 
     /**
      * @return the jLabelService
@@ -534,18 +520,30 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
         public void valueChanged(ListSelectionEvent lse) {
 
             try {
-
+                //ici pas de vérification de l'event car une infirmière n'a pas les droits pour ajouter ou retirer un patient
                 ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                 while (result.next()) {
+                    //en cas d'action on vérifie chaque patient
                     if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                        //le patient sélectionné devient le patient courant
                         setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                        //affichage de l'IPP du patien
                         jLabelIPP.setText(currentPatient.getIPP());
+                        //affichage du nom de patient
                         jLabelPatient.setText(currentPatient.getNom());
+                        //on remplis les onglets du jTabbedPane avec les informations relatives au patient sélectionné
                         jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
                         jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                         jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                         jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                         jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                        //on place le curseur de défilement en haut
+                        jTextArea1.setCaretPosition(0);
+                        jTextArea2.setCaretPosition(0);
+                        jTextArea3.setCaretPosition(0);
+                        jTextArea4.setCaretPosition(0);
+                        jTextArea5.setCaretPosition(0);
+                        //on modifie la couleur d'arrière-plan
                         jTextArea1.setBackground(new Color(240,240,255));
                         jTextArea2.setBackground(new Color(240,240,255));
                         jTextArea3.setBackground(new Color(240,240,255));
@@ -554,7 +552,6 @@ public class ServiceCliniqueInterneUI extends javax.swing.JFrame {
                         repaint();
                     }
                 }
-
             } catch (SQLException ex) {
                 Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }

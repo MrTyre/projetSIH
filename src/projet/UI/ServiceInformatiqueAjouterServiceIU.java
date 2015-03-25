@@ -8,6 +8,7 @@ package projet.UI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,6 +31,7 @@ import projet.sih.CHUPP;
  */
 public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
 
+    //attributs
     private ServiceInformatiqueIU si;
     private ConnexionUI connexionUI;
     private String sql;
@@ -60,7 +62,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -76,6 +78,30 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         leave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+            }
+        });
+
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -256,12 +282,12 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
         setVisible(false);
         try {
             si = new ServiceInformatiqueIU();
+            si.setLocationRelativeTo(null);
+            si.setResizable(false);
+            si.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
         }
-        si.setLocationRelativeTo(null);
-        si.setResizable(false);
-        si.setVisible(true);
     }//GEN-LAST:event_jButtonRetourActionPerformed
 
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
@@ -274,6 +300,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         try {
+            //ajout du service
             ajouterService();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceInformatiqueAjouterServiceIU.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,35 +330,46 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
     public void ajouterService() throws SQLException {
+        //on vérifie que tous les champs sont complets
         if ((jTextFieldNom.getText().equals(""))
                 || (jTextFieldNomService.getText().equals(""))
                 || (jTextFieldPrenom.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
+            //on ajoute le service
         } else {
+            //récupération et formalisations des entrées utilisateurs et prévention de SQL Injection
             String nom = jTextFieldNom.getText().substring(0, 1).toUpperCase();
             nom += jTextFieldNom.getText().substring(1, jTextFieldNom.getText().length()).toLowerCase().replaceAll("'", "''");
             String prenom = jTextFieldPrenom.getText().substring(0, 1).toUpperCase();
             prenom += jTextFieldPrenom.getText().substring(1, jTextFieldPrenom.getText().length()).toLowerCase().replaceAll("'", "''");
             String nomService = jTextFieldNomService.getText().substring(0, 1).toUpperCase();
             nomService += jTextFieldNomService.getText().substring(1, jTextFieldNomService.getText().length()).toLowerCase().replaceAll("'", "''");
+            //on récupère les infos du futur chef de service
             String sql2 = "select * from practicien_hospitalier where nom='" + nom + "' and prenom='" + prenom + "'";
+            //requete pour vérifier que le médecin n'est pas déjà chef de service dans un service clinique
             String sqlChefServiceClinique = "select * from service_clinique";
+            //requete pour vérifier que le médecin n'est pas déjà chef de service dans un service clinique
             String sqlChefServiceMedicoTechnique = "select * from service_medico_technique";
             ResultSet resultat2ChefServiceClinique = CHUPP.getRequete(sqlChefServiceClinique);
             ResultSet resultat2ChefServiceMedicoTechnique = CHUPP.getRequete(sqlChefServiceMedicoTechnique);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
+            //cas ou on ajoute un service clinique
             if (((String) jComboBoxService.getSelectedItem()).equals("Clinique")) {
                 while (resultat2.next()) {
+                    //on vérifie que le service n'existe pas déjà
                     while (resultat2ChefServiceClinique.next()) {
                         if (CHUPP.getListeServiceCliniqueDLM().contains(nomService)) {
                             JOptionPane jop1 = new JOptionPane();
                             jop1.showMessageDialog(null, "Ce service existe déjà", "Attention", JOptionPane.WARNING_MESSAGE);
                             break;
                         } else {
+                            //on vérifie que le médecin n'est pas chef d'un service clinique
                             if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
                                 while (resultat2ChefServiceMedicoTechnique.next()) {
+                                    //on vérifie que le médecin n'est pas chef d'un service médico technique
                                     if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
+                                        //on ajoute le service à la BD
                                         sql = "INSERT INTO service_clinique VALUES (" + ServiceClinique.getIDServiceClinique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
                                         String sql3 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
                                         CHUPP.getInsert(sql3);
@@ -355,17 +393,22 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                     }
                     break;
                 }
+                //si le service à ajouter est un service médico technique
             } else if (((String) jComboBoxService.getSelectedItem()).equals("Médico-technique")) {
                 while (resultat2.next()) {
                     while (resultat2ChefServiceMedicoTechnique.next()) {
+                        //on vérifie que le service n'existe pas déjà
                         if (CHUPP.getListeServiceMedicoTechniqueDLM().contains(nomService)) {
                             JOptionPane jop1 = new JOptionPane();
                             jop1.showMessageDialog(null, "Ce service existe déjà", "Attention", JOptionPane.WARNING_MESSAGE);
                             break;
                         } else {
+                            //on vérifie que le médecin n'est pas chef d'un service médico technique
                             if (!resultat2.getString("idph").equals(resultat2ChefServiceMedicoTechnique.getString("chef_service"))) {
                                 while (resultat2ChefServiceClinique.next()) {
+                                    //on vérifie que le médecin n'est pas chef d'un service clinique
                                     if (!resultat2.getString("idph").equals(resultat2ChefServiceClinique.getString("chef_service"))) {
+                                        //ajout du service à la BD
                                         sql = "INSERT INTO service_medico_technique VALUES (" + ServiceMedicoTechnique.getIDServiceMedicoTechnique() + ", " + resultat2.getString("idph") + ", '" + nomService + "')";
                                         String sql4 = "update practicien_hospitalier set specialite='" + nomService + "' where idph=" + resultat2.getString("idph");
                                         CHUPP.getInsert(sql4);
@@ -390,6 +433,7 @@ public class ServiceInformatiqueAjouterServiceIU extends javax.swing.JFrame {
                     break;
                 }
             }
+            //on réaffiche les champs vides
             jTextFieldNom.setText("");
             jTextFieldPrenom.setText("");
             jTextFieldNomService.setText("");

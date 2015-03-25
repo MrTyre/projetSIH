@@ -34,14 +34,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class ServiceCliniqueIU extends javax.swing.JFrame {
 
-    /**
-     * @param aCurrentPatient the currentPatient to set
-     */
-    public static void setCurrentPatient(Patient aCurrentPatient) {
-        currentPatient = aCurrentPatient;
-    }
-
-    private CHUPP chupp;
+    //attributs
     private String directory;
     private DemandePrestationUI dpUI;
     private AjouterPrescriptionIU aprIU;
@@ -53,7 +46,6 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private PersonnelMedical currentPH;
     private AjouterHospitalisationUI ahUI;
     private AjouterObservationUI aoUI;
-
     private String sql;
 
     public ServiceCliniqueIU() throws FileNotFoundException, IOException {
@@ -83,6 +75,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
+        //on définit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -143,6 +136,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 }
             }
         });
+        //on remplit la liste des patients
         java.sql.Date currentDate = new Date(System.currentTimeMillis());
         sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "hospitalisation, practicien_hospitalier, service_clinique "
@@ -160,7 +154,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
                 + currentDate + "' and service_clinique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
-
+        //remplissage du modèle
         try {
             ResultSet resultat = CHUPP.getRequete(sql);
             ResultSet resultat2 = CHUPP.getRequete(sql2);
@@ -575,6 +569,7 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     private void jButtonSortiePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortiePatientActionPerformed
+        //on vérifie qu'un patient est selectionné avant de faire sa lettre de sortie
         if (currentPatient != null) {
             lettreSortieUI = new LettreSortieUI();
             lettreSortieUI.getjLabelPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
@@ -592,24 +587,27 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSortiePatientActionPerformed
 
     private void jButtonDemandePrestationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDemandePrestationActionPerformed
-        try {
-            if (currentPatient != null) {
+        //on vérifie qu'un patient est sélectionné avant de demander une prestation
+        if (currentPatient != null) {
+            try {
                 dpUI = new DemandePrestationUI();
                 dpUI.setLocationRelativeTo(null);
                 dpUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 dpUI.setCurrentPatient(currentPatient);
                 dpUI.setCurrentConnected(currentPH);
                 dpUI.setVisible(true);
-            } else {
-                JOptionPane j = new JOptionPane();
-                j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDemandePrestationActionPerformed
 
     private void jButtonAjouterPrescriptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPrescriptionsActionPerformed
+        //on vérifie qu'un patient est sélectionné avant d'ajouter une prescription
         if (currentPatient != null) {
             aprIU = new AjouterPrescriptionIU();
             aprIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -624,8 +622,9 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAjouterPrescriptionsActionPerformed
 
     private void jButtonHospitaliserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHospitaliserActionPerformed
-        try {
-            if (currentPatient != null) {
+        //on vérifie qu'un patient est sélectionné avant de l'hospitaliser
+        if (currentPatient != null) {
+            try {
                 ahUI = new AjouterHospitalisationUI();
                 ahUI.setCurrentPatient(currentPatient);
                 ahUI.setLocationRelativeTo(null);
@@ -635,18 +634,19 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 ahUI.getjComboBoxService().setModel(dcbm);
                 ahUI.getjComboBoxService().setSelectedIndex(0);
                 ahUI.setVisible(true);
-            } else {
-                JOptionPane j = new JOptionPane();
-                j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonHospitaliserActionPerformed
 
     private void jButtonDecesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecesActionPerformed
-        try {
-            if (currentPatient != null) {
+        //on vérifie qu'un patient est sélectionné avant de déclarer un décès
+        if (currentPatient != null) {
+            try {
                 JOptionPane j = new JOptionPane();
                 int retour = j.showConfirmDialog(null, "Confirmez-vous le décès du patient " + currentPatient.getNom() + " " + currentPatient.getPrenom() + " ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
                 if (retour == JOptionPane.OK_OPTION) {
@@ -665,16 +665,17 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                     jTextArea5.setText("");
                     j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } else {
-                JOptionPane j2 = new JOptionPane();
-                j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+        } else {
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonDecesActionPerformed
 
     private void jButtonAjouterObservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterObservationActionPerformed
+        //on vérifie qu'un patient est sélectionné avant d'ajouter une observation
         if (currentPatient != null) {
             aoUI = new AjouterObservationUI();
             aoUI.setLocationRelativeTo(null);
@@ -728,15 +729,11 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea5;
     // End of variables declaration//GEN-END:variables
 
-    public CHUPP getChupp() {
-        return chupp;
-    }
-
     /**
-     * @param chupp the chupp to set
+     * @param aCurrentPatient the currentPatient to set
      */
-    public void setChupp(CHUPP chupp) {
-        this.chupp = chupp;
+    public static void setCurrentPatient(Patient aCurrentPatient) {
+        currentPatient = aCurrentPatient;
     }
 
     /**
@@ -827,29 +824,37 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
+            //on n'effectue une action que lorsqu'un nom est selectionné, pas quand on rajoute ou enlève un patient de la liste
             if (lse.getValueIsAdjusting()) {
                 try {
                     ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                     while (result.next()) {
+                        //en cas d'action on vérifie chaque patient
                         if (getjList1().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            //le patient sélectionné devient le patient courant
                             setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse"), result.getString("medecin_generaliste"), result.getString("adresse_med_gen")));
+                            //affichage de l'IPP du patient
                             getjLabelIPP().setText(currentPatient.getIPP());
+                            //affichage du nom de patient
                             getjLabelPatient().setText(currentPatient.getNom());
-                            getjTextArea1().setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
-                            getjTextArea2().setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
-                            getjTextArea3().setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
-                            getjTextArea4().setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
-                            getjTextArea5().setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
-                            getjTextArea1().setCaretPosition(0);
-                            getjTextArea2().setCaretPosition(0);
-                            getjTextArea3().setCaretPosition(0);
-                            getjTextArea4().setCaretPosition(0);
-                            getjTextArea5().setCaretPosition(0);
-                            getjTextArea1().setBackground(new Color(240, 240, 255));
-                            getjTextArea2().setBackground(new Color(240, 240, 255));
-                            getjTextArea3().setBackground(new Color(240, 240, 255));
-                            getjTextArea4().setBackground(new Color(240, 240, 255));
-                            getjTextArea5().setBackground(new Color(240, 240, 255));
+                            //on remplis les onglets du jTabbedPane avec les informations relatives au patient sélectionné
+                            jTextArea1.setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
+                            jTextArea2.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
+                            jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
+                            jTextArea5.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
+                            //on place le curseur de défilement en haut
+                            jTextArea1.setCaretPosition(0);
+                            jTextArea2.setCaretPosition(0);
+                            jTextArea3.setCaretPosition(0);
+                            jTextArea4.setCaretPosition(0);
+                            jTextArea5.setCaretPosition(0);
+                            //on modifie la couleur d'arrière-plan
+                            jTextArea1.setBackground(new Color(240, 240, 255));
+                            jTextArea2.setBackground(new Color(240, 240, 255));
+                            jTextArea3.setBackground(new Color(240, 240, 255));
+                            jTextArea4.setBackground(new Color(240, 240, 255));
+                            jTextArea5.setBackground(new Color(240, 240, 255));
                             repaint();
                         }
                     }
