@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 
 
 public class Informaticien extends PersonnelMedical{
+    //attributs
     private static int compteur =0 ;
 /** 
  * constructeur de la classe Informaticien

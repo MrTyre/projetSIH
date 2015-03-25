@@ -16,7 +16,5 @@ public class ServiceGynecologie extends ServiceClinique {
     
     public ServiceGynecologie(){
         this.setSpecialite("Gynecologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

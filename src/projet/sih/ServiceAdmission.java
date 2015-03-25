@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class ServiceAdmission {
+    //attributs
     private PH chefDeService;
     private DefaultListModel<Secretaire> secretaires;
 

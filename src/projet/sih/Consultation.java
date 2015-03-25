@@ -13,7 +13,8 @@ import java.sql.ResultSet;
  *
  * @author Tommy
  */
-public class Consultation {
+public class Consultation { 
+    //attributs de la classe
     private double numSejour;
     private Date date;
     private PH phResp;

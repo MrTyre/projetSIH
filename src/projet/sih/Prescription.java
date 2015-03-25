@@ -15,6 +15,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class Prescription {
+    //attributs
     private String nomPrescription;
     private PH phPrescripteur;
     private Date datePrescription;

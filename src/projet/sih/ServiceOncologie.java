@@ -16,7 +16,5 @@ public class ServiceOncologie extends ServiceClinique {
     
     public ServiceOncologie(){
         this.setSpecialite("Oncologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

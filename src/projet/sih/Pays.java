@@ -12,6 +12,7 @@ package projet.sih;
  */
 
 public enum Pays {
+    //valeurs de l'énum
     Afghanistan,
     Afrique_du_Sud,
     Akrotiri,

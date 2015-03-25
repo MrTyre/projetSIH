@@ -15,6 +15,7 @@ import java.sql.ResultSet;
  */
 
 public class Observation {
+    //attributs
     private Date date;
     private PH phWriter;
     private String observation;

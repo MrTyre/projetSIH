@@ -16,7 +16,5 @@ public class ServiceDermatologie extends ServiceClinique {
     
     public ServiceDermatologie(){
         this.setSpecialite("Dermatologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

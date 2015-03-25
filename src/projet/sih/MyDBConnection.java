@@ -13,46 +13,64 @@ import java.sql.*;
  */
 
 public class MyDBConnection {
-
+    //attributs
     private ResultSet resultat;
     private Connection myConnection;
     private Statement statement;
+    
+    //constructeur par défaut
     public MyDBConnection() {
 
     }
-
+    
+    //initation de la connexion à la base de données
     public void init() {
-
         try {
-
             Class.forName("com.mysql.jdbc.Driver");
+            //on instancie la connexion en passant en paramètre l'hébergeur voulu
             myConnection = DriverManager.getConnection(
-                   // "jdbc:mysql://localhost:3306/mydb", "root", "Genesis2014");
-                    "jdbc:mysql://192.168.1.1:3306/mydb", "genesis" , "" );
+                    //adresse de connexion en local
+                   "jdbc:mysql://localhost:3306/mydb", "root", "Genesis2014");
+                   //adresse de connexion au serveur
+                   // "jdbc:mysql://192.168.1.1:3306/mydb", "genesis" , "" );
             statement = myConnection.createStatement(
                     ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
-
         } catch (Exception e) {
             System.out.println("Failed to get connection");
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * 
+     * @return resultat
+     */
     public ResultSet getResultat() {
         return resultat;
     }
     
+    /**
+     * 
+     * @return statement
+     */
     public Statement getStatement() {
         return statement;
     }
 
+    /**
+     * 
+     * @return myConnection
+     */
     public Connection getMyConnection() {
         return myConnection;
     }
 
+    /**
+     * 
+     * @param rs 
+     */
     public void close(ResultSet rs) {
-
         if (rs != null) {
             try {
                 rs.close();
@@ -61,7 +79,11 @@ public class MyDBConnection {
 
         }
     }
-
+    
+    /**
+     * 
+     * @param stmt 
+     */
     public void close(java.sql.Statement stmt) {
 
         if (stmt != null) {
@@ -72,11 +94,12 @@ public class MyDBConnection {
 
         }
     }
-
+    
+    /**
+     * 
+     */
     public void destroy() {
-
         if (myConnection != null) {
-
             try {
                 myConnection.close();
             } catch (Exception e) {

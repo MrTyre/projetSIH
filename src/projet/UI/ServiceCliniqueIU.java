@@ -129,8 +129,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
-             }
-            
+            }
+
         });
         helputil.addActionListener(new ActionListener() {
             @Override
@@ -646,23 +646,25 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
     private void jButtonDecesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecesActionPerformed
         try {
-            JOptionPane j = new JOptionPane();
-            int retour = j.showConfirmDialog(null, "Confirmez-vous le décès du patient " + currentPatient.getNom() + " " + currentPatient.getPrenom() + " ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
-            if (retour == JOptionPane.OK_OPTION) {
-                String sql = "update patient set etat = 2 where ipp =" + currentPatient.getIPP();
-                CHUPP.getInsert(sql);
-                dlm.removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissanceString());
-                jList1.setModel(dlm);
-                repaint();
-                currentPatient = null;
-                jLabelPatient.setText("");
-                jLabelIPP.setText("");
-                jTextArea1.setText("");
-                jTextArea2.setText("");
-                jTextArea3.setText("");
-                jTextArea4.setText("");
-                jTextArea5.setText("");
-                j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
+            if (currentPatient != null) {
+                JOptionPane j = new JOptionPane();
+                int retour = j.showConfirmDialog(null, "Confirmez-vous le décès du patient " + currentPatient.getNom() + " " + currentPatient.getPrenom() + " ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+                if (retour == JOptionPane.OK_OPTION) {
+                    String sql = "update patient set etat = 2 where ipp =" + currentPatient.getIPP();
+                    CHUPP.getInsert(sql);
+                    dlm.removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissanceString());
+                    jList1.setModel(dlm);
+                    repaint();
+                    currentPatient = null;
+                    jLabelPatient.setText("");
+                    jLabelIPP.setText("");
+                    jTextArea1.setText("");
+                    jTextArea2.setText("");
+                    jTextArea3.setText("");
+                    jTextArea4.setText("");
+                    jTextArea5.setText("");
+                    j.showMessageDialog(null, "Décès enregistré", "Décès d'un patient", JOptionPane.INFORMATION_MESSAGE);
+                }
             } else {
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
