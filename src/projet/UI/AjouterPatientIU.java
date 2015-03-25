@@ -20,7 +20,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterPatientIU extends javax.swing.JFrame {
-    //attributs
+
     private Pays pays;
     private Sexe sexe;
     private String sql;
@@ -416,9 +416,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         try {
-            //appl de la méthode d'ajout
             ajouterPatient();
-            //on demande à envoyer le patient en consultation ou hospitalisation seulement s'il a bien été créé
             if (afficherdchUI) {
                 dchUI = new DemandeConsHospUI();
                 dchUI.setLocationRelativeTo(null);
@@ -434,9 +432,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jComboBoxPaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPaysActionPerformed
-        //récupération du pays sélectionné
         pays = (Pays) ((JComboBox) evt.getSource()).getSelectedItem();
-        //si le pays de résidence n'est pas la france, on ne demande pas de médecin généraliste
         if (pays != Pays.France) {
             jLabel6.setVisible(false);
             jLabel7.setVisible(false);
@@ -447,7 +443,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             jTextFieldAdresseDr.setVisible(false);
             jTextFieldCodePostalDr.setVisible(false);
             jTextFieldVilleDr.setVisible(false);
-        //si le pays est la france alors on demande les infos du médecin généraliste
         } else if (pays == Pays.France) {
             jLabel6.setVisible(true);
             jLabel7.setVisible(true);
@@ -470,7 +465,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDateNaissMoisActionPerformed
 
     private void jComboBoxSexeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSexeActionPerformed
-        //récupération du sexe du nouveau patient
         sexe = (Sexe) ((JComboBox) evt.getSource()).getSelectedItem();
     }//GEN-LAST:event_jComboBoxSexeActionPerformed
 
@@ -532,14 +526,13 @@ public class AjouterPatientIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterPatient() throws SQLException {
-        //on récupère la date courante et les infos utilisateur
         Date dateActu = new Date(System.currentTimeMillis());
         int jourNaiss = Integer.parseInt(jTextFieldDateNaissJour.getText());
         int moisNaiss = Integer.parseInt(jTextFieldDateNaissMois.getText());
         int anneeNaiss = Integer.parseInt(jTextFieldDateNaissAnnee.getText());
         String medGen = "Pas de médecin généraliste";
         String adGen = "";
-        //cas ou un des champs n'est pas rempli
+        System.out.println(pays+" "+Pays.France);
         if ((jTextFieldNomNewPatient.getText().equals(""))
                 || (jTextFieldPrenomNewPatient.getText().equals(""))
                 || (jTextFieldAdresseNewPatient.getText().equals(""))
@@ -550,12 +543,10 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 || (jTextFieldDateNaissAnnee.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au patient", "Attention", JOptionPane.WARNING_MESSAGE);
-        //on vérifie la forme du code postal si le pays est la france
         } else if ((pays == Pays.France)
                 && ((jTextFieldCodePostalNewPatient.getText().length() != 5) || (jTextFieldCodePostalDr.getText().length() != 5))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Mauvais code postal", "Attention", JOptionPane.WARNING_MESSAGE);
-        //on vérifie que la date de naissance rentrée est plausible
         } else if ((anneeNaiss > (dateActu.getYear() + 1900))
                 || (anneeNaiss < 1875)
                 || (moisNaiss > 12)
@@ -564,16 +555,13 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                 || ((anneeNaiss == dateActu.getYear() + 1900) && (moisNaiss == dateActu.getMonth() + 1) && (jourNaiss > (dateActu.getDate())))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Date de naissance : date incorrecte", "Attention", JOptionPane.WARNING_MESSAGE);
-        //on ajoute le patient
         } else {
-            //récupération des informations normalisées et prévention de SQL Injection
             medGen = jTextFieldNomDr.getText().replaceAll("'", "''");
             adGen = jTextFieldAdresseDr.getText().replaceAll("'", "''") + ", " + jTextFieldCodePostalDr.getText() + " " + jTextFieldVilleDr.getText().replaceAll("'", "''");
             String nom = jTextFieldNomNewPatient.getText().substring(0, 1).toUpperCase().replaceAll("'", "''");
             nom += jTextFieldNomNewPatient.getText().substring(1, jTextFieldNomNewPatient.getText().length()).toLowerCase().replaceAll("'", "''");
             String prenom = jTextFieldPrenomNewPatient.getText().substring(0, 1).toUpperCase().replaceAll("'", "''");
             prenom += jTextFieldPrenomNewPatient.getText().substring(1, jTextFieldPrenomNewPatient.getText().length()).toLowerCase().replaceAll("'", "''");
-            //on récupère la date sous plusieurs formats pour après
             String date = anneeNaiss + "-" + moisNaiss + "-" + jourNaiss;
             java.sql.Date d = new java.sql.Date(Integer.parseInt(jTextFieldDateNaissAnnee.getText()),
                     Integer.parseInt(jTextFieldDateNaissMois.getText()), Integer.parseInt(jTextFieldDateNaissJour.getText())
@@ -586,18 +574,12 @@ public class AjouterPatientIU extends javax.swing.JFrame {
             String sqldeces = "select * from patient where etat = 2";
             ResultSet resultdeces = CHUPP.getRequete(sqldeces);
             resultdeces.last();
-            //on vérifie que le patient n'est pas décédé
-                //on vérifie s'il y a des patients décédés 
             if (resultdeces.getRow() == 0) {
-                //pas de patients décédés ; on vérifie que le patient n'a pas déjà été admis
                 String sqlPatient = " select * from patient where etat = 1";
                 ResultSet result = CHUPP.getRequete(sqlPatient);
                 result.last();
-                //s'il n'y a aucun patient ayant déjà fait un séjour à l'hopital
                 if (result.getRow() == 0) {
-                    //on ajoute le patient à la base de données et on le définit comme patientcourant
                     currentPatient = new Patient(nom, prenom, d, sexe, adress, medGen, adGen, dateActu);
-                    //on vérifie que le patient n'est pas déjà admis
                     if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + date))) {
                         try {
                             sql = "INSERT INTO Patient VALUES (" + currentPatient.getIPP() + ", '" + nom + "','" + prenom + "','" + date
@@ -615,14 +597,11 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                         j.showMessageDialog(null, "Le patient est déjà admis en ce moment", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } else {
-                    //si des patients sont en statut "DMA Fermés" on vérifie que le nouveau patient n'en fait pas partie
                     result.beforeFirst();
                     while (result.next()) {
-                        //vérification qui se base sur meme nom, meme prenom et meme date de naissance
                         if ((result.getString("nom").equals(nom))
                                 && (result.getString("prenom").equals(prenom))
                                 && (result.getDate("date_naissance").equals(d2))) {
-                            //s'il a déjà été admis on met a jour ses données (nouvelle adresse ou nouveau médecin généraliste)
                             currentPatient = new Patient(nom, prenom, d, sexe, adress, medGen, adGen, result.getInt("ipp"));
                             String update = "update patient set adresse='" + adress + "' where nom='" + nom + "' and prenom='" + prenom + "' and date_naissance='" + d2 + "'";
                             String update2 = "update patient set medecin_generaliste='" + medGen + "' where nom='" + nom + "' and prenom='" + prenom + "' and date_naissance='" + d2 + "'";
@@ -636,7 +615,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                             jop1.showMessageDialog(null, "Le patient a déjà été admis auparavant : le DMA est rouvert et les modifications ont bien été prises en compte.", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
                             afficherdchUI = true;
                             break;
-                        //si le patient n'a jamais été admis on l'ajoute normalement à la base de données
                         } else {
                             currentPatient = new Patient(nom, prenom, d, sexe, adress, medGen, adGen, dateActu);
                             if (!(serviceAdmission.getDlm().contains(nom + " " + prenom + " / " + d2))) {
@@ -660,7 +638,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                         }
                     }
                 }
-            //dans le cas ou il y des patients décédés on vérifie que le nouveau n'en fait pas partie, puis même traitement qu'au dessus
             } else {
                 resultdeces.beforeFirst();
                 while (resultdeces.next()) {
@@ -683,7 +660,6 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                                     JOptionPane jop1 = new JOptionPane();
                                     jop1.showMessageDialog(null, "Patient bien ajouté !", "Ajout Patient", JOptionPane.INFORMATION_MESSAGE);
                                     afficherdchUI = true;
-                                    break;
                                 } catch (Exception e) {
                                     System.out.println("Failed to get Statement");
                                     e.printStackTrace();
@@ -737,7 +713,7 @@ public class AjouterPatientIU extends javax.swing.JFrame {
                     }
                 }
             }
-            //on ajoute le patient à la liste des patients de l'interface d'admission
+
             if (!(serviceAdmission.getDlm().contains(currentPatient.getNom().replaceAll("''", "'") + " " + currentPatient.getPrenom().replaceAll("''", "'") + " / " + d2))) {
                 serviceAdmission.getDlm().addElement(currentPatient.getNom().replaceAll("''", "'") + " " + currentPatient.getPrenom().replaceAll("''", "'") + " / " + d2);
             }
