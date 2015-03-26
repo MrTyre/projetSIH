@@ -303,11 +303,7 @@ public class LettreSortieUI extends javax.swing.JFrame {
 
             String sql2 = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
             CHUPP.getInsert(sql2);
-            scIU.getjLabelIPP().setText("");
-            scIU.getjLabelPatient().setText("");
-            scIU.revalidate();
-            scIU.repaint();
-            setVisible(false);
+            
             //on retire le patient de la liste actuelle
             if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
                 scIU.getjList1().setSelectedIndex(1);
@@ -316,6 +312,17 @@ public class LettreSortieUI extends javax.swing.JFrame {
                 scIU.getjList1().revalidate();
                 scIU.getjList1().repaint();
             }
+            //le patient sors, on réinitialise les affichages
+            scIU.getjLabelIPP().setText("");
+            scIU.getjLabelPatient().setText("");
+            scIU.getjTextArea1().setText("");
+            scIU.getjTextArea2().setText("");
+            scIU.getjTextArea3().setText("");
+            scIU.getjTextArea4().setText("");
+            scIU.getjTextArea5().setText("");
+            scIU.revalidate();
+            scIU.repaint();
+            setVisible(false);
         }
     }
 
