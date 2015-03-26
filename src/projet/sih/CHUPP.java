@@ -21,7 +21,6 @@ public class CHUPP {
     private DefaultListModel<ServiceMedicoTechnique> smts;
     private ServiceAdmission sa;
     private ServiceInformatique si;
-    private Archives a;
     private static double compteur;
     //vattribut base de donnée
     MyDBConnection connection = new MyDBConnection();

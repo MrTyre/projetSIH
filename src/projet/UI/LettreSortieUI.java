@@ -17,7 +17,9 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
  * @author Marina
  */
 public class LettreSortieUI extends javax.swing.JFrame {
+
     //attributs
+
     private Patient currentPatient;
     private ServiceCliniqueIU scIU;
     private PersonnelMedical currentPH;
@@ -207,14 +209,12 @@ public class LettreSortieUI extends javax.swing.JFrame {
             try {
                 //générer la lettre de sortie
                 GenererLettreSortie(currentPH, currentPatient);
-                JOptionPane j2 = new JOptionPane();
                 String sql = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
                 CHUPP.getInsert(sql);
                 scIU.getjLabelIPP().setText("");
                 scIU.getjLabelPatient().setText("");
                 scIU.revalidate();
                 scIU.repaint();
-                j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(LettreSortieUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -246,8 +246,8 @@ public class LettreSortieUI extends javax.swing.JFrame {
         //on vérifie que les champs nécessaires à l'ajout soient bien remplis
         if (jTextAreaDiagnostic.getText().equals("") || jTextAreaTraitement.getText().equals("")) {
             JOptionPane j = new JOptionPane();
-            j.showMessageDialog(null,"Vous avez oublié de remplir un des champ","Attention",JOptionPane.WARNING_MESSAGE);
-        //on créé la lettre de sortie en odt
+            j.showMessageDialog(null, "Vous avez oublié de remplir un des champ", "Attention", JOptionPane.WARNING_MESSAGE);
+            //on créé la lettre de sortie en odt
         } else {
             Date d = new Date(new java.util.Date().getTime());
             DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
@@ -305,6 +305,10 @@ public class LettreSortieUI extends javax.swing.JFrame {
             ResultSet result = CHUPP.getRequete(sql);
             result.first();
             odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+            
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(this, "La lettre a bien été créée !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
             //on retire le patient de la liste actuelle
             if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
                 scIU.getjList1().setSelectedIndex(1);
