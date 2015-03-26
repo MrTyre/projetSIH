@@ -263,8 +263,8 @@ public class ServiceCliniqueIU extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Prescriptions", new javax.swing.ImageIcon(getClass().getResource("/Images/prescriptions.png")), jPanel4); // NOI18N
 
-        jButtonAjouterObservation.setBackground(new java.awt.Color(153, 153, 255));
         jButtonAjouterObservation.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAjouterObservation.setForeground(new java.awt.Color(0, 51, 153));
         jButtonAjouterObservation.setText("+ Observation");
         jButtonAjouterObservation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
