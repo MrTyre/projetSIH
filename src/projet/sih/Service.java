@@ -18,8 +18,7 @@ public abstract class Service {
     private DefaultListModel<PH> praticiens;
     private DefaultListModel<Interne> internes;
     private DefaultListModel<PersonnelInfirmier> infirmiers;
-    private DefaultListModel<Patient> patients;
-    private DefaultListModel<Chambre> chambres;    
+    private DefaultListModel<Patient> patients;   
 
     /**
      * @return the chefDeService, le chef du service 
