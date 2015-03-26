@@ -17,7 +17,7 @@ import org.odftoolkit.odfdom.doc.OdfTextDocument;
  * @author Marina
  */
 public class LettreSortieUI extends javax.swing.JFrame {
-
+    //attributs
     private Patient currentPatient;
     private ServiceCliniqueIU scIU;
     private PersonnelMedical currentPH;
@@ -205,6 +205,7 @@ public class LettreSortieUI extends javax.swing.JFrame {
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir créer cette lettre ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
+                //générer la lettre de sortie
                 GenererLettreSortie(currentPH, currentPatient);
                 JOptionPane j2 = new JOptionPane();
                 String sql = "update patient set etat = 1 where ipp =" + currentPatient.getIPP();
@@ -242,69 +243,76 @@ public class LettreSortieUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void GenererLettreSortie(PersonnelMedical ph1, Patient p1) throws Exception {
-        Date d = new Date(new java.util.Date().getTime());
-        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
-        DateFormat df2 = new SimpleDateFormat("hh:mm");
-        // Create a text document from a standard template (empty documents within the JAR)
-        OdfTextDocument odt = OdfTextDocument.newTextDocument();
+        //on vérifie que les champs nécessaires à l'ajout soient bien remplis
+        if (jTextAreaDiagnostic.getText().equals("") || jTextAreaTraitement.getText().equals("")) {
+            JOptionPane j = new JOptionPane();
+            j.showMessageDialog(null,"Vous avez oublié de remplir un des champ","Attention",JOptionPane.WARNING_MESSAGE);
+        //on créé la lettre de sortie en odt
+        } else {
+            Date d = new Date(new java.util.Date().getTime());
+            DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat df2 = new SimpleDateFormat("hh:mm");
+            // Création du document odt à partir d'un standard
+            OdfTextDocument odt = OdfTextDocument.newTextDocument();
 
-        // Append text to the end of the document. 
-        odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
-        odt.newParagraph();
-        odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
-        odt.newParagraph();
-        odt.addText("CHU de Princeton-Plainsboro");
-        odt.newParagraph();
-        odt.addText("Tel : 04.83.73.73.44");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("__________________________________________________________________ le " + df1.format(d) + ",");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Lettre à destination de : Dr. " + p1.getMedGen());
-        odt.newParagraph();
-        odt.addText(p1.getAdGen());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("\n\nObjet : Sortie de Mr." + p1.getNom() + " " + p1.getPrenom());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("\n\nJe soussigné Dr." + ph1.getNom() + " " + ph1.getPrenom() + ", autorise le patient " + p1.getNom() + " " + p1.getPrenom() + " à sortir du Service " + ph1.getSpecialite() + " à compter du " + df1.format(d) + " à " + df2.format(d) + "h.");
-        odt.newParagraph();
-        odt.addText("Cette sortie intervient suite au diagnostic suivant :");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText(jTextAreaDiagnostic.getText());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Le patient " + p1.getNom() + " " + p1.getPrenom() + " est autorisé à sortir du Service " + ph1.getSpecialite() + " suite à l'administration du traitement suivant :");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText(jTextAreaTraitement.getText());
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Cordialement,");
-        odt.newParagraph();
-        odt.newParagraph();
-        odt.addText("Dr " + ph1.getNom() + " " + ph1.getPrenom());
-        odt.newParagraph();
+            // Ajout de texte au document (newParagraph() sert à passer à la ligne suivante (correspond à 'Entrée' du clavier)) 
+            odt.newImage(new File("src/Images/Princeton-Plainsboro.jpg").toURI());
+            odt.newParagraph();
+            odt.addText("Dr. " + ph1.getNom() + " " + ph1.getPrenom());
+            odt.newParagraph();
+            odt.addText("CHU de Princeton-Plainsboro");
+            odt.newParagraph();
+            odt.addText("Tel : 04.83.73.73.44");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("__________________________________________________________________ le " + df1.format(d) + ",");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Lettre à destination de : Dr. " + p1.getMedGen());
+            odt.newParagraph();
+            odt.addText(p1.getAdGen());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("\n\nObjet : Sortie de Mr." + p1.getNom() + " " + p1.getPrenom());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("\n\nJe soussigné Dr." + ph1.getNom() + " " + ph1.getPrenom() + ", autorise le patient " + p1.getNom() + " " + p1.getPrenom() + " à sortir du Service " + ph1.getSpecialite() + " à compter du " + df1.format(d) + " à " + df2.format(d) + "h.");
+            odt.newParagraph();
+            odt.addText("Cette sortie intervient suite au diagnostic suivant :");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText(jTextAreaDiagnostic.getText());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Le patient " + p1.getNom() + " " + p1.getPrenom() + " est autorisé à sortir du Service " + ph1.getSpecialite() + " suite à l'administration du traitement suivant :");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText(jTextAreaTraitement.getText());
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Cordialement,");
+            odt.newParagraph();
+            odt.newParagraph();
+            odt.addText("Dr " + ph1.getNom() + " " + ph1.getPrenom());
+            odt.newParagraph();
 
-        // Save document
-        String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
-        ResultSet result = CHUPP.getRequete(sql);
-        result.first();
-        odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
-
-        if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
-            scIU.getjList1().setSelectedIndex(1);
-            scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
-            scIU.getjList1().setModel(scIU.getDlm());
-            scIU.getjList1().revalidate();
-            scIU.getjList1().repaint();
+            // Sauvegarde du document dans le dossier d'accès du médecin, qu'il peut choisir dans son interface
+            String sql = "select distinct accesslettre from practicien_hospitalier where nom='" + ph1.getNom() + "' and prenom='" + ph1.getPrenom() + "'";
+            ResultSet result = CHUPP.getRequete(sql);
+            result.first();
+            odt.save(result.getString("accesslettre") + "\\Lettre de sortie de Mr " + p1.getNom() + " " + p1.getPrenom() + ", né le " + df1.format(p1.getDateNaissance()) + ".odt");
+            //on retire le patient de la liste actuelle
+            if (scIU.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance())) {
+                scIU.getjList1().setSelectedIndex(1);
+                scIU.getDlm().removeElement(currentPatient.getNom() + " " + currentPatient.getPrenom() + " / " + currentPatient.getDateNaissance());
+                scIU.getjList1().setModel(scIU.getDlm());
+                scIU.getjList1().revalidate();
+                scIU.getjList1().repaint();
+            }
         }
     }
 

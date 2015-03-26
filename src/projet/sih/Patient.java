@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
  * @author Tommy
  */
 public class Patient {
+    //attributs
     private DPI dpi;
     private double IPP;
     private String nom;
@@ -125,7 +126,7 @@ public class Patient {
     }
     
     /**
-     * @return the IPP,P du patient
+     * @return the IPP, IPP du patient
      */
     public String getIPP() {        
         DecimalFormat decimalPrintFormat = new DecimalFormat("000000000");
@@ -173,7 +174,11 @@ public class Patient {
     public Date getDateNaissance() {
         return dateNaissance;
     }
-
+    
+    /**
+     * 
+     * @return s, String contenant la date de Naissane dans le format des dates sql pour la comparaison
+     */
     public String getDateNaissanceString() {
         String s;
         if(dateNaissance.getMonth()<=9){

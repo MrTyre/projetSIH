@@ -28,6 +28,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     public AjouterPrescriptionIU() {
         initComponents();
         dtm = new DefaultTableModel(0, 0);
+        //on remplis les modèles
         jTableMedocs.setModel(dtm);
         dtm.addColumn("Nom du médicament");
         dtm.addColumn("Posologie");
@@ -314,7 +315,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderActionPerformed
-        System.out.println(dtm.getRowCount());
+       //si un médicament au minimum a été ajouté on peut enregistrer la prescription
         if (dtm.getRowCount() >= 1) {
             JOptionPane j = new JOptionPane();
             int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir ajouter cette prescription ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
@@ -382,13 +383,16 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterMedicament() {
+        //on récupère la date courante et les infos utilisateur
         int jour = Integer.parseInt(jTextFieldFinTraitementJour.getText());
         int mois = Integer.parseInt(jTextFieldFinTraitementMois.getText());
         int annee = Integer.parseInt(jTextFieldFinTraitementAnnee.getText());
         Date d1 = new Date(System.currentTimeMillis());
+        //on vérifie que les champs nécéssaires sont remplis
         if ((jTextFieldMedicament.getText().equals("")) || (jTextFieldPosologie.getText().equals("")) || (jTextFieldFinTraitementJour.getText().equals("")) || (jTextFieldFinTraitementMois.getText().equals("")) || (jTextFieldFinTraitementAnnee.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Veuillez entrer toutes les informations nécessaires", "Attention", JOptionPane.WARNING_MESSAGE);
+        //on vérifie que la date est correcte
         } else if ((jour > 31)
                 || (mois > 12)
                 || (annee < d1.getYear() + 1900)
@@ -396,7 +400,9 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 || ((annee == d1.getYear() + 1900) && (mois == d1.getMonth() + 1) && (jour < d1.getDate()))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Attention, la date de fin n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
+        //on ajoute le médicament à la jtable
         } else {
+            //on récupère et on formalise les données entrées par l'utilisateur
             String medicament = jTextFieldMedicament.getText().substring(0, 1).toUpperCase().replaceAll("'", "''");
             medicament += jTextFieldMedicament.getText().substring(1, jTextFieldMedicament.getText().length()).toLowerCase().replaceAll("'", "''");
             String posologie = jTextFieldPosologie.getText().replaceAll("'", "''");
@@ -435,7 +441,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                 doseString = "pulvérisations";
                 up = UnitePosologie.pulvérisations;
             }
-
+            
             Date d = new Date(Integer.parseInt(jTextFieldFinTraitementAnnee.getText()) - 1900, Integer.parseInt(jTextFieldFinTraitementMois.getText()) - 1, Integer.parseInt(jTextFieldFinTraitementJour.getText()));
             String date = d.getDate() + "/" + (d.getMonth()+1) + "/" + (d.getYear()+1900);
             dtm.addRow(new Object[]{medicament, posologie, doseString, date});
@@ -453,7 +459,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
     }
 
     public void ajouterPrescription() {
-
+        //on insère les médicaments à la base de données
         try {
             for (int i = 0; i < listeMed.size(); i++) {
                 sql = "INSERT INTO Medicament VALUES (" + Medicament.getIDMed() + ", "
@@ -464,6 +470,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
                         + listeMed.get(i).getDateFin() + "')";
                 CHUPP.getInsert(sql);
             }
+            //on insère la prescription à la base de données
             java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
             sql2 = "INSERT INTO Prescription VALUES (" + Prescription.getIDPresc() + ","
                     + currentPatient.getIPP() + "," + ConnexionUI.getCurrentConnected().getID() + ",'"
@@ -471,6 +478,7 @@ public class AjouterPrescriptionIU extends javax.swing.JFrame {
             CHUPP.getInsert(sql2);
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "La prescription a bien été ajoutée !", "Ajout prescription", JOptionPane.INFORMATION_MESSAGE);
+            //on réactualise l'affichage
             scUI.getjTextArea1().setText(currentPatient.getDpi().getDm().afficherPrescriptions(currentPatient));
             scUI.revalidate();
             scUI.repaint();

@@ -20,7 +20,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class AjouterObservationUI extends javax.swing.JFrame {
-
+    //attributs
     private DefaultComboBoxModel dcbm;
     private Patient currentPatient;
     private PersonnelMedical currentConnected;
@@ -131,7 +131,9 @@ public class AjouterObservationUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBoxConsultationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxConsultationActionPerformed
+        //une seule checkbox cochée en même temps
         jCheckBoxHospitalisation.setSelected(false);
+        //cas ou on ajoute une observation à une consultation
         if (jCheckBoxConsultation.isSelected()) {
             try {
                 dcbm = new DefaultComboBoxModel();
@@ -140,6 +142,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                 result.last();
                 int nbrow = result.getRow();
                 System.out.println(nbrow);
+                //remplissage du modèle pour la jComboBox
                 if (nbrow != 0) {
                     result.beforeFirst();
                     while (result.next()) {
@@ -157,7 +160,9 @@ public class AjouterObservationUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxConsultationActionPerformed
 
     private void jCheckBoxHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxHospitalisationActionPerformed
+        //une seule checkbox cochée à la fois
         jCheckBoxConsultation.setSelected(false);
+        //Cas ou on ajoute une observation à une hospitalisation
         if (jCheckBoxHospitalisation.isSelected()) {
             try {
                 dcbm = new DefaultComboBoxModel();
@@ -165,6 +170,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                 ResultSet result = CHUPP.getRequete(sql);
                 result.last();
                 int nbrow = result.getRow();
+                //remplissage du modèle pour la jComboBox
                 if (nbrow != 0) {
                     result.beforeFirst();
                     while (result.next()) {
@@ -183,6 +189,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
 
     private void jButtonAjouterObsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterObsActionPerformed
         try {
+            //ajout de l'observation
             ajouterObservations();
             scUI.getjTextArea2().setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
             scUI.revalidate();
@@ -205,19 +212,23 @@ public class AjouterObservationUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void ajouterObservations() throws SQLException {
+        //on récupère la date courante sous plusieurs formats
         Date dateActu = new Date(System.currentTimeMillis());
         String dateActu1 = (dateActu.getYear() + 1900) + "-" + (dateActu.getMonth() + 1) + "-" + dateActu.getDate();
-        System.out.println(dateActu1);
+        //on sélectionne dans la base de données les consultations et hospitalisations du patient concerné
         String sql = "SELECT DISTINCT * from consultation where consultation.ipp=" + currentPatient.getIPP();
         String sql2 = "SELECT DISTINCT * from hospitalisation where hospitalisation.ipp=" + currentPatient.getIPP();
         ResultSet result1 = CHUPP.getRequete(sql);
         ResultSet result2 = CHUPP.getRequete(sql2);
+        //on vérifie que tous les champs nécessaires sont remplis
         if (jTextAreaObs.getText().equals("")
                 || (!(jCheckBoxConsultation.isSelected()) && (!(jCheckBoxHospitalisation.isSelected())))) {
             JOptionPane j = new JOptionPane();
             j.showMessageDialog(null, "Il manque des informations relatives à l'ajout d'une observation.", "Erreur", JOptionPane.WARNING_MESSAGE);
+        //on ajoute l'observation
         } else {
             String obs = jTextAreaObs.getText().replaceAll("'","''");
+            //cas d'une observation relative à une consultation
             if (jCheckBoxConsultation.isSelected()) {
                 while (result1.next()) {
                     if (((String) jComboBoxListe.getSelectedItem()).equals("Consultation du " + result1.getDate("date") + " / " + result1.getString("nature_prestation"))) {
@@ -232,6 +243,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+                //cas d'une observation relative à une hospitalisation
             } else if (jCheckBoxHospitalisation.isSelected()) {
                 while (result2.next()) {
                     if (((String) jComboBoxListe.getSelectedItem()).equals("Hospitalisation du " + result2.getDate("date") + " / " + result2.getString("raison_sejour"))) {
@@ -246,6 +258,7 @@ public class AjouterObservationUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+            //cas d'erreur
             } else {
                 JOptionPane j = new JOptionPane();
                 j.showMessageDialog(null, "Demande incorrecte", "Erreur", JOptionPane.WARNING_MESSAGE);

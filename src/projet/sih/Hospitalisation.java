@@ -14,6 +14,7 @@ import java.sql.ResultSet;
  * @author Tommy
  */
 public class Hospitalisation {
+    //attibuts
     private double numSejour;
     private Date dateEntree;
     private Date dateSortie;

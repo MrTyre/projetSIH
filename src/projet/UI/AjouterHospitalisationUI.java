@@ -22,12 +22,14 @@ import projet.sih.*;
  */
 public class AjouterHospitalisationUI extends javax.swing.JFrame {
 
+    //attributs
     private ServiceAdmissionUI serviceAdmission;
     private Patient currentPatient;
     private PH medecinConcerne;
     private String serviceConcerne;
     private DefaultComboBoxModel dcbm;
     private DefaultListModel<PH> dlm;
+    private ServiceCliniqueIU scUI;
 
     /**
      * Creates new form AjouterHospitalisation
@@ -36,8 +38,10 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        //on définit le modèles de la jComboBox
         jComboBoxService.setModel(CHUPP.getListeServiceClinique());
         jComboBoxService.setSelectedIndex(0);
+        //tant que l'utilisateur n'a pas coché "date de sortie connue", ces champs ne s'affichent pas
         jLabelDateHosp.setVisible(false);
         jLabel1.setVisible(false);
         jLabel2.setVisible(false);
@@ -258,18 +262,20 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceActionPerformed
+        //on récupère le service sélectionné
         serviceConcerne = (String) getjComboBoxService().getSelectedItem();
         try {
+            //on affiche les praticiens du service
             String sql = "select * from practicien_hospitalier where specialite='" + serviceConcerne + "'";
             ResultSet resultat = CHUPP.getRequete(sql);
             dcbm = new DefaultComboBoxModel();
             dlm = new DefaultListModel<>();
             while (resultat.next()) {
+                //on remplit les modèles
                 medecinConcerne = new PH(resultat.getString("idph"), resultat.getString("nom"), resultat.getString("prenom"));
                 dlm.addElement(medecinConcerne);
                 dcbm.addElement(medecinConcerne.getNom() + " " + medecinConcerne.getPrenom());
             }
-
             jComboBoxMedecin.setModel(dcbm);
         } catch (Exception e) {
             System.out.println("Failed to get Statement");
@@ -291,7 +297,6 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
         } else {
             j.setVisible(false);
         }
-
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
@@ -324,6 +329,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
 
     private void jCheckBoxDateSortieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDateSortieActionPerformed
         if (jCheckBoxDateSortie.isSelected()) {
+            //affichae des champs dans la cas ou la date de sortie est connue
             jLabelDateHosp.setVisible(true);
             jLabel1.setVisible(true);
             jLabel2.setVisible(true);
@@ -363,14 +369,17 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
 
     public void ajouterHospitalisation() throws SQLException {
         String sql = "";
+        //récupération date système
         Date d = new Date(System.currentTimeMillis());
         String date_debut = (d.getYear() + 1900) + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-
+        //cas ou la date de sortie est connue
         if (jCheckBoxDateSortie.isSelected()) {
+            //on récupère les infos utilisateur
             String date_fin = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJour.getText();
             int jour = Integer.parseInt(jTextFieldJour.getText());
             int mois = Integer.parseInt(jTextFieldMois.getText());
             int annee = Integer.parseInt(jTextFieldAnnee.getText());
+            //on vérifie que la date entrée par l'utilisateur est correcte
             if ((jour > 31)
                     || (mois > 12)
                     || (annee < d.getYear() + 1900)
@@ -382,6 +391,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 jTextFieldMois.setText("");
                 jTextFieldAnnee.setText("");
                 jTextFieldNatureHospitalisation.setText("");
+                //on vérifie que tous les champs nécessaires sont remplis
             } else if ((jTextFieldJour.getText().equals(""))
                     || (jTextFieldMois.getText().equals(""))
                     || (jTextFieldAnnee.getText().equals(""))
@@ -392,6 +402,7 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 jTextFieldMois.setText("");
                 jTextFieldAnnee.setText("");
                 jTextFieldNatureHospitalisation.setText("");
+                //on ajoute l'hospitalisation
             } else {
                 sql = "INSERT INTO hospitalisation values ("
                         + Hospitalisation.getIDHosp() + ","
@@ -405,12 +416,16 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
             }
+            //cas ou la date de fin n'est pas connue
         } else {
+            //formalisation pour la base de données
             String date_fin = "1111-11-11";
+            //on vérifie la complétion des champs
             if ((jTextFieldNatureHospitalisation.getText().equals(""))) {
                 JOptionPane jop1 = new JOptionPane();
                 jop1.showMessageDialog(null, "Il manque des informations relatives à l'hospitalisation", "Attention", JOptionPane.WARNING_MESSAGE);;
                 jTextFieldNatureHospitalisation.setText("");
+                //on ajoute l'hospitalisation
             } else {
                 sql = "INSERT INTO hospitalisation values ("
                         + Hospitalisation.getIDHosp() + ","
@@ -423,6 +438,12 @@ public class AjouterHospitalisationUI extends javax.swing.JFrame {
                 JOptionPane j = new JOptionPane();
                 j.showMessageDialog(null, "Sejour confirmé !", "Hospitalisation", JOptionPane.INFORMATION_MESSAGE);
                 setVisible(false);
+                //on réactualise l'affichage si la demande vient d'un service clinique
+                if (scUI != null) {
+                    scUI.getjTextArea3().setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n\n••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                    scUI.revalidate();
+                    scUI.repaint();
+                }
             }
         }
     }

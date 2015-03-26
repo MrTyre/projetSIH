@@ -14,6 +14,7 @@ import java.sql.ResultSet;
  * @author Tommy
  */
 public class Resultat {
+    //attributs
     private Date date;
     private PH phWriter;
     private Prestation prestationAssociee;

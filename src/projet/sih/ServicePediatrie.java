@@ -16,7 +16,5 @@ public class ServicePediatrie extends ServiceClinique {
     
     public ServicePediatrie(){
         this.setSpecialite("Pediatrie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

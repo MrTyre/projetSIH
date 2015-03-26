@@ -10,7 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,7 +22,7 @@ import projet.sih.*;
  * @author Tommy
  */
 public class ResultatPrestationLaboIU extends javax.swing.JFrame {
-
+    //attributs
     private ConnexionUI connexionUI;
     private Patient currentPatient;
     private int idPrestation;
@@ -37,7 +36,6 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
      */
     public ResultatPrestationLaboIU() {
         initComponents();
-
         date = new Date(System.currentTimeMillis());
         DateFormat df1 = new SimpleDateFormat("dd / MM / yyyy");
         jLabelTextDate.setText(df1.format(date));
@@ -307,12 +305,11 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnvoyerActionPerformed
-
-        System.out.println(currentPatient.getDateNaissanceString() + " bullshit");
         JOptionPane j = new JOptionPane();
         int retour = j.showConfirmDialog(this, "Êtes-vous sûr de vouloir envoyer ce résultat de prestation ?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
         if (retour == JOptionPane.OK_OPTION) {
             try {
+                //envoi du résultat dans le service et passage de la prestation en état ="répondue" (etat =1 dans la BD)
                 envoyerResultat();
                 JOptionPane j2 = new JOptionPane();
                 j2.showMessageDialog(this, "Le résultat a bien été pris en compte !", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
@@ -362,11 +359,14 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void envoyerResultat() throws SQLException {
+        //on vérifie que tous les champs nécessaires sont remplis
         if ((jTextAreaResultats.getText().equals(""))
                 || (jTextAreaObservations.getText().equals(""))) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(null, "Il manque des informations relatives au Résultats", "Attention", JOptionPane.WARNING_MESSAGE);
+        //on ajoute le résultat à la BD
         } else {
+            //on récupère les entrées utilisateurs
             String nature = jLabelNature.getText().replaceAll("'","''");
             String resultats = jTextAreaResultats.getText().replaceAll("'","''");
             String observation = jTextAreaObservations.getText().replaceAll("'","''");
@@ -374,6 +374,7 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
             ResultSet resultat = CHUPP.getRequete(sql2);
             resultat.first();
             int idsmt = resultat.getInt("idsmt");
+            //ajout du résultat dans la BD
             try {
                 String sql = "INSERT INTO Resultat VALUES (" + Resultat.getIDresultat() + ","
                         + Observation.getIDObs() + ","
@@ -384,13 +385,14 @@ public class ResultatPrestationLaboIU extends javax.swing.JFrame {
                         + nature + "','"
                         + resultats + "')";
                 CHUPP.getInsert(sql);
+                //ajout de l'observation dans la BD
                 String sql3 = "INSERT INTO Observation VALUES (" + Observation.getIDObs() + ","
                         + (Resultat.getIDresultat() - 1) +","
                         + currentConnected.getID() + ",'"
                         + date + "','"
                         + observation + "')";
                 CHUPP.getInsert(sql3);
-                
+                //actualisation du tableau des demandes et de la liste des patients
                 if((smt.getDlm().contains(currentPatient.getNom() + " " + currentPatient.getPrenom()+ " / "+currentPatient.getDateNaissance())) 
                         && (((DefaultTableModel)smt.getjTablePrestations().getModel()).getRowCount()==1)){
                     smt.getjListPatients().setSelectedIndex(1);

@@ -16,7 +16,5 @@ public class ServiceCardiologie extends ServiceClinique {
     
     public ServiceCardiologie(){
         this.setSpecialite("Cardiologie");
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 }

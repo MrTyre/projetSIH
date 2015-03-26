@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @author Tommy
  */
 public abstract class ServiceMedicoTechnique extends Service {
+    //attributs
     private String nom;
     private static int compteur;
     /**
@@ -22,6 +23,12 @@ public abstract class ServiceMedicoTechnique extends Service {
     public String getNom() {
         return nom;
     }
+    
+    /**
+     * méthode pour donner un nouvel ID unique à un nouveau service médico technique
+     * @return compteur
+     * @throws SQLException 
+     */
     public static int getIDServiceMedicoTechnique() throws SQLException{
         String sql="select * from service_medico_technique";
         ResultSet resultat=CHUPP.getRequete(sql);

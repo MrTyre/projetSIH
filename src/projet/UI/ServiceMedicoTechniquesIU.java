@@ -35,22 +35,21 @@ import projet.sih.*;
  */
 public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
 
-    private CHUPP chupp;
+    //attributs
     private ConnexionUI connexionUI;
     private Patient currentPatient;
     private PersonnelMedical currentConnected;
     private ResultatPrestationLaboIU rplaUI;
     private ResultatPrestationRadiologieIU rprUI;
-
     private DefaultListModel dlm;
-    //attribut base de donnée
-    MyDBConnection connection = new MyDBConnection();
-    private String sql;
     private JList1ActionPerformed jll;
     private DefaultTableModel dtm;
+    //attribut base de donnée
+    MyDBConnection connection = new MyDBConnection();
 
     /**
      * Creates new form ServiceMedicoTechniquesIU
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -84,7 +83,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //on décrit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -111,8 +110,8 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
-             }
-            
+            }
+
         });
         helputil.addActionListener(new ActionListener() {
             @Override
@@ -125,6 +124,7 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 }
             }
         });
+        //on remplit la liste des patients avec les patients qui ont une prestation active (etat=0)
         dlm = new DefaultListModel();
         String sql = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                 + "prestation, service_medico_technique "
@@ -133,8 +133,8 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
                 + " prestation.etat=0"
                 + " and service_medico_technique.specialite='"
                 + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
-
         try {
+            //remplissage de la liste
             ResultSet resultat = CHUPP.getRequete(sql);
             while (resultat.next()) {
                 dlm.addElement(resultat.getString("patient.nom") + " " + resultat.getString("patient.prenom") + " / " + resultat.getString("patient.date_naissance"));
@@ -352,13 +352,6 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * @param chupp the chupp to set
-     */
-    public void setChupp(CHUPP chupp) {
-        this.chupp = chupp;
-    }
-
-    /**
      * @return the jLabelService
      */
     public javax.swing.JLabel getjLabelService() {
@@ -414,121 +407,141 @@ public class ServiceMedicoTechniquesIU extends javax.swing.JFrame {
     public class JList1ActionPerformed implements ListSelectionListener {
 
         public void valueChanged(ListSelectionEvent lse) {
-
-            try {
-                String sql2 = "select DISTINCT patient.* from patient,"
-                        + "prestation, service_medico_technique "
-                        + "where patient.ipp=prestation.ipp "
-                        + " and prestation.service_destinataire=service_medico_technique.specialite and"
-                        + " prestation.etat=0"
-                        + " and service_medico_technique.specialite='"
-                        + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
-                ResultSet result = CHUPP.getRequete(sql2);
-                while (result.next()) {
-                    if (getjListPatients().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
-                        setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
-                        jLabelIPP3.setText(currentPatient.getIPP());
-                        jLabelCurrentPatient3.setText(currentPatient.getNom());
-                        repaint();
-
-                        ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP() + " and etat=0");
-                        result2.last();
-                        if (result2.getRow() != 0) {
-                            result2.beforeFirst();
-                            dtm = new DefaultTableModel() {
-                                @Override
-                                public boolean isCellEditable(int row, int column) {
-                                    if (column == 4) {
-                                        return true;
+            //on n'effectue une action que lorsqu'un nom est selectionné, pas quand on rajoute ou enlève un patient de la liste
+            if (lse.getValueIsAdjusting()) {
+                try {
+                    //on récupère les patients ayant une prestation active
+                    String sql2 = "select DISTINCT patient.* from patient,"
+                            + "prestation, service_medico_technique "
+                            + "where patient.ipp=prestation.ipp "
+                            + " and prestation.service_destinataire=service_medico_technique.specialite and"
+                            + " prestation.etat=0"
+                            + " and service_medico_technique.specialite='"
+                            + ConnexionUI.getCurrentConnected().getSpecialite() + "'";
+                    ResultSet result = CHUPP.getRequete(sql2);
+                    while (result.next()) {
+                        //on vérifie que le patient est dans la base de données 
+                        if (getjListPatients().getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            //on définit comme patient courant le patient sélectionné
+                            setCurrentPatient(new Patient(result.getDouble("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                            //affichage de l'IPP du patient
+                            jLabelIPP3.setText(currentPatient.getIPP());
+                            //affichage du nom du patient
+                            jLabelCurrentPatient3.setText(currentPatient.getNom());
+                            repaint();
+                            
+                            //on sélectionne les demandes de prestations relatives au patient
+                            ResultSet result2 = CHUPP.getRequete("SELECT DISTINCT * FROM prestation WHERE ipp =" + currentPatient.getIPP() + " and etat=0");
+                            result2.last();
+                            //on vérifie qu'il y en a au moins une
+                            if (result2.getRow() != 0) {
+                                result2.beforeFirst();
+                                //on instancie le modèle courant
+                                dtm = new DefaultTableModel() {
+                                    @Override
+                                    //seule les cases de la colonne 4 du tableau seront éditables, donc cliquables
+                                    public boolean isCellEditable(int row, int column) {
+                                        if (column == 4) {
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    }
+                                };
+                                //on remplit la 1ere ligne du tableau
+                                dtm.addColumn("ID PH");
+                                dtm.addColumn("Service demandeur");
+                                dtm.addColumn("Date");
+                                dtm.addColumn("Nature de la demande");
+                                dtm.addColumn("Résultat");
+                                //on parcours les prestations
+                                while (result2.next()) {
+                                    //pour celles destinées au service radiologie
+                                    if (result2.getString("service_destinataire").equals("Radiologie")) {
+                                        ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
+                                        result3.last();
+                                        //on ajoute une ligne au tableau avec les valeurs suivantes : id du ph émetteur, service émetteur, date de la demande, description de la demande de prestation , bouton pour envoyer les résultats
+                                        dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                        final String naturePrestation = result2.getString("nature_prestation");
+                                        final Date date = result2.getDate("date");
+                                        final int idprestation = result2.getInt("idprestation");
+                                        getjTablePrestations().setModel(dtm);
+                                        //on définit l'action que fera le bouton de la dernière colonne du tableau
+                                        Action delete = new AbstractAction() {
+                                            public void actionPerformed(ActionEvent e) {
+                                                //ici on demande d'ouvrir la fenêtre de résultats du service Radiologie et on remplit les informations complémentaires
+                                                int selectedRow = Integer.valueOf(e.getActionCommand());
+                                                rprUI = new ResultatPrestationRadiologieIU();
+                                                rprUI.setLocationRelativeTo(null);
+                                                rprUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                rprUI.setCurrentConnected(currentConnected);
+                                                rprUI.setCurrentPatient(currentPatient);
+                                                rprUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+                                                rprUI.getjLabelIPP().setText(currentPatient.getIPP());
+                                                rprUI.getjLabelNature().setText(naturePrestation);
+                                                rprUI.getjLabelDatePrestation().setText(date.toString());
+                                                rprUI.setIdPrestation(idprestation);
+                                                rprUI.setSmt(getLocalInstance());
+                                                rprUI.setSelectedRow(selectedRow);
+                                                rprUI.setVisible(true);
+                                            }
+                                        };
+                                        //on instancie le bouton dans la 4e colonne du tableau, et on lui dit d'appeler la méthode delete lors d'un clic
+                                        ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
+                                        buttonColumn.setMnemonic(KeyEvent.VK_D);
+                                    //pour celles destinées aux autres service médico technique et au service Anésthésie
                                     } else {
-                                        return false;
+                                        ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
+                                        result3.last();
+                                        //on ajoute une ligne au tableau avec les valeurs suivantes : id du ph émetteur, service émetteur, date de la demande, description de la demande de prestation , bouton pour envoyer les résultats
+                                        dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
+                                        final String naturePrestation = result2.getString("nature_prestation");
+                                        final Date date = result2.getDate("date");
+                                        final int idprestation = result2.getInt("idprestation");
+                                        final String currentService = result2.getString("service_destinataire");
+                                        getjTablePrestations().setModel(dtm);
+                                        //on définit l'action que fera le bouton de la dernière colonne du tableau
+                                        Action delete = new AbstractAction() {
+                                            public void actionPerformed(ActionEvent e) {
+                                                //ici on demande d'ouvrir la fenêtre de résultats des services médico techniques et on remplit les informations complémentaires
+                                                int selectedRow = Integer.valueOf(e.getActionCommand());
+                                                rplaUI = new ResultatPrestationLaboIU();
+                                                rplaUI.setLocationRelativeTo(null);
+                                                rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                                                rplaUI.setCurrentConnected(currentConnected);
+                                                rplaUI.setCurrentPatient(currentPatient);
+                                                rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
+                                                rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
+                                                rplaUI.getjLabelNature().setText(naturePrestation);
+                                                rplaUI.getjLabelDatePrestation().setText(date.toString());
+                                                rplaUI.getjLabelCurrentService().setText(currentService);
+                                                rplaUI.setIdPrestation(idprestation);
+                                                rplaUI.setSmt(getLocalInstance());
+                                                rplaUI.setSelectedRow(selectedRow);
+                                                rplaUI.setVisible(true);
+                                            }
+                                        };
+                                        //on instancie le bouton dans la 4e colonne du tableau, et on lui dit d'appeler la méthode delete lors d'un clic
+                                        ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
+                                        buttonColumn.setMnemonic(KeyEvent.VK_D);
                                     }
                                 }
-                            };
-                            dtm.addColumn("ID PH");
-                            dtm.addColumn("Service demandeur");
-                            dtm.addColumn("Date");
-                            dtm.addColumn("Nature de la demande");
-                            dtm.addColumn("Résultat");
-                            while (result2.next()) {
-                                if (result2.getString("service_destinataire").equals("Radiologie")) {
-                                    ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
-                                    result3.last();
-                                    dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
-                                    final String naturePrestation = result2.getString("nature_prestation");
-                                    final Date date = result2.getDate("date");
-                                    final int idprestation = result2.getInt("idprestation");
-                                    getjTablePrestations().setModel(dtm);
-                                    Action delete = new AbstractAction() {
-                                        public void actionPerformed(ActionEvent e) {
-                                            int selectedRow = Integer.valueOf(e.getActionCommand());
-                                            rprUI = new ResultatPrestationRadiologieIU();
-                                            rprUI.setLocationRelativeTo(null);
-                                            rprUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                            rprUI.setCurrentConnected(currentConnected);
-                                            rprUI.setCurrentPatient(currentPatient);
-                                            rprUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
-                                            rprUI.getjLabelIPP().setText(currentPatient.getIPP());
-                                            rprUI.getjLabelNature().setText(naturePrestation);
-                                            rprUI.getjLabelDatePrestation().setText(date.toString());
-                                            rprUI.setIdPrestation(idprestation);
-                                            rprUI.setSmt(getLocalInstance());
-                                            rprUI.setSelectedRow(selectedRow);
-                                            rprUI.setVisible(true);
-                                        }
-                                    };
-                                    ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
-                                    buttonColumn.setMnemonic(KeyEvent.VK_D);
-                                } else {
-                                    ResultSet result3 = CHUPP.getRequete("SELECT DISTINCT practicien_hospitalier.specialite FROM practicien_hospitalier WHERE idph=" + result2.getInt("idph"));
-                                    result3.last();
-                                    dtm.addRow(new Object[]{result2.getInt("idph"), result3.getString("practicien_hospitalier.specialite"), result2.getDate("date"), result2.getString("nature_prestation"), "Envoyer"});
-                                    final String naturePrestation = result2.getString("nature_prestation");
-                                    final Date date = result2.getDate("date");
-                                    final int idprestation = result2.getInt("idprestation");
-                                    final String currentService = result2.getString("service_destinataire");
-                                    getjTablePrestations().setModel(dtm);
-                                    Action delete = new AbstractAction() {
-                                        public void actionPerformed(ActionEvent e) {
-                                            int selectedRow = Integer.valueOf(e.getActionCommand());
-                                            rplaUI = new ResultatPrestationLaboIU();
-                                            rplaUI.setLocationRelativeTo(null);
-                                            rplaUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                                            rplaUI.setCurrentConnected(currentConnected);
-                                            rplaUI.setCurrentPatient(currentPatient);
-                                            rplaUI.getjLabelNomPatient().setText(currentPatient.getNom() + " " + currentPatient.getPrenom());
-                                            rplaUI.getjLabelIPP().setText(currentPatient.getIPP());
-                                            rplaUI.getjLabelNature().setText(naturePrestation);
-                                            rplaUI.getjLabelDatePrestation().setText(date.toString());
-                                            rplaUI.getjLabelCurrentService().setText(currentService);
-                                            rplaUI.setIdPrestation(idprestation);
-                                            rplaUI.setSmt(getLocalInstance());
-                                            rplaUI.setSelectedRow(selectedRow);
-                                            rplaUI.setVisible(true);
-                                        }
-                                    };
-                                    ButtonColumn buttonColumn = new ButtonColumn(getjTablePrestations(), delete, 4);
-                                    buttonColumn.setMnemonic(KeyEvent.VK_D);
-                                }
+                            //si le patient sélectionné n'a pas de prestation (improbable), le tableau a quand même un modèle par défaut
+                            } else {
+                                dtm = new DefaultTableModel(0, 0);
+                                jTablePrestations.setModel(dtm);
+                                dtm.addColumn("ID PH");
+                                dtm.addColumn("Service demandeur");
+                                dtm.addColumn("Date");
+                                dtm.addColumn("Nature de la demande");
+                                dtm.addColumn("Résultat");
                             }
-                        } else {
-                            dtm = new DefaultTableModel(0, 0);
-                            jTablePrestations.setModel(dtm);
-                            dtm.addColumn("ID PH");
-                            dtm.addColumn("Service demandeur");
-                            dtm.addColumn("Date");
-                            dtm.addColumn("Nature de la demande");
-                            dtm.addColumn("Résultat");
-                            jTablePrestations.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                            jTablePrestations.getColumnModel().getColumn(0).setPreferredWidth(30);                            
-                            jTablePrestations.getColumnModel().getColumn(2).setPreferredWidth(30);
-                            jTablePrestations.getColumnModel().getColumn(4).setPreferredWidth(20);
+                            break;
                         }
-                        break;
                     }
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

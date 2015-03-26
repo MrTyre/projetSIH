@@ -11,6 +11,7 @@ package projet.sih;
  */
 public class Adresse {
 
+    //attributs
     private String libelleRue;
     private String codePostal;
     private String ville;

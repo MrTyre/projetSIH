@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  * @author Tommy
  */
 public class Medicament {
-
+    //attributs
     private String nomMedoc;
     private double posologie;
     private UnitePosologie unitePosologie;

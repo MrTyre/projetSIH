@@ -17,6 +17,7 @@ import projet.sih.Patient;
  * @author Tommy
  */
 public class DemandeConsHospUI extends javax.swing.JFrame {
+    //attributs
     private Patient currentPatient;
     private ServiceAdmissionUI serviceAdmissionUI;
     private AjoutRdvUI ardvUI;
@@ -94,6 +95,7 @@ public class DemandeConsHospUI extends javax.swing.JFrame {
 
     private void jButtonConsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsActionPerformed
         try {
+            //ajouter une consultation
             ardvUI = new AjoutRdvUI();
             ardvUI.setLocationRelativeTo(null);
             ardvUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -114,6 +116,7 @@ public class DemandeConsHospUI extends javax.swing.JFrame {
 
     private void jButtonHospActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHospActionPerformed
          try {
+            //ajouter une hospitalisation
             ahUI = new AjouterHospitalisationUI();
             ahUI.setCurrentPatient(currentPatient);
             ahUI.setLocationRelativeTo(null);

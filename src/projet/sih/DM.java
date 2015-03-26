@@ -17,10 +17,12 @@ import projet.UI.ConnexionUI;
  */
 public class DM {
 
+    //attributs
     private DefaultListModel<Observation> observationsPH;
     private DefaultListModel<Prescription> prescriptionsPH;
     private DefaultListModel<String> resultatsPH;
     private String lettreSortie;
+    
 /** constructeur de la classe DM
  */
     public DM() {
@@ -69,13 +71,15 @@ public class DM {
     public String afficherPrescriptions(Patient patient) {
         String s = "";
         try {
+            //on récupère les toutes les prescriptions relatives à un patient
             String sql = "SELECT * FROM prescription WHERE prescription.ipp=" + patient.getIPP();
-
             ResultSet resultat = CHUPP.getRequete(sql);
+            //parcours des prescriptions
             while (resultat.next()) {
+                //on récupère les médicaments associés à la prescription
                 String sql2 = "SELECT medicament.* FROM medicament, prescription, patient WHERE medicament.idpresc= prescription.idpresc and prescription.ipp=patient.ipp and prescription.ipp=" + patient.getIPP();
-
                 ResultSet resultat2 = CHUPP.getRequete(sql2);
+                //affichage dans une chaine de caractère
                 s += "Prescription du " + resultat.getDate("prescription.date") + ", Dr. " + ConnexionUI.getCurrentConnected().getNom() + "  numero de prescription: " + resultat.getString("idpresc");
                 while (resultat2.next()) {
                     if (resultat2.getInt("idpresc") == resultat.getInt("idpresc")) {
@@ -103,44 +107,53 @@ public class DM {
         String s = "";
         try {
             s += "OBSERVATIONS RELATIVES A UNE CONSULTATION :";
+            //on récupère les observations relatives aux consultations du patient
             String sqlc = "SELECT observation.* FROM observation, consultation WHERE observation.idch=consultation.idconsult AND consultation.ipp=" + patient.getIPP();
             ResultSet resultat = CHUPP.getRequete(sqlc);
             resultat.last();
             int nbrow = resultat.getRow();
             resultat.beforeFirst();
+            //au cas ou il n'y a aucune observation
             if (nbrow == 0) {
                 s += "\nIl n'y a pas d'observations relatives à une consultation pour ce patient.";
             } else {
+                //parcours du ResultSet
                 while (resultat.next()) {
+                     //récupération des infos nécessaires à l'affichage
                     String sqlc2 = "SELECT DISTINCT practicien_hospitalier.*,consultation.date FROM practicien_hospitalier, consultation WHERE consultation.idph=practicien_hospitalier.idph AND consultation.idconsult=" + resultat.getInt("observation.idch");
                     ResultSet resultat2 = CHUPP.getRequete(sqlc2);
                     resultat2.first();
+                    //affichage des observations
                     s += "\nObservation du " + resultat.getDate("observation.date") + ", faite par le Dr. " + resultat2.getString("practicien_hospitalier.nom") + " " + resultat2.getString("practicien_hospitalier.prenom") + ", se référant à la consultation du " + resultat2.getDate("consultation.date") + " :";
                     s += "\n\tContenu : " + resultat.getString("observation.contenu");
                     s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 }
             }
-
+            
+            //idem pour les hospitalisations
             s += "\n\nOBSERVATIONS RELATIVES A UNE HOSPITALISATION :";
             String sqlh = "SELECT observation.* FROM observation, hospitalisation WHERE observation.idch=hospitalisation.idhosp AND hospitalisation.ipp=" + patient.getIPP();
             ResultSet resultat3 = CHUPP.getRequete(sqlh);
             resultat3.last();
             nbrow = resultat3.getRow();
             resultat3.beforeFirst();
+            //au cas ou il n'y a aucune observation
             if (nbrow == 0) {
                 s += "\nIl n'y a pas d'observations relatives à une hospitalisation pour ce patient.";
             } else {
                 while (resultat3.next()) {
+                     //récupération des infos nécessaires à l'affichage
                     String sqlh2 = "SELECT practicien_hospitalier.*, hospitalisation.date, hospitalisation.date_sortie FROM practicien_hospitalier, hospitalisation, observation WHERE observation.idph=practicien_hospitalier.idph AND hospitalisation.idhosp=" + resultat3.getInt("observation.idch");
                     ResultSet resultat4 = CHUPP.getRequete(sqlh2);
                     resultat4.first();
                     String date_sortie;
+                    //cas ou la date de sortie est inconnue
                     if(resultat4.getDate("date_sortie").toString().equals(("1111-11-11"))){
                         date_sortie ="<date de sortie inconnue>";
                     } else {
                         date_sortie = resultat4.getDate("date_sortie").toString();
                     }
-                    System.out.println(date_sortie);
+                    //affichage des observations
                     s += "\nObservation du " + resultat3.getDate("observation.date") + ", faite par le Dr. " + resultat4.getString("practicien_hospitalier.nom") + " " + resultat4.getString("practicien_hospitalier.prenom") + ", se référant à l'hospitalisation du " + resultat4.getDate("hospitalisation.date") + " au " + date_sortie + " :";
                     s += "\n\tContenu : " + resultat3.getString("observation.contenu");
                     s += "\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
@@ -165,20 +178,24 @@ public class DM {
         int heure = cal.get(Calendar.HOUR_OF_DAY);
         int min = cal.get(Calendar.MINUTE);
         try {
+            //on récupère toutes les consultations (=RDV) où la date n'est pas encore passée, comparaison avec la date système, associées au patient courant
             String sql = "SELECT * FROM consultation WHERE consultation.date>='" + date + "' AND consultation.ipp=" + patient.getIPP();
             ResultSet resultat = CHUPP.getRequete(sql);
             resultat.last();
             int nbrow = resultat.getRow();
             resultat.first();
             s += "RENDEZ-VOUS :";
+            //cas ou il n'y aucun rendez vous a venir
             if (nbrow == 0) {
                 s += "\nIl n'y a pas de rendez-vous prévus pour le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
             } else {
+                //récupération des infos nécessaires à l'affichage
                 String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("consultation.idph");
                 ResultSet resultat3 = CHUPP.getRequete(sql3);
                 resultat3.first();
                 resultat.beforeFirst();
                 while (resultat.next()) {
+                    //on regarde si la date du rendez vous est passée ou non, vérification supplémentaire pour s'assurer du bon affichage dans tous les cas
                     if ((resultat.getString("date").equals(date.toString()))) {
                         if ((resultat.getInt("heure") == heure)) {
                             if (resultat.getInt("minute") > min) {
@@ -218,20 +235,24 @@ public class DM {
     public String afficherResultats(Patient patient) {
         String s = "";
         try {
+            //on récupère tous les résultats relatifs au patient courant
             String sql = "SELECT * FROM resultat WHERE resultat.ipp=" + patient.getIPP();
             ResultSet resultat = CHUPP.getRequete(sql);
             resultat.last();
             int nbrow = resultat.getRow();
             resultat.first();
             s += "RÉSULTATS :";
+            //cas ou il n'y a pas de résultats
             if (nbrow == 0) {
                 s += "\nIl n'y a pas de résultats concernant le patient " + patient.getNom() + " " + patient.getPrenom() + ".";
             } else {
+                 //récupération des infos nécessaires à l'affichage
                 String sql3 = "SELECT DISTINCT * FROM practicien_hospitalier WHERE practicien_hospitalier.idph=" + resultat.getInt("resultat.idph");
                 ResultSet resultat3 = CHUPP.getRequete(sql3);
                 resultat3.first();
                 resultat.beforeFirst();
                 while (resultat.next()) {
+                    //récupération des observations relatives aux résultats
                     String sql2 = "SELECT DISTINCT observation.* FROM resultat,observation WHERE observation.idch =" + resultat.getInt("idresultat") + " AND observation.idobs=" + resultat.getInt("idobs");
                     ResultSet resultat2 = CHUPP.getRequete(sql2);
                     s += "\n\nRésultat n° : " + resultat.getInt("idresultat") + ", effectuée par le Dr. " + resultat3.getString("nom") + " " + resultat3.getString("prenom") + " , rédigé le " + resultat.getDate("date");
@@ -242,6 +263,7 @@ public class DM {
                     resultat2.last();
                     int nbrow2 = resultat2.getRow();
                     resultat2.beforeFirst();
+                    //on écris les observations s'il y en a, sinon rien
                     if (nbrow2 != 0) {
                         while (resultat2.next()) {
                             s += "\n\tObservation relative à ce résultat :\t" + resultat2.getString("observation.contenu");

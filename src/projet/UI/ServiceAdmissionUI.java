@@ -6,10 +6,10 @@
 package projet.UI;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,14 +38,7 @@ import projet.sih.*;
  * @author Marina
  */
 public class ServiceAdmissionUI extends javax.swing.JFrame {
-
-    /**
-     * @param aCurrentPatient the currentPatient to set
-     */
-    public static void setCurrentPatient(Patient aCurrentPatient) {
-        currentPatient = aCurrentPatient;
-    }
-
+    //attributs
     private AjouterPatientIU apIU;
     private AjoutRdvUI ardvUI;
     private AjouterHospitalisationUI ahUI;
@@ -57,9 +50,8 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     private DemandeConsHospUI dchUI;
 
     private DefaultListModel dlm = new DefaultListModel();
-//attribut base de donnée
+    //attribut base de donnée
     MyDBConnection connection = new MyDBConnection();
-    private String sql;
 
     /**
      * Creates new form ServiceCliniqueSecretaire
@@ -87,13 +79,13 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
         jmb.add(menu1);
         jmb.add(menu2);
         setJMenuBar(jmb);
-
+        //remplissage des modèles
         jComboBoxServiceTri.setModel(CHUPP.getListeServiceClinique());
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Archives");
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("Tous");
         ((DefaultComboBoxModel) jComboBoxServiceTri.getModel()).addElement("DMA Fermés");
         jComboBoxServiceTri.setSelectedItem("Tous");
-
+        //on définit les actions des JMenuItem
         deco.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -111,6 +103,30 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
+        javadoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("dist/javadoc/index.html");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        helputil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    File file = new File("src/Aide/Manuel utilisateur.odt");
+                    java.awt.Desktop.getDesktop().open(file);
+                } catch (IOException ex) {
+                    Logger.getLogger(ServiceCliniqueIU.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
         jList1.setModel(dlm);
         repaint();
     }
@@ -508,14 +524,16 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_IPPActionPerformed
 
     private void AjoutPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPatientActionPerformed
-        if(jComboBoxServiceTri.getSelectedItem().equals("Tous")){
-        apIU = new AjouterPatientIU();
-        apIU.setVisible(true);
-        apIU.setServiceAdmission(this);
-        apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //on ne peut ajouter un patient que si l'on se trouve dans la liste de tous les patients de l'hopital. 
+        //Le service ou il est envoyé est demandé juste après l'ajout
+        if (jComboBoxServiceTri.getSelectedItem().equals("Tous")) {
+            apIU = new AjouterPatientIU();
+            apIU.setVisible(true);
+            apIU.setServiceAdmission(this);
+            apIU.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         } else {
             JOptionPane j = new JOptionPane();
-            j.showMessageDialog(null,"Veuillez sélectionner \"Tous\" dans le choix des services pour ajouter un patient.","Attention",JOptionPane.INFORMATION_MESSAGE);
+            j.showMessageDialog(null, "Veuillez sélectionner \"Tous\" dans le choix des services pour ajouter un patient.", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_AjoutPatientActionPerformed
 
@@ -541,37 +559,52 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeconnexionActionPerformed
 
     private void jButtonAjoutRDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutRDVActionPerformed
-        try {
-            ardvUI = new AjoutRdvUI();
-            ardvUI.setLocationRelativeTo(null);
-            ardvUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            ardvUI.setCurrentPatient(currentPatient);
-            ardvUI.setServiceAdmission(this);
-            ardvUI.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        //on vérifie qu'un patient est sélectionné pour ajouter un rdv
+        if (currentPatient != null) {
+            try {
+                ardvUI = new AjoutRdvUI();
+                ardvUI.setLocationRelativeTo(null);
+                ardvUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ardvUI.setCurrentPatient(currentPatient);
+                ardvUI.setServiceAdmission(this);
+                ardvUI.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAjoutRDVActionPerformed
 
     private void jButtonAjoutHospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjoutHospitalisationActionPerformed
-        try {
-            ahUI = new AjouterHospitalisationUI();
-            ahUI.setCurrentPatient(currentPatient);
-            ahUI.setLocationRelativeTo(null);
-            ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            ahUI.setServiceAdmission(this);
-            ahUI.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+        //on vérifie qu'un patient est sélectionné pour ajouter une hospitalisation
+        if (currentPatient != null) {
+            try {
+                ahUI = new AjouterHospitalisationUI();
+                ahUI.setCurrentPatient(currentPatient);
+                ahUI.setLocationRelativeTo(null);
+                ahUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                ahUI.setServiceAdmission(this);
+                ahUI.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceAdmissionUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAjoutHospitalisationActionPerformed
 
     private void jComboBoxServiceTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxServiceTriActionPerformed
+        //on récupère le service sélectionné
         String spe = (String) ((JComboBox) evt.getSource()).getSelectedItem();
         try {
             jComboBoxTransfert.setModel(CHUPP.getListeServiceClinique());
             ((DefaultComboBoxModel) jComboBoxTransfert.getModel()).removeElement(spe);
             java.sql.Date currentDate = new Date(System.currentTimeMillis());
+            //on récupère tous les patients de la base de données dans différents cas
+            //lorsque les patients sont en hospitalisation
             String sqlc = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                     + "hospitalisation, practicien_hospitalier, service_clinique "
                     + "where patient.ipp=hospitalisation.ipp "
@@ -580,6 +613,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     + " practicien_hospitalier.specialite=service_clinique.specialite and (hospitalisation.date_sortie>='"
                     + currentDate + "' or hospitalisation.date_sortie='1111-11-11') and service_clinique.specialite='"
                     + spe + "'";
+            //lorsque les patients ont un rendez vous prévus dans un service
             String sqlh = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient,"
                     + " consultation, practicien_hospitalier, service_clinique "
                     + "where patient.ipp=consultation.ipp "
@@ -588,8 +622,11 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     + " practicien_hospitalier.specialite=service_clinique.specialite and consultation.date>='"
                     + currentDate + "' and service_clinique.specialite='"
                     + spe + "'";
+            //lorsque les patients sont décédés pour les 'Archives'
             String sql2 = "select DISTINCT patient.nom, patient.prenom, patient.date_naissance from patient where etat = 2";
+            //lorsque les patients sont présents dans l'hopital pour 'Tous'
             String sql0 = "SELECT distinct patient.nom, patient.prenom, patient.date_naissance FROM Patient where etat = 0";
+            //lorsque les patients ont déjà été à l'hopital mais n'y sont pas actuellement pour 'DMA Fermés'
             String sql1 = "SELECT distinct patient.nom, patient.prenom, patient.date_naissance FROM Patient where etat = 1";
 
             ResultSet resultat0 = CHUPP.getRequete(sql0);
@@ -599,7 +636,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
             ResultSet resultath = CHUPP.getRequete(sqlh);
 
             dlm = new DefaultListModel();
-            System.out.println(spe.equals("Archives"));
+            //cas de l'affichage des patients archivés
             if (spe.equals("Archives")) {
                 resultat2.last();
                 if (resultat2.getRow() != 0) {
@@ -615,6 +652,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     jList1.setModel(new DefaultListModel());
                     repaint();
                 }
+            //cas de l'affichage des patients ayant un DMA mais non présents à l'hopital
             } else if (spe.equals("DMA Fermés")) {
                 resultat1.last();
                 if (resultat1.getRow() != 0) {
@@ -630,6 +668,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     jList1.setModel(new DefaultListModel());
                     repaint();
                 }
+            //cas de l'affichage de tous les patients de l'hopital
             } else if (spe.equals("Tous")) {
                 resultat0.last();
                 if (resultat0.getRow() != 0) {
@@ -645,8 +684,10 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     jList1.setModel(new DefaultListModel());
                     repaint();
                 }
+            //cas de l'affichage des patients du service sélectionné dans la jComboBoxServiceTri
             } else {
                 resultatc.last();
+                //on cherche les patients ayant un rendez vous à venir, présents dans l'hopital
                 if (resultatc.getRow() != 0) {
                     resultatc.beforeFirst();
                     while (resultatc.next()) {
@@ -659,6 +700,7 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
                     repaint();
                 }
                 resultath.last();
+                //on cherche les patients ayant une hospitalisation en cours dans le service
                 if (resultath.getRow() != 0) {
                     resultath.beforeFirst();
                     while (resultath.next()) {
@@ -680,14 +722,20 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxServiceTriActionPerformed
 
     private void jButtonTransfertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTransfertActionPerformed
-        dchUI = new DemandeConsHospUI();
-        dchUI.setLocationRelativeTo(null);
-        dchUI.setServiceAdmissionUI(this);
-        dchUI.setServiceTransmis((String) jComboBoxTransfert.getSelectedItem());
-        dchUI.setCurrentPatient(currentPatient);
-        dchUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        dchUI.setVisible(true);
-
+        //on vérifie qu'un patient est selectionné avant de le transférer
+        if (currentPatient != null) {
+            //pour le transfert on demande si le patient doit être envoyé en consultation ou en hospitalisation
+            dchUI = new DemandeConsHospUI();
+            dchUI.setLocationRelativeTo(null);
+            dchUI.setServiceAdmissionUI(this);
+            dchUI.setServiceTransmis((String) jComboBoxTransfert.getSelectedItem());
+            dchUI.setCurrentPatient(currentPatient);
+            dchUI.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            dchUI.setVisible(true);
+        } else {
+            JOptionPane j2 = new JOptionPane();
+            j2.showMessageDialog(null, "Aucun patient sélectionné", "Attention", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonTransfertActionPerformed
 
 
@@ -770,6 +818,13 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
      */
     public javax.swing.JPanel getJPanel8() {
         return jPanel8;
+    }    
+    
+    /**
+     * @param aCurrentPatient the currentPatient to set
+     */
+    public static void setCurrentPatient(Patient aCurrentPatient) {
+        currentPatient = aCurrentPatient;
     }
 
     /**
@@ -783,24 +838,32 @@ public class ServiceAdmissionUI extends javax.swing.JFrame {
 
         @Override
         public void valueChanged(ListSelectionEvent lse) {
+            //on n'effectue une action que lorsqu'un nom est selectionné, pas quand on rajoute ou enlève un patient de la liste
             if (lse.getValueIsAdjusting()) {
                 try {
                     ResultSet result = CHUPP.getRequete("SELECT * FROM patient");
                     while (result.next()) {
+                        //en cas d'action on vérifie chaque patient
                         if (jList1.getSelectedValue().equals(result.getString("nom") + " " + result.getString("prenom") + " / " + result.getString("date_naissance"))) {
+                            //le patient sélectionné devient le patient courant
                             setCurrentPatient(new Patient(result.getInt("ipp"), result.getString("nom"), result.getString("prenom"), result.getDate("date_naissance"), result.getString("sexe"), result.getString("adresse")));
+                            //affichage de l'IPP du patient
                             IPP.setText(currentPatient.getIPP());
+                            //affichage du nom de patient
                             Patient.setText(currentPatient.getNom());
+                            //on remplis les onglets du jTabbedPane avec les informations relatives au patient sélectionné
                             jTextArea1.setText(currentPatient.getDpi().getDm().afficherObservationsPH(currentPatient));
                             jTextArea2.setText(currentPatient.getDpi().getDm().afficherResultats(currentPatient));
                             jTextArea3.setText(currentPatient.getDpi().getDma().afficherConsultations(currentPatient) + "\n•••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••\n\n" + currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
                             jTextArea4.setText(currentPatient.getDpi().getDm().afficherRDV(currentPatient));
                             jTextArea5.setText(currentPatient.getDpi().getDma().afficherHospitalisations(currentPatient));
+                            //on place le curseur de défilement en haut
                             jTextArea1.setCaretPosition(0);
                             jTextArea2.setCaretPosition(0);
                             jTextArea3.setCaretPosition(0);
                             jTextArea4.setCaretPosition(0);
                             jTextArea5.setCaretPosition(0);
+                            //on modifie la couleur d'arrière-plan
                             jTextArea1.setBackground(new Color(240, 240, 255));
                             jTextArea2.setBackground(new Color(240, 240, 255));
                             jTextArea3.setBackground(new Color(240, 240, 255));

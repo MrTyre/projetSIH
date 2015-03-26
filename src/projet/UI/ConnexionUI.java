@@ -1,15 +1,11 @@
 package projet.UI;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
-
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,7 +16,7 @@ import projet.sih.*;
  * @author Marina
  */
 public class ConnexionUI extends javax.swing.JFrame {
-
+    //attributs
     private ServiceCliniqueIU sc;
     private ServiceInformatiqueIU si;
     private ServiceMedicoTechniquesIU smt;
@@ -197,6 +193,7 @@ public class ConnexionUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOKKeyPressed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        //si l'utilisateur appuie sur entrée après avoir entré le mot de passe il se connecte aussi(mode expert)
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             connexion();
         }
@@ -215,10 +212,12 @@ public class ConnexionUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void connexion() {
+        //on récupère l'identifiant et le mot de passe du personnel voulant se connecter
         String nom = jTextFieldId.getText().replaceAll("'","''");
         String mdp = jPasswordField1.getText().replaceAll("'","''");
         String spe = "";
         try {
+            //requêtes pour retrouver l'utilisateur dans la base de données
             sqlintSC = "SELECT interne.* FROM interne, service_clinique where interne.specialite=service_clinique.specialite";
             sqlinfSC = "SELECT infirmier.* FROM infirmier, service_clinique where infirmier.service=service_clinique.specialite";
             sqlintSMT = "SELECT interne.* FROM interne, service_medico_technique where interne.specialite=service_medico_technique.specialite";
@@ -236,8 +235,8 @@ public class ConnexionUI extends javax.swing.JFrame {
             ResultSet resultatSec = CHUPP.getRequete(sqlsec);
             ResultSet resultatInfo = CHUPP.getRequete(sqlinfo);
             while (spe.equals("")) {
-
                 //parcours du personnel des Service Cliniques
+                //praticien hospitaliers
                 while (resultatPHSC.next()) {
                     if ((nom.equals(resultatPHSC.getString("nom"))) && (mdp.equals(resultatPHSC.getString("mdp")))) {
                         spe = resultatPHSC.getString("practicien_hospitalier.specialite");
@@ -251,6 +250,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+                //personnel infirmier
                 while (resultatInfSC.next()) {
                     if ((nom.equals(resultatInfSC.getString("nom"))) && (mdp.equals(resultatInfSC.getString("mdp")))) {
                         spe = resultatInfSC.getString("service");
@@ -264,6 +264,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                         break;
                     }
                 }
+                //internes
                 while (resultatIntSC.next()) {
                     if ((nom.equals(resultatIntSC.getString("nom"))) && (mdp.equals(resultatIntSC.getString("mdp")))) {
                         spe = resultatIntSC.getString("specialite");
@@ -278,6 +279,7 @@ public class ConnexionUI extends javax.swing.JFrame {
                 }
 
                 //personnel des service medico techniques
+                //
                 while (resultatPHSMT.next()) {
                     if ((nom.equals(resultatPHSMT.getString("nom"))) && (mdp.equals(resultatPHSMT.getString("mdp")))) {
                         spe = resultatPHSMT.getString("practicien_hospitalier.specialite");

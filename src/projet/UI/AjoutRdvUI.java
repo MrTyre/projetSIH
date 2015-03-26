@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
@@ -18,6 +16,7 @@ import projet.sih.*;
  */
 public class AjoutRdvUI extends javax.swing.JFrame {
 
+    //attributs
     private Patient currentPatient;
     private PH medecinConcerne;
     private String serviceConcerne;
@@ -320,32 +319,14 @@ public class AjoutRdvUI extends javax.swing.JFrame {
     }
 
     public void ajouterRDV() {
+        //récupération de la date courante et des données utilisateurs
         Date d = new Date(System.currentTimeMillis());
         Calendar cal = Calendar.getInstance();
         int currentHeure = cal.get(Calendar.HOUR_OF_DAY);
         int currentMin = cal.get(Calendar.MINUTE);
-        int jour = Integer.parseInt(jTextFieldJourRDV.getText());
-        int mois = Integer.parseInt(jTextFieldMois.getText());
-        int annee = Integer.parseInt(jTextFieldAnnee.getText());
-        int heure = Integer.parseInt(jTextFieldHeure.getText());
-        int minute = Integer.parseInt(jTextFieldMinute.getText());
-        if ((jour > 31)
-                || (mois > 12)
-                || (annee < d.getYear() + 1900)
-                || (heure > 24)
-                || (minute > 60)
-                || ((annee == d.getYear() + 1900) && (mois < d.getMonth() + 1))
-                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour < d.getDate()))
-                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour == d.getDate()) && (heure < currentHeure))
-                || ((annee == d.getYear() + 1900) && (mois == d.getMonth() + 1) && (jour == d.getDate()) && (heure == currentHeure) && (minute < currentMin))) {
-            JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(null, "Attention, la date ou l'heure du RDV n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
-            jTextFieldJourRDV.setText("");
-            jTextFieldMois.setText("");
-            jTextFieldAnnee.setText("");
-            jTextFieldHeure.setText("");
-            jTextFieldMinute.setText("");
-        } else if ((jTextFieldJourRDV.getText().equals(""))
+
+        //vérification que tous les champs nécessaires sont remplis
+        if ((jTextFieldJourRDV.getText().equals(""))
                 || (jTextFieldMois.getText().equals(""))
                 || (jTextFieldAnnee.getText().equals(""))
                 || (jTextFieldHeure.getText().equals(""))
@@ -357,8 +338,31 @@ public class AjoutRdvUI extends javax.swing.JFrame {
             jTextFieldAnnee.setText("");
             jTextFieldHeure.setText("");
             jTextFieldMinute.setText("");
+            //vérification que la date entrée par l'utilisateur n'est pas déjà passée
+        } else if (((Integer.parseInt(jTextFieldJourRDV.getText())) > 31)
+                || ((Integer.parseInt(jTextFieldMois.getText())) > 12)
+                || ((Integer.parseInt(jTextFieldAnnee.getText())) < d.getYear() + 1900)
+                || ((Integer.parseInt(jTextFieldHeure.getText())) >= 24)
+                || ((Integer.parseInt(jTextFieldMinute.getText())) >= 60)
+                || (((Integer.parseInt(jTextFieldAnnee.getText())) == d.getYear() + 1900) && ((Integer.parseInt(jTextFieldMois.getText())) < d.getMonth() + 1)
+                || (((Integer.parseInt(jTextFieldAnnee.getText())) == d.getYear() + 1900) && ((Integer.parseInt(jTextFieldMois.getText())) == d.getMonth() + 1) && ((Integer.parseInt(jTextFieldJourRDV.getText())) < d.getDate()))
+                || (((Integer.parseInt(jTextFieldAnnee.getText())) == d.getYear() + 1900) && ((Integer.parseInt(jTextFieldMois.getText())) == d.getMonth() + 1) && ((Integer.parseInt(jTextFieldJourRDV.getText())) == d.getDate()) && ((Integer.parseInt(jTextFieldHeure.getText())) < currentHeure))
+                || (((Integer.parseInt(jTextFieldAnnee.getText())) == d.getYear() + 1900) && ((Integer.parseInt(jTextFieldMois.getText()) == d.getMonth() + 1) && ((Integer.parseInt(jTextFieldJourRDV.getText()) == d.getDate()) && (Integer.parseInt(jTextFieldHeure.getText()) == currentHeure) && ((Integer.parseInt(jTextFieldMinute.getText())) < currentMin)))))) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Attention, la date ou l'heure du RDV n'est pas correcte", "Attention", JOptionPane.WARNING_MESSAGE);
+            jTextFieldJourRDV.setText("");
+            jTextFieldMois.setText("");
+            jTextFieldAnnee.setText("");
+            jTextFieldHeure.setText("");
+            jTextFieldMinute.setText("");
+            //ajout du rendez vous
         } else {
-            String date = jTextFieldAnnee.getText() + "-" + jTextFieldMois.getText() + "-" + jTextFieldJourRDV.getText();
+            int jour = Integer.parseInt(jTextFieldJourRDV.getText());
+            int mois = Integer.parseInt(jTextFieldMois.getText());
+            int annee = Integer.parseInt(jTextFieldAnnee.getText());
+            int heure = Integer.parseInt(jTextFieldHeure.getText());
+            int minute = Integer.parseInt(jTextFieldMinute.getText());
+            String date = annee + "-" + mois + "-" + jour;
             String sql;
             try {
                 sql = "INSERT INTO Consultation VALUES (" + Consultation.getIDConsult() + ","

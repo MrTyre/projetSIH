@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class DPI {
+   //attributs
     private DMA dma;
     private DM dm;
     private DefaultListModel<Prestation> prestations;

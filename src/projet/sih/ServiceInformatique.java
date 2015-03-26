@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
  * @author Tommy
  */
 public class ServiceInformatique {
+    //attributs
     private DefaultListModel<Informaticien> informaticiens;
 
     /**

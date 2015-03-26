@@ -13,6 +13,7 @@ import java.sql.ResultSet;
  * @author Tommy
  */
 public class PersonnelInfirmier extends PersonnelMedical{
+    //attribut
     private static int compteur = 0;
   
     /**

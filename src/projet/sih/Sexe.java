@@ -11,6 +11,7 @@ package projet.sih;
  * @author Tommy
  */
 public enum Sexe {
+    //valeurs de l'énum
     F,
     H;
 }

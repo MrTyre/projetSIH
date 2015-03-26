@@ -18,8 +18,6 @@ public class ServiceAnesthesieRea extends ServiceMedicoTechnique {
 
     public ServiceAnesthesieRea(){
         this.nom = "Anesthesie & Reanimation";
-        this.setChambres(new DefaultListModel<Chambre>());
-        this.getChambres().setSize(15);
     }
 
     /**

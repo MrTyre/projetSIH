@@ -9,7 +9,7 @@ import java.io.IOException;
 import projet.UI.*;
 
 /**
- *
+ * Main class du projet, utilisée pour instancier le logiciel
  * @author Tommy
  */
 public class ProjetSIH {

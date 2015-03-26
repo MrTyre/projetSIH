@@ -10,9 +10,10 @@ package projet.sih;
  * @author Tommy
  */
 public class ServiceRadiologie extends ServiceMedicoTechnique {
-
+    //attributs
     private String nom;
 
+    //constructeur
     public ServiceRadiologie(){
         this.nom = "Radiologie";
     }
